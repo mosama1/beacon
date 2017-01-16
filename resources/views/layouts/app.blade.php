@@ -17,8 +17,9 @@ use Beacon\User;
 
   <!-- Styles -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/wickedpicker.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   {{--<link href="/css/app.css" rel="stylesheet">--}}
 
   <!-- Scripts -->
@@ -162,9 +163,10 @@ use Beacon\User;
 
     <!--  Scripts-->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="/js/materialize.js"></script>
-    <script src="/js/init.js"></script>
-    <script src="/js/script.js"></script>
+    <script src="js/materialize.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/wickedpicker.min.js" type="text/javascript"></script>
+    <script src="js/script.js"></script>
 
     @if (session('status'))
     <script type="text/javascript">
