@@ -34,23 +34,23 @@
             </span>
           @endif
         </div>
-        <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
+        <!-- <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
           <input type="text" name="description" value="" required="">
-          <label for="">
+          <label for=""> -->
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-            <span class="text">Descripcion</span>
-          </label>
+            <!-- <span class="text">Descripcion</span> -->
+          <!-- </label>
           @if ($errors->has('description'))
             <span class="error_input">
                 <strong>{{ $errors->first('description') }}</strong>
             </span>
           @endif
-        </div>
+        </div> -->
         <div class="input no_icon {{ $errors->has('start_time') ? 'error' : '' }}">
           <input type="text" name="start_time" value="" required="" class="timepicker">
           <label for="">
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-            <span class="text">Hora de inicio</span>
+            <!-- <span class="text">Hora de inicio</span> -->
           </label>
           @if ($errors->has('start_time'))
             <span class="error_input">
