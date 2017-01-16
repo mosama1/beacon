@@ -18,9 +18,8 @@ use Beacon\User;
   <!-- Styles -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/wickedpicker.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  {{--<link href="/css/app.css" rel="stylesheet">--}}
+  {{--<link href="css/app.css" rel="stylesheet">--}}
 
   <!-- Scripts -->
   <script>
@@ -44,7 +43,7 @@ use Beacon\User;
                     <!-- Dropdown Trigger -->
                     <li class="">
                       <a class="sb_mn" href="#">
-                          Gestion <span class="caret"></span><i class="material-icons right">arrow_drop_down</i>
+                          El Servicio <span class="caret"></span><i class="material-icons right">arrow_drop_down</i>
                       </a>
                       <ul class="sub_menu none">
                         <li>
@@ -54,7 +53,8 @@ use Beacon\User;
                         </li>
                         <li>
                             <a href="{{ route('show_campana')}}">
-                                <span>Campa&ntilde;a</span>
+                              <span>Planificacion</span>
+                              <!-- <span>Campa&ntilde;a</span> -->
                             </a>
                         </li>
                       </ul>
@@ -165,7 +165,6 @@ use Beacon\User;
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
-    <script src="js/wickedpicker.min.js" type="text/javascript"></script>
     <script src="js/script.js"></script>
 
     @if (session('status'))

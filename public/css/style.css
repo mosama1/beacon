@@ -1491,6 +1491,30 @@ body.menu2 .menu_cliente{
   -o-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out;
 }
+.contenedor .principal .form .input input.input_time:focus + label{
+  opacity: 0;
+}
+.contenedor .principal .form .input input.input_time:not(:focus){
+  opacity: 0;
+}
+.contenedor .principal .form .input input.input_time:valid{
+  opacity: 1;
+}
+.contenedor .principal .form .input input.input_time::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50px;
+  height: 100%;
+  background: #999999;
+}
+.contenedor .principal .form .input.time{
+  overflow: hidden;
+}
+.contenedor .principal .form .input input.input_time{
+  width: calc(100% + 50px)
+}
 .contenedor .principal .form .input input,
 .modal_ .form .input input{
   box-sizing: border-box;
@@ -1510,6 +1534,9 @@ body.menu2 .menu_cliente{
 .contenedor .principal .form .input.no_icon input,
 .modal_ .form .input.no_icon input{
   padding-left: 25px;
+}
+.contenedor .principal .form .input.no_icon input.timepicki-input{
+  padding: 0;
 }
 
 

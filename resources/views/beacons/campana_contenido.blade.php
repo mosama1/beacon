@@ -1,3 +1,4 @@
+<?php $nivel = '../../../' ?>
 @extends('layouts.app')
 
 @section('content')
@@ -11,11 +12,7 @@
     </div>
 
     <div class="form">
-      @if (session('status'))
-        <span class="help-block">
-          <strong>{{ session('status') }}</strong>
-        </span>
-      @endif
+
       <form class="form-horizontal" role="form" method="POST" action="{{ route('store_campana_content', $campana_id) }}">
         {{ csrf_field() }}
 
