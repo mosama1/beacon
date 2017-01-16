@@ -43,12 +43,12 @@ use Beacon\User;
                     <!-- Dropdown Trigger -->
                     <li class="">
                       <a class="sb_mn" href="#">
-                          Beacons <span class="caret"></span><i class="material-icons right">arrow_drop_down</i>
+                          Gestion <span class="caret"></span><i class="material-icons right">arrow_drop_down</i>
                       </a>
                       <ul class="sub_menu none">
                         <li>
                             <a href="{{ route('show_timeframe')}}">
-                                <span>Timeframe</span>
+                                <span>Horarios</span>
                             </a>
                         </li>
                         <li>
@@ -79,7 +79,7 @@ use Beacon\User;
                         <ul class="sub_menu none">
                           <li>
                               <a href="{{ route('show_coupon') }}">
-                                  <span>Menu</span>
+                                  <span>Restaurant</span>
                               </a>
                           </li>
                           @php
