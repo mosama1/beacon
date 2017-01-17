@@ -41,8 +41,8 @@
               <tr id=''>
                 <td>{{$tipoplato->name}}</td>
                 <td>{{$tipoplato->description}}</td>
-                <td><a href="{{ route('edit_tipoplato', $tipoplato->id) }}"><i class="material-icons">edit</i></a></td>
-                <td><a href="#" onclick="delete_tipoplato({{ $tipoplato->id }})"><i class="material-icons">clear</i></a></td>
+                <td><a href="{{ route('edit_tipoPlato', $tipoplato->id) }}"><i class="material-icons">edit</i></a></td>
+                <td><a href="#eliminarTipoPlato"><i class="material-icons">clear</i></a></td>
               </tr>
             @endforeach
             </tbody>
@@ -106,7 +106,7 @@
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('delete_tipoPlato') }}">
       {{ csrf_field() }}
       <div class="button">
         <center>
