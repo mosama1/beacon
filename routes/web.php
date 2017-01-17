@@ -105,11 +105,15 @@ Route::post('beacons/plate', 'BeaconController@store_plate')->name('store_plate'
 
 Route::post('beacons/{id}/plate', 'BeaconController@update_plate')->name('update_plate')->where('id', '[0-9]+');
 
+//Tipos de Platos
+
 Route::get('beacons/tipoPlato', 'BeaconController@show_tipoPlato')->name('show_tipoPlato');
 
 Route::post('beacons/tipoPlato', 'BeaconController@create_tipoPlato')->name('create_tipoPlato');
 
 Route::put('beacons/tipoPlato', 'BeaconController@edit_tipoPlato')->name('edit_tipoPlato');
+
+Route::get('beacons/tipoPlatoEdit/{id}', 'BeaconController@edit_tipoPlato')->name('edit_tipoPlato')->where('id', '[0-9]+');
 // Route::get('beacons/campana',     'BeaconController@show_campana')->name('show_campana');
 
 
