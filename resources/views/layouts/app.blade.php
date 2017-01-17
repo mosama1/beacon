@@ -53,12 +53,12 @@ use Beacon\User;
                         </li>
                         <li>
                             <a href="{{ route('show_timeframe')}}">
-                                <span>Horarios</span>
+                                <span>Los Horarios</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('show_campana')}}">
-                              <span>Planificacion</span>
+                              <span>La Planificacion</span>
                               <!-- <span>Campa&ntilde;a</span> -->
                             </a>
                         </li>
