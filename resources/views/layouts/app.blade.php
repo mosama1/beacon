@@ -34,7 +34,7 @@ use Beacon\User;
           <!-- <a id="logo-container" class="brand-logo logo-patrocinante logo" href="{{ Auth::guest() ? url('/') : url('home') }}"> -->
             <a id="logo-container" class="brand-logo logo-patrocinante logo" href="{{ Auth::guest() ? url('/login') : url('home') }}">
               <!-- <img src="img/logo/logo.png" alt=""> -->
-              <h3 style="color: #000; margin: 0; margin-top: 8px;">Logo</h3>
+              <h3 class="titulologo">Logo</h3>
             </a>
 
             <ul class="right">
@@ -62,8 +62,15 @@ use Beacon\User;
                               <!-- <span>Campa&ntilde;a</span> -->
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('show_campana')}}">
+                              <span>Los tipos de platos</span>
+                              <!-- <span>Campa&ntilde;a</span> -->
+                            </a>
+                        </li>
                       </ul>
                     </li>
+
 
                     <!-- <ul id="dropdown2" class="dropdown-content">
                         <li>
@@ -79,7 +86,8 @@ use Beacon\User;
                     </ul> -->
                     <li>
                         <a class="" href="{{ route('user_edit_path', Auth::user()->id) }}">
-                            <span>{{ Auth::user()->name }}</span>
+                          <span>El Usuario</span>
+                            <!-- <span>{{ Auth::user()->name }}</span> -->
                         </a>
 
                     </li>
@@ -117,7 +125,7 @@ use Beacon\User;
                 @else
                 <a id="logo-container" class="brand-logo logo-patrocinante logo logo_right" href="#">
                   <!-- <img src="img/logo/logo.png" alt=""> -->
-                  <h3 style="color: #000; margin: 0; margin-top: 8px; line-height: 1; font-size: 29px;">Logo<br>patrocinante</h3>
+                  <h3 class="logopatrocinantes">Logo<br>patrocinante</h3>
 
                 </a>
 
@@ -147,6 +155,7 @@ use Beacon\User;
     <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/onclick.js"></script>
 
     @if (session('status'))
     <script type="text/javascript">

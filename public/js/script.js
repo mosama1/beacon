@@ -337,3 +337,14 @@ $(window).load(function(){
   },1000);
 
 });
+
+
+//agregarprecio
+$( "#filled-in-box" ).click(function() {
+  if ($(this).prop('checked') == true) {
+    $('#precioMenu').fadeIn();
+  }else {
+    $('#precioMenu').fadeOut();
+  }
+  // $( ".bom" ).append(<p>Ingrese el precio</p>);
+});

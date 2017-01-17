@@ -96,7 +96,7 @@
             <thead>
               <tr>
                   <th data-field="id">Nombre</th>
-                  <th data-field="id">Descripccion</th>
+                  <th data-field="id">Descripcion</th>
                   <th data-field="name">Visualizar</th>
                   <th data-field="price">Eliminar</th>
               </tr>
@@ -156,6 +156,18 @@
           </span>
         @endif
       </div>
+      <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="precioMenu">
+        <input type="text" name="checkbox" value="" required="">
+        <label for="">
+          <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
+          <span class="text">Ingresar Precio:</span>
+        </label>
+      </div>
+        <p>
+      <input type="checkbox" class="filled-in" id="filled-in-box" />
+      <label for="filled-in-box">Manejar Precio</label>
+        </p>
+      <!-- <label><input type="checkbox" id="cbox1" value="first_checkbox"> Este es mi primer checkbox</label><br> -->
 
       <div class="button">
         <center>

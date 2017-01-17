@@ -8,14 +8,14 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Campa&ntilde;a
+        Planificación
       </h3>
     </div>
     <div class="agregar">
       <center>
         <a href="{{ route('add_campana') }}" class="waves-effect">
           <div class="">
-            <span class="text">Agregar <br><strong>Campaña</strong></span>
+            <span class="text">Agregar <br><strong>Plan</strong></span>
             <span class="icon"><i class="material-icons">add</i></span>
           </div>
         </a>
