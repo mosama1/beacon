@@ -1,8 +1,14 @@
+<?php $nivel = '../../'?>
+
+@extends('layouts.app')
+
+@section('content')
+
 <div class="contenedor">
   <div class="principal">
     <div class="titulo">
       <h3>
-        Platos del menu
+        Tipos de Platos
       </h3>
     </div>
 
@@ -10,7 +16,7 @@
       <center>
         <a href="#tipoPlato" class="waves-effect">
           <div class="">
-            <span class="text">Agregar <br><strong>Platos<br>Menu</strong></span>
+            <span class="text">Agregar <br><strong>Tipos<br>de Platos</strong></span>
             <span class="icon"><i class="material-icons">add</i></span>
           </div>
         </a>
@@ -24,7 +30,7 @@
             <thead>
               <tr>
                 <th data-field="id">Nombre</th>
-                <th data-field="id">Tipo</th>
+                <th data-field="tipo">Tipo</th>
                 <th data-field="id">Editar</th>
                 <th data-field="name">Eliminar</th>
               </tr>
@@ -32,9 +38,15 @@
 
             <tbody>
               <tr id=''>
-                <td>Tipo</td>
+                <td>Nonbre</td>
                 <td>Descripcion</td>
-                <td><i class="material-icons">pencil</i></td>
+                <td><a href="#"><i class="material-icons">edit</i></a></td>
+                <td><a href="#" onclick=""><i class="material-icons">clear</i></a></td>
+              </tr>
+              <tr id=''>
+                <td>Nonbre</td>
+                <td>Descripcion</td>
+                <td><a href="#"><i class="material-icons">edit</i></a></td>
                 <td><a href="#" onclick=""><i class="material-icons">clear</i></a></td>
               </tr>
             </tbody>
@@ -64,23 +76,23 @@
           <span class="text">Nombre</span>
         </label>
         @if ($errors->has('name'))
-          <span class="error_input">
-              <strong>{{ $errors->first('name') }}</strong>
-          </span>
+        <span class="error_input">
+          <strong>{{ $errors->first('name') }}</strong>
+        </span>
         @endif
       </div>
 
 
-      <div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}">
-        <input type="text" name="price" value="" required="">
+      <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
+        <input type="text" name="description" value="" required="">
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-          <span class="text">Precio</span>
+          <span class="text">Descripcion</span>
         </label>
-        @if ($errors->has('price'))
-          <span class="error_input">
-              <strong>{{ $errors->first('price') }}</strong>
-          </span>
+        @if ($errors->has('description'))
+        <span class="error_input">
+          <strong>{{ $errors->first('description') }}</strong>
+        </span>
         @endif
       </div>
       <div class="button">
@@ -96,3 +108,4 @@
     </form>
   </div>
 </div>
+@endsection

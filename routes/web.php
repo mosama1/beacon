@@ -105,6 +105,12 @@ Route::post('beacons/plate', 'BeaconController@store_plate')->name('store_plate'
 
 Route::post('beacons/{id}/plate', 'BeaconController@update_plate')->name('update_plate')->where('id', '[0-9]+');
 
+Route::get('beacons/tipoPlato', 'BeaconController@show_tipoPlato')->name('show_tipoPlato');
+// Route::get('beacons/campana',     'BeaconController@show_campana')->name('show_campana');
+
+
+
+
 //Cliente
 Route::get('platos/{id}', 'BeaconController@showPlate')->name('showPlate')->where('id', '[0-9]+');
 

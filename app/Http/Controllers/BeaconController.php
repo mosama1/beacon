@@ -628,6 +628,13 @@ class BeaconController extends Controller
     	return view('beacons.campana',['campana' => $campana]);
     }
 
+		public function show_tipoPlato()
+		{
+			// $campana = Campana::where('user_id', '=', Auth::user()->id)->get();
+
+			return view('menus.tipoPlato');
+		}
+
     /**
      * Show the form for creating a new resource.
      *
