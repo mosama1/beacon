@@ -635,6 +635,14 @@ class BeaconController extends Controller
 			return view('menus.tipoPlato');
 		}
 
+		public function show_tipoPlatoEdit()
+		{
+			// $campana = Campana::where('user_id', '=', Auth::user()->id)->get();
+
+			return view('menus.tipoPlatoEdit');
+		}
+
+
     /**
      * Show the form for creating a new resource.
      *

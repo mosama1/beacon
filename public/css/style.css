@@ -1932,7 +1932,7 @@ body.menu2 .menu_cliente{
   /*transform: translate(0, -50%) scaleX(1)!important;*/
 }
 .modal_ .titulo{
-  padding: 0;
+  padding: 0 40px;
 }
 .modal_ .titulo h3{
   font-size: 30px;

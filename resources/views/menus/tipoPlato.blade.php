@@ -40,14 +40,14 @@
               <tr id=''>
                 <td>Nonbre</td>
                 <td>Descripcion</td>
-                <td><a href="#"><i class="material-icons">edit</i></a></td>
-                <td><a href="#" onclick=""><i class="material-icons">clear</i></a></td>
+                <td><a href="{{ route('show_tipoPlatoEdit')}}"><i class="material-icons">edit</i></a></td>
+                <td><a href="#eliminarTipoPlato" onclick=""><i class="material-icons">clear</i></a></td>
               </tr>
               <tr id=''>
                 <td>Nonbre</td>
                 <td>Descripcion</td>
-                <td><a href="#"><i class="material-icons">edit</i></a></td>
-                <td><a href="#" onclick=""><i class="material-icons">clear</i></a></td>
+                <td><a href="{{ route('show_tipoPlatoEdit')}}"><i class="material-icons">edit</i></a></td>
+                <td><a href="#eliminarTipoPlato" onclick=""><i class="material-icons">clear</i></a></td>
               </tr>
             </tbody>
           </table>
@@ -66,13 +66,9 @@
   <div class="form">
     <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
       {{ csrf_field() }}
-
-
-
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
         <input type="text" name="name" value="" required="">
         <label for="">
-          <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Nombre</span>
         </label>
         @if ($errors->has('name'))
@@ -81,12 +77,9 @@
         </span>
         @endif
       </div>
-
-
       <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
         <input type="text" name="description" value="" required="">
         <label for="">
-          <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Descripcion</span>
         </label>
         @if ($errors->has('description'))
@@ -108,4 +101,29 @@
     </form>
   </div>
 </div>
+<div id="eliminarTipoPlato" class="modal modal_">
+
+  <div class="titulo">
+    <h3>
+      Esta seguro que desea eliminar el tipo de plato
+    </h3>
+  </div>
+
+  <div class="form">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
+      {{ csrf_field() }}
+      <div class="button">
+        <center>
+          <button type="submit" name="button">
+            <span>Si</span>
+          </button>
+          <a href="#" class="" onclick="$('#eliminarTipoPlato').modal('close'); return false;">
+            <span>No</span>
+          </a>
+        </center>
+      </div>
+    </form>
+  </div>
+</div>
+
 @endsection
