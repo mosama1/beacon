@@ -33,6 +33,10 @@ $('.authenticate .divide .divide_cont.new_user .new_user_head .icon a').click(fu
   return false;
 });
 
+function modal_activate(ruta, div) {
+  $(div+' form').attr('action', ruta );
+
+}
 
 function delete_location(id){
     $.ajax({

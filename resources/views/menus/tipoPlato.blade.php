@@ -38,11 +38,19 @@
 
             <tbody>
             @foreach ($tiposplatos as $tipoplato)
-              <tr id=''>
+              <tr>
                 <td>{{$tipoplato->name}}</td>
                 <td>{{$tipoplato->description}}</td>
                 <td><a href="{{ route('edit_tipoPlato', $tipoplato->id) }}"><i class="material-icons">edit</i></a></td>
-                <td><a href="#eliminarTipoPlato"><i class="material-icons">clear</i></a></td>
+
+                <?php 
+
+                  echo "<td onclick= \"modal_activate('".
+                     route( "delete_tipoPlato", $tipoplato->id ).
+                    "' , '#eliminarTipoPlato')\" >";
+
+                ?>
+                <a href="#eliminarTipoPlato"><i class="material-icons">clear</i></a></td>
               </tr>
             @endforeach
             </tbody>
@@ -101,13 +109,14 @@
 
   <div class="titulo">
     <h3>
-      Esta seguro que desea eliminar el tipo de plato
+      Está seguro que desea eliminar Tipo de Plato
     </h3>
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('delete_tipoPlato') }}">
+    <form class="form-horizontal" role="form" method="POST">
       {{ csrf_field() }}
+      <input type="hidden" name="_method" value="DELETE">
       <div class="button">
         <center>
           <button type="submit" name="button">

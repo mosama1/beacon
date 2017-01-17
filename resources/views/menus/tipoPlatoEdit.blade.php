@@ -21,6 +21,8 @@
        <form class="form-horizontal" role="form" method="POST" action="#">
         {{ csrf_field() }}
 
+        <input type="hidden" name="_method" value="PUT">
+
 
         <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
           <input type="text" name="name" value="nombre DB" required="">
