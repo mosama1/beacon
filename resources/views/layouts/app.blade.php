@@ -52,6 +52,12 @@ use Beacon\User;
                           </a>
                         </li>
                         <li>
+                            <a href="{{ route('show_tipoPlato')}}">
+                              <span>Los tipos de platos</span>
+                              <!-- <span>Campa&ntilde;a</span> -->
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ route('show_timeframe')}}">
                                 <span>Los Horarios</span>
                             </a>
@@ -59,12 +65,6 @@ use Beacon\User;
                         <li>
                             <a href="{{ route('show_campana')}}">
                               <span>La Planificacion</span>
-                              <!-- <span>Campa&ntilde;a</span> -->
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('show_tipoPlato')}}">
-                              <span>Los tipos de platos</span>
                               <!-- <span>Campa&ntilde;a</span> -->
                             </a>
                         </li>
@@ -156,6 +156,7 @@ use Beacon\User;
     <script src="js/init.js"></script>
     <script src="js/script.js"></script>
     <script src="js/onclick.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.13.4/jquery.mask.min.js"></script>
 
     @if (session('status'))
     <script type="text/javascript">

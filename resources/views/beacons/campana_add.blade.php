@@ -28,24 +28,24 @@
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Nombre</span>
           </label>
-          @if ($errors->has('name'))
-            <span class="error_input">
-                <strong>{{ $errors->first('name') }}</strong>
-            </span>
-          @endif
         </div>
+        @if ($errors->has('name'))
+          <div class="input_error">
+              <span>{{ $errors->first('name') }}</span>
+          </div>
+        @endif
         <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
           <input type="text" name="description" value="" required="">
           <label for="">
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Descripcion</span>
           </label>
-          @if ($errors->has('description'))
-            <span class="error_input">
-                <strong>{{ $errors->first('description') }}</strong>
-            </span>
-          @endif
         </div>
+        @if ($errors->has('description'))
+          <div class="input_error">
+              <span>{{ $errors->first('description') }}</span>
+          </div>
+        @endif
 
         <div class="input select {{ $errors->has('location_id') ? 'error' : '' }}">
           <!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
@@ -56,13 +56,12 @@
             @endforeach
           </select>
 
-          @if ($errors->has('location_id'))
-          <span class="error_input">
-            <strong>{{ $errors->first('location_id') }}</strong>
-          </span>
-          @endif
         </div>
-
+        @if ($errors->has('location_id'))
+        <div class="input_error">
+          <span>{{ $errors->first('location_id') }}</span>
+        </div>
+        @endif
         <div class="button">
           <center>
             <button type="submit" name="button">

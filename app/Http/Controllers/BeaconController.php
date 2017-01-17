@@ -629,12 +629,12 @@ class BeaconController extends Controller
     	return view('beacons.campana',['campana' => $campana]);
     }
 
-	public function show_tipoPlato()
-	{
-		$tiposplatos = TypesPlates::get();
+    public function show_tipoPlato()
+    {
+        $tiposplatos = TypesPlates::get();
 
-		return view('menus.tipoPlato',['tiposplatos' => $tiposplatos]);
-	}
+        return view('menus.tipoPlato',['tiposplatos' => $tiposplatos]);
+    }
 
     /**
      * Create a new resource in storage.
@@ -662,21 +662,38 @@ class BeaconController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function edit_tipoPlato( Request $request )
+    public function edit_tipoPlato( $id )
     {
 
         $tipo_plato = TypesPlates::where('id', '=', $id)->first();
 
-        return view('beacons.tipoPlato_edit', ['tipo_plato' => $tipo_plato]);
+        return view('menus.tipoPlatoEdit', ['tipo_plato' => $tipo_plato]);
 
     }
 
-		public function show_tipoPlatoEdit()
-		{
-			// $campana = Campana::where('user_id', '=', Auth::user()->id)->get();
+    /**
+     * Delete a resource in storage.
+     *
+     * @param  $id integer
+     * @return \Illuminate\Http\Response
+     */
+    public function delete_tipoPlato( $id )
+    {
 
-			return view('menus.tipoPlatoEdit');
-		}
+        $tipo_plato = TypesPlates::where('id', '=', $id)
+                        ->first()->delete();
+
+        return redirect()->route('show_tipoPlato')
+                        ->with(['status' => 'Tipo de plato eliminado con éxito', 'type' => 'success']);
+
+    }
+
+	public function show_tipoPlatoEdit()
+	{
+		// $campana = Campana::where('user_id', '=', Auth::user()->id)->get();
+
+		return view('menus.tipoPlatoEdit');
+	}
 
 
     /**

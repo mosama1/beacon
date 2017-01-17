@@ -28,8 +28,8 @@
             <thead>
               <tr>
                   <th data-field="id">Nombre</th>
-                  <th data-field="description">description</th>
-                  <th data-field="city">Hera de inicio</th>
+                  <th data-field="description">Descripcion</th>
+                  <th data-field="city">Hora de inicio</th>
                   <th data-field="street">Hora de Finalizaci&oacute;n</th>
                   <th>Editar</th>
                   <th>Eliminar</th>

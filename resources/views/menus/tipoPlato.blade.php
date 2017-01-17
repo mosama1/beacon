@@ -106,7 +106,7 @@
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('delete_tipoPlato') }}">
       {{ csrf_field() }}
       <div class="button">
         <center>

@@ -1504,7 +1504,7 @@ body.menu2 .menu_cliente{
   /*padding-bottom: 50px;*/
 }
 
-#precioMenu{
+#divPrecioMenu{
   display: none;
 }
 .contenedor .principal .form .input,

@@ -27,24 +27,24 @@
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Name</span>
           </label>
-          @if ($errors->has('name'))
-            <span class="error_input">
-                <strong>{{ $errors->first('name') }}</strong>
-            </span>
-          @endif
         </div>
+        @if ($errors->has('name'))
+          <div class="input_error">
+              <span>{{ $errors->first('name') }}</span>
+          </div>
+        @endif
         <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
           <input type="text" name="description" value="{{$campana->description}}" required="">
           <label for="">
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Descripcion</span>
           </label>
-          @if ($errors->has('description'))
-            <span class="error_input">
-                <strong>{{ $errors->first('description') }}</strong>
-            </span>
-          @endif
         </div>
+        @if ($errors->has('description'))
+          <div class="input_error">
+              <span>{{ $errors->first('description') }}</span>
+          </div>
+        @endif
 
         <div class="input no_icon time {{ $errors->has('start_time') ? 'error' : '' }}">
           <input type="time" name="start_time" value="{{date('H:i', strtotime($campana->start_time))}}" required="" class="input_time">
@@ -52,12 +52,12 @@
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Hora de inicio</span>
           </label>
-          @if ($errors->has('start_time'))
-            <span class="error_input">
-                <strong>{{ $errors->first('start_time') }}</strong>
-            </span>
-          @endif
         </div>
+        @if ($errors->has('start_time'))
+          <div class="input_error">
+              <span>{{ $errors->first('start_time') }}</span>
+          </div>
+        @endif
 
         <div class="input no_icon time {{ $errors->has('end_time') ? 'error' : '' }}">
           <input type="time" name="end_time" value="{{date('H:i', strtotime($campana->end_time))}}" required="" class="input_time">
@@ -65,17 +65,12 @@
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Hora de finalizaci&oacute;n</span>
           </label>
-          @if ($errors->has('end_time'))
-            <span class="error_input">
-                <strong>{{ $errors->first('end_time') }}</strong>
-            </span>
-          @endif
         </div>
-
-
-
-
-
+        @if ($errors->has('end_time'))
+          <div class="input_error">
+              <span>{{ $errors->first('end_time') }}</span>
+          </div>
+        @endif
 
         <div class="button">
           <center>
