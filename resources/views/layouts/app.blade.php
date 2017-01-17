@@ -52,6 +52,12 @@ use Beacon\User;
                           </a>
                         </li>
                         <li>
+                            <a href="{{ route('show_tipoPlato')}}">
+                              <span>Los tipos de platos</span>
+                              <!-- <span>Campa&ntilde;a</span> -->
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ route('show_timeframe')}}">
                                 <span>Los Horarios</span>
                             </a>
@@ -59,12 +65,6 @@ use Beacon\User;
                         <li>
                             <a href="{{ route('show_campana')}}">
                               <span>La Planificacion</span>
-                              <!-- <span>Campa&ntilde;a</span> -->
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('show_tipoPlato')}}">
-                              <span>Los tipos de platos</span>
                               <!-- <span>Campa&ntilde;a</span> -->
                             </a>
                         </li>
@@ -138,7 +138,7 @@ use Beacon\User;
             <!-- <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a> -->
         </div>
     </nav>
-    
+
 
     @yield('content')
 
