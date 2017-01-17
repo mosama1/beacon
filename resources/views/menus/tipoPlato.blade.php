@@ -41,8 +41,8 @@
               <tr id=''>
                 <td>{{$tipoplato->name}}</td>
                 <td>{{$tipoplato->description}}</td>
-                <td><a href="{{ route('edit_tipoplato', $tipoplato->id) }}"><i class="material-icons">edit</i></a></td>
-                <td><a href="#" onclick="delete_tipoplato({{ $tipoplato->id }})"><i class="material-icons">clear</i></a></td>
+                <td><a href="{{ route('edit_tipoPlato', $tipoplato->id) }}"><i class="material-icons">edit</i></a></td>
+                <td><a href="#" onclick="delete_tipoplato({{ $tipoplato->id }}); return false;"><i class="material-icons">clear</i></a></td>
               </tr>
             @endforeach
             </tbody>
@@ -55,7 +55,7 @@
 <div id="tipoPlato" class="modal modal_">
   <div class="titulo">
     <h3>
-      Agregar Plato
+      Agregar Tipo de Plato
     </h3>
   </div>
 

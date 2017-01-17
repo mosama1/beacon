@@ -7,7 +7,7 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Agregar Contenido de Campa&ntilde;a
+        Agregar Contenido de Planificacion
       </h3>
     </div>
 

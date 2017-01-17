@@ -662,7 +662,7 @@ class BeaconController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function edit_tipoPlato( Request $request, )
+    public function edit_tipoPlato( Request $request )
     {
 
         $tipo_plato = TypesPlates::where('id', '=', $id)->first();

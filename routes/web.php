@@ -110,7 +110,7 @@ Route::get('beacons/tipoPlato', 'BeaconController@show_tipoPlato')->name('show_t
 Route::post('beacons/tipoPlato', 'BeaconController@create_tipoPlato')->name('create_tipoPlato');
 
 Route::put('beacons/tipoPlato', 'BeaconController@edit_tipoPlato')->name('edit_tipoPlato');
-// Route::get('beacons/campana',     'BeaconController@show_campana')->name('show_campana');
+//Route::get('beacons/campana',     'BeaconController@show_campana')->name('show_campana');
 
 
 
