@@ -37,18 +37,14 @@
             </thead>
 
             <tbody>
+            @foreach ($tiposplatos as $tipoplato)
               <tr id=''>
-                <td>Nonbre</td>
-                <td>Descripcion</td>
-                <td><a href="#"><i class="material-icons">edit</i></a></td>
-                <td><a href="#" onclick=""><i class="material-icons">clear</i></a></td>
+                <td>{{$tipoplato->name}}</td>
+                <td>{{$tipoplato->description}}</td>
+                <td><a href="{{ route('edit_tipoplato', $tipoplato->id) }}"><i class="material-icons">edit</i></a></td>
+                <td><a href="#" onclick="delete_tipoplato({{ $tipoplato->id }})"><i class="material-icons">clear</i></a></td>
               </tr>
-              <tr id=''>
-                <td>Nonbre</td>
-                <td>Descripcion</td>
-                <td><a href="#"><i class="material-icons">edit</i></a></td>
-                <td><a href="#" onclick=""><i class="material-icons">clear</i></a></td>
-              </tr>
+            @endforeach
             </tbody>
           </table>
         </div>
@@ -64,7 +60,7 @@
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('create_tipoPlato') }}">
       {{ csrf_field() }}
 
 
