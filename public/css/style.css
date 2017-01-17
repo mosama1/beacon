@@ -609,15 +609,31 @@ body.menu2 .menu_cliente{
 
 
 }
+.authenticate .divide .divide_cont .input.error{
+  border: solid 1px #ff0000;
+  background: #f7bbbb;
 
+}
+.input_error{
+  text-align: center;
+  line-height: 1;
+  margin: 5px 0;
+}
 
+.input_error span{
+  color: rgb(255, 255, 255);
+  font-size: 11px;
+  text-align: center;
+  line-height: 1;
+
+}
 .authenticate .divide .divide_cont .input:hover,
 .authenticate .divide .divide_cont .input.focus{
   background: #fff;
 }
 .authenticate .divide .divide_cont .input:hover label,
 .authenticate .divide .divide_cont .input.focus label,
-.authenticate .divide .divide_cont .input:hover input
+.authenticate .divide .divide_cont .input:hover input,
 .authenticate .divide .divide_cont .input.focus input{
   color: #000;
 }
@@ -1653,18 +1669,7 @@ body.menu2 .menu_cliente{
   transition: all .2s ease-in-out;
 }
 
-/*.contenedor .principal .form .input:hover,
-.modal_ .form .input:hover{
-  background: #fff;
-}
-.contenedor .principal .form .input:hover label,
-.modal_ .form .input:hover label{
-  color: #000;
-}
-.contenedor .principal .form .input:hover label .icon img,
-.modal_ .form .input:hover label .icon img{
-  filter: invert(1);
-}*/
+
 
 .contenedor .principal .form .input:hover,
 .contenedor .principal .form .input.focus,
@@ -1694,19 +1699,7 @@ body.menu2 .menu_cliente{
 }
 
 
-/*.contenedor .principal .form .input input:focus,
-.modal_ .form .input input:focus{
-  background: #fff;
-  color: #000;
-}
-.contenedor .principal .form .input input:hover,
-.modal_ .form .input input:hover{
-  color: #000;
-}
-.contenedor .principal .form .input input[type="time"]:not(:focus):not(:valid),
-.modal_ .form .input input[type="time"]:not(:focus):not(:valid) {
-  opacity: 0;
-}*/
+
 .contenedor .principal .form .input input,
 .modal_ .form .input input{
   color: #fff;

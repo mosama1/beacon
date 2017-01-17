@@ -34,35 +34,35 @@ $('.authenticate .divide .divide_cont.new_user .new_user_head .icon a').click(fu
 });
 
 
-function delete_location(id){
-    $.ajax({
-        type: "get",
-        url: "beacons/delete",
-        data: {id:id},
-        success: function(respuesta) {
-        	if(respuesta == 1){
-        		$('#'+id).fadeOut(300);
-        	} else {
-        		alert('Error');
-        	}
-        }
-    })
-}
-
-function delete_session(id){
-    $.ajax({
-        type: "get",
-        url: "beacons/session/delete",
-        data: {id:id},
-        success: function(respuesta) {
-        	if(respuesta == 1){
-        		$('#'+id).fadeOut(300);
-        	} else {
-        		alert('Error');
-        	}
-        }
-    })
-}
+// function delete_location(id){
+//     $.ajax({
+//         type: "get",
+//         url: "beacons/delete",
+//         data: {id:id},
+//         success: function(respuesta) {
+//         	if(respuesta == 1){
+//         		$('#'+id).fadeOut(300);
+//         	} else {
+//         		alert('Error');
+//         	}
+//         }
+//     })
+// }
+//
+// function delete_session(id){
+//     $.ajax({
+//         type: "get",
+//         url: "beacons/session/delete",
+//         data: {id:id},
+//         success: function(respuesta) {
+//         	if(respuesta == 1){
+//         		$('#'+id).fadeOut(300);
+//         	} else {
+//         		alert('Error');
+//         	}
+//         }
+//     })
+// }
 
 function vistaLogo(evt) {
     var files = evt.target.files; // FileList object
@@ -203,28 +203,9 @@ $(document).ready(function(){
   // verificarInputVacios();
 });
 
-
-
-// $('.authenticate .divide .divide_cont .input input, .authenticate .divide .divide_cont .input textarea, .contenedor .principal .form .input input, .modal_ .form .input input, .modal_ .form .input textarea').keyup(function(){
-//
-//   var input = $(this).parent();
-//
-//   if ($(this).val() !== '') {
-//     input.addClass('focus');
-//     // $('label', $(this).parent()).addClass('none');
-//   }else {
-//     // $('label', $(this).parent()).removeClass('none');
-//     input.removeClass('focus');
-//
-//   }
-//
-//   console.log(input);
-//
-//   // verificarInputVacios();
-// });
-
 inputVerificar.focusin(function(){
   var input = $(this).parent();
+  input.removeClass('error');
   input.addClass('focus');
   $(this).keyup(function(){
     verificarInputVacios($(this));
@@ -238,6 +219,12 @@ inputVerificar.focusout(function(){
   });
 });
 
+
+
+//Quitar Mensajes de error
+setTimeout(function(){
+  $('.input_error').fadeOut();
+},5000);
 
 
 

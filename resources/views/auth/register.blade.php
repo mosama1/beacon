@@ -26,13 +26,12 @@
               <option value="es" data-icon="img/icons/es.png" class="left circle">Español</option>
               <option value="en" data-icon="img/icons/en.png" class="left circle">English</option>
             </select>
-
-            @if ($errors->has('language'))
-            <span class="error_input">
-              <strong>{{ $errors->first('language') }}</strong>
-            </span>
-            @endif
           </div>
+          @if ($errors->has('language'))
+          <div class="input_error">
+            <span>{{ $errors->first('language') }}</span>
+          </div>
+          @endif
           <!-- <div class="input {{ $errors->has('name') ? 'error' : '' }}">
             <input type="text" name="name" value="{{ old('name') }}" required="">
             <label for="">
@@ -51,36 +50,36 @@
               <span class="icon"><img src="img/icons/correo.png" alt=""></span>
               <span class="text">Correo</span>
             </label>
-            @if ($errors->has('email'))
-            <span class="error_input">
-              <strong>{{ $errors->first('email') }}</strong>
-            </span>
-            @endif
           </div>
+          @if ($errors->has('email'))
+          <div class="input_error">
+            <span>{{ $errors->first('email') }}</span>
+          </div>
+          @endif
           <div class="input {{ $errors->has('phone') ? 'error' : '' }}">
             <input type="text" name="phone" value="{{ old('phone') }}" required="">
             <label for="">
               <span class="icon"><img src="img/icons/telefono.png" alt=""></span>
               <span class="text">Telefono de contacto</span>
             </label>
-            @if ($errors->has('phone'))
-            <span class="error_input">
-              <strong>{{ $errors->first('phone') }}</strong>
-            </span>
-            @endif
           </div>
+          @if ($errors->has('phone'))
+          <div class="input_error">
+            <span>{{ $errors->first('phone') }}</span>
+          </div>
+          @endif
           <div class="input {{ $errors->has('password') ? 'error' : '' }}">
             <input type="password" name="password" value="{{ old('password') }}" required="">
             <label for="">
               <span class="icon"><img src="img/icons/contrasena.png" alt=""></span>
               <span class="text">Contraseña</span>
             </label>
-            @if ($errors->has('password'))
-            <span class="error_input">
-              <strong>{{ $errors->first('password') }}</strong>
-            </span>
-            @endif
           </div>
+          @if ($errors->has('password'))
+          <div class="input_error">
+            <span>{{ $errors->first('password') }}</span>
+          </div>
+          @endif
           <div class="input {{ $errors->has('password_confirmation') ? 'error' : '' }}">
             <input type="password" name="password_confirmation" value="{{ old('password_confirmation') }}" required="">
             <label for="">
@@ -88,9 +87,9 @@
               <span class="text">Confirmar Contraseña</span>
             </label>
             @if ($errors->has('password_confirmation'))
-            <span class="error_input">
-              <strong>{{ $errors->first('password_confirmation') }}</strong>
-            </span>
+            <div class="input_error">
+              <span>{{ $errors->first('password_confirmation') }}</span>
+            </div>
             @endif
           </div>
         </div>

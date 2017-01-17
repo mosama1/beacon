@@ -16,12 +16,12 @@
               <span class="icon"><img src="img/icons/usuario.png" alt=""></span>
               <span class="text">Correo Electronico</span>
             </label>
-            @if ($errors->has('email'))
-              <span class="input_error">
-                  <strong>{{ $errors->first('email') }}</strong>
-              </span>
-            @endif
           </div>
+          @if ($errors->has('email'))
+          <div class="input_error">
+            <span>{{ $errors->first('email') }}</span>
+          </div>
+          @endif
           <div class="input {{ $errors->has('password') ? 'error' : '' }}">
             <input type="password" name="password" value="" id="password" required="">
             <label for="">

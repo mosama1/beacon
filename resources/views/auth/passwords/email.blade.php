@@ -30,12 +30,12 @@
               <span class="icon"><img src="img/icons/correo.png" alt=""></span>
               <span class="text">Correo</span>
             </label>
-            @if ($errors->has('email'))
-            <span class="error_input">
-              <strong>{{ $errors->first('email') }}</strong>
-            </span>
-            @endif
           </div>
+          @if ($errors->has('email'))
+          <div class="input_error">
+            <span>{{ $errors->first('email') }}</span>
+          </div>
+          @endif
         </div>
         <div class="button">
           <center>
