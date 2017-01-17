@@ -6,7 +6,7 @@
     <div class="principal">
       <div class="titulo">
         <h3>
-          Beancos
+          Beacons
         </h3>
       </div>
       <div class="agregar">
@@ -32,7 +32,7 @@
               </thead>
               <tbody>
                 @foreach($beacons as $b)
-                  <tr>
+                  <tr>o
                     <td>{{$b->name}}</td>
                     <td>{{$b->major}}</td>
                     <td>{{$b->minor}}</td>

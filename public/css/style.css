@@ -1486,6 +1486,9 @@ body.menu2 .menu_cliente{
   /*padding-bottom: 50px;*/
 }
 
+#precioMenu{
+  display: none;
+}
 .contenedor .principal .form .input,
 .modal_ .form .input{
   /*background: rgb(26, 20, 122);*/
