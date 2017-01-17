@@ -6,7 +6,8 @@
     <div class="vista_final logos valign-wrapper">
       <div class="logos">
         <div class="logo_principal logo">
-          <img src="img/logo/logo1.png" alt="">
+          <!-- <img src="img/logo/logo1.png" alt=""> -->
+          <h2>LOGO</h2>
         </div>
         <div class="titulo">
           <h3>Avila Burguer</h3>

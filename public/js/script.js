@@ -330,15 +330,21 @@ $(window).load(function(){
 });
 //mayorqueceroenelinput
 $('#guardar').click(function(){
-  var numero = $('#precioMenu').val();
-  if (numero <= 0) {
-    alert('El monto debe ser mayor a cero');
-    return false;
+  if ($("#filled-in-box").prop('checked') === true) {
+    var numero = $('#precioMenu').val();
+    if (numero <= 0) {
+      $('#errorPrecioMenu').fadeIn();
+      $('#divPrecioMenu').addClass('error');
+      setTimeout(function(){
+        $('#errorPrecioMenu').fadeOut();
+      },5000);
+      return false;
+    }
   }
 });
 //agregarprecio
 $( "#filled-in-box" ).click(function() {
-  if ($(this).prop('checked') == true) {
+  if ($(this).prop('checked') === true) {
     $('#divPrecioMenu').fadeIn();
     $( "#precioMenu" ).prop( "required", true );
     $('#precioMenu').mask('000,000,000,000,0000000.00', {reverse: true});

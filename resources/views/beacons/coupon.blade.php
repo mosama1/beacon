@@ -96,6 +96,9 @@
           <span class="text">Ingresar Precio: 0,00</span>
         </label>
       </div>
+      <div class="input_error" id="errorPrecioMenu" style="display: none;">
+          <span>El monto debe ser mayor a cero</span>
+      </div>
         <p>
       <input type="checkbox" class="filled-in" id="filled-in-box" />
       <label for="filled-in-box">Manejar Precio</label>

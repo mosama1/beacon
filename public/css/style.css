@@ -612,8 +612,8 @@ body.menu2 .menu_cliente{
 .authenticate .divide .divide_cont .input.error{
   border: solid 1px #ff0000;
   background: #f7bbbb;
-
 }
+
 .input_error{
   text-align: center;
   line-height: 1;
@@ -1523,6 +1523,12 @@ body.menu2 .menu_cliente{
   -o-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out;
 }
+.contenedor .principal .form .input.error,
+.modal_ .form .input.error{
+  border: solid 1px #ff0000;
+  background: #f7bbbb;
+}
+
 .contenedor .principal .form .input input.input_time:focus + label{
   opacity: 0;
 }
@@ -2059,7 +2065,7 @@ body.menu2 .contenedor.cliente_final{
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.95);
+  background: rgba(0, 0, 0, .99);
   z-index: 1000;
 }
 .preload .img{
