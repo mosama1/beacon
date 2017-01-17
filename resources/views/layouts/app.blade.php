@@ -156,6 +156,7 @@ use Beacon\User;
     <script src="js/init.js"></script>
     <script src="js/script.js"></script>
     <script src="js/onclick.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.13.4/jquery.mask.min.js"></script>
 
     @if (session('status'))
     <script type="text/javascript">
