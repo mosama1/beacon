@@ -130,7 +130,7 @@
                   <td>{{$m->type}}</td>
                   <td>{{$m->price}}</td>
                   <td><a href="{{ route('show_plate', $m->id) }}"><i class="material-icons">input</i></a></td>
-                  <td><a href="#" onclick="delete_session({{ $m->id }})"><i class="material-icons">clear</i></a></td>
+                  <td><a href="#eliminarPlato"><i class="material-icons">clear</i></a></td>
                 </tr>
               @endforeach
             </tbody>
@@ -222,5 +222,30 @@
     </form>
   </div>
 </div>
+<div id="eliminarPlato" class="modal modal_">
+
+  <div class="titulo">
+    <h3>
+      Esta seguro que desea eliminar Plato
+    </h3>
+  </div>
+
+  <div class="form">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
+      {{ csrf_field() }}
+      <div class="button">
+        <center>
+          <button type="submit" name="button">
+            <span>Si</span>
+          </button>
+          <a href="#" class="" onclick="$('#eliminarPlato').modal('close'); return false;">
+            <span>No</span>
+          </a>
+        </center>
+      </div>
+    </form>
+  </div>
+</div>
+
 
 @endsection

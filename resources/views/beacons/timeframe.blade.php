@@ -32,6 +32,7 @@
                   <th data-field="city">Hera de inicio</th>
                   <th data-field="street">Hora de Finalizaci&oacute;n</th>
                   <th>Editar</th>
+                  <th>Eliminar</th>
               </tr>
             </thead>
 
@@ -43,6 +44,7 @@
                   <td>{{date("h:i a", strtotime($t->start_time))}}</td>
                   <td>{{date("h:i a", strtotime($t->end_time))}}</td>
                   <td><a href="{{ route('edit_timeframe', $t->timeframe_id) }}"><i class="material-icons">edit</i></a></td>
+                  <td><a href="#eliminarHorario"><i class="material-icons">clear</i></a></td>
                 </tr>
               @endforeach
             </tbody>
@@ -52,39 +54,29 @@
     </div>
   </div>
 </div>
+<div id="eliminarHorario" class="modal modal_">
 
-    <!-- <div class="section no-pad-bot" id="index-banner">
-        <div class="container">
-            <br><br>
+  <div class="titulo">
+    <h3>
+      Esta seguro que desea eliminar este horario
+    </h3>
+  </div>
 
-            <h1 class="header center orange-text">Timeframe</h1>
+  <div class="form">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
+      {{ csrf_field() }}
+      <div class="button">
+        <center>
+          <button type="submit" name="button">
+            <span>Si</span>
+          </button>
+          <a href="#" class="" onclick="$('#eliminarHorario').modal('close'); return false;">
+            <span>No</span>
+          </a>
+        </center>
+      </div>
+    </form>
+  </div>
+</div>
 
-			    <a href="{{ route('add_timeframe') }}" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
-
-          	    <table>
-			        <thead>
-			          <tr>
-			              <th data-field="id">Nombre</th>
-			              <th data-field="country">Descripci&oacute;n</th>
-			              <th data-field="city">Hera de inicio</th>
-			              <th data-field="street">Hora de Finalizaci&oacute;n</th>
-			              <th>Ediar</th>
-			          </tr>
-			        </thead>
-
-			        <tbody>
-			        	@foreach($timeframe as $t)
-				          <tr id="{{$t->timeframe_id}}">
-				            <td>{{$t->name}}</td>
-				            <td>{{$t->description}}</td>
-				            <td>{{date("h:i a", strtotime($t->start_time))}}</td>
-				            <td>{{date("h:i a", strtotime($t->end_time))}}</td>
-				            <td><a href="{{ route('edit_timeframe', $t->timeframe_id) }}"><i class="material-icons">edit</i></a></td>
-				          </tr>
-				        @endforeach
-			        </tbody>
-			      </table>
-
-        </div>
-    </div> -->
 @endsection

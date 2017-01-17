@@ -32,7 +32,7 @@
             </span>
             @endif
           </div>
-          <div class="input {{ $errors->has('name') ? 'error' : '' }}">
+          <!-- <div class="input {{ $errors->has('name') ? 'error' : '' }}">
             <input type="text" name="name" value="{{ $user->name }}" required="">
             <label for="">
               <span class="icon"><img src="img/icons/usuario.png" alt=""></span>
@@ -43,7 +43,7 @@
               <strong>{{ $errors->first('name') }}</strong>
             </span>
             @endif
-          </div>
+          </div> -->
           <div class="input {{ $errors->has('email') ? 'error' : '' }}">
             <input type="email" name="email" value="{{ $user->email }}" required="">
             <label for="">
@@ -175,8 +175,31 @@
             </span>
             @endif
           </div>
+          <div class="divide_cont files">
+            <div class="file-field input-field input_file {{ $errors->has('logo') ? 'has-error' : '' }}">
+              <div class="btn">
+                <span class="icon"><img src="img/icons/subir_archivo.png" alt=""></span>
+                <span>Subir Logo</span>
+                <input type="file" name="logo" id="addLogo">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+              </div>
+              @if ($errors->has('logo'))
+              <span class="error_input">
+                <strong>{{ $errors->first('logo') }}</strong>
+              </span>
+              @endif
+            </div>
+            <div class="vista_previa">
+              <center  id="vista_previa">
+                <div class="img" id="vista_logo">
+                </div>
+              </center>
+            </div>
+          </div>
 
-          <div class="input {{ $errors->has('lat') ? 'error' : '' }}">
+          <!-- <div class="input {{ $errors->has('lat') ? 'error' : '' }}">
             <input type="text" name="lat" value="{{$location->lat}}" required="">
             <label for="">
               <span class="text">Lat</span>
@@ -198,7 +221,7 @@
               <strong>{{ $errors->first('lng') }}</strong>
             </span>
             @endif
-          </div>
+          </div> -->
         </div>
 
         <div class="button">

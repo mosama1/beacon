@@ -30,6 +30,7 @@
                 <th data-field="id"></th>
                   <th data-field="id">Nombre</th>
                   <th data-field="name">Visualizar</th>
+                  <th data-field="price">Editar</th>
                   <th data-field="price">Eliminar</th>
 
                 </tr>
@@ -41,7 +42,8 @@
                 </td>
                 <td>{{$s->name}}</td>
                 <td><a href="{{ route('show_menu', $s->id) }}"><i class="material-icons">input</i></a></td>
-                <td><a href="#" onclick="delete_session({{ $s->id }})"><i class="material-icons">clear</i></a></td>
+                <td><a href="#"><i class="material-icons">edit</i></a></td>
+                <td><a href="#eliminarSession"><i class="material-icons">clear</i></a></td>
               </tr>
               @endforeach
             </tbody>
@@ -100,4 +102,29 @@
     </form>
   </div>
 </div>
+<div id="eliminarSession" class="modal modal_">
+
+  <div class="titulo">
+    <h3>
+      Esta seguro que desea eliminar seccion
+    </h3>
+  </div>
+
+  <div class="form">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
+      {{ csrf_field() }}
+      <div class="button">
+        <center>
+          <button type="submit" name="button">
+            <span>Si</span>
+          </button>
+          <a href="#" class="" onclick="$('#eliminarSession').modal('close'); return false;">
+            <span>No</span>
+          </a>
+        </center>
+      </div>
+    </form>
+  </div>
+</div>
+
 @endsection

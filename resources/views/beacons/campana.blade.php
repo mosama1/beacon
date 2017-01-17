@@ -32,7 +32,7 @@
                   <th>Habilitar</th>
                   <th>Editar</th>
                   <th>Contenido</th>
-              </tr>
+                  <th>Eliminar</th>
             </thead>
 
             <tbody>
@@ -52,6 +52,7 @@
                   </td>
                   <td><a href="{{ route('edit_campana', $c->campana_id) }}"><i class="material-icons">edit</i></a></td>
                   <td><a href="{{ route('show_campana_content', $c->campana_id) }}"><i class="material-icons">add</i></a></td>
+                  <td><a href="#eliminarPlan"><i class="material-icons">clear</i></a></td>
                 </tr>
               @endforeach
             </tbody>
@@ -62,51 +63,29 @@
   </div>
 </div>
 
-    <!-- <div class="section no-pad-bot" id="index-banner">
-        <div class="container">
-            <br><br>
+<div id="eliminarPlan" class="modal modal_">
 
-            <h1 class="header center orange-text">Campa&ntilde;a</h1>
+  <div class="titulo">
+    <h3>
+      Esta seguro que desea eliminar esta planificacion
+    </h3>
+  </div>
 
-			    <a href="{{ route('add_campana') }}" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+  <div class="form">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
+      {{ csrf_field() }}
+      <div class="button">
+        <center>
+          <button type="submit" name="button">
+            <span>Si</span>
+          </button>
+          <a href="#" class="" onclick="$('#eliminarPlan').modal('close'); return false;">
+            <span>No</span>
+          </a>
+        </center>
+      </div>
+    </form>
+  </div>
+</div>
 
-          	    <table>
-			        <thead>
-			          <tr>
-			              <th data-field="id">Nombre</th>
-			              <th data-field="country">Descripci&oacute;n</th>
-			              <th data-field="city">Hera de inicio</th>
-			              <th data-field="street">Hora de Finalizaci&oacute;n</th>
-			              <th>Habilitar</th>
-			              <th>Ediar</th>
-			              <th>Contenido</th>
-			          </tr>
-			        </thead>
-
-			        <tbody>
-			        	@foreach($campana as $c)
-				          <tr id="{{$c->campana_id}}">
-				            <td>{{$c->name}}</td>
-				            <td>{{$c->description}}</td>
-				            <td>{{date("h:i a", strtotime($c->start_time))}}</td>
-				            <td>{{date("h:i a", strtotime($c->end_time))}}</td>
-				            <td>
-				            	<p>
-				            	 @if($c->enabled === 1)
-							      <input type="checkbox" id="test{{$c->campana_id}}" checked="checked"/>
-							     @else
-							      <input type="checkbox" id="test{{$c->campana_id}}" />
-							     @endif
-							     <label for="test{{$c->campana_id}}"></label>
-							    </p>
-				            </td>
-				            <td><a href="{{ route('edit_campana', $c->campana_id) }}"><i class="material-icons">edit</i></a></td>
-				            <td><a href="{{ route('show_campana_content', $c->campana_id) }}"><i class="material-icons">add</i></a></td>
-				          </tr>
-				        @endforeach
-			        </tbody>
-			      </table>
-
-        </div>
-    </div> -->
 @endsection
