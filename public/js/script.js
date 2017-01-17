@@ -337,14 +337,20 @@ $(window).load(function(){
   },1000);
 
 });
+//mayorqueceroenelinput
+$('#guardar').click(function(){
+  var numero = $('#precioMenu').val();
+  if (numero <= 0) {
+    alert('El monto debe ser mayor a cero');
+    return false;
+  }
+});
 //agregarprecio
-
-$('#divPrecioMenu').fadeOut();
 $( "#filled-in-box" ).click(function() {
   if ($(this).prop('checked') == true) {
     $('#divPrecioMenu').fadeIn();
     $( "#precioMenu" ).prop( "required", true );
-    $('#precioMenu').mask('000,000,000,000,00000.00', {reverse: true});
+    $('#precioMenu').mask('000,000,000,000,0000000.00', {reverse: true});
   }else {
     $('#divPrecioMenu').fadeOut();
   }

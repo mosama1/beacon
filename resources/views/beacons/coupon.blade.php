@@ -157,7 +157,7 @@
         @endif
       </div>
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioMenu">
-        <input type="number" name="precioMenu" step="0.01" min="0" value=""  id="precioMenu" min="1">
+        <input type="number" name="precioMenu" step="0.01" min="0" value=""  id="precioMenu" min="1.00">
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Ingresar Precio: 0,00</span>
@@ -171,7 +171,7 @@
 
       <div class="button">
         <center>
-          <button type="submit" name="button">
+          <button type="submit" name="button" id="guardar">
             <span>Guardar</span>
           </button>
           <a href="#" class="" onclick="$('#agregarMenu').modal('close'); return false;">
