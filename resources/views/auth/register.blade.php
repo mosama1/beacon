@@ -33,7 +33,7 @@
             </span>
             @endif
           </div>
-          <div class="input {{ $errors->has('name') ? 'error' : '' }}">
+          <!-- <div class="input {{ $errors->has('name') ? 'error' : '' }}">
             <input type="text" name="name" value="{{ old('name') }}" required="">
             <label for="">
               <span class="icon"><img src="img/icons/usuario.png" alt=""></span>
@@ -44,7 +44,7 @@
               <strong>{{ $errors->first('name') }}</strong>
             </span>
             @endif
-          </div>
+          </div> -->
           <div class="input {{ $errors->has('email') ? 'error' : '' }}">
             <input type="email" name="email" value="{{ old('email') }}" required="">
             <label for="">

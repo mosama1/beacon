@@ -1,4 +1,4 @@
-<?php $nivel = '../../../' ?>
+<?php $nivel = '../../' ?>
 
 @extends('layouts.app')
 
@@ -34,23 +34,23 @@
             </span>
           @endif
         </div>
-        <!-- <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
+        <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
           <input type="text" name="description" value="" required="">
-          <label for=""> -->
+          <label for="">
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-            <!-- <span class="text">Descripcion</span> -->
-          <!-- </label>
+            <span class="text">Descripcion</span>
+          </label>
           @if ($errors->has('description'))
             <span class="error_input">
                 <strong>{{ $errors->first('description') }}</strong>
             </span>
           @endif
-        </div> -->
-        <div class="input no_icon {{ $errors->has('start_time') ? 'error' : '' }}">
-          <input type="text" name="start_time" value="" required="" class="timepicker">
+        </div>
+        <div class="input no_icon {{ $errors->has('start_time') ? 'error' : '' }} time">
+          <input type="time" name="start_time" value="" required="" class="input_time">
           <label for="">
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-            <!-- <span class="text">Hora de inicio</span> -->
+            <span class="text">Hora de inicio (hh:mm am/pm)</span>
           </label>
           @if ($errors->has('start_time'))
             <span class="error_input">
@@ -58,11 +58,11 @@
             </span>
           @endif
         </div>
-        <div class="input no_icon {{ $errors->has('end_time') ? 'error' : '' }}">
-          <input type="text" name="end_time" value="" required="" class="timepicker">
+        <div class="input no_icon {{ $errors->has('end_time') ? 'error' : '' }} time">
+          <input type="time" name="end_time" value="" required="" class="input_time">
           <label for="">
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-            <span class="text">Hora de finalizaci&oacute;n</span>
+            <span class="text">Hora de finalizaci&oacute;n (hh:mm am/pm)</span>
           </label>
           @if ($errors->has('end_time'))
             <span class="error_input">
