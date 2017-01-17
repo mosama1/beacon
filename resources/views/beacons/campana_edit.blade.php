@@ -7,7 +7,7 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Editar Campa&ntilde;a
+        Editar Planificación
       </h3>
     </div>
 

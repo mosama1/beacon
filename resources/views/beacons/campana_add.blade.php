@@ -8,7 +8,7 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Agregar Campa&ntilde;a
+        Agregar Planificación
       </h3>
     </div>
 

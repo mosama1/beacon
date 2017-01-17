@@ -337,14 +337,14 @@ $(window).load(function(){
   },1000);
 
 });
-
-
 //agregarprecio
+
+$('#divPrecioMenu').fadeOut();
 $( "#filled-in-box" ).click(function() {
   if ($(this).prop('checked') == true) {
-    $('#precioMenu').fadeIn();
+    $('#divPrecioMenu').fadeIn();
+    // $("#precioMenu").numeric({ decimal : ".",  negative : false, scale: 3 });
   }else {
-    $('#precioMenu').fadeOut();
+    $('#divPrecioMenu').fadeOut();
   }
-  // $( ".bom" ).append(<p>Ingrese el precio</p>);
 });

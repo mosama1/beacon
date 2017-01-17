@@ -156,11 +156,11 @@
           </span>
         @endif
       </div>
-      <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="precioMenu">
-        <input type="text" name="checkbox" value="" required="">
+      <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioMenu">
+        <input type="number" name="precioMenu" step="0.01" min="0" value="" required="">
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-          <span class="text">Ingresar Precio:</span>
+          <span class="text">Ingresar Precio: 0,00</span>
         </label>
       </div>
         <p>
