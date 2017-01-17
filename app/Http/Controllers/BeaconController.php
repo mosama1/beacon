@@ -16,6 +16,7 @@ use Beacon\Beacon;
 use Beacon\Session;
 use Beacon\Menu;
 use Beacon\Plate;
+use Beacon\TypesPlates;
 use Illuminate\Support\Facades\Input;
 use Beacon\User;
 
@@ -627,6 +628,56 @@ class BeaconController extends Controller
 
     	return view('beacons.campana',['campana' => $campana]);
     }
+
+	public function show_tipoPlato()
+	{
+		$tiposplatos = TypesPlates::get();
+
+		return view('menus.tipoPlato',['tiposplatos' => $tiposplatos]);
+	}
+
+    /**
+     * Create a new resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function create_tipoPlato( Request $request )
+    {
+
+        $tipo_plato = new TypesPlates();
+        $tipo_plato->name = $request->name;
+        $tipo_plato->description = $request->description;
+        $tipo_plato->save();
+
+
+        return redirect()->route( 'show_tipoPlato' )
+                        ->with( [ 'status' => 'Se creo el tipo de plato', 'type' => 'success' ] );
+
+    }
+
+    /**
+     * edit a new resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function edit_tipoPlato( Request $request, )
+    {
+
+        $tipo_plato = TypesPlates::where('id', '=', $id)->first();
+
+        return view('beacons.tipoPlato_edit', ['tipo_plato' => $tipo_plato]);
+
+    }
+
+		public function show_tipoPlatoEdit()
+		{
+			// $campana = Campana::where('user_id', '=', Auth::user()->id)->get();
+
+			return view('menus.tipoPlatoEdit');
+		}
+
 
     /**
      * Show the form for creating a new resource.

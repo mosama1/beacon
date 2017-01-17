@@ -589,6 +589,8 @@ body.menu2 .menu_cliente{
 }
 #register.authenticate .divide.dat_ris .divide_cont.files{
   border: none;
+  min-height: 130px;
+  padding: 15px 0;
 }
 .authenticate .divide .divide_cont .input{
   /*background: rgb(26, 20, 122);*/
@@ -709,7 +711,7 @@ body.menu2 .menu_cliente{
 
 
 .authenticate .divide .divide_cont .input_file{
-  width: calc(100% - 170px);
+  width: calc(100% - 200px);
   background: #b3b3b3;
   border-radius: 20px;
   cursor: pointer;
@@ -1932,7 +1934,7 @@ body.menu2 .menu_cliente{
   /*transform: translate(0, -50%) scaleX(1)!important;*/
 }
 .modal_ .titulo{
-  padding: 0;
+  padding: 0 40px;
 }
 .modal_ .titulo h3{
   font-size: 30px;

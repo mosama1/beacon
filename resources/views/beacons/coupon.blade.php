@@ -1,74 +1,7 @@
-<?php $nivel = '../../'?>
+<?php $nivel = '../'?>
 @extends('layouts.app')
 
 @section('content')
-    <!-- <div class="section no-pad-bot" id="index-banner">
-        <div class="container">
-            <br><br>
-
-            <h1 class="header center orange-text">XXXX</h1>
-
-             @if (session('status'))
-	           <span class="help-block">
-	           	 <strong>{{ session('status') }}</strong>
-	           </span>
-	         @endif
-
-			  <a href="#modal1" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
-
-			  <div id="modal1" class="modal">
-			    <div class="modal-content">
-			      <h4>Agregar Coupon</h4>
-
-			    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_coupon') }}">
-		            {{ csrf_field() }}
-
-		             <label for="name" class="col-md-4 control-label">Nombre</label>
-		             <input type="text" name="name" autofocus="autofocus" required>
-
-		             <label for="description" class="col-md-4 control-label">Descripcion</label>
-		             <input type="text" name="description" required>
-
-				    </div>
-				    <div class="modal-footer">
-				     <div class="form-group">
-		                <div class="col-md-6 col-md-offset-4">
-		                    <button type="submit" class="btn btn-primary">
-		                        Guardar
-		                    </button>
-		                </div>
-		            </div>
-				      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
-				    </div>
-
-			    </form>
-			  </div>
-
-			  <table class="bordered centered">
-              <thead>
-                <tr>
-                    <th data-field="id">Nombre</th>
-                    <th data-field="id">Descripccion</th>
-                    <th data-field="name">Visualizar</th>
-                    <th data-field="price">Eliminar</th>
-                </tr>
-              </thead>
-
-              <tbody>
-	              @foreach($coupon as $c)
-	                <tr id='{{$c->id}}'>
-	                  <td>{{$c->name}}</td>
-	                   <td>{{$c->description}}</td>
-					  <td><a href="{{ route('show_menu', $c->id) }}"><i class="material-icons">input</i></a></td>
-				      <td><a href="#" onclick="delete_session({{ $c->id }})"><i class="material-icons">clear</i></a></td>
-	                </tr>
-	              @endforeach
-              </tbody>
-            </table>
-
-        </div>
-    </div> -->
-
 <div class="contenedor">
   <div class="principal">
     <div class="titulo">
@@ -108,7 +41,7 @@
                   <td>{{$c->name}}</td>
                   <td>{{$c->description}}</td>
                   <td><a href="{{ route('show_session', $c->id) }}"><i class="material-icons">input</i></a></td>
-                  <td><a href="#" onclick="delete_session({{ $c->id }})"><i class="material-icons">clear</i></a></td>
+                  <td><a href="#eliminarMenu"><i class="material-icons">clear</i></a></td>
                 </tr>
               @endforeach
             </tbody>
@@ -183,6 +116,30 @@
   </div>
 </div>
 
+<div id="eliminarMenu" class="modal modal_">
+
+  <div class="titulo">
+    <h3>
+      Esta seguro que desea eliminar menu
+    </h3>
+  </div>
+
+  <div class="form">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
+      {{ csrf_field() }}
+      <div class="button">
+        <center>
+          <button type="submit" name="button">
+            <span>Si</span>
+          </button>
+          <a href="#" class="" onclick="$('#eliminarMenu').modal('close'); return false;">
+            <span>No</span>
+          </a>
+        </center>
+      </div>
+    </form>
+  </div>
+</div>
 
 
 @endsection

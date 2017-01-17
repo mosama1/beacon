@@ -63,7 +63,7 @@ use Beacon\User;
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('show_campana')}}">
+                            <a href="{{ route('show_tipoPlato')}}">
                               <span>Los tipos de platos</span>
                               <!-- <span>Campa&ntilde;a</span> -->
                             </a>
