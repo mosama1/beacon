@@ -3,93 +3,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- <div class="section no-pad-bot" id="index-banner">
-        <div class="container">
-            <br><br>
-            <h1 class="header center orange-text">Platos del menu</h1>
-
-             @if (session('status'))
-	           <span class="help-block">
-	           	 <strong>{{ session('status') }}</strong>
-	           </span>
-	         @endif
-
-
-			  <a href="#modal1" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
-
-			  <div id="modal1" class="modal modal-fixed-footer">
-			    <div class="modal-content">
-			      <h4>Agregar Plato</h4>
-
-			    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
-	            {{ csrf_field() }}
-
-			     <label for="name" class="col-md-4 control-label">Nombre</label>
-	             <input type="text" name="name" autofocus="autofocus" required>
-
-			      <p>
-			        <input class="with-gap" name="type" value="vegetariana" type="radio" id="type"  />
-			        <label for="type">Vegetariana</label>
-			    </p>
-			   <p>
-			        <input class="with-gap" name="type" value="sin gluten" type="radio" id="type2"  />
-			        <label for="type2">Sin Gluten</label>
-			    </p>
-			    <p>
-			        <input class="with-gap" name="type" value="bja caloria" type="radio" id="type3"  />
-			        <label for="type3">Baja Caloria</label>
-			    </p>
-			    <p>
-			        <input class="with-gap" name="type" value="picante" type="radio" id="type4"  />
-			        <label for="type4">Picante</label>
-			    </p>
-
-	             <label for="price" class="col-md-4 control-label">Precio</label>
-	             <input type="text" name="price" required>
-
-			    </div>
-			    <div class="modal-footer">
-			      	<div class="form-group">
-		                <div class="col-md-6 col-md-offset-4">
-		                    <button type="submit" class="btn btn-primary">
-		                        Guardar
-		                    </button>
-		                </div>
-		            </div>
-			      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
-			    </div>
-
-			    </form>
-			  </div>
-
-            <table class="bordered centered">
-              <thead>
-                <tr>
-                    <th data-field="id">Nombre</th>
-                    <th data-field="id">Tipo</th>
-                    <th data-field="id">Precio</th>
-                    <th data-field="name">Detalles</th>
-                    <th data-field="price">Eliminar</th>
-                </tr>
-              </thead>
-
-              <tbody>
-	              @foreach($menus as $m)
-	                <tr id='{{$m->id}}'>
-	                  <td>{{$m->name}}</td>
-	                  <td>{{$m->type}}</td>
-	                  <td>{{$m->price}}</td>
-					  <td><a href="{{ route('show_plate', $m->id) }}"><i class="material-icons">input</i></a></td>
-				      <td><a href="#" onclick="delete_session({{ $m->id }})"><i class="material-icons">clear</i></a></td>
-	                </tr>
-	              @endforeach
-              </tbody>
-            </table>
-
-        </div>
-    </div> -->
-
-
 <div class="contenedor">
   <div class="principal">
     <div class="titulo">
@@ -139,9 +52,9 @@
       </div>
     </div>
 
-        <div class="agregar regresar">
+    <div class="agregar regresar">
       <center>
-        <a href="{{ URL::previous() }}" class="waves-effect">
+        <a href="{{ route('show_session', 1) }}" class="waves-effect">
           <div class="">
             <span class="text">Regresar</span>
             <span class="icon"><i class="material-icons">reply</i></span>

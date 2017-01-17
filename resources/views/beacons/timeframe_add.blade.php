@@ -8,7 +8,7 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Agregar Timeframe
+        Agregar Horario
       </h3>
     </div>
 

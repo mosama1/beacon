@@ -1547,6 +1547,9 @@ body.menu2 .menu_cliente{
 .contenedor .principal .form .input input.input_time{
   width: calc(100% + 50px)
 }
+.contenedor .principal .form .input input.input_time.number{
+  width: calc(100%)
+}
 .contenedor .principal .form .input input,
 .modal_ .form .input input{
   box-sizing: border-box;

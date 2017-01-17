@@ -54,7 +54,7 @@
 
     <div class="agregar regresar">
       <center>
-        <a href="{{ URL::previous() }}" class="waves-effect">
+        <a href="{{ route('show_coupon') }}" class="waves-effect">
           <div class="">
             <span class="text">Regresar</span>
             <span class="icon"><i class="material-icons">reply</i></span>
