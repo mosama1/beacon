@@ -136,12 +136,12 @@
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Nombre</span>
         </label>
-        @if ($errors->has('name'))
-          <span class="error_input">
-              <strong>{{ $errors->first('name') }}</strong>
-          </span>
-        @endif
       </div>
+      @if ($errors->has('name'))
+        <div class="input_error">
+            <span>{{ $errors->first('name') }}</span>
+        </div>
+      @endif
 
       <div class="input textarea no_icon {{ $errors->has('description') ? 'error' : '' }}">
         <!-- <input type="text" name="description" value="" required=""> -->
@@ -150,12 +150,12 @@
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Descripcion</span>
         </label>
-        @if ($errors->has('description'))
-          <span class="error_input">
-              <strong>{{ $errors->first('description') }}</strong>
-          </span>
-        @endif
       </div>
+      @if ($errors->has('description'))
+        <div class="input_error">
+            <span>{{ $errors->first('description') }}</span>
+        </div>
+      @endif
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioMenu">
         <input type="number" name="precioMenu" step="0.01" min="0" value=""  id="precioMenu" min="1.00">
         <label for="">

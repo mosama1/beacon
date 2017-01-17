@@ -25,13 +25,12 @@
                 <option value="{{$c->coupon_id}}">{{$c->name}}</option>
             @endforeach
           </select>
-
-          @if ($errors->has('coupon_id'))
-          <span class="error_input">
-            <strong>{{ $errors->first('coupon_id') }}</strong>
-          </span>
-          @endif
         </div>
+        @if ($errors->has('coupon_id'))
+        <div class="input_error">
+          <span>{{ $errors->first('coupon_id') }}</span>
+        </div>
+        @endif
 
         <div class="input select {{ $errors->has('timeframe_id') ? 'error' : '' }}">
           <select id="timeframe_id" class="form-control icons" name="timeframe_id" required>
@@ -41,13 +40,12 @@
                 <option value="{{$t->timeframe_id}}">{{$t->name}}</option>
             @endforeach
           </select>
-
-          @if ($errors->has('timeframe_id'))
-          <span class="error_input">
-            <strong>{{ $errors->first('timeframe_id') }}</strong>
-          </span>
-          @endif
         </div>
+        @if ($errors->has('timeframe_id'))
+        <div class="input_error">
+          <span>{{ $errors->first('timeframe_id') }}</span>
+        </div>
+        @endif
 
         <div class="input select {{ $errors->has('tigger_name_id') ? 'error' : '' }}">
           <select id="tigger_name_id" class="form-control icons" name="tigger_name_id" required>
@@ -63,13 +61,12 @@
               <option value="DWELL_TIME_IMMEDIAT">DWELL_TIME_IMMEDIAT</option>
               <option value="DWELL_TIME_NEA">DWELL_TIME_NEA</option>
           </select>
-
-          @if ($errors->has('tigger_name_id'))
-          <span class="error_input">
-            <strong>{{ $errors->first('tigger_name_id') }}</strong>
-          </span>
-          @endif
         </div>
+        @if ($errors->has('tigger_name_id'))
+        <div class="input_error">
+          <span>{{ $errors->first('tigger_name_id') }}</span>
+        </div>
+        @endif
 
         <div class="button">
           <center>

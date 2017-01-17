@@ -28,12 +28,12 @@
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Name</span>
           </label>
-          @if ($errors->has('name'))
-            <span class="error_input">
-                <strong>{{ $errors->first('name') }}</strong>
-            </span>
-          @endif
         </div>
+        @if ($errors->has('name'))
+          <div class="input_error">
+              <span>{{ $errors->first('name') }}</span>
+          </div>
+        @endif
 
         <div class="input no_icon {{ $errors->has('city') ? 'error' : '' }}">
           <input type="text" name="city" value="" required="">
@@ -41,12 +41,12 @@
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">City</span>
           </label>
-          @if ($errors->has('city'))
-            <span class="error_input">
-                <strong>{{ $errors->first('city') }}</strong>
-            </span>
-          @endif
         </div>
+        @if ($errors->has('city'))
+          <div class="input_error">
+              <span>{{ $errors->first('city') }}</span>
+          </div>
+        @endif
 
         <div class="input no_icon {{ $errors->has('street') ? 'error' : '' }}">
           <input type="text" name="street" value="" required="">
@@ -54,12 +54,12 @@
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Street</span>
           </label>
-          @if ($errors->has('street'))
-            <span class="error_input">
-                <strong>{{ $errors->first('street') }}</strong>
-            </span>
-          @endif
         </div>
+        @if ($errors->has('street'))
+          <div class="input_error">
+              <span>{{ $errors->first('street') }}</span>
+          </div>
+        @endif
 
         <div class="input no_icon {{ $errors->has('street_number') ? 'error' : '' }}">
           <input type="text" name="street_number" value="" required="">
@@ -67,12 +67,12 @@
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Street Number</span>
           </label>
-          @if ($errors->has('street_number'))
-            <span class="error_input">
-                <strong>{{ $errors->first('street_number') }}</strong>
-            </span>
-          @endif
         </div>
+        @if ($errors->has('street_number'))
+          <div class="input_error">
+              <span>{{ $errors->first('street_number') }}</span>
+          </div>
+        @endif
 
         <div class="input no_icon {{ $errors->has('zip') ? 'error' : '' }}">
           <input type="text" name="zip" value="" required="">
@@ -80,36 +80,35 @@
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Zip</span>
           </label>
-          @if ($errors->has('zip'))
-            <span class="error_input">
-                <strong>{{ $errors->first('zip') }}</strong>
-            </span>
-          @endif
         </div>
-        <div class="input no_icon {{ $errors->has('lat') ? 'error' : '' }}">
+        @if ($errors->has('zip'))
+          <div class="input_error">
+              <span>{{ $errors->first('zip') }}</span>
+          </div>
+        @endif
+        <!-- <div class="input no_icon {{ $errors->has('lat') ? 'error' : '' }}">
           <input type="text" name="lat" value="" required="">
           <label for="">
-            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Lat</span>
           </label>
-          @if ($errors->has('lat'))
-            <span class="error_input">
-                <strong>{{ $errors->first('lat') }}</strong>
-            </span>
-          @endif
-        </div>
-        <div class="input no_icon {{ $errors->has('lng') ? 'error' : '' }}">
+        </div>-->
+        <!-- @if ($errors->has('lat'))
+          <div class="input_error">
+              <span>{{ $errors->first('lat') }}</span>
+          </div>
+        @endif -->
+        <!-- <div class="input no_icon {{ $errors->has('lng') ? 'error' : '' }}">
           <input type="text" name="lng" value="" required="">
           <label for="">
-            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
+             <span class="icon"><img src="img/icons/correo.png" alt=""></span>
             <span class="text">Lng</span>
           </label>
-          @if ($errors->has('lng'))
-            <span class="error_input">
-                <strong>{{ $errors->first('lng') }}</strong>
-            </span>
-          @endif
-        </div>
+        </div> -->
+        <!-- @if ($errors->has('lng'))
+          <div class="input_error">
+              <span>{{ $errors->first('lng') }}</span>
+          </div>
+        @endif -->
         <div class="button">
           <center>
             <button type="submit" name="button">
