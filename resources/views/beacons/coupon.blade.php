@@ -96,7 +96,7 @@
             <thead>
               <tr>
                   <th data-field="id">Nombre</th>
-                  <th data-field="id">Descripccion</th>
+                  <th data-field="id">Descripcion</th>
                   <th data-field="name">Visualizar</th>
                   <th data-field="price">Eliminar</th>
               </tr>

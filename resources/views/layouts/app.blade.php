@@ -35,7 +35,7 @@ use Beacon\User;
           <!-- <a id="logo-container" class="brand-logo logo-patrocinante logo" href="{{ Auth::guest() ? url('/') : url('home') }}"> -->
             <a id="logo-container" class="brand-logo logo-patrocinante logo" href="{{ Auth::guest() ? url('/login') : url('home') }}">
               <!-- <img src="img/logo/logo.png" alt=""> -->
-              <h3 style="color: #000; margin: 0; margin-top: 8px;">Logo</h3>
+              <h3 class="titulologo">Logo</h3>
             </a>
 
             <ul class="right">
@@ -136,7 +136,7 @@ use Beacon\User;
                 @else
                 <a id="logo-container" class="brand-logo logo-patrocinante logo logo_right" href="#">
                   <!-- <img src="img/logo/logo.png" alt=""> -->
-                  <h3 style="color: #000; margin: 0; margin-top: 8px; line-height: 1; font-size: 29px;">Logo<br>patrocinante</h3>
+                  <h3 class="logopatrocinantes">Logo<br>patrocinante</h3>
 
                 </a>
 
