@@ -14,7 +14,7 @@
             <input type="text" name="email" value="{{ old('email') }}"  id="email" required="">
             <label for="">
               <span class="icon"><img src="img/icons/usuario.png" alt=""></span>
-              <span class="text">Usuario</span>
+              <span class="text">Correo Electronico</span>
             </label>
             @if ($errors->has('email'))
               <span class="input_error">

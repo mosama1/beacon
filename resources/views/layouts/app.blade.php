@@ -47,6 +47,11 @@ use Beacon\User;
                       </a>
                       <ul class="sub_menu none">
                         <li>
+                          <a href="{{ route('show_coupon') }}">
+                            <span>El Menu</span>
+                          </a>
+                        </li>
+                        <li>
                             <a href="{{ route('show_timeframe')}}">
                                 <span>Horarios</span>
                             </a>
@@ -72,45 +77,21 @@ use Beacon\User;
                             </a>
                         </li>
                     </ul> -->
+                    <li>
+                        <a class="" href="{{ route('user_edit_path', Auth::user()->id) }}">
+                            <span>{{ Auth::user()->name }}</span>
+                        </a>
+
+                    </li>
+
 
                     <li>
-                        <a class="sb_mn" href="#">
-                            {{ Auth::user()->name }} <span class="caret"></span><i class="material-icons right">arrow_drop_down</i>
-                        </a>
-                        <ul class="sub_menu none">
-                          <li>
-                              <a href="{{ route('show_coupon') }}">
-                                  <span>Restaurant</span>
-                              </a>
-                          </li>
-                          @php
-                             $locatiom = Location::where('user_id', '=', Auth::user()->id)->first();
-
-          						    if (!$locatiom):
-          						   @endphp
-          						      <li>
-	                              <a href="{{ route('location_add') }}">
-	                                  <span>Restaurant</span>
-	                              </a>
-	                          </li>
-          						   @php
-          						   	endif;
-          						   @endphp
-
-                          <li>
-                              <a href="{{ route('user_edit_path', Auth::user()->id) }}">
-                                  <span>Perfil</span>
-                              </a>
-                          </li>
-                          <li>
-                            <a href="{{ url('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                <span>Salir</span>
-                            </a>
-                            <form id="logout-form" action="{{ url('logout') }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                            </form>
-                          </li>
-                        </ul>
+                      <a href="{{ url('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                          <span>Salir</span>
+                      </a>
+                      <form id="logout-form" action="{{ url('logout') }}" method="POST" style="display: none;">
+                          {{ csrf_field() }}
+                      </form>
                     </li>
 
 
