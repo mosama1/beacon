@@ -1,3 +1,4 @@
+<?php $nivel = '../' ?>
 @extends('layouts.app')
 
 @section('content')
@@ -13,7 +14,7 @@
       <center>
         <a href="{{ route('location_add') }}" class="waves-effect">
           <div class="">
-            <span class="text">Agregar <br><strong>Ubicacion</strong></span>
+            <span class="text">Agregar <br><strong>Ubicación</strong></span>
             <span class="icon"><i class="material-icons">add</i></span>
           </div>
         </a>
@@ -29,8 +30,8 @@
                   <th data-field="country">Pais</th>
                   <th data-field="city">Ciudad</th>
                   <th data-field="street">Calle</th>
-                  <th data-field="zip">Codigo postal</th>
-                  <th>Ediar</th>
+                  <th data-field="zip">Código postal</th>
+                  <th>Editar</th>
                   <!--<th>Eliminar</th>-->
 
               </tr>

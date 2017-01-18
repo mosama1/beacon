@@ -7,7 +7,7 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Descripcion del Platos
+        Descripción del Platos
       </h3>
     </div>
 
@@ -27,7 +27,7 @@
           <textarea name="description" rows="8" cols="80"></textarea>
           <label for="">
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-            <span class="text">Descripcion</span>
+            <span class="text">Descripción</span>
           </label>
           @if ($errors->has('description'))
           <span class="error_input">

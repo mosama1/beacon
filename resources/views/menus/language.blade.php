@@ -8,15 +8,15 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Tipos de Platos
+        Los Idiomas
       </h3>
     </div>
 
     <div class="agregar">
       <center>
-        <a href="#tipoPlato" class="waves-effect">
+        <a href="#crearIdioma" class="waves-effect">
           <div class="">
-            <span class="text">Agregar <br><strong>Tipos<br>de Platos</strong></span>
+            <span class="text">Agregar <br><strong>Idioma</strong></span>
             <span class="icon"><i class="material-icons">add</i></span>
           </div>
         </a>
@@ -30,29 +30,27 @@
             <thead>
               <tr>
                 <th data-field="id">Nombre</th>
-                <th data-field="tipo">Tipo</th>
                 <th data-field="id">Editar</th>
                 <th data-field="name">Eliminar</th>
               </tr>
             </thead>
 
             <tbody>
-            @foreach ($tiposplatos as $tipoplato)
               <tr>
-                <td>{{$tipoplato->name}}</td>
-                <td>{{$tipoplato->description}}</td>
-                <td><a href="{{ route('edit_tipoPlato', $tipoplato->id) }}"><i class="material-icons">edit</i></a></td>
-
-                <?php
-
-                  echo "<td onclick= \"modal_activate('".
-                     route( "delete_tipoPlato", $tipoplato->id ).
-                    "' , '#eliminarTipoPlato')\" >";
-
-                ?>
-                <a href="#eliminarTipoPlato"><i class="material-icons">clear</i></a></td>
+                <td>Idioma</td>
+                <td><a href="{{ route('show_languageEdit')}}"><i class="material-icons">edit</i></a></td>
+                <td><a href="#eliminarIdioma"><i class="material-icons">clear</i></a></td>
               </tr>
-            @endforeach
+              <tr>
+                <td>Idioma</td>
+                <td><a href="{{ route('show_languageEdit')}}"><i class="material-icons">edit</i></a></td>
+                <td><a href="#eliminarIdioma"><i class="material-icons">clear</i></a></td>
+              </tr>
+              <tr>
+                <td>Idioma</td>
+                <td><a href="{{ route('show_languageEdit')}}"><i class="material-icons">edit</i></a></td>
+                <td><a href="#eliminarIdioma"><i class="material-icons">clear</i></a></td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -60,17 +58,17 @@
     </div>
   </div>
 </div>
-<div id="tipoPlato" class="modal modal_">
+<div id="crearIdioma" class="modal modal_">
   <div class="titulo">
     <h3>
-      Agregar Tipo de Plato
+      Agregar Idioma
     </h3>
   </div>
 
   <div class="form">
     <form class="form-horizontal" role="form" method="POST" action="{{ route('create_tipoPlato') }}">
       {{ csrf_field() }}
-      <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
+      <!-- <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
         <input type="text" name="name" value="" required="">
         <label for="">
           <span class="text">Nombre</span>
@@ -80,24 +78,30 @@
           <strong>{{ $errors->first('name') }}</strong>
         </span>
         @endif
-      </div>
-      <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
-        <input type="text" name="description" value="" required="">
+      </div> -->
+      <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
+        <input type="text" name="name" value="" required="">
         <label for="">
-          <span class="text">Descripcion</span>
+          <span class="text">Idioma</span>
         </label>
-        @if ($errors->has('description'))
+        @if ($errors->has('name'))
         <span class="error_input">
-          <strong>{{ $errors->first('description') }}</strong>
+          <strong>{{ $errors->first('name') }}</strong>
         </span>
         @endif
       </div>
+      <div class="checkbox">
+        <input type="checkbox" class="filled-in" id="filled-in-box" />
+        <label for="filled-in-box">Habilitar</label>
+      </div>
+
+
       <div class="button">
         <center>
           <button type="submit" name="button">
             <span>Guardar</span>
           </button>
-          <a href="#" class="" onclick="$('#tipoPlato').modal('close'); return false;">
+          <a href="#" class="" onclick="$('#crearIdioma').modal('close'); return false;">
             <span>Cancelar</span>
           </a>
         </center>
@@ -105,14 +109,13 @@
     </form>
   </div>
 </div>
-<div id="eliminarTipoPlato" class="modal modal_">
+<div id="eliminarIdioma" class="modal modal_">
 
   <div class="titulo">
     <h3>
-      Está seguro que desea eliminar Tipo de Plato
+      Está seguro que desea eliminar Idioma
     </h3>
   </div>
-
   <div class="form">
     <form class="form-horizontal" role="form" method="POST">
       {{ csrf_field() }}
@@ -122,7 +125,7 @@
           <button type="submit" name="button">
             <span>Si</span>
           </button>
-          <a href="#" class="" onclick="$('#eliminarTipoPlato').modal('close'); return false;">
+          <a href="#" class="" onclick="$('#eliminarIdioma').modal('close'); return false;">
             <span>No</span>
           </a>
         </center>

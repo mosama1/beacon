@@ -60,7 +60,7 @@
             <input type="text" name="phone" value="{{ $user->phone }}" required="">
             <label for="">
               <span class="icon"><img src="img/icons/telefono.png" alt=""></span>
-              <span class="text">Telefono de contacto</span>
+              <span class="text">Teléfono de contacto</span>
             </label>
             @if ($errors->has('phone'))
             <span class="error_input">
@@ -94,7 +94,7 @@
           </div>
         </div>
         <div class="links">
-          <a href="{{ route('list_beacons') }}">Informacion de Beacons</a>
+          <a href="{{ route('list_beacons') }}">Información de Beacons</a>
         </div>
         <div class="button">
           <center>
@@ -227,7 +227,7 @@
         <div class="button">
           <center>
             <button type="submit" name="button">
-              <span>Guardar <br> Ubicacion</span>
+              <span>Guardar <br> Ubicación</span>
             </button>
           </center>
         </div>

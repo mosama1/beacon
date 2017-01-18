@@ -48,7 +48,7 @@ use Beacon\User;
                       <ul class="sub_menu none">
                         <li>
                           <a href="{{ route('show_coupon') }}">
-                            <span>El Menu</span>
+                            <span>El Menú</span>
                           </a>
                         </li>
                         <li>
@@ -64,7 +64,13 @@ use Beacon\User;
                         </li>
                         <li>
                             <a href="{{ route('show_campana')}}">
-                              <span>La Planificacion</span>
+                              <span>La Planificación</span>
+                              <!-- <span>Campa&ntilde;a</span> -->
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('show_language')}}">
+                              <span>Los Idiomas</span>
                               <!-- <span>Campa&ntilde;a</span> -->
                             </a>
                         </li>
@@ -86,7 +92,7 @@ use Beacon\User;
                     </ul> -->
                     <li>
                         <a class="" href="{{ route('user_edit_path', Auth::user()->id) }}">
-                          <span>El Usuario</span>
+                           <span>El Usuario</span>
                             <!-- <span>{{ Auth::user()->name }}</span> -->
                         </a>
 

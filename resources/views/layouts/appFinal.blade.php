@@ -25,7 +25,8 @@
 <body style="background-image: url(../img/fondos/completo.jpg);" class="clienteFinal {{ isset($menu2) ? 'meu2' : '' }}">
   <div class="preload">
     <div class="img">
-      <img src="img/logo/logo1.png" alt="">
+      <!-- <img src="img/logo/logo1.png" alt=""> -->
+      <h2 style="color: #fff;">LOGO</h2>
     </div>
   </div>
     <nav class="menu_cliente" role="navigation">

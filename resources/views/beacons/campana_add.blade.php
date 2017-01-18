@@ -38,7 +38,7 @@
           <input type="text" name="description" value="" required="">
           <label for="">
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-            <span class="text">Descripcion</span>
+            <span class="text">Descripción</span>
           </label>
         </div>
         @if ($errors->has('description'))

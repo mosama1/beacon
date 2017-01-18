@@ -2,15 +2,6 @@ $(document).ready(function() {
   $('select').material_select();
   $('.tooltipped').tooltip({delay: 50});
   $('.materialboxed').materialbox();
-
- //  $('.button-collapse').sideNav({
- //     menuWidth: 100, // Default is 240
- //    //  edge: 'right', // Choose the horizontal origin
- //     closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
- //     draggable: true // Choose whether you can drag to open on touch screens
- //   }
- // );
-
 });
 
 
@@ -38,35 +29,35 @@ function modal_activate(ruta, div) {
 
 }
 
-function delete_location(id){
-    $.ajax({
-        type: "get",
-        url: "beacons/delete",
-        data: {id:id},
-        success: function(respuesta) {
-        	if(respuesta == 1){
-        		$('#'+id).fadeOut(300);
-        	} else {
-        		alert('Error');
-        	}
-        }
-    })
-}
-
-function delete_session(id){
-    $.ajax({
-        type: "get",
-        url: "beacons/session/delete",
-        data: {id:id},
-        success: function(respuesta) {
-        	if(respuesta == 1){
-        		$('#'+id).fadeOut(300);
-        	} else {
-        		alert('Error');
-        	}
-        }
-    })
-}
+// function delete_location(id){
+//     $.ajax({
+//         type: "get",
+//         url: "beacons/delete",
+//         data: {id:id},
+//         success: function(respuesta) {
+//         	if(respuesta == 1){
+//         		$('#'+id).fadeOut(300);
+//         	} else {
+//         		alert('Error');
+//         	}
+//         }
+//     })
+// }
+//
+// function delete_session(id){
+//     $.ajax({
+//         type: "get",
+//         url: "beacons/session/delete",
+//         data: {id:id},
+//         success: function(respuesta) {
+//         	if(respuesta == 1){
+//         		$('#'+id).fadeOut(300);
+//         	} else {
+//         		alert('Error');
+//         	}
+//         }
+//     })
+// }
 
 function vistaLogo(evt) {
     var files = evt.target.files; // FileList object
@@ -207,28 +198,9 @@ $(document).ready(function(){
   // verificarInputVacios();
 });
 
-
-
-// $('.authenticate .divide .divide_cont .input input, .authenticate .divide .divide_cont .input textarea, .contenedor .principal .form .input input, .modal_ .form .input input, .modal_ .form .input textarea').keyup(function(){
-//
-//   var input = $(this).parent();
-//
-//   if ($(this).val() !== '') {
-//     input.addClass('focus');
-//     // $('label', $(this).parent()).addClass('none');
-//   }else {
-//     // $('label', $(this).parent()).removeClass('none');
-//     input.removeClass('focus');
-//
-//   }
-//
-//   console.log(input);
-//
-//   // verificarInputVacios();
-// });
-
 inputVerificar.focusin(function(){
   var input = $(this).parent();
+  input.removeClass('error');
   input.addClass('focus');
   $(this).keyup(function(){
     verificarInputVacios($(this));
@@ -242,6 +214,12 @@ inputVerificar.focusout(function(){
   });
 });
 
+
+
+//Quitar Mensajes de error
+setTimeout(function(){
+  $('.input_error').fadeOut();
+},5000);
 
 
 
@@ -343,15 +321,21 @@ $(window).load(function(){
 });
 //mayorqueceroenelinput
 $('#guardar').click(function(){
-  var numero = $('#precioMenu').val();
-  if (numero <= 0) {
-    alert('El monto debe ser mayor a cero');
-    return false;
+  if ($("#filled-in-box").prop('checked') === true) {
+    var numero = $('#precioMenu').val();
+    if (numero <= 0) {
+      $('#errorPrecioMenu').fadeIn();
+      $('#divPrecioMenu').addClass('error');
+      setTimeout(function(){
+        $('#errorPrecioMenu').fadeOut();
+      },5000);
+      return false;
+    }
   }
 });
 //agregarprecio
 $( "#filled-in-box" ).click(function() {
-  if ($(this).prop('checked') == true) {
+  if ($(this).prop('checked') === true) {
     $('#divPrecioMenu').fadeIn();
     $( "#precioMenu" ).prop( "required", true );
     $('#precioMenu').mask('000,000,000,000,0000000.00', {reverse: true});

@@ -25,9 +25,9 @@
 
 
         <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-          <input type="text" name="name" value="{{$tipo_plato->name}}" required="">
+          <input type="text" name="name" value="" required="">
           <label for="">
-            <span class="text">Nombre</span>
+            <span class="text">Descripción</span>
           </label>
           @if ($errors->has('name'))
             <span class="error_input">
@@ -35,17 +35,9 @@
             </span>
           @endif
         </div>
-
-        <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
-          <input type="text" name="description" value="{{$tipo_plato->description}}" required="">
-          <label for="">
-            <span class="text">Descripción</span>
-          </label>
-          @if ($errors->has('description'))
-            <span class="error_input">
-                <strong>{{ $errors->first('description') }}</strong>
-            </span>
-          @endif
+        <div class="checkbox">
+          <input type="checkbox" class="filled-in" id="filled-in-box" />
+          <label for="filled-in-box">Habilitar</label>
         </div>
 
 

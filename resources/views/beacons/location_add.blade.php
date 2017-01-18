@@ -8,7 +8,7 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Agregar ubicaci&oacute;n
+        Agregar ubicación
       </h3>
     </div>
 

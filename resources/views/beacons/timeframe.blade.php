@@ -8,14 +8,14 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Timeframe
+        Horarios
       </h3>
     </div>
     <div class="agregar">
       <center>
         <a href="{{ route('add_timeframe') }}" class="waves-effect">
           <div class="">
-            <span class="text">Agregar <br><strong>Timeframe</strong></span>
+            <span class="text">Agregar <br><strong>Horario</strong></span>
             <span class="icon"><i class="material-icons">add</i></span>
           </div>
         </a>
@@ -28,9 +28,9 @@
             <thead>
               <tr>
                   <th data-field="id">Nombre</th>
-                  <th data-field="description">Descripcion</th>
+                  <th data-field="description">Descripción</th>
                   <th data-field="city">Hora de inicio</th>
-                  <th data-field="street">Hora de Finalizaci&oacute;n</th>
+                  <th data-field="street">Hora de Finalización</th>
                   <th>Editar</th>
                   <th>Eliminar</th>
               </tr>

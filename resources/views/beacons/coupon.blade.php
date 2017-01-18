@@ -6,7 +6,7 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Menu
+        Menú
       </h3>
     </div>
 
@@ -15,7 +15,7 @@
       <center>
         <a href="#agregarMenu" class="waves-effect">
           <div class="">
-            <span class="text">Agregar <br><strong>Menu</strong></span>
+            <span class="text">Agregar<br><strong>Menú</strong></span>
             <span class="icon"><i class="material-icons">add</i></span>
           </div>
         </a>
@@ -29,7 +29,7 @@
             <thead>
               <tr>
                   <th data-field="id">Nombre</th>
-                  <th data-field="id">Descripcion</th>
+                  <th data-field="id">Descripción</th>
                   <th data-field="name">Visualizar</th>
                   <th data-field="price">Eliminar</th>
               </tr>
@@ -55,7 +55,7 @@
 <div id="agregarMenu" class="modal modal_">
   <div class="titulo">
     <h3>
-      Agregar Menu
+      Agregar Menú
     </h3>
   </div>
 
@@ -81,7 +81,7 @@
         <textarea name="description" rows="8" cols="80" required=""></textarea>
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-          <span class="text">Descripcion</span>
+          <span class="text">Descripción</span>
         </label>
       </div>
       @if ($errors->has('description'))
@@ -95,6 +95,9 @@
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Ingresar Precio: 0,00</span>
         </label>
+      </div>
+      <div class="input_error" id="errorPrecioMenu" style="display: none;">
+          <span>El monto debe ser mayor a cero</span>
       </div>
         <p>
       <input type="checkbox" class="filled-in" id="filled-in-box" />
@@ -120,7 +123,7 @@
 
   <div class="titulo">
     <h3>
-      Esta seguro que desea eliminar menu
+      Esta seguro que desea eliminar menú
     </h3>
   </div>
 

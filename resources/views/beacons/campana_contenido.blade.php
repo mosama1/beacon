@@ -15,12 +15,13 @@
 
       <form class="form-horizontal" role="form" method="POST" action="{{ route('store_campana_content', $campana_id) }}">
         {{ csrf_field() }}
+        <input type="hidden" name="tigger_name_id" value="DWELL_TIME">
 
 
 
         <div class="input select {{ $errors->has('coupon_id') ? 'error' : '' }}">
           <select id="coupon_id" class="form-control icons" name="coupon_id" required>
-            <option value="" disabled selected>Seleccione un Cupon</option>
+            <option value="" disabled selected>Seleccione un Menú</option>
             @foreach($coupon as $c)
                 <option value="{{$c->coupon_id}}">{{$c->name}}</option>
             @endforeach
@@ -34,7 +35,7 @@
 
         <div class="input select {{ $errors->has('timeframe_id') ? 'error' : '' }}">
           <select id="timeframe_id" class="form-control icons" name="timeframe_id" required>
-            <option value="" disabled selected>Seleccione un Timeframe</option>
+            <option value="" disabled selected>Seleccione un Horario</option>
             <option value="ALL">All</option>
             @foreach($timeframes as $t)
                 <option value="{{$t->timeframe_id}}">{{$t->name}}</option>
@@ -47,16 +48,27 @@
         </div>
         @endif
 
-        <div class="input select {{ $errors->has('tigger_name_id') ? 'error' : '' }}">
+        <div class="input no_icon {{ $errors->has('xxxxxx') ? 'error' : '' }}">
+          <input type="number" name="xxxxxx" min="0" value="" class="input_time number">
+          <label for="">
+            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
+            <span class="text">Segundos de espera</span>
+          </label>
+        </div>
+        @if ($errors->has('xxxxxx'))
+        <div class="input_error">
+          <span>{{ $errors->first('xxxxxx') }}</span>
+        </div>
+        @endif
+        <!-- <div class="input select {{ $errors->has('tigger_name_id') ? 'error' : '' }}">
           <select id="tigger_name_id" class="form-control icons" name="tigger_name_id" required>
-            <option value="" disabled selected>Seleccione un Tigger Name</option>
               <option value="ENTRY">ENTRY</option>
               <option value="EXIT">EXIT</option>
               <option value="FAR_NEAR">FAR_NEAR</option>
               <option value="NEAR_IMMEDIAT">NEAR_IMMEDIAT</option>
               <option value="IMMEDIATE_NEAR">IMMEDIATE_NEAR</option>
               <option value="NEAR_FAR">NEAR_FAR</option>
-              <option value="DWELL_TIME">DWELL_TIME</option>
+              <option value="DWELL_TIME" selected>DWELL_TIME</option>
               <option value="DWELL_TIME_FAR">DWELL_TIME_FAR</option>
               <option value="DWELL_TIME_IMMEDIAT">DWELL_TIME_IMMEDIAT</option>
               <option value="DWELL_TIME_NEA">DWELL_TIME_NEA</option>
@@ -66,7 +78,7 @@
         <div class="input_error">
           <span>{{ $errors->first('tigger_name_id') }}</span>
         </div>
-        @endif
+        @endif -->
 
         <div class="button">
           <center>
