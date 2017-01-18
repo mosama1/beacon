@@ -135,6 +135,8 @@
         <input type="text" name="language" value="" required="">
         <label for="">
           <span class="text">Traducción Nombre</span>
+          <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
+          <span class="text">Traduccion Sección</span>
         </label>
         @if ($errors->has('name'))
           <span class="error_input">
