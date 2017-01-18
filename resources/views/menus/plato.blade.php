@@ -28,11 +28,12 @@
           <table class="bordered centered">
             <thead>
               <tr>
-                  <th data-field="id">Nombre</th>
-                  <th data-field="id">Tipo</th>
-                  <th data-field="id">Precio</th>
+                  <th data-field="name">Nombre</th>
+                  <th data-field="type">Tipo</th>
+                  <th data-field="price">Precio</th>
                   <th data-field="name">Detalles</th>
                   <th data-field="price">Eliminar</th>
+                  <th data-field="price">Idioma</th>
               </tr>
             </thead>
 
@@ -44,6 +45,7 @@
                   <td>{{$m->price}}</td>
                   <td><a href="{{ route('show_plate', $m->id) }}"><i class="material-icons">input</i></a></td>
                   <td><a href="#eliminarPlato"><i class="material-icons">clear</i></a></td>
+                  <td><a href="#Idioma"><i class="material-icons">clear</i></a></td>
                 </tr>
               @endforeach
             </tbody>
@@ -62,7 +64,7 @@
         </a>
       </center>
     </div>
- 
+
   </div>
 </div>
 <div id="platosMenu" class="modal modal_">
@@ -76,6 +78,76 @@
     <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
       {{ csrf_field() }}
       <input type="hidden" name="section_id" value="{{$section_id}}" required>
+
+
+
+      <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
+        <input type="text" name="name" value="" required="">
+        <label for="">
+          <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
+          <span class="text">Nombre</span>
+        </label>
+        @if ($errors->has('name'))
+          <span class="error_input">
+              <strong>{{ $errors->first('name') }}</strong>
+          </span>
+        @endif
+      </div>
+
+      <div class="input select {{ $errors->has('type') ? 'error' : '' }}">
+        <!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
+        <select id="type" class="form-control icons" name="type" required>
+          <option value="" disabled selected>Seleccione un Tipo</option>
+
+          <option value="vegetariana">vegetariana</option>
+          <option value="sin gluten">sin gluten</option>
+          <option value="bja caloria">baja caloria</option>
+          <option value="picante">picante</option>
+        </select>
+
+        @if ($errors->has('type'))
+        <span class="error_input">
+          <strong>{{ $errors->first('type') }}</strong>
+        </span>
+        @endif
+      </div>
+
+      <div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}">
+        <input type="text" name="price" value="" required="">
+        <label for="">
+          <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
+          <span class="text">Precio</span>
+        </label>
+        @if ($errors->has('price'))
+          <span class="error_input">
+              <strong>{{ $errors->first('price') }}</strong>
+          </span>
+        @endif
+      </div>
+      <div class="button">
+        <center>
+          <button type="submit" name="button">
+            <span>Guardar</span>
+          </button>
+          <a href="#" class="" onclick="$('#platosMenu').modal('close'); return false;">
+            <span>Cancelar</span>
+          </a>
+        </center>
+      </div>
+    </form>
+  </div>
+</div>
+<div id="Idioma" class="modal modal_">
+  <div class="titulo">
+    <h3>
+      Agregar Plato
+    </h3>
+  </div>
+
+  <div class="form">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
+      {{ csrf_field() }}
+      <input type="hidden" name="session_id" value="{{$session_id}}" required>
 
 
 

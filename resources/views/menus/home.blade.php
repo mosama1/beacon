@@ -32,7 +32,7 @@
                   <th data-field="name">Visualizar</th>
                   <th data-field="price">Editar</th>
                   <th data-field="price">Eliminar</th>
-
+                  <th data-field="price">Idiomas</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,6 +44,7 @@
                 <td><a href="{{ route('show_menu', $s->id) }}"><i class="material-icons">input</i></a></td>
                 <td><a href="#"><i class="material-icons">edit</i></a></td>
                 <td><a href="#eliminarSection"><i class="material-icons">clear</i></a></td>
+                <td><a href="#Idioma"><i class="material-icons">language</i></a></td>
               </tr>
               @endforeach
             </tbody>
@@ -95,6 +96,59 @@
             <span>Guardar</span>
           </button>
           <a href="#" class="" onclick="$('#agregarSection').modal('close'); return false;">
+            <span>Cancelar</span>
+          </a>
+        </center>
+      </div>
+    </form>
+  </div>
+</div>
+<div id="Idioma" class="modal modal_">
+  <div class="titulo">
+    <h3>
+      Agregar Sección
+    </h3>
+  </div>
+
+  <div class="form">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_session') }}">
+      {{ csrf_field() }}
+      <input type="hidden" name="coupon_id" value="{{$coupon_id}}" required="">
+      <div class="input select {{ $errors->has('type') ? 'error' : '' }}">
+        <!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
+        <select id="type" class="form-control icons" name="type" required>
+          <option value="" disabled selected>Seleccione un Idioma</option>
+
+          <option value="vegetariana">vegetariana</option>
+          <option value="sin gluten">sin gluten</option>
+          <option value="bja caloria">baja caloria</option>
+          <option value="picante">picante</option>
+        </select>
+
+        @if ($errors->has('type'))
+        <span class="error_input">
+          <strong>{{ $errors->first('type') }}</strong>
+        </span>
+        @endif
+      </div>
+      <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
+        <input type="text" name="language" value="" required="">
+        <label for="">
+          <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
+          <span class="text">Idioma</span>
+        </label>
+        @if ($errors->has('name'))
+          <span class="error_input">
+              <strong>{{ $errors->first('name') }}</strong>
+          </span>
+        @endif
+      </div>
+      <div class="button">
+        <center>
+          <button type="submit" name="button">
+            <span>Guardar</span>
+          </button>
+          <a href="#" class="" onclick="$('#Idioma').modal('close'); return false;">
             <span>Cancelar</span>
           </a>
         </center>

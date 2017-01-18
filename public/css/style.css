@@ -1507,6 +1507,13 @@ body.menu2 .menu_cliente{
 #divPrecioMenu{
   display: none;
 }
+#divIdiomaMenu{
+  display: none;
+}
+#divIdiomaMenu3{
+  display: none;
+}
+
 .contenedor .principal .form .input,
 .modal_ .form .input{
   /*background: rgb(26, 20, 122);*/
@@ -1523,7 +1530,7 @@ body.menu2 .menu_cliente{
   -o-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out;
 }
-.contenedor .principal .form .input,
+.contenedor .principal .form .checkbox,
 .modal_ .form .checkbox{
   margin-top: 10px;
 }
@@ -2226,7 +2233,7 @@ body.clienteFinal footer{
 
 @media (max-width: 768px) {
   .vista_final .logo {
-    width: 80px;
+    width: auto;
   }
   .vista_final .logo.logo_principal {
     width: auto;
