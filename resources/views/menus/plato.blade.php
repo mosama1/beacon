@@ -1,6 +1,5 @@
 <?php $nivel = '../../'?>
 
-return $url;
 @extends('layouts.app')
 
 @section('content')
@@ -29,9 +28,9 @@ return $url;
           <table class="bordered centered">
             <thead>
               <tr>
-                  <th data-field="id">Nombre</th>
-                  <th data-field="id">Tipo</th>
-                  <th data-field="id">Precio</th>
+                  <th data-field="name">Nombre</th>
+                  <th data-field="type">Tipo</th>
+                  <th data-field="price">Precio</th>
                   <th data-field="name">Detalles</th>
                   <th data-field="price">Eliminar</th>
               </tr>
@@ -63,7 +62,7 @@ return $url;
         </a>
       </center>
     </div>
- 
+
   </div>
 </div>
 <div id="platosMenu" class="modal modal_">
