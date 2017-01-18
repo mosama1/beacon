@@ -1530,6 +1530,7 @@ body.menu2 .menu_cliente{
   -o-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out;
 }
+.contenedor .principal .form .input,
 .modal_ .form .checkbox{
   margin-top: 10px;
 }

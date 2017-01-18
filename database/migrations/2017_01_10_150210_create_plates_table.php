@@ -15,11 +15,26 @@ class CreatePlatesTable extends Migration
     {
         Schema::create('plates', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('menu_id');
-            $table->integer('user_id');
-            $table->string('description');
+
+            $table->integer('menu_id')->unsigned()
+                    ->foreign('menu_id')
+                    ->references('id')->on('menus')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+
+            $table->integer('user_id')->unsigned()
+                    ->foreign('user_id')
+                    ->references('id')->on('users')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+
+            $table->integer('type_plate_id')->unsigned()
+                    ->foreign('type_plate_id')
+                    ->references('id')->on('types_plates')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+
             $table->string('img');
-            $table->timestamps();
         });
     }
 

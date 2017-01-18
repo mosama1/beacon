@@ -130,6 +130,13 @@ Route::get('platos/{id}', 'BeaconController@showPlate')->name('showPlate')->wher
 
 Route::get('platos/{id}/descripcion', 'BeaconController@showDescPlate')->name('showDescPlate')->where('id', '[0-9]+');
 
+//Language
+Route::get('lenguaje', 'LanguageController@all')->name('show_all')->where('id', '[0-9]+');
+Route::get('lenguaje/{id}', 'LanguageController@show')->name('show')->where('id', '[0-9]+');
+Route::post('lenguaje/{id}', 'LanguageController@create')->name('create')->where('id', '[0-9]+');
+Route::put('lenguaje/{id}', 'LanguageController@edit')->name('edit')->where('id', '[0-9]+');
+Route::delete('lenguaje/{id}', 'LanguageController@destroy')->name('delete')->where('id', '[0-9]+');
+
 //End
 
 Route::get('user/{id}', 'UserController@edit')->name('user_edit_path')->where('id', '[0-9]+');
