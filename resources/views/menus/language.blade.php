@@ -38,17 +38,17 @@
             <tbody>
               <tr>
                 <td>Idioma</td>
-                <td><a href="#"><i class="material-icons">edit</i></a></td>
+                <td><a href="{{ route('show_languageEdit')}}"><i class="material-icons">edit</i></a></td>
                 <td><a href="#eliminarIdioma"><i class="material-icons">clear</i></a></td>
               </tr>
               <tr>
                 <td>Idioma</td>
-                <td><a href="#"><i class="material-icons">edit</i></a></td>
+                <td><a href="{{ route('show_languageEdit')}}"><i class="material-icons">edit</i></a></td>
                 <td><a href="#eliminarIdioma"><i class="material-icons">clear</i></a></td>
               </tr>
               <tr>
                 <td>Idioma</td>
-                <td><a href="#"><i class="material-icons">edit</i></a></td>
+                <td><a href="{{ route('show_languageEdit')}}"><i class="material-icons">edit</i></a></td>
                 <td><a href="#eliminarIdioma"><i class="material-icons">clear</i></a></td>
               </tr>
             </tbody>

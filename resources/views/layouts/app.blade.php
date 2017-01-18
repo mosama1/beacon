@@ -92,8 +92,8 @@ use Beacon\User;
                     </ul> -->
                     <li>
                         <a class="" href="{{ route('user_edit_path', Auth::user()->id) }}">
-                          <!-- <span>El Usuario</span> -->
-                            <span>{{ Auth::user()->name }}</span>
+                           <span>El Usuario</span>
+                            <!-- <span>{{ Auth::user()->name }}</span> -->
                         </a>
 
                     </li>

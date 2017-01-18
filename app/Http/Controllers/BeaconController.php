@@ -700,6 +700,10 @@ class BeaconController extends Controller
 		return view('menus.language');
 	}
 
+	public function show_languageEdit()
+	{
+		return view('menus.languageEdit');
+	}
 
     /**
      * Show the form for creating a new resource.
