@@ -112,7 +112,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
 }
 .menu ul li ul.sub_menu{
   width: auto;
-  min-width: 650px;
+  min-width: 760px;
   height: 0px;
   background: rgb(242, 242, 242);
   position: absolute;
