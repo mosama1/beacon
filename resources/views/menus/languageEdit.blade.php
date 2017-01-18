@@ -8,7 +8,7 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Editar Tipo de Plato
+        Editar Idioma
       </h3>
     </div>
 
@@ -25,13 +25,25 @@
 
 
         <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-          <input type="text" name="name" value="" required="">
+          <input type="text" name="name" value="IdiomaDB" required="">
           <label for="">
-            <span class="text">Descripción</span>
+            <span class="text">Idioma</span>
           </label>
           @if ($errors->has('name'))
             <span class="error_input">
                 <strong>{{ $errors->first('name') }}</strong>
+            </span>
+          @endif
+        </div>
+
+        <div class="input no_icon {{ $errors->has('abreb') ? 'error' : '' }}">
+          <input type="text" name="abreb" value="IdiomaDB" required="">
+          <label for="">
+            <span class="text">Abreviatura</span>
+          </label>
+          @if ($errors->has('abreb'))
+            <span class="error_input">
+                <strong>{{ $errors->first('abreb') }}</strong>
             </span>
           @endif
         </div>
