@@ -2,15 +2,6 @@ $(document).ready(function() {
   $('select').material_select();
   $('.tooltipped').tooltip({delay: 50});
   $('.materialboxed').materialbox();
-
- //  $('.button-collapse').sideNav({
- //     menuWidth: 100, // Default is 240
- //    //  edge: 'right', // Choose the horizontal origin
- //     closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
- //     draggable: true // Choose whether you can drag to open on touch screens
- //   }
- // );
-
 });
 
 

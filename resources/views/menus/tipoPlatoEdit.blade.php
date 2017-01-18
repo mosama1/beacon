@@ -25,7 +25,7 @@
 
 
         <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-          <input type="text" name="name" value="nombre DB" required="">
+          <input type="text" name="name" value="{{$tipo_plato->name}}" required="">
           <label for="">
             <span class="text">Nombre</span>
           </label>
@@ -37,7 +37,7 @@
         </div>
 
         <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
-          <input type="text" name="description" value="description DB" required="">
+          <input type="text" name="description" value="{{$tipo_plato->description}}" required="">
           <label for="">
             <span class="text">Descripcion</span>
           </label>
