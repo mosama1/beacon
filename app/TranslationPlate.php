@@ -4,7 +4,7 @@ namespace Beacon;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TypesPlates extends Model
+class TranslationPlate extends Model
 {
 
 	public $timestamps = false;
@@ -15,7 +15,7 @@ class TypesPlates extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-			'name', 'description', 'language_id',
+			'description', 'language_id', 'plate_id',
 	];
     
     public function language()
@@ -23,8 +23,8 @@ class TypesPlates extends Model
         return $this->hasOne(Language::class, 'language_id');
     }
     
-    public function plates()
+    public function plate()
     {
-        return $this->hasMany(Plate::class, 'type_plate_id', 'id');
+        return $this->belongsTo(Plate::class, 'plate_id', 'id');
     }
 }

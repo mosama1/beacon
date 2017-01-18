@@ -42,7 +42,12 @@ class User extends Authenticatable
     
     public function session()
     {
-    	return $this->hasOne(Session::class, 'user_id');
+        return $this->hasOne(Session::class, 'user_id');
+    }
+    
+    public function plate()
+    {
+        return $this->hasOne(Plate::class, 'user_id');
     }
     
 

@@ -14,4 +14,24 @@ class Plate extends Model
 	protected $fillable = [
 			'menu_id', 'user_id', 'description', 'img',
 	];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function menu()
+    {
+        return $this->belongsTo(Menu::class, 'menu_id');
+    }
+
+	public function type_plate()
+	{
+	    return $this->belongsTo(TypesPlates::class, 'type_plate_id', 'id');
+	}
+
+	public function translation_plate()
+	{
+	    return $this->hasOne(TranslationPlate::class, 'plate_id', 'id');
+	}
 }

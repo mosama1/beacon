@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTypesPlatesTable extends Migration
+class CreateTranslationsPlatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateTypesPlatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('types_plates', function (Blueprint $table) {
+        Schema::create('translations_plates', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
             $table->string('description');
 
             $table->integer('language_id')->unsigned()
@@ -23,6 +22,13 @@ class CreateTypesPlatesTable extends Migration
                     ->references('id')->on('languages')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
+
+            $table->integer('plate_id')->unsigned()
+                    ->foreign('plate_id')
+                    ->references('id')->on('plates')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+
         });
     }
 
@@ -33,6 +39,6 @@ class CreateTypesPlatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('types_plates');
+        Schema::dropIfExists('translations_plates');
     }
 }

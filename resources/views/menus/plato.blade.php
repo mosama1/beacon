@@ -1,5 +1,6 @@
 <?php $nivel = '../../'?>
 
+return $url;
 @extends('layouts.app')
 
 @section('content')
@@ -62,7 +63,7 @@
         </a>
       </center>
     </div>
-
+ 
   </div>
 </div>
 <div id="platosMenu" class="modal modal_">
