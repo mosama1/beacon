@@ -1,5 +1,6 @@
 <?php $nivel = '../../'?>
 
+return $url;
 @extends('layouts.app')
 
 @section('content')
@@ -138,10 +139,9 @@
         </div>
       </div>
     </div>
-
-        <div class="agregar regresar">
+     <div class="agregar regresar">
       <center>
-        <a href="{{ URL::previous() }}" class="waves-effect">
+        <a href="{{ Route() }}" class="waves-effect">
           <div class="">
             <span class="text">Regresar</span>
             <span class="icon"><i class="material-icons">reply</i></span>
@@ -149,7 +149,7 @@
         </a>
       </center>
     </div>
-
+ 
   </div>
 </div>
 <div id="platosMenu" class="modal modal_">
