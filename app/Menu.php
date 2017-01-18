@@ -12,6 +12,11 @@ class Menu extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-			'session_id', 'user_id', 'name', 'type', 'price'
+			'section_id', 'user_id', 'name', 'type', 'price'
 	];
+
+	public function menus_translations()
+	{
+	    return $this->hasOne(MenuTranslation::class, 'menu_id', 'id');
+	}
 }

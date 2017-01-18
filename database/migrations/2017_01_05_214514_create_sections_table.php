@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTranslationsPlatesTable extends Migration
+class CreateSectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,22 +13,23 @@ class CreateTranslationsPlatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('translations_plates', function (Blueprint $table) {
+        Schema::create('sections', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('description');
+            $table->string('name');
 
-            $table->integer('language_id')->unsigned()
-                    ->foreign('language_id')
-                    ->references('id')->on('languages')
+            $table->integer('coupon_id')
+                    ->foreign('coupon_id')
+                    ->references('id')->on('coupons')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+            
+            $table->integer('user_id')
+                    ->foreign('user_id')
+                    ->references('id')->on('users')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
 
-            $table->integer('plate_id')->unsigned()
-                    ->foreign('plate_id')
-                    ->references('id')->on('plates')
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
-
+            $table->timestamps();
         });
     }
 
@@ -39,6 +40,6 @@ class CreateTranslationsPlatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('translations_plates');
+        Schema::dropIfExists('sections');
     }
 }

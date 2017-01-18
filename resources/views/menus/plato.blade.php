@@ -1,6 +1,5 @@
 <?php $nivel = '../../'?>
 
-return $url;
 @extends('layouts.app')
 
 @section('content')
@@ -55,7 +54,7 @@ return $url;
 
     <div class="agregar regresar">
       <center>
-        <a href="{{ route('show_session', 1) }}" class="waves-effect">
+        <a href="{{ route('show_section', 1) }}" class="waves-effect">
           <div class="">
             <span class="text">Regresar</span>
             <span class="icon"><i class="material-icons">reply</i></span>
@@ -76,7 +75,7 @@ return $url;
   <div class="form">
     <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
       {{ csrf_field() }}
-      <input type="hidden" name="session_id" value="{{$session_id}}" required>
+      <input type="hidden" name="section_id" value="{{$section_id}}" required>
 
 
 

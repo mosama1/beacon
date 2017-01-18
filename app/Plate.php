@@ -30,8 +30,8 @@ class Plate extends Model
 	    return $this->belongsTo(TypesPlates::class, 'type_plate_id', 'id');
 	}
 
-	public function translation_plate()
+	public function plate_translation()
 	{
-	    return $this->hasOne(TranslationPlate::class, 'plate_id', 'id');
+	    return $this->hasOne(PlateTranslation::class, 'plate_id', 'id');
 	}
 }

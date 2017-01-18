@@ -40,9 +40,9 @@ class User extends Authenticatable
     	return $this->hasOne(Beacon::class, 'user_id');
     }
     
-    public function session()
+    public function section()
     {
-        return $this->hasOne(Session::class, 'user_id');
+        return $this->hasOne(Section::class, 'user_id');
     }
     
     public function plate()

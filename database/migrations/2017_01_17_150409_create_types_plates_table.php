@@ -23,6 +23,8 @@ class CreateTypesPlatesTable extends Migration
                     ->references('id')->on('languages')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
+                    
+            $table->timestamps();
         });
     }
 

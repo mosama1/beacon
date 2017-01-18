@@ -46,11 +46,11 @@
             <li class="opciones">
               <ul class="sub_menu">
               	@php
-              		use Beacon\Session;
+              		use Beacon\Section;
 
-              		$session = Session::all();
+              		$section = Section::all();
               	@endphp
-              	@foreach($session as $s)
+              	@foreach($section as $s)
 	                <li>
 	                  <a href="{{ route('showPlate', $s->id) }}">
 	                    <span>

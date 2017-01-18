@@ -1,6 +1,6 @@
 <?php
 
-use Beacon\Session;
+use Beacon\Section;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,14 +84,14 @@ Route::get('beacons/campana/{id}/contenido', 'BeaconController@show_campana_cont
 
 Route::post('beacons/campana/{id}/contenido/add', 'BeaconController@store_campana_content')->name('store_campana_content');
 
-//Session
+//Section
 Route::get('beacons/menu', 'BeaconController@show_coupon')->name('show_coupon');
 
-Route::get('beacons/{id}/session', 'BeaconController@show_session')->name('show_session');
+Route::get('beacons/{id}/section', 'BeaconController@show_section')->name('show_section');
 
-Route::post('beacons/session/add', 'BeaconController@store_session')->name('store_session');
+Route::post('beacons/section/add', 'BeaconController@store_section')->name('store_section');
 
-Route::get('beacons/session/delete', 'BeaconController@destroy_session')->where('id', '[0-9]+');
+Route::get('beacons/section/delete', 'BeaconController@destroy_section')->where('id', '[0-9]+');
 
 
 //Menu
@@ -131,11 +131,13 @@ Route::get('platos/{id}', 'BeaconController@showPlate')->name('showPlate')->wher
 Route::get('platos/{id}/descripcion', 'BeaconController@showDescPlate')->name('showDescPlate')->where('id', '[0-9]+');
 
 //Language
-Route::get('lenguaje', 'LanguageController@all')->name('show_all')->where('id', '[0-9]+');
-Route::get('lenguaje/{id}', 'LanguageController@show')->name('show')->where('id', '[0-9]+');
-Route::post('lenguaje/{id}', 'LanguageController@create')->name('create')->where('id', '[0-9]+');
-Route::put('lenguaje/{id}', 'LanguageController@edit')->name('edit')->where('id', '[0-9]+');
-Route::delete('lenguaje/{id}', 'LanguageController@destroy')->name('delete')->where('id', '[0-9]+');
+Route::get('idiomas', 'LanguageController@index')->name('index');
+Route::get('idiomas/{id}', 'LanguageController@show')->name('show')->where('id', '[0-9]+');
+Route::get('idiomas/new', 'LanguageController@news')->name('new');
+Route::get('idiomas/{id}/edit', 'LanguageController@edit')->name('edit')->where('id', '[0-9]+');
+Route::post('idiomas', 'LanguageController@create')->name('create');
+Route::put('idiomas/{id}', 'LanguageController@update')->name('update')->where('id', '[0-9]+');
+Route::delete('idiomas/{id}', 'LanguageController@destroy')->name('delete')->where('id', '[0-9]+');
 
 //End
 

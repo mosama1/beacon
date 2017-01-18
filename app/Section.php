@@ -4,7 +4,7 @@ namespace Beacon;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Session extends Model
+class Section extends Model
 {
 	/**
 	 * The attributes that are mass assignable.

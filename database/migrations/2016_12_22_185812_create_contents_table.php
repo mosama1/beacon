@@ -15,12 +15,24 @@ class CreateContentsTable extends Migration
     {
         Schema::create('contents', function (Blueprint $table) {
         	$table->increments('id');
-        	$table->integer('content_id')->unique();
-        	$table->integer('user_id');
         	$table->string('coupon');
         	$table->string('tag');
         	$table->string('timeframes');
         	$table->string('trigger_name');
+
+            $table->integer('content_id')
+                    ->unique()
+                    ->foreign('user_id')
+                    ->references('id')->on('users')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');;
+
+            $table->integer('user_id')
+                    ->foreign('user_id')
+                    ->references('id')->on('users')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+
         	$table->timestamps();
         });
     }
