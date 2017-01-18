@@ -114,6 +114,23 @@
     <form class="form-horizontal" role="form" method="POST" action="{{ route('store_session') }}">
       {{ csrf_field() }}
       <input type="hidden" name="coupon_id" value="{{$coupon_id}}" required="">
+      <div class="input select {{ $errors->has('type') ? 'error' : '' }}">
+        <!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
+        <select id="type" class="form-control icons" name="type" required>
+          <option value="" disabled selected>Seleccione un Idioma</option>
+
+          <option value="vegetariana">vegetariana</option>
+          <option value="sin gluten">sin gluten</option>
+          <option value="bja caloria">baja caloria</option>
+          <option value="picante">picante</option>
+        </select>
+
+        @if ($errors->has('type'))
+        <span class="error_input">
+          <strong>{{ $errors->first('type') }}</strong>
+        </span>
+        @endif
+      </div>
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
         <input type="text" name="language" value="" required="">
         <label for="">

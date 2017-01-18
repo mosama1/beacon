@@ -142,6 +142,23 @@
     <form class="form-horizontal" role="form" method="POST" action="{{ route('store_coupon') }}">
       {{ csrf_field() }}
 
+      <div class="input select {{ $errors->has('type') ? 'error' : '' }}">
+        <!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
+        <select id="type" class="form-control icons" name="type" required>
+          <option value="" disabled selected>Seleccione un Idioma</option>
+
+          <option value="vegetariana">vegetariana</option>
+          <option value="sin gluten">sin gluten</option>
+          <option value="bja caloria">baja caloria</option>
+          <option value="picante">picante</option>
+        </select>
+
+        @if ($errors->has('type'))
+        <span class="error_input">
+          <strong>{{ $errors->first('type') }}</strong>
+        </span>
+        @endif
+      </div>
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
         <input type="text" name="name" value="" required="">
         <label for="">
@@ -174,7 +191,7 @@
           <button type="submit" name="button" id="guardar">
             <span>Guardar</span>
           </button>
-          <a href="#" class="" onclick="$('#agregarMenu').modal('close'); return false;">
+          <a href="#" class="" onclick="$('#idioma').modal('close'); return false;">
             <span>Cancelar</span>
           </a>
         </center>
