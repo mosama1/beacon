@@ -32,6 +32,7 @@
                 <th data-field="id">Nombre</th>
                 <th data-field="tipo">Tipo</th>
                 <th data-field="id">Editar</th>
+                <th data-field="name">Idioma</th>
                 <th data-field="name">Eliminar</th>
               </tr>
             </thead>
@@ -43,6 +44,7 @@
                 <td>{{$tipoplato->description}}</td>
                 <td><a href="{{ route('edit_tipoPlato', $tipoplato->id) }}"><i class="material-icons">edit</i></a></td>
 
+                <td><a href="#Idioma"><i class="material-icons">language</i></a></td>
                 <?php
 
                   echo "<td onclick= \"modal_activate('".
@@ -51,6 +53,7 @@
 
                 ?>
                 <a href="#eliminarTipoPlato"><i class="material-icons">clear</i></a></td>
+
               </tr>
             @endforeach
             </tbody>
@@ -66,7 +69,6 @@
       Agregar Tipo de Plato
     </h3>
   </div>
-
   <div class="form">
     <form class="form-horizontal" role="form" method="POST" action="{{ route('create_tipoPlato') }}">
       {{ csrf_field() }}
@@ -105,6 +107,71 @@
     </form>
   </div>
 </div>
+
+
+<div id="Idioma" class="modal modal_">
+  <div class="titulo">
+    <h3>
+      Idioma tipo de plato
+    </h3>
+  </div>
+
+  <div class="form">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('create_tipoPlato') }}">
+      {{ csrf_field() }}
+      <div class="input select {{ $errors->has('type') ? 'error' : '' }}">
+        <!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
+        <select id="type" class="form-control icons" name="type" required>
+          <option value="" disabled selected>Seleccione un Idioma</option>
+
+          <option value="vegetariana">vegetariana</option>
+          <option value="sin gluten">sin gluten</option>
+          <option value="bja caloria">baja caloria</option>
+          <option value="picante">picante</option>
+        </select>
+
+        @if ($errors->has('type'))
+        <span class="error_input">
+          <strong>{{ $errors->first('type') }}</strong>
+        </span>
+        @endif
+      </div>
+      <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
+        <input type="text" name="name" value="" required="">
+        <label for="">
+          <span class="text">Nombre</span>
+        </label>
+        @if ($errors->has('name'))
+        <span class="error_input">
+          <strong>{{ $errors->first('name') }}</strong>
+        </span>
+        @endif
+      </div>
+      <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
+        <input type="text" name="description" value="" required="">
+        <label for="">
+          <span class="text">Descripcion</span>
+        </label>
+        @if ($errors->has('description'))
+        <span class="error_input">
+          <strong>{{ $errors->first('description') }}</strong>
+        </span>
+        @endif
+      </div>
+      <div class="button">
+        <center>
+          <button type="submit" name="button">
+            <span>Guardar</span>
+          </button>
+          <a href="#" class="" onclick="$('#Idioma').modal('close'); return false;">
+            <span>Cancelar</span>
+          </a>
+        </center>
+      </div>
+    </form>
+  </div>
+</div>
+
 <div id="eliminarTipoPlato" class="modal modal_">
 
   <div class="titulo">

@@ -52,7 +52,7 @@
           <input type="number" name="xxxxxx" min="0" value="" class="input_time number">
           <label for="">
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-            <span class="text">Segundos de espera</span>
+            <span class="text">Minutos de espera</span>
           </label>
         </div>
         @if ($errors->has('xxxxxx'))
