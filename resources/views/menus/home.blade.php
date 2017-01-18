@@ -14,7 +14,7 @@
       <center>
         <a href="#agregarSession" class="waves-effect">
           <div class="">
-            <span class="text">Agregar <br><strong>Seleccion</strong></span>
+            <span class="text">Agregar <br><strong>Selección</strong></span>
             <span class="icon"><i class="material-icons">add</i></span>
           </div>
         </a>
@@ -68,7 +68,7 @@
 <div id="agregarSession" class="modal modal_">
   <div class="titulo">
     <h3>
-      Agregar Session
+      Agregar Sección
     </h3>
   </div>
 
@@ -106,7 +106,7 @@
 
   <div class="titulo">
     <h3>
-      Esta seguro que desea eliminar seccion
+      Esta seguro que desea eliminar sección
     </h3>
   </div>
 

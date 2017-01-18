@@ -7,7 +7,7 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Agregar Contenido de Planificacion
+        Agregar Contenido de Planificación
       </h3>
     </div>
 
@@ -21,7 +21,7 @@
 
         <div class="input select {{ $errors->has('coupon_id') ? 'error' : '' }}">
           <select id="coupon_id" class="form-control icons" name="coupon_id" required>
-            <option value="" disabled selected>Seleccione un Menu</option>
+            <option value="" disabled selected>Seleccione un Menú</option>
             @foreach($coupon as $c)
                 <option value="{{$c->coupon_id}}">{{$c->name}}</option>
             @endforeach

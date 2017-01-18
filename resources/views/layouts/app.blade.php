@@ -48,7 +48,7 @@ use Beacon\User;
                       <ul class="sub_menu none">
                         <li>
                           <a href="{{ route('show_coupon') }}">
-                            <span>El Menu</span>
+                            <span>El Menú</span>
                           </a>
                         </li>
                         <li>
@@ -64,7 +64,7 @@ use Beacon\User;
                         </li>
                         <li>
                             <a href="{{ route('show_campana')}}">
-                              <span>La Planificacion</span>
+                              <span>La Planificación</span>
                               <!-- <span>Campa&ntilde;a</span> -->
                             </a>
                         </li>

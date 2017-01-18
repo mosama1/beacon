@@ -6,7 +6,7 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Editar ubicaci&oacute;n
+        Editar ubicación
       </h3>
     </div>
 

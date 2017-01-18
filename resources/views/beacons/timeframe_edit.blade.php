@@ -38,7 +38,7 @@
           <input type="text" name="description" value="{{$timeframe->description}}" required="">
           <label for="">
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-            <span class="text">Descripcion</span>
+            <span class="text">Descripción</span>
           </label>
         </div>
         @if ($errors->has('description'))
@@ -64,7 +64,7 @@
           <input type="time" name="end_time" value="{{$timeframe->end_time}}" required="">
           <label for="">
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-            <span class="text">Hora de finalizaci&oacute;n</span>
+            <span class="text">Hora de finalización</span>
           </label>
         </div>
         @if ($errors->has('end_time'))

@@ -60,7 +60,7 @@
             <input type="text" name="phone" value="{{ old('phone') }}" required="">
             <label for="">
               <span class="icon"><img src="img/icons/telefono.png" alt=""></span>
-              <span class="text">Telefono de contacto</span>
+              <span class="text">Teléfono de contacto</span>
             </label>
           </div>
           @if ($errors->has('phone'))

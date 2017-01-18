@@ -7,7 +7,7 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Platos del menu
+        Platos del menú
       </h3>
     </div>
 
@@ -15,7 +15,7 @@
       <center>
         <a href="#platosMenu" class="waves-effect">
           <div class="">
-            <span class="text">Agregar <br><strong>Platos<br>Menu</strong></span>
+            <span class="text">Agregar <br><strong>Platos<br>Menú</strong></span>
             <span class="icon"><i class="material-icons">add</i></span>
           </div>
         </a>
@@ -99,7 +99,7 @@
 
           <option value="vegetariana">vegetariana</option>
           <option value="sin gluten">sin gluten</option>
-          <option value="bja caloria">bja caloria</option>
+          <option value="bja caloria">baja caloria</option>
           <option value="picante">picante</option>
         </select>
 

@@ -39,7 +39,7 @@
         <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
           <input type="text" name="description" value="description DB" required="">
           <label for="">
-            <span class="text">Descripcion</span>
+            <span class="text">Descripción</span>
           </label>
           @if ($errors->has('description'))
             <span class="error_input">

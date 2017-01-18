@@ -14,7 +14,7 @@
             <input type="text" name="email" value="{{ old('email') }}"  id="email" required="">
             <label for="">
               <span class="icon"><img src="img/icons/usuario.png" alt=""></span>
-              <span class="text">Correo Electronico</span>
+              <span class="text">Correo Electrónico</span>
             </label>
           </div>
           @if ($errors->has('email'))
@@ -41,12 +41,12 @@
             </div>
             <div class="recover lg_foot">
               <a href="{{ url('/password/reset') }}">
-                olvido su contraseña?
+                Olvidó su contraseña?
               </a>
             </div>
             <div class="regist lg_foot">
               <a href="{{ url('/register') }}">
-                <span>Aun no estas de alta?</span>
+                <span>¿Aún no estas de alta?</span>
                 <span class="_2">Date de alta como cliente.</span>
               </a>
             </div>
@@ -72,7 +72,7 @@
             </div>
             <div class="text">
               <span>
-                Eres Nuevo Usuario?
+                ¿Eres Nuevo Usuario?
               </span>
             </div>
           </div>

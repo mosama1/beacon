@@ -28,7 +28,7 @@
             <thead>
               <tr>
                   <th data-field="id">Nombre</th>
-                  <th data-field="country">Descripci&oacute;n</th>
+                  <th data-field="country">Descripción</th>
                   <th>Habilitar</th>
                   <th>Editar</th>
                   <th>Contenido</th>
@@ -67,7 +67,7 @@
 
   <div class="titulo">
     <h3>
-      Esta seguro que desea eliminar esta planificacion
+      Esta seguro que desea eliminar esta planificación
     </h3>
   </div>
 
