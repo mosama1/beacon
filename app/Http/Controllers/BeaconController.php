@@ -695,6 +695,11 @@ class BeaconController extends Controller
 		return view('menus.tipoPlatoEdit');
 	}
 
+	public function show_language()
+	{
+		return view('menus.language');
+	}
+
 
     /**
      * Show the form for creating a new resource.

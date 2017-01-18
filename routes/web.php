@@ -105,6 +105,8 @@ Route::post('beacons/plate', 'BeaconController@store_plate')->name('store_plate'
 
 Route::post('beacons/{id}/plate', 'BeaconController@update_plate')->name('update_plate')->where('id', '[0-9]+');
 
+Route::get('beacons/language', 'BeaconController@show_language')->name('show_language');
+
 
 //Tipos de Platos
 

@@ -1523,6 +1523,9 @@ body.menu2 .menu_cliente{
   -o-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out;
 }
+.modal_ .form .checkbox{
+  margin-top: 10px;
+}
 .contenedor .principal .form .input.error,
 .modal_ .form .input.error{
   border: solid 1px #ff0000;
@@ -2187,6 +2190,9 @@ body.clienteFinal footer{
 
 @media (max-width: 1200px) {}
 @media (max-width: 992px) {
+  .logopatrocinantes{
+    display: none;
+  }
   .authenticate .divide {
     width: 100%;
     height: auto;
@@ -2222,7 +2228,7 @@ body.clienteFinal footer{
     width: 80px;
   }
   .vista_final .logo.logo_principal {
-    width: 100px;
+    width: auto;
   }
   .vista_final .titulo h3 {
     font-size: 30px;
@@ -2231,6 +2237,13 @@ body.clienteFinal footer{
 
 
 @media (max-width: 600px) {
+  .titulologo {
+    font-size: 30px;
+  }
+  .contenedor {
+    height: calc(100% - 110px);
+  }
+
   .menu_cliente .nav-wrapper {
     height: 60px;
   }
@@ -2325,7 +2338,9 @@ body.clienteFinal footer{
   }
   .authenticate .divide .titulo h5 {
     font-size: 25px;
+    margin-top: 60px;
   }
+
   .authenticate .divide .divide_cont .input input {
     height: 40px;
   }
@@ -2357,7 +2372,7 @@ body.clienteFinal footer{
     top: 50px;
     position: absolute;
     z-index: 10;
-    height: 30px;
+    height: 35px;
     text-align: center;
     border-radius: 0 0 10px 10px;
   }
@@ -2417,8 +2432,9 @@ body.clienteFinal footer{
     height: 40px;
   }
   .contenedor .principal .titulo{
-    padding: 50px 0 10px;
+    padding: 75px 0 10px;
   }
+
 
 
 }
