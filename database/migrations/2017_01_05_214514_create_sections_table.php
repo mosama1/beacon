@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePlatesTable extends Migration
+class CreateSectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,16 @@ class CreatePlatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('plates', function (Blueprint $table) {
+        Schema::create('sections', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('img');
 
-            $table->integer('menu_id')->unsigned()
-                    ->foreign('menu_id')
-                    ->references('id')->on('menus')
+            $table->integer('coupon_id')
+                    ->foreign('coupon_id')
+                    ->references('id')->on('coupons')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
-
-            $table->integer('type_plate_id')->unsigned()
-                    ->foreign('type_plate_id')
-                    ->references('id')->on('types_plates')
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
-
-            $table->integer('user_id')->unsigned()
+            
+            $table->integer('user_id')
                     ->foreign('user_id')
                     ->references('id')->on('users')
                     ->onUpdate('cascade')
@@ -46,6 +39,6 @@ class CreatePlatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plates');
+        Schema::dropIfExists('sections');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBeaconsTable extends Migration
+class CreateMenuTranslationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,25 +13,22 @@ class CreateBeaconsTable extends Migration
      */
     public function up()
     {
-        Schema::create('beacons', function (Blueprint $table) {
-        	$table->increments('id');
+        Schema::create('menu_translations', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('name');
-            $table->integer('major');
-            $table->integer('minor');
 
-        	$table->integer('beacon_id')
-                    ->unique()
-                    ->foreign('beacon_id')
-                    ->references('id')->on('beacons')
+            $table->integer('language_id')->unsigned()
+                    ->foreign('language_id')
+                    ->references('id')->on('languages')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
 
-        	$table->integer('user_id')
-                    ->foreign('user_id')
-                    ->references('id')->on('users')
+            $table->integer('menu_id')->unsigned()
+                    ->foreign('menu_id')
+                    ->references('id')->on('menus')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
-
+                    
             $table->timestamps();
         });
     }
@@ -43,6 +40,6 @@ class CreateBeaconsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('beacons');
+        Schema::dropIfExists('menu_translations');
     }
 }

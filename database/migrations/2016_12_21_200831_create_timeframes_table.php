@@ -15,13 +15,25 @@ class CreateTimeframesTable extends Migration
     {
         Schema::create('timeframes', function (Blueprint $table) {
         	$table->increments('id');
-        	$table->integer('timeframe_id')->unique();
-        	$table->integer('user_id');
         	$table->string('name');
         	$table->string('description');
         	$table->string('start_time');
         	$table->string('end_time');
         	$table->string('days');
+
+            $table->integer('timeframe_id')
+                    ->unique()
+                    ->foreign('timeframe_id')
+                    ->references('id')->on('timeframes')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+
+            $table->integer('user_id')
+                    ->foreign('user_id')
+                    ->references('id')->on('users')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+
         	$table->timestamps();
         });
     }

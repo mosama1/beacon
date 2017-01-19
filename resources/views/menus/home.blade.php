@@ -12,7 +12,7 @@
 
     <div class="agregar">
       <center>
-        <a href="#agregarSession" class="waves-effect">
+        <a href="#agregarSection" class="waves-effect">
           <div class="">
             <span class="text">Agregar <br><strong>Selección</strong></span>
             <span class="icon"><i class="material-icons">add</i></span>
@@ -36,13 +36,14 @@
                 </tr>
             </thead>
             <tbody>
-              @foreach($sessions as $s)
+              @foreach($sections as $s)
               <tr id='{{$s->id}}'>
                 <td><input type="checkbox" id="test{{$s->id}}" /><label for="test{{$s->id}}"></label>
                 </td>
-                <td>{{$s->name}}</td>
+                <td>{{$s->section_translation[0]->name}}</td>
                 <td><a href="{{ route('show_menu', $s->id) }}"><i class="material-icons">input</i></a></td>
                 <td><a href="#"><i class="material-icons">edit</i></a></td>
+                <td><a href="#eliminarSection"><i class="material-icons">clear</i></a></td>
                 <td><a href="#Idioma"><i class="material-icons">language</i></a></td>
                 <td><a href="#eliminarSession"><i class="material-icons">clear</i></a></td>
               </tr>
@@ -66,7 +67,7 @@
 
   </div>
 </div>
-<div id="agregarSession" class="modal modal_">
+<div id="agregarSection" class="modal modal_">
   <div class="titulo">
     <h3>
       Agregar Sección
@@ -74,7 +75,7 @@
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_session') }}">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_section') }}">
       {{ csrf_field() }}
       <input type="hidden" name="coupon_id" value="{{$coupon_id}}" required="">
 
@@ -95,7 +96,7 @@
           <button type="submit" name="button">
             <span>Guardar</span>
           </button>
-          <a href="#" class="" onclick="$('#agregarSession').modal('close'); return false;">
+          <a href="#" class="" onclick="$('#agregarSection').modal('close'); return false;">
             <span>Cancelar</span>
           </a>
         </center>
@@ -111,7 +112,7 @@
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_session') }}">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_section') }}">
       {{ csrf_field() }}
       <input type="hidden" name="coupon_id" value="{{$coupon_id}}" required="">
       <div class="input select {{ $errors->has('type') ? 'error' : '' }}">
@@ -157,7 +158,7 @@
     </form>
   </div>
 </div>
-<div id="eliminarSession" class="modal modal_">
+<div id="eliminarSection" class="modal modal_">
 
   <div class="titulo">
     <h3>
@@ -173,7 +174,7 @@
           <button type="submit" name="button">
             <span>Si</span>
           </button>
-          <a href="#" class="" onclick="$('#eliminarSession').modal('close'); return false;">
+          <a href="#" class="" onclick="$('#eliminarSection').modal('close'); return false;">
             <span>No</span>
           </a>
         </center>

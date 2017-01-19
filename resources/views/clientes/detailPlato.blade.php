@@ -9,7 +9,7 @@ $menu2 = '';
   <div class="principal">
     <div class="titulo">
       <h3>
-        {{$name->name}}
+        {{$name->menu_translation[0]->name}}
       </h3>
       <h4>
         {{$name->price}} €

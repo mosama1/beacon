@@ -18,6 +18,8 @@ class CreateLanguagesTable extends Migration
             $table->string('name');
             $table->string('abbreviation');
             $table->boolean('Enabled')->default(true);
+                    
+            $table->timestamps();
         });
     }
 

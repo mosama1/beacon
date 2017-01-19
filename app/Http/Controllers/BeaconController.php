@@ -13,7 +13,7 @@ use Beacon\Timeframe;
 use Beacon\Campana;
 use Beacon\Content;
 use Beacon\Beacon;
-use Beacon\Session;
+use Beacon\Section;
 use Beacon\Menu;
 use Beacon\Plate;
 use Beacon\TypesPlates;
@@ -224,7 +224,8 @@ class BeaconController extends Controller
     					'floor' => ' ',
     					'timezone' => 'Europe/Madrid',
     					'lat' =>  $request->lat,
-    					'lng' =>  $request->lng
+                        'lng' =>  $request->lng,
+                        'logo' =>  $request->logo
     			]
     	]);
 
@@ -261,8 +262,9 @@ class BeaconController extends Controller
 	    	$loca->street = $locations->location->street;
 	    	$loca->street_number = $locations->location->street_number;
 	    	$loca->timezone = $locations->location->timezone;
-	    	// $loca->lat =  $locations->location->lat;
-	    	// $loca->lng =  $locations->location->lng;
+            $loca->logo = $locations->location->logo;
+            $loca->lat =  0;
+            $loca->lng =  0;
 	    	$loca->save();
 
 /*	    	$tag_ = new Tag;
@@ -275,6 +277,8 @@ class BeaconController extends Controller
 	    	return redirect()->route('user_edit_path', Auth::user()->id);
 
     	else:
+            var_dump($locations);
+        return;
 
 	    	return redirect()->route('location_add')->with(['status' => 'Error al ingresar la localidad', 'type' => 'error']);
 
@@ -460,11 +464,11 @@ class BeaconController extends Controller
 	    	$cou->url = $coupon->coupon->url;
 	    	$cou->save();
 
-	    	return redirect()->route('show_coupon', $request->session_id)->with(['status' => 'El menu se registro con exito', 'type' => 'success']);
+	    	return redirect()->route('show_coupon', $request->section_id)->with(['status' => 'El menu se registro con exito', 'type' => 'success']);
 
     	else:
 
-    		return redirect()->route('show_coupon', $request->session_id)->with(['status' => 'Error al ingresar el coupon', 'type' => 'error']);
+    		return redirect()->route('show_coupon', $request->section_id)->with(['status' => 'Error al ingresar el coupon', 'type' => 'error']);
 
     	endif;
 
@@ -930,24 +934,24 @@ class BeaconController extends Controller
 
     }
 
-    //************************************* Session Menu **************************************************//
+    //************************************* Section Menu **************************************************//
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store_session(Request $request)
+    public function store_section(Request $request)
     {
 
-    	$session = new Session();
-    	$session->user_id = Auth::user()->id;
-    	$session->coupon_id = $request->coupon_id;
-    	$session->name = $request->name;
-    	$session->save();
+    	$section = new Section();
+    	$section->user_id = Auth::user()->id;
+    	$section->coupon_id = $request->coupon_id;
+    	$section->name = $request->name;
+    	$section->save();
 
 
-    	return redirect()->route('show_session', $request->coupon_id)->with(['status' => 'Se ingreso Session de Menu con exito', 'type' => 'success']);
+    	return redirect()->route('show_section', $request->coupon_id)->with(['status' => 'Se ingreso Section de Menu con exito', 'type' => 'success']);
 
     }
 
@@ -957,15 +961,15 @@ class BeaconController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy_session(Request $request)
+    public function destroy_section(Request $request)
     {
 
 
-    	$session =  Session::find($request->id);
+    	$section =  Section::find($request->id);
 
-    	$session->delete();
+    	$section->delete();
 
-	    if($session):
+	    if($section):
 
 	    	return 1;
 
@@ -984,11 +988,11 @@ class BeaconController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show_session($id)
+    public function show_section($id)
     {
-    	$sessions = Session::whereRaw('user_id = ? and coupon_id = ?', array(Auth::user()->id, $id))->get();
+    	$sections = Section::whereRaw('user_id = ? and coupon_id = ?', array(Auth::user()->id, $id))->get();
 
-    	return view('menus.home', ['sessions' => $sessions, 'coupon_id' => $id]);
+    	return view('menus.home', ['sections' => $sections, 'coupon_id' => $id]);
     }
 
     /**
@@ -998,9 +1002,9 @@ class BeaconController extends Controller
      */
     public function show_menu($id)
     {
-    	$menus = Menu::whereRaw('user_id = ? and session_id = ?', array(Auth::user()->id, $id))->get();
+    	$menus = Menu::whereRaw('user_id = ? and section_id = ?', array(Auth::user()->id, $id))->get();
 
-    	return view('menus.plato',['menus' => $menus , 'session_id' => $id]);
+    	return view('menus.plato',['menus' => $menus , 'section_id' => $id]);
 
     }
 
@@ -1014,7 +1018,7 @@ class BeaconController extends Controller
     {
 
     	$menu = new Menu();
-    	$menu->session_id = $request->session_id;
+    	$menu->section_id = $request->section_id;
     	$menu->user_id = Auth::user()->id;
     	$menu->name = $request->name;
     	$menu->type = $request->type;
@@ -1022,7 +1026,7 @@ class BeaconController extends Controller
     	$menu->save();
 
 
-    	return redirect()->route('show_menu', $menu->session_id)->with(['status' => 'Se creo el plato', 'type' => 'success']);
+    	return redirect()->route('show_menu', $menu->section_id)->with(['status' => 'Se creo el plato', 'type' => 'success']);
 
     }
 
@@ -1104,7 +1108,7 @@ class BeaconController extends Controller
      */
     public function showPlate($id)
     {
-    	$plates = Menu::whereRaw('session_id = ? ', array($id))->get();
+    	$plates = Menu::whereRaw('section_id = ? ', array($id))->get();
 
     	return view('clientes.plates', ['plates' => $plates]);
     }
@@ -1119,6 +1123,8 @@ class BeaconController extends Controller
     	$plate = Plate::whereRaw('menu_id = ? ', array($id))->first();
 
     	$plateName = Menu::whereRaw('id = ? ', array($id))->first();
+
+        $plateName->menu_translation;
 
     	return view('clientes.detailPlato', ['plate' => $plate, 'name' => $plateName]);
     }
