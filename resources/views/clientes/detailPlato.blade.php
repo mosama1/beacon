@@ -40,32 +40,4 @@ $menu2 = '';
   </div>
 </div>
 
-
-<!-- <div class="contenedor">
-  <div class="principal">
-    <div class="titulo">
-      <h3>
-        Descripcion del Plato {{$name->name}}
-      </h3>
-    </div>
-
-    <div class="form">
-          {{$plate->description}}
-
-			<img alt="" src="img/platos/{{$plate->img}}">
-
-    </div>
-
-    <div class="agregar regresar">
-      <center>
-        <a href="{{ URL::previous() }}" class="waves-effect">
-          <div class="">
-            <span class="text">Regresar</span>
-            <span class="icon"><i class="material-icons">reply</i></span>
-          </div>
-        </a>
-      </center>
-    </div>
-  </div>
-</div> -->
 @endsection

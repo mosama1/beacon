@@ -31,8 +31,8 @@
                   <th data-field="id">Nombre</th>
                   <th data-field="id">Descripción</th>
                   <th data-field="name">Visualizar</th>
-                  <th data-field="price">Eliminar</th>
                   <th data-field="price">Idioma</th>
+                  <th data-field="price">Eliminar</th>
               </tr>
             </thead>
 
@@ -42,8 +42,8 @@
                   <td>{{$c->name}}</td>
                   <td>{{$c->description}}</td>
                   <td><a href="{{ route('show_session', $c->id) }}"><i class="material-icons">input</i></a></td>
-                  <td><a href="#eliminarMenu"><i class="material-icons">clear</i></a></td>
                   <td><a href="#idioma"><i class="material-icons">language</i></a></td>
+                  <td><a href="#eliminarMenu"><i class="material-icons">clear</i></a></td>
                 </tr>
               @endforeach
             </tbody>

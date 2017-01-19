@@ -323,7 +323,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
   /*background: rgb(135, 255, 0);*/
   padding: 125px 0 20px;
   transform-origin: left;
-  border-radius: 0 20px 20px 20px;
+  border-radius: 0 10px 10px 10px;
   left: -150px;
   opacity: 0;
   transform: scaleX(.5);
@@ -338,7 +338,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
   transform-origin: left;
   right: -150px;
   left: auto;
-  border-radius: 20px 0 20px 20px;
+  border-radius: 15px 0 15px 15px;
 
 }
 .menu_cliente ul li ul.active + a{
@@ -533,7 +533,8 @@ body.menu2 .menu_cliente{
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
-  max-width: 365px;
+  /*max-width: 365px;*/
+  max-width: 400px;
 }
 #recuperar.authenticate .divide .divide_cont{
   top: 0;
@@ -1117,7 +1118,8 @@ body.menu2 .menu_cliente{
 
 .authenticate .divide .divide_cont.new_user .new_user_head{
   height: 50px;
-  width: 355px;
+  /*width: 355px;*/
+  width: 395px;
 
   -webkit-transition: all .5s ease-in-out;
   -moz-transition: all .5s ease-in-out;
@@ -1128,7 +1130,8 @@ body.menu2 .menu_cliente{
 
 .authenticate .divide .divide_cont.new_user.active .new_user_head{
   height: 35px;
-  width: 235px;
+  /*width: 235px;*/
+  width: 270px;
 }
 .authenticate .divide .divide_cont.new_user .new_user_head .icon{
   width: 80px;
@@ -2450,4 +2453,16 @@ body.clienteFinal footer{
 
 
 
+}
+
+
+@media (max-width: 480px) {
+  .menu_cliente ul li.logo {
+    left: calc(50% - 125px);
+    width: 120px;
+  }
+
+  .contenedor.cliente_final .principal .titulo {
+      padding: 30px 0 10px;
+  }
 }
