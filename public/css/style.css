@@ -2268,10 +2268,10 @@ body.clienteFinal footer{
      min-width: auto;
   }
   .menu_cliente ul li ul li a {
-    padding: 10px 20px;
+    padding: 10px 30px;
   }
   .menu_cliente ul li ul li a span {
-    font-size: 17px;
+    font-size: 16px;
   }
   .menu_cliente ul li.logo {
     padding: 5px 0;
@@ -2441,6 +2441,11 @@ body.clienteFinal footer{
   }
   .contenedor .principal .titulo{
     padding: 75px 0 10px;
+  }
+
+
+  body.clienteFinal footer {
+    height: 50px;
   }
 
 
