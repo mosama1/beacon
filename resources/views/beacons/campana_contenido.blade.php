@@ -49,7 +49,7 @@
         @endif
 
         <div class="input no_icon {{ $errors->has('xxxxxx') ? 'error' : '' }}">
-          <input type="number" name="xxxxxx" min="0" value="" class="input_time number">
+          <input type="number" name="xxxxxx" min="0" value="" class="input_time number" required="true">
           <label for="">
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Minutos de espera</span>
