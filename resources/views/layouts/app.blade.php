@@ -53,12 +53,6 @@ use Beacon\User;
                           </a>
                         </li>
                         <li>
-                            <a href="{{ route('show_tipoPlato')}}">
-                              <span>Los tipos de platos</span>
-                              <!-- <span>Campa&ntilde;a</span> -->
-                            </a>
-                        </li>
-                        <li>
                             <a href="{{ route('show_timeframe')}}">
                                 <span>Los Horarios</span>
                             </a>
@@ -70,27 +64,45 @@ use Beacon\User;
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('show_language')}}">
-                              <span>Los Idiomas</span>
-                              <!-- <span>Campa&ntilde;a</span> -->
-                            </a>
+                          <a href="#" class="sb_mn2">
+                            <span>Del Servicio</span>
+                          </a>
+                          <ul class="sub_menu2">
+                            <li>
+                              <a href="{{ route('show_tipoPlato')}}">
+                                <span>Los tipos de platos</span>
+                              </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('show_language')}}">
+                                  <span>Idiomas del menu</span>
+                                </a>
+                            </li>
+                          </ul>
+                        </li>
+
+                        <li>
+                          <a href="#" class="sb_mn2">
+                            <span>Promociones</span>
+                          </a>
+                          <ul class="sub_menu2">
+                            <li>
+                              <a href="#">
+                                <span>Kit de Bienvenida</span>
+                              </a>
+                            </li>
+                            <li>
+                              <a href="#">
+                                <span>Kit de Fidelidad</span>
+                              </a>
+                            </li>
+                          </ul>
                         </li>
                       </ul>
                     </li>
 
 
-                    <!-- <ul id="dropdown2" class="dropdown-content">
-                        <li>
-                            <a href="{{ route('show_timeframe')}}">
-                                Timeframe
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('show_campana')}}">
-                                Campa&ntilde;a
-                            </a>
-                        </li>
-                    </ul> -->
+
                     <li>
                         <a class="" href="{{ route('user_edit_path', Auth::user()->id) }}">
                            <span>El Usuario</span>
@@ -109,26 +121,6 @@ use Beacon\User;
                       </form>
                     </li>
 
-
-                    <!-- <ul id="dropdown1" class="dropdown-content">
-                        <li>
-                            <a href="{{ url('menu') }}" >
-                                Menu
-                            </a>
-                            <a href="{{ route('user_edit_path', Auth::user()->id) }}" >
-                                Perfil
-                            </a>
-                            <a href="{{ url('logout') }}"
-                               onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-                                Salir
-                            </a>
-
-                            <form id="logout-form" action="{{ url('logout') }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                            </form>
-                        </li>
-                    </ul> -->
                 @else
                 <a id="logo-container" class="brand-logo logo-patrocinante logo logo_right" href="#">
                   <!-- <img src="img/logo/logo.png" alt=""> -->
@@ -156,6 +148,51 @@ use Beacon\User;
         </p>
       </div>
     </footer>
+
+    <div class="vistaPrevia none">
+      <div class="cerrar">
+
+      </div>
+      <div class="container">
+        <ul>
+          <li>
+            <div class="vista">
+              <div class="header">
+                <div class="iconMenu">
+                  <img src="img/icons/menu_cliente.png" alt="">
+                </div>
+              </div>
+              <div class="content">
+                <div class="vistaInicio">
+                  <div class="centrar">
+                    <div class="logo">
+                      <img src="img/logo/logo1.png" alt="">
+                    </div>
+                    <div class="titulo">
+                      <h3>Nombre de Locacion</h3>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="vista">
+              <div class="header">
+                <div class="iconMenu">
+                  <img src="img/icons/menu_cliente.png" alt="">
+                </div>
+                <div class="logo">
+                  <img src="img/logo/logo1.png" alt="">
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
 
     <!--  Scripts-->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

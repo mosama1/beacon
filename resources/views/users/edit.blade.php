@@ -115,7 +115,7 @@
         </div>
         <div class="divide_cont">
           <div class="input {{ $errors->has('restaurant') ? 'error' : '' }}">
-            <input type="text" name="name" value="{{$location->name}}" required="">
+            <input type="text" name="name" value="{{$location->name}}" required="" id="nombreEmpresa">
             <label for="">
               <span class="text">Nombre del local</span>
             </label>
@@ -193,9 +193,12 @@
             </div>
             <div class="vista_previa">
               <center  id="vista_previa">
-                <div class="img" id="vista_logo">
-                <img class="thumb" src="{{public_path().$location->logo}}">
-                </div>
+                <a href="#" class="vistaPreviaImg">
+                  <div class="img active" id="vista_logo">
+                    <img class="thumb" src="{{$location->logo}}">
+                  </div>
+                </a>
+
               </center>
             </div>
           </div>

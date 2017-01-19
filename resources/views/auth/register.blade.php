@@ -1,12 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="vistaPrevia">
-  <div class="vista">
-    <img src="img/mockups.png" alt="">
-    <div class="cuadro"></div>
-  </div>
-</div>
 <div class="contenedor">
   <div class="section_ authenticate divide_100" id="register">
     <div class="fondo_mitad fondo_reg_user"></div>

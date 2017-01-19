@@ -57,6 +57,8 @@ Route::get('beacons/delete', 'BeaconController@destroy')->where('id', '[0-9]+');
 
 Route::post('beacons/coupon', 'BeaconController@store_coupon')->name('store_coupon');
 
+Route::get('coupons/{id}/contents', 'BeaconController@show_content')->name('show_content');
+
 //timeframe
 Route::get('beacons/timeframe', 'BeaconController@show_timeframe')->name('show_timeframe');
 

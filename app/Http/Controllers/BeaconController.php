@@ -924,6 +924,7 @@ class BeaconController extends Controller
 	    	$cam_c->trigger_name = $request->tigger_name_id;
 	    	$cam_c->save();
 
+
 	    	return redirect()->route('show_campana')->with(['status' => 'Se ingreso Contenido a Campaña', 'type' => 'success']);;
 
     	else:
@@ -1127,6 +1128,18 @@ class BeaconController extends Controller
         $plateName->menu_translation;
 
     	return view('clientes.detailPlato', ['plate' => $plate, 'name' => $plateName]);
+    }
+
+
+		public function show_content()
+    {
+    	// $plate = Plate::whereRaw('menu_id = ? ', array($id))->first();
+			//
+    	// $plateName = Menu::whereRaw('id = ? ', array($id))->first();
+			//
+      //   $plateName->menu_translation;
+
+    	return view('coupons.detailContent');
     }
 
 

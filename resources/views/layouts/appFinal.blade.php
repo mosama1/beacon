@@ -73,7 +73,7 @@
               <img src="img/logo/logo1.png" alt="">
             </li>
             @endif
-            <li class="idioma">
+            <!-- <li class="idioma">
               <ul class="sub_menu">
                 <li>
                   <a href="#">
@@ -108,7 +108,7 @@
               <a href="#" class="sb_mn">
                 <img src="img/icons/idioma_cliente.png" alt="">
               </a>
-            </li>
+            </li> -->
           </ul>
 
 

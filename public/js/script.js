@@ -4,6 +4,9 @@ $(document).ready(function() {
   $('.materialboxed').materialbox();
 });
 
+$('.sb_mn2').click(function(){
+  return false;
+});
 
 
 
@@ -246,9 +249,11 @@ $(document).ready(function(){
 
 $('.menu ul li a.sb_mn, .menu_cliente ul li a.sb_mn').click(function(){
   var li = $(this).parent();
-  var sub_menu = $('ul', li);
+  var sub_menu = $('ul:not(.sub_menu2)', li);
   var li_sub_menu = $('li', sub_menu);
   var sub_menu_not = $('.menu ul li ul.sub_menu, .menu_cliente ul li ul.sub_menu');
+
+
   if (sub_menu.filter('.active').length <= 0) {
     if (sub_menu_not.filter('.active').length >= 1) {
       // console.log('nd');
@@ -342,4 +347,38 @@ $( "#filled-in-box" ).click(function() {
   }else{
     $('#divPrecioMenu').fadeOut();
   }
+});
+
+
+/*Mostrar vista Previa*/
+
+$('.vistaPreviaImg').click(function(){
+  var img = $('img', this).attr('src');
+  var nombreDefault = 'Nombre de la Empresa';
+  var nombre = $('#nombreEmpresa').val();
+
+
+  $('.vistaPrevia .logo img').attr('src', img);
+  if ($('#nombreEmpresa').val() !== '') {
+    $('.vistaPrevia .titulo h3').html(nombre);
+  }else {
+    $('.vistaPrevia .titulo h3').html(nombreDefault);
+  }
+  $('.vistaPrevia').removeClass('none');
+  setTimeout(function(){
+    $('.vistaPrevia').addClass('active');
+  },10);
+
+  function cerrar() {
+    $('.vistaPrevia').removeClass('active');
+    setTimeout(function(){
+      $('.vistaPrevia').addClass('none');
+    },700);
+  }
+  $('.vistaPrevia .cerrar').click(cerrar);
+
+  $(document).keyup(function(event){
+    if(event.which==27){ cerrar(); }
+  });
+  return false;
 });

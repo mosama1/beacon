@@ -10,7 +10,7 @@
           <h2>LOGO</h2>
         </div>
         <div class="titulo">
-          <h3>Avila Burguer</h3>
+          <h3>Logo de la locacion</h3>
         </div>
         <div class="logo_patrocinador logo">
           <!-- <img src="img/logo/logo.png" alt=""> -->

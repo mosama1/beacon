@@ -23,7 +23,7 @@
 
 
         <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-          <input type="text" name="name" value="" required="">
+          <input type="text" name="name" value="" required="" id="nombreEmpresa">
           <label for="">
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Name</span>
@@ -126,8 +126,11 @@
           </div>
           <div class="vista_previa">
             <center  id="vista_previa">
-              <div class="img" id="vista_logo">
-              </div>
+              <a href="#" class="vistaPreviaImg">
+                <div class="img" id="vista_logo">
+                </div>
+              </a>
+
             </center>
           </div>
         </div>

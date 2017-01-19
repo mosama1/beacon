@@ -46,7 +46,8 @@ textarea.materialize-textarea:focus:not([readonly]) {
 .titulologo{
   color: #000;
   margin: 0;
-  margin-top: 8px;
+  font-size: 2.52rem;
+  /*margin-top: 8px;*/
 }
 .section_{
   width: 100%;
@@ -54,7 +55,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
   position: relative;
 }
 .contenedor{
-  height: calc(100% - 150px);
+  height: calc(100% - 125px);
 }
 .contenedor.cliente_final{
   height: calc(100% - 50px);
@@ -77,7 +78,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
 .menu{
   background: rgb(255, 255, 255);
   color: #333333;
-  height: 90px;
+  height: 65px;
 
 
 }
@@ -112,17 +113,17 @@ textarea.materialize-textarea:focus:not([readonly]) {
 }
 .menu ul li ul.sub_menu{
   width: auto;
-  min-width: 760px;
+  min-width: 710px;
   height: 0px;
   background: rgb(242, 242, 242);
   position: absolute;
-  top: 90px;
+  top: 65px;
   left: 50%;
   text-align: center;
   padding: 0 50px;
   z-index: 100;
 
-  overflow: hidden;
+  /*overflow: hidden;*/
   /*display: none;*/
 
   opacity: 0;
@@ -139,7 +140,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
 }
 .menu ul li ul.sub_menu.active{
   opacity: 1;
-  height: 80px;
+  height: 50px;
 
   transition-delay: 0s;
 
@@ -152,6 +153,8 @@ textarea.materialize-textarea:focus:not([readonly]) {
   display: inline-block;
   position: relative;
   top: -0px;
+  overflow: visible;
+
   /*padding: 0 10px;*/
 
   opacity: 0;
@@ -249,6 +252,44 @@ textarea.materialize-textarea:focus:not([readonly]) {
   position: relative;
   top: calc(50% - 8px)
 }
+.menu ul li ul.sub_menu li ul:hover,
+.menu ul li ul.sub_menu li a.sb_mn2:hover + ul{
+  max-height: 1000px;
+
+}
+.menu ul li ul.sub_menu li ul{
+  position: absolute;
+  width: calc(100% + 30px);
+  left: -15px;
+  max-height: 0;
+  /*max-height: 1000px;*/
+  height: auto;
+
+  overflow: hidden;
+  background: rgb(242, 242, 242);
+
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+}
+.menu ul li ul.sub_menu li ul li{
+  /*background: rgb(64, 149, 246);*/
+  height: auto;
+  width: 100%;
+}
+.menu ul li ul.sub_menu li ul li a{
+  /*min-height: 30px;*/
+  height: auto;
+  padding: 15px 5px;
+}
+.menu ul li ul.sub_menu li ul li a span{
+  font-size: 15px;
+  /*top: calc(50% - 7.5px);*/
+}
+
+
+
 
 /**************************************************/
 /*****************  Menu Cliente  *****************/
@@ -657,7 +698,7 @@ body.menu2 .menu_cliente{
   margin-top: 10px;
 }
 .authenticate .divide.dat_ris .divide_cont .input_file:first-child{
-  margin-top: 0px;
+  margin-top: 20px;
 }
 
 .authenticate .divide .divide_cont.files .input{
@@ -1353,45 +1394,7 @@ body.menu2 .menu_cliente{
   float: left;
 }*/
 
-/*.ver_vistaPrevia{
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.87);
-}
-.ver_vistaPrevia center{
-  width: 100%;
-  height: 100%;
-}
-.ver_vistaPrevia .frame{
-  width: 80%;
-  height: 90%;
-  position: relative;
-  top: 5%;
-}
-.ver_vistaPrevia .frame.logo iframe{
-  width: auto;
-  max-width: 300px;
-  height: auto;
-  position: relative;
-  top: 50%;
-  transform: translate(0, -50%);
-}
 
-.ver_vistaPrevia .frame.fondo iframe{
-  width: 100%;
-  height: auto;
-  position: relative;
-  top: 50%;
-  transform: translate(0, -50%);
-}
-
-
-
-
-*/
 /*******************************************************/
 /******************** Vistas Beacon ********************/
 /*******************************************************/
@@ -2136,11 +2139,126 @@ body.menu2 .contenedor.cliente_final{
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.76);
+  background: rgba(255, 255, 255, 0.9);
   z-index: 1000;
-  display: none;
+  /*display: none;*/
+  opacity: 0;
+
+
+  -webkit-transition: all .7s ease-in-out;
+  -moz-transition: all .7s ease-in-out;
+  -o-transition: all .7s ease-in-out;
+  transition: all .7s ease-in-out;
 }
-.vistaPrevia .vista{
+.vistaPrevia .cerrar{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+}
+.vistaPrevia.active{
+  opacity: 1;
+}
+
+
+
+
+.vistaPrevia .container{
+  height: 100%;
+  position: relative;
+}
+
+.vistaPrevia ul{
+  width: 100%;
+  height: auto;
+  position: relative;
+  top: calc(50% - 50px);
+  transform: translate(0, -50%);
+  overflow: hidden;
+}
+.vistaPrevia ul li{
+  width: 50%;
+  height: auto;
+  float: left;
+  text-align: center;
+
+}
+.vistaPrevia ul li .vista{
+  width: 400px;
+  height: 500px;
+  background-image: url(../img/fondos/completo.jpg);
+
+  display: inline-block;
+}
+.vistaPrevia ul li .vista .header{
+  width: 100%;
+  height: 60px;
+  background: #212121;
+  position: relative;
+}
+.vistaPrevia ul li .vista .header .iconMenu{
+  width: 30px;
+  height: 100%;
+  position: relative;
+  left: 50px;
+}
+.vistaPrevia ul li .vista .header .iconMenu img{
+  width: 30px;
+  position: relative;
+  top: calc(50% - 15px);
+}
+.vistaPrevia ul li .vista .header .logo{
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  top: 0;
+  padding: 5px 0;
+  height: 100%;
+}
+.vistaPrevia ul li .vista .header .logo img{
+  height: 100%;
+}
+.vistaPrevia ul li .vista .content{
+  width: 100%;
+  height: calc(100% - 60px);
+  /*background: rgb(187, 154, 97);*/
+  padding: 60px;
+}
+.vistaPrevia ul li .vista .content .vistaInicio{
+  width: 100%;
+  height: 100%;
+  background: rgb(255, 255, 255);
+  border-radius: 15px;
+  text-align: center;
+  position: relative;
+}
+.vistaPrevia ul li .vista .content .vistaInicio .centrar{
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 100%;
+}
+.vistaPrevia ul li .vista .content .vistaInicio .logo{
+  display: inline-block;
+  width: 90px;
+
+}
+.vistaPrevia ul li .vista .content .vistaInicio .logo img{
+  width: 100%;
+}
+.vistaPrevia ul li .vista .content .vistaInicio .titulo{
+  width: 100%;
+  text-align: center;
+  padding: 0 50px;
+}
+.vistaPrevia ul li .vista .content .vistaInicio .titulo h3{
+  font-size: 30px;
+}
+
+
+/*.vistaPrevia .vista{
   width: 250px;
   height: auto;
   position: absolute;
@@ -2158,7 +2276,7 @@ body.menu2 .contenedor.cliente_final{
   background: rgb(43, 171, 213);
   top: 57px;
   left: 16px;
-}
+}*/
 
 
 
@@ -2432,6 +2550,12 @@ body.clienteFinal footer{
   .menu ul li ul.sub_menu li a{
     padding: 10px 0;
   }
+
+
+
+
+
+
   .contenedor .principal .form, .modal_ .form {
     max-width: 300px;
     margin-top: 30px;
