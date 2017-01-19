@@ -14,7 +14,7 @@
       <center>
         <a href="#agregarSection" class="waves-effect">
           <div class="">
-            <span class="text">Agregar <br><strong>Selección</strong></span>
+            <span class="text">Agregar <br><strong>Seccion</strong></span>
             <span class="icon"><i class="material-icons">add</i></span>
           </div>
         </a>
