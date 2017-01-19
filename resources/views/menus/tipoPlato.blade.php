@@ -139,7 +139,7 @@
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
         <input type="text" name="name" value="" required="">
         <label for="">
-          <span class="text">Nombre</span>
+          <span class="text">Traducción Nombre</span>
         </label>
         @if ($errors->has('name'))
         <span class="error_input">
@@ -150,7 +150,7 @@
       <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
         <input type="text" name="description" value="" required="">
         <label for="">
-          <span class="text">Descripcion</span>
+          <span class="text">Traducción Descripcion</span>
         </label>
         @if ($errors->has('description'))
         <span class="error_input">

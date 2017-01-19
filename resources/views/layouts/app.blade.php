@@ -20,6 +20,7 @@ use Beacon\User;
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   {{--<link href="css/app.css" rel="stylesheet">--}}
+  <link rel="shortcut icon" type="image/png" href="img/icons/ingrementa_clientes.png"/>
 
   <!-- Scripts -->
   <script>
