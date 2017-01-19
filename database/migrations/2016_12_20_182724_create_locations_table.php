@@ -21,6 +21,7 @@ class CreateLocationsTable extends Migration
             $table->string('zip');
             $table->string('street');
             $table->string('street_number');
+            $table->string('logo');
             $table->string('timezone');
             $table->float('lat');
             $table->float('lng');

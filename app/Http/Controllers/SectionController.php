@@ -99,11 +99,16 @@ class SectionController extends Controller
     public function store_section(Request $request)
     {
 
-    	$section = new Section();
-    	$section->user_id = Auth::user()->id;
-    	$section->coupon_id = $request->coupon_id;
-    	$section->name = $request->name;
-    	$section->save();
+        $section = new Section();
+        $section->user_id = Auth::user()->id;
+        $section->coupon_id = $request->coupon_id;
+        $section->save();
+
+        $section_translation = new SectionTranslation();
+        $section_translation->section_id = $section->id;
+        $section_translation->language_id = 1;
+        $section_translation->name = $request->name;
+        $section_translation->save();
 
 
     	return redirect()->route('show_section', $request->coupon_id)->with(['status' => 'Se ingreso Section de Menu con exito', 'type' => 'success']);
