@@ -224,7 +224,8 @@ class BeaconController extends Controller
     					'floor' => ' ',
     					'timezone' => 'Europe/Madrid',
     					'lat' =>  $request->lat,
-    					'lng' =>  $request->lng
+                        'lng' =>  $request->lng,
+                        'logo' =>  $request->logo
     			]
     	]);
 
@@ -261,8 +262,9 @@ class BeaconController extends Controller
 	    	$loca->street = $locations->location->street;
 	    	$loca->street_number = $locations->location->street_number;
 	    	$loca->timezone = $locations->location->timezone;
-	    	// $loca->lat =  $locations->location->lat;
-	    	// $loca->lng =  $locations->location->lng;
+            $loca->logo = $locations->location->logo;
+            $loca->lat =  0;
+            $loca->lng =  0;
 	    	$loca->save();
 
 /*	    	$tag_ = new Tag;
@@ -275,6 +277,8 @@ class BeaconController extends Controller
 	    	return redirect()->route('user_edit_path', Auth::user()->id);
 
     	else:
+            var_dump($locations);
+        return;
 
 	    	return redirect()->route('location_add')->with(['status' => 'Error al ingresar la localidad', 'type' => 'error']);
 
@@ -1119,6 +1123,8 @@ class BeaconController extends Controller
     	$plate = Plate::whereRaw('menu_id = ? ', array($id))->first();
 
     	$plateName = Menu::whereRaw('id = ? ', array($id))->first();
+
+        $plateName->menu_translation;
 
     	return view('clientes.detailPlato', ['plate' => $plate, 'name' => $plateName]);
     }
