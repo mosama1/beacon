@@ -38,18 +38,16 @@
             <tbody>
               @foreach($sections as $s)
               <tr id='{{$s->id}}'>
-                <td><input type="checkbox" id="test{{$s->id}}" /><label for="test{{$s->id}}"></label>
-                </td>
+                <td><input type="checkbox" id="test{{$s->id}}" /><label for="test{{$s->id}}"></label></td>
+                @if( ! empty($s->section_translation[0]) )
                 <td>
-                    @if( ! empty($s->section_translation[0]) )
-                      {{$s->section_translation[0]->name}}
-                    @endif
+                  {{$s->section_translation[0]->name}}
                 </td>
+                @endif
                 <td><a href="{{ route('show_menu', $s->id) }}"><i class="material-icons">input</i></a></td>
                 <td><a href="#"><i class="material-icons">edit</i></a></td>
-                <td><a href="#eliminarSection"><i class="material-icons">clear</i></a></td>
                 <td><a href="#Idioma"><i class="material-icons">language</i></a></td>
-                <td><a href="#eliminarSession"><i class="material-icons">clear</i></a></td>
+                <td><a href="#eliminarSection"><i class="material-icons">clear</i></a></td>
               </tr>
               @endforeach
             </tbody>
@@ -84,7 +82,7 @@
       <input type="hidden" name="coupon_id" value="{{$coupon_id}}" required="">
 
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-        <input type="text" name="name" value="" required="">
+        <input type="text" name="name" value="" required="" autofocus="">
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Nombre</span>
@@ -119,15 +117,14 @@
     <form class="form-horizontal" role="form" method="POST" action="{{ route('store_section') }}">
       {{ csrf_field() }}
       <input type="hidden" name="coupon_id" value="{{$coupon_id}}" required="">
-      <div class="input select {{ $errors->has('type') ? 'error' : '' }}">
+      <div class="input select no_icon {{ $errors->has('type') ? 'error' : '' }}">
         <!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
         <select id="type" class="form-control icons" name="type" required>
           <option value="" disabled selected>Seleccione un Idioma</option>
 
-          <option value="vegetariana">vegetariana</option>
-          <option value="sin gluten">sin gluten</option>
-          <option value="bja caloria">baja caloria</option>
-          <option value="picante">picante</option>
+          <option value="Español">Español</option>
+          <option value="English">English</option>
+          <option value="Frances">Frances</option>
         </select>
 
         @if ($errors->has('type'))

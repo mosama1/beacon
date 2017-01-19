@@ -1743,6 +1743,10 @@ body.menu2 .menu_cliente{
   padding-left: 50px;
   color: #000;
 }
+.contenedor .principal .form .input.select.no_icon input,
+.modal_ .form .input.select.no_icon input{
+  padding-left: 25px;
+}
 .contenedor .principal .form .input.select span.caret,
 .modal_ .form .input.select span.caret{
   right: 15px;

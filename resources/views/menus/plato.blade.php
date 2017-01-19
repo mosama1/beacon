@@ -98,15 +98,16 @@
         @endif
       </div>
 
-      <div class="input select {{ $errors->has('type') ? 'error' : '' }}">
+      <div class="input select no_icon {{ $errors->has('type') ? 'error' : '' }}">
         <!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
         <select id="type" class="form-control icons" name="type" required>
           <option value="" disabled selected>Seleccione un Tipo</option>
-
-          <option value="vegetariana">vegetariana</option>
-          <option value="sin gluten">sin gluten</option>
-          <option value="bja caloria">baja caloria</option>
-          <option value="picante">picante</option>
+          <option value="Bebidas">Bebidas</option>
+          <option value="Postres">Postres</option>
+          <option value="Parrillas">Parrillas</option>
+          <option value="Picante">Picante</option>
+          <option value="Hervidos">Hervidos</option>
+          <option value="Comida">Comida</option>
         </select>
 
         @if ($errors->has('type'))
