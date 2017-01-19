@@ -343,21 +343,3 @@ $( "#filled-in-box" ).click(function() {
     $('#divPrecioMenu').fadeOut();
   }
 });
-//idiomamenu
-$( "#filled-in-boxIdioma" ).click(function() {
-  if ($(this).prop('checked') === true) {
-    $('#divIdiomaMenu').fadeIn();
-  }
-  else{
-    $('#divIdiomaMenu').fadeOut();
-  }
-});
-
-$( "#filled-in-boxIdioma3" ).click(function() {
-  if ($(this).prop('checked') === true) {
-    $('#divIdiomaMenu3').fadeIn();
-  }
-  else{
-    $('#divIdiomaMenu3').fadeOut();
-  }
-});

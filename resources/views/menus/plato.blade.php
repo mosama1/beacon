@@ -113,7 +113,7 @@
       </div>
 
       <div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}">
-        <input type="number" name="price" value="" required="" max="99999">
+        <input type="number" name="price" value="" required=""  max="99999">
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Precio</span>
@@ -169,10 +169,10 @@
       </div>
 
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-        <input type="text" name="name" value="" required="">
+        <input type="text" name="name" value="" required="" >
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-          <span class="text">Nombre</span>
+          <span class="text">Traduccion Plato</span>
         </label>
         @if ($errors->has('name'))
           <span class="error_input">
