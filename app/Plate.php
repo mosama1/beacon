@@ -17,21 +17,21 @@ class Plate extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo('Beacon\User', 'user_id', 'id');
     }
 
     public function menu()
     {
-        return $this->belongsTo(Menu::class, 'menu_id');
+        return $this->belongsTo('Beacon\Menu', 'menu_id', 'id');
     }
 
 	public function type_plate()
 	{
-	    return $this->belongsTo(TypesPlates::class, 'type_plate_id', 'id');
+	    return $this->belongsTo('Beacon\TypesPlates', 'type_plate_id', 'id');
 	}
 
 	public function plate_translation()
 	{
-	    return $this->hasOne(PlateTranslation::class, 'plate_id', 'id');
+	    return $this->hasOne('Beacon\PlateTranslation', 'plate_id', 'id');
 	}
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMenusTranslationsTable extends Migration
+class CreateMenuTranslationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateMenusTranslationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('menus_translations', function (Blueprint $table) {
+        Schema::create('menu_translations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
 
@@ -40,6 +40,6 @@ class CreateMenusTranslationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menus_translations');
+        Schema::dropIfExists('menu_translations');
     }
 }

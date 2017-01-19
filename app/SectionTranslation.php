@@ -4,8 +4,11 @@ namespace Beacon;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MenuTranslation extends Model
+class SectionTranslation extends Model
 {
+
+	protected $table = 'beacon.section_Translations';
+
 
 	public $timestamps = false;
 	
@@ -15,7 +18,7 @@ class MenuTranslation extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-			'description', 'language_id', 'menu_id',
+			'description', 'language_id', 'section_id',
 	];
     
     public function language()
@@ -23,8 +26,8 @@ class MenuTranslation extends Model
         return $this->hasOne('Beacon\Language', 'language_id', 'id');
     }
     
-    public function menu()
+    public function section()
     {
-        return $this->belongsTo('Beacon\Menu', 'menu_id', 'id');
+        return $this->belongsTo('Beacon\Section', 'section_id', 'id');
     }
 }

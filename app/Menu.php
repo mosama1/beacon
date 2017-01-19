@@ -15,8 +15,8 @@ class Menu extends Model
 			'section_id', 'user_id', 'name', 'type', 'price'
 	];
 
-	public function menus_translations()
+	public function menu_translation()
 	{
-	    return $this->hasOne(MenuTranslation::class, 'menu_id', 'id');
+	    return $this->hasMany('Beacon\MenuTranslation', 'menu_id', 'id');
 	}
 }

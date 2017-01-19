@@ -40,7 +40,11 @@
             <tbody>
               @foreach($menus as $m)
                 <tr id='{{$m->id}}'>
-                  <td>{{$m->name}}</td>
+                  <td>
+                    @if( ! empty($m->menu_translation[0]) )
+                      {{$m->menu_translation[0]->name}}
+                    @endif
+                  </td>
                   <td>{{$m->type}}</td>
                   <td>{{$m->price}}</td>
                   <td><a href="{{ route('show_plate', $m->id) }}"><i class="material-icons">input</i></a></td>
@@ -147,7 +151,7 @@
   <div class="form">
     <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
       {{ csrf_field() }}
-      <input type="hidden" name="session_id" value="{{$session_id}}" required>
+      <input type="hidden" name="section_id" value="{{$section_id}}" required>
 
 
 

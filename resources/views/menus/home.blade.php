@@ -40,7 +40,7 @@
               <tr id='{{$s->id}}'>
                 <td><input type="checkbox" id="test{{$s->id}}" /><label for="test{{$s->id}}"></label>
                 </td>
-                <td>{{$s->name}}</td>
+                <td>{{$s->section_translation[0]->name}}</td>
                 <td><a href="{{ route('show_menu', $s->id) }}"><i class="material-icons">input</i></a></td>
                 <td><a href="#"><i class="material-icons">edit</i></a></td>
                 <td><a href="#eliminarSection"><i class="material-icons">clear</i></a></td>
@@ -111,7 +111,7 @@
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_session') }}">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_section') }}">
       {{ csrf_field() }}
       <input type="hidden" name="coupon_id" value="{{$coupon_id}}" required="">
       <div class="input select {{ $errors->has('type') ? 'error' : '' }}">

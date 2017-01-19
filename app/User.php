@@ -31,23 +31,23 @@ class User extends Authenticatable
     
     public function location()
     {
-    	return $this->hasOne(Location::class, 'user_id');
+    	return $this->hasOne('Beacon\Location', 'user_id', 'id');
     }
     
     
     public function beacon()
     {
-    	return $this->hasOne(Beacon::class, 'user_id');
+    	return $this->hasOne('Beacon\Beacon', 'user_id', 'id');
     }
     
     public function section()
     {
-        return $this->hasOne(Section::class, 'user_id');
+        return $this->hasOne('Beacon\Section', 'user_id', 'id');
     }
     
     public function plate()
     {
-        return $this->hasOne(Plate::class, 'user_id');
+        return $this->hasOne('Beacon\Plate', 'user_id', 'id');
     }
     
 

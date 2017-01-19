@@ -20,11 +20,11 @@ class PlateTranslation extends Model
     
     public function language()
     {
-        return $this->hasOne(Language::class, 'language_id');
+        return $this->hasOne('Beacon\Language', 'language_id', 'id');
     }
     
     public function plate()
     {
-        return $this->belongsTo(Plate::class, 'plate_id', 'id');
+        return $this->belongsTo('Beacon\Plate', 'plate_id', 'id');
     }
 }

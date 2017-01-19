@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Section extends Model
 {
+
+	protected $table = 'beacon.sections';
+
 	/**
 	 * The attributes that are mass assignable.
 	 *
@@ -17,6 +20,11 @@ class Section extends Model
 	
 	public function user()
 	{
-		return $this->belongsTo(User::class, 'id');
+		return $this->belongsTo('Beacon\User', 'user_id', 'id');
+	}
+
+	public function section_translation()
+	{
+	    return $this->hasMany('Beacon\SectionTranslation', 'section_id', 'id');
 	}
 }

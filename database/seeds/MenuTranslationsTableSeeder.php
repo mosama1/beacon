@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class MenusTranslationsTableSeeder extends Seeder
+class MenuTranslationsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,13 +11,13 @@ class MenusTranslationsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('menus_translations')->insert([ //,
+        DB::table('menu_translations')->insert([ //,
             'name' => "menú 1",
             'language_id' => 1,
             'menu_id' => 1,
         ]);
 
-        DB::table('menus_translations')->insert([ //,
+        DB::table('menu_translations')->insert([ //,
             'name' => "menú 1",
             'language_id' => 2,
             'menu_id' => 1,

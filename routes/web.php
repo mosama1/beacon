@@ -85,26 +85,29 @@ Route::get('beacons/campana/{id}/contenido', 'BeaconController@show_campana_cont
 Route::post('beacons/campana/{id}/contenido/add', 'BeaconController@store_campana_content')->name('store_campana_content');
 
 //Section
-Route::get('beacons/menu', 'BeaconController@show_coupon')->name('show_coupon');
+Route::get('sections/{id}', 'SectionController@show_section')->name('show_section');
 
-Route::get('beacons/{id}/section', 'BeaconController@show_section')->name('show_section');
+Route::post('sections', 'SectionController@store_section')->name('store_section');
 
-Route::post('beacons/section/add', 'BeaconController@store_section')->name('store_section');
-
-Route::get('beacons/section/delete', 'BeaconController@destroy_section')->where('id', '[0-9]+');
+Route::delete('sections', 'SectionController@destroy_section')->name('destroy_section');
 
 
 //Menu
-Route::get('beacons/{id}/menu', 'BeaconController@show_menu')->name('show_menu')->where('id', '[0-9]+');
+Route::get('bacons/menu', 'BeaconController@show_coupon')->name('show_coupon');
 
-Route::post('beacons/menu', 'BeaconController@store_menu')->name('store_menu')->where('id', '[0-9]+');
+Route::get('menus/{id}', 'MenuController@show_menu')->name('show_menu')->where('id', '[0-9]+');
 
+Route::post('menus', 'MenuController@store_menu')->name('store_menu')->where('id', '[0-9]+');
+
+//Platos
 Route::get('beacons/{id}/plato', 'BeaconController@show_plate')->name('show_plate')->where('id', '[0-9]+');
 
 Route::post('beacons/plate', 'BeaconController@store_plate')->name('store_plate')->where('id', '[0-9]+');
 
 Route::post('beacons/{id}/plate', 'BeaconController@update_plate')->name('update_plate')->where('id', '[0-9]+');
 
+
+//Idiomas
 Route::get('beacons/language', 'BeaconController@show_language')->name('show_language');
 
 Route::get('beacons/languageEdit', 'BeaconController@show_languageEdit')->name('show_languageEdit');
