@@ -43,13 +43,13 @@ Route::post('beacons/add', 'BeaconController@store_beacon')->name('beacon_store_
 Route::get('beacons', 'BeaconController@index')->name('location_beacons');
 
 //Locations
-Route::get('beacons/location', 'BeaconController@create_location')->name('location_add');
+Route::get('beacons/location', 'LocationController@create_location')->name('location_add');
 
-Route::post('beacons/locations', 'BeaconController@store')->name('store_locations');
+Route::post('beacons/locations', 'LocationController@store')->name('store_locations');
 
-Route::get('beacons/location/{id}/edit', 'BeaconController@edit_location')->name('edit_location')->where('id', '[0-9]+');
+Route::get('beacons/location/{id}/edit', 'LocationController@edit_location')->name('edit_location')->where('id', '[0-9]+');
 
-Route::post('beacons/location/{id}/edit', 'BeaconController@update_location')->name('location_update')->where('id', '[0-9]+');
+Route::post('beacons/location/{id}/edit', 'LocationController@update_location')->name('location_update')->where('id', '[0-9]+');
 
 Route::get('beacons/delete', 'BeaconController@destroy')->where('id', '[0-9]+');
 
