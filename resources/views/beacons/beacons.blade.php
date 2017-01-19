@@ -32,7 +32,7 @@
               </thead>
               <tbody>
                 @foreach($beacons as $b)
-                  <tr>o
+                  <tr>
                     <td>{{$b->name}}</td>
                     <td>{{$b->major}}</td>
                     <td>{{$b->minor}}</td>

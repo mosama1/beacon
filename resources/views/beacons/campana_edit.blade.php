@@ -46,10 +46,9 @@
           </div>
         @endif
 
-        <div class="input no_icon time {{ $errors->has('start_time') ? 'error' : '' }}">
+        <!-- <div class="input no_icon time {{ $errors->has('start_time') ? 'error' : '' }}">
           <input type="time" name="start_time" value="{{date('H:i', strtotime($campana->start_time))}}" required="" class="input_time">
           <label for="">
-            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Hora de inicio</span>
           </label>
         </div>
@@ -62,7 +61,6 @@
         <div class="input no_icon time {{ $errors->has('end_time') ? 'error' : '' }}">
           <input type="time" name="end_time" value="{{date('H:i', strtotime($campana->end_time))}}" required="" class="input_time">
           <label for="">
-            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Hora de finalización</span>
           </label>
         </div>
@@ -70,7 +68,7 @@
           <div class="input_error">
               <span>{{ $errors->first('end_time') }}</span>
           </div>
-        @endif
+        @endif -->
 
         <div class="button">
           <center>

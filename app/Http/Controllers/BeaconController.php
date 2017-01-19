@@ -44,7 +44,7 @@ class BeaconController extends Controller
 
 		$token_crud = json_decode($json_c);
 
-        Log::info('This is some useful information.');        
+        Log::info('This is some useful information.');
 
 		return $token_crud->access_token;
 	}
@@ -924,11 +924,11 @@ class BeaconController extends Controller
 	    	$cam_c->trigger_name = $request->tigger_name_id;
 	    	$cam_c->save();
 
-	    	return redirect()->route('show_campana');
+	    	return redirect()->route('show_campana')->with(['status' => 'Se ingreso Contenido a Campaña', 'type' => 'success']);;
 
     	else:
 
-    		return redirect()->route('show_campana_content', $id)->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
+    		return redirect()->route('show_campana_content', $id)->with(['status' => 'Error al ingresar la Contenido a Campaña', 'type' => 'error']);
 
     	endif;
 
@@ -1002,7 +1002,7 @@ class BeaconController extends Controller
      */
     public function show_menu($id)
     {
-    	$menus = Menu::whereRaw('user_id = ? and section_id = ?', array(Auth::user()->id, $id))->get();
+			$menus = Menu::whereRaw('user_id = ? and section_id = ?', array(Auth::user()->id, $id))->get();
 
     	return view('menus.plato',['menus' => $menus , 'section_id' => $id]);
 
