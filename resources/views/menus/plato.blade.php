@@ -49,7 +49,7 @@
                   <td>{{$m->price}}</td>
                   <td><a href="{{ route('show_plate', $m->id) }}"><i class="material-icons">input</i></a></td>
                   <td><a href="#eliminarPlato"><i class="material-icons">clear</i></a></td>
-                  <td><a href="#Idioma"><i class="material-icons">clear</i></a></td>
+                  <td><a href="#Idioma"><i class="material-icons">language</i></a></td>
                 </tr>
               @endforeach
             </tbody>
@@ -117,7 +117,7 @@
       </div>
 
       <div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}">
-        <input type="text" name="price" value="" required="">
+        <input type="number" name="price" value="" required=""  max="99999">
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Precio</span>
@@ -154,24 +154,10 @@
       <input type="hidden" name="section_id" value="{{$section_id}}" required>
 
 
-
-      <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-        <input type="text" name="name" value="" required="">
-        <label for="">
-          <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-          <span class="text">Nombre</span>
-        </label>
-        @if ($errors->has('name'))
-          <span class="error_input">
-              <strong>{{ $errors->first('name') }}</strong>
-          </span>
-        @endif
-      </div>
-
       <div class="input select {{ $errors->has('type') ? 'error' : '' }}">
         <!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
         <select id="type" class="form-control icons" name="type" required>
-          <option value="" disabled selected>Seleccione un Tipo</option>
+          <option value="" disabled selected>Seleccione un Idioma</option>
 
           <option value="vegetariana">vegetariana</option>
           <option value="sin gluten">sin gluten</option>
@@ -186,10 +172,23 @@
         @endif
       </div>
 
-      <div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}">
-        <input type="text" name="price" value="" required="">
+      <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
+        <input type="text" name="name" value="" required="" >
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
+          <span class="text">Traduccion Plato</span>
+        </label>
+        @if ($errors->has('name'))
+          <span class="error_input">
+              <strong>{{ $errors->first('name') }}</strong>
+          </span>
+        @endif
+      </div>
+
+
+      <!-- <div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}">
+        <input type="text" name="price" value="" required="">
+        <label for="">
           <span class="text">Precio</span>
         </label>
         @if ($errors->has('price'))
@@ -197,13 +196,13 @@
               <strong>{{ $errors->first('price') }}</strong>
           </span>
         @endif
-      </div>
+      </div> -->
       <div class="button">
         <center>
           <button type="submit" name="button">
             <span>Guardar</span>
           </button>
-          <a href="#" class="" onclick="$('#platosMenu').modal('close'); return false;">
+          <a href="#" class="" onclick="$('#Idioma').modal('close'); return false;">
             <span>Cancelar</span>
           </a>
         </center>
@@ -212,15 +211,13 @@
   </div>
 </div>
 <div id="eliminarPlato" class="modal modal_">
-
   <div class="titulo">
     <h3>
       Esta seguro que desea eliminar Plato
     </h3>
   </div>
-
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
+    <form class="form-horizontal" role="form" method="POST">
       {{ csrf_field() }}
       <div class="button">
         <center>

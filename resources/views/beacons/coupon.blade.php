@@ -32,7 +32,7 @@
                   <th data-field="id">Descripción</th>
                   <th data-field="name">Visualizar</th>
                   <th data-field="price">Eliminar</th>
-                  <th data-field="price">Traducciones</th>
+                  <th data-field="price">Idioma</th>
               </tr>
             </thead>
 
@@ -98,23 +98,12 @@
           <span class="text">Ingresar Precio: 0,00</span>
         </label>
       </div>
-      <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divIdiomaMenu">
-        <input type="number" name="idiomaMenu" step="0.01" min="0" value=""  id="idiomaMenu">
-        <label for="">
-          <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-          <span class="text">Ingresar Idioma</span>
-        </label>
-      </div>
       <div class="input_error" id="errorPrecioMenu" style="display: none;">
           <span>El monto debe ser mayor a cero</span>
       </div>
         <p>
       <input type="checkbox" class="filled-in" id="filled-in-box" />
       <label for="filled-in-box">Manejar Precio</label>
-        </p>
-        <p>
-      <input type="checkbox" class="filled-in" id="filled-in-boxIdioma" />
-      <label for="filled-in-boxIdioma">Manejar Idioma</label>
         </p>
       <!-- <label><input type="checkbox" id="cbox1" value="first_checkbox"> Este es mi primer checkbox</label><br> -->
 
@@ -163,7 +152,7 @@
         <input type="text" name="name" value="" required="">
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-          <span class="text">Idioma</span>
+          <span class="text">Traducción Nombre</span>
         </label>
       </div>
       @if ($errors->has('name'))
@@ -177,7 +166,7 @@
         <textarea name="description" rows="8" cols="80" required=""></textarea>
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-          <span class="text">Descripción</span>
+          <span class="text">Traducción Descripción</span>
         </label>
       </div>
       @if ($errors->has('description'))
