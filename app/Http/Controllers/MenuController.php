@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 //use Beacon\Beacon;
 //use Beacon\Section;
 use Beacon\Menu;
+use Beacon\MenuTranslation;
 //use Beacon\Plate;
 //use Beacon\TypesPlates;
 use Illuminate\Support\Facades\Input;
@@ -119,10 +120,15 @@ class MenuController extends Controller
     	$menu = new Menu();
     	$menu->section_id = $request->section_id;
     	$menu->user_id = Auth::user()->id;
-    	$menu->name = $request->name;
     	$menu->type = $request->type;
     	$menu->price = $request->price;
     	$menu->save();
+
+    	$menu_translation = new MenuTranslation();
+    	$menu_translation->menu_id = $menu->id;
+    	$menu_translation->language_id = 1;
+    	$menu_translation->name = $request->name;
+    	$menu_translation->save();
 
 
     	return redirect()->route('show_menu', $menu->section_id)->with(['status' => 'Se creo el plato', 'type' => 'success']);
