@@ -106,7 +106,7 @@
       </div>
     </form>
 
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('location_update', $location->location_id) }}">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('location_update', $location->location_id) }}"  enctype="multipart/form-data">
       {{ csrf_field() }}
 
       <div class="divide dat_ris">
@@ -183,7 +183,7 @@
                 <input type="file" name="logo" id="addLogo">
               </div>
               <div class="file-path-wrapper">
-                <input class="file-path validate" type="text">
+                <input class="file-path validate" type="text" >
               </div>
               @if ($errors->has('logo'))
               <span class="error_input">
@@ -194,6 +194,7 @@
             <div class="vista_previa">
               <center  id="vista_previa">
                 <div class="img" id="vista_logo">
+                <img class="thumb" src="{{public_path().$location->logo}}">
                 </div>
               </center>
             </div>

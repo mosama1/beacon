@@ -46,15 +46,19 @@
             <li class="opciones">
               <ul class="sub_menu">
               	@php
-              		use Beacon\Section;
+                  use Beacon\Section;
+                  use Beacon\SectionTranslation;
 
-              		$section = Section::all();
+              		$sections = Section::all();
               	@endphp
-              	@foreach($section as $s)
+              	@foreach($sections as $s)
+                  <?php  $s->section_translation; ?>
 	                <li>
 	                  <a href="{{ route('showPlate', $s->id) }}">
 	                    <span>
-	                      {{$s->name}}
+                        @if( ! empty($s->section_translation[0]) )
+                          {{$s->section_translation[0]->name}}
+                        @endif
 	                    </span>
 	                  </a>
 	                </li>
