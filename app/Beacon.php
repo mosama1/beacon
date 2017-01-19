@@ -17,6 +17,6 @@ class Beacon extends Model
 	
 	public function user()
 	{
-		return $this->belongsTo(User::class, 'id');
+		return $this->belongsTo('Beacon\User', 'user_id', 'id');
 	}
 }

@@ -20,12 +20,36 @@ class LanguageController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show($id)
+	public function index()
+	{
+		$language = Language::all();
+
+			return  $language;
+
+	}
+
+	/**
+	 * Display a specific resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show( $id )
 	{
 		$language = Language::findOrFail($id);
 
 			return  $language;
 
+	}
+
+	/**
+	 * Displays the view to create a new resource.
+	 *
+	 * @param  integer $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function news()
+	{
+		return "vista para crear el idioma";
 	}
 
 	/**
@@ -49,26 +73,6 @@ class LanguageController extends Controller
 	}
 
 	/**
-	 * Stores a newly created resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function store( Request $request )
-	{
-
-		$language = new Language();
-		$language->name = $request->name;
-		$language->abbreviation = $request->abbreviation;
-		$language->save();
-
-
-		return redirect()->route( 'show_language' , $request->language_id )
-						->with( [ 'status' => 'Se creo el tipo de plato', 'type' => 'success' ] );
-
-	}
-
-	/**
 	 * Displays a resource to be edited
 	 *
 	 * @param  integer $id
@@ -76,6 +80,26 @@ class LanguageController extends Controller
 	 */
 	public function edit( $id )
 	{
+		return "vista para editar el recurso idioma";
+	}
+
+	/**
+	 * Stores a newly created resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update( Request $request, $id )
+	{
+
+		$language = Language::where('id', '=', $id)->first();
+		$language->name = $request->name;
+		$language->abbreviation = $request->abbreviation;
+		$language->save();
+
+
+		return redirect()->route( 'show_language' , $request->language_id )
+						->with( [ 'status' => 'Se actualizó el idioma con éxito', 'type' => 'success' ] );
 
 	}
 
@@ -92,7 +116,7 @@ class LanguageController extends Controller
                         ->first()->delete();
 
         return redirect()->route('show_language')
-                        ->with(['status' => 'Lenguaje eliminado con éxito', 'type' => 'success']);
+                        ->with(['status' => 'Idioma eliminado con éxito', 'type' => 'success']);
 
 	}
 

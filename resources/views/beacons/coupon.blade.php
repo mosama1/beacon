@@ -41,7 +41,7 @@
                 <tr id='{{$c->id}}'>
                   <td>{{$c->name}}</td>
                   <td>{{$c->description}}</td>
-                  <td><a href="{{ route('show_session', $c->id) }}"><i class="material-icons">input</i></a></td>
+                  <td><a href="{{ route('show_section', $c->id) }}"><i class="material-icons">input</i></a></td>
                   <td><a href="#eliminarMenu"><i class="material-icons">clear</i></a></td>
                   <td><a href="#idioma"><i class="material-icons">language</i></a></td>
                 </tr>

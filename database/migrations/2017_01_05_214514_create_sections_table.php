@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCouponsTable extends Migration
+class CreateSectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,22 @@ class CreateCouponsTable extends Migration
      */
     public function up()
     {
-        Schema::create('coupons', function (Blueprint $table) {
-        	$table->increments('id');
-        	$table->string('type');
-        	$table->string('url');
+        Schema::create('sections', function (Blueprint $table) {
+            $table->increments('id');
 
-            $table->integer('coupon_id')->unique();
-
+            $table->integer('coupon_id')
+                    ->foreign('coupon_id')
+                    ->references('id')->on('coupons')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+            
             $table->integer('user_id')
                     ->foreign('user_id')
                     ->references('id')->on('users')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
 
-        	$table->timestamps();
+            $table->timestamps();
         });
     }
 
@@ -37,6 +39,6 @@ class CreateCouponsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('coupons');
+        Schema::dropIfExists('sections');
     }
 }

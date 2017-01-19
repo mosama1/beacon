@@ -44,10 +44,10 @@ function modal_activate(ruta, div) {
 //     })
 // }
 //
-// function delete_session(id){
+// function delete_section(id){
 //     $.ajax({
 //         type: "get",
-//         url: "beacons/session/delete",
+//         url: "beacons/section/delete",
 //         data: {id:id},
 //         success: function(respuesta) {
 //         	if(respuesta == 1){

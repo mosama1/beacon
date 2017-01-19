@@ -15,17 +15,29 @@ class CreateLocationsTable extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('location_id')->unique();
-            $table->integer('user_id');
             $table->string('name');
             $table->string('country');
             $table->string('city');
             $table->string('zip');
             $table->string('street');
             $table->string('street_number');
+            $table->string('logo');
             $table->string('timezone');
             $table->float('lat');
             $table->float('lng');
+
+            $table->integer('location_id')->unique()
+                    ->foreign('location_id')
+                    ->references('id')->on('locations')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+
+            $table->integer('user_id')
+                    ->foreign('user_id')
+                    ->references('id')->on('users')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+            
             $table->timestamps();
         });
     }

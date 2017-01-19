@@ -15,10 +15,26 @@ class CreateTagsTable extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
         	$table->increments('id');
-        	$table->integer('tag_id')->unique();
-        	$table->integer('location_id')->unique();
-        	$table->integer('user_id');
         	$table->string('name');
+
+            $table->integer('tag_id')->unique()
+                    ->foreign('tag_id')
+                    ->references('id')->on('tags')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+
+            $table->integer('location_id')->unique()
+                    ->foreign('location_id')
+                    ->references('id')->on('locations')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+
+            $table->integer('user_id')
+                    ->foreign('user_id')
+                    ->references('id')->on('users')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+            
         	$table->timestamps();
         });
     }
