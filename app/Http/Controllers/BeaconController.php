@@ -19,6 +19,7 @@ use Beacon\Plate;
 use Beacon\TypesPlates;
 use Illuminate\Support\Facades\Input;
 use Beacon\User;
+use Log;
 
 class BeaconController extends Controller
 {
@@ -42,6 +43,8 @@ class BeaconController extends Controller
 		$json_c = $response_crud->getBody();
 
 		$token_crud = json_decode($json_c);
+
+        Log::info('This is some useful information.');        
 
 		return $token_crud->access_token;
 	}
@@ -258,17 +261,17 @@ class BeaconController extends Controller
 	    	$loca->street = $locations->location->street;
 	    	$loca->street_number = $locations->location->street_number;
 	    	$loca->timezone = $locations->location->timezone;
-	    	$loca->lat =  $locations->location->lat;
-	    	$loca->lng =  $locations->location->lng;
+	    	// $loca->lat =  $locations->location->lat;
+	    	// $loca->lng =  $locations->location->lng;
 	    	$loca->save();
 
-	    	$tag_ = new Tag;
+/*	    	$tag_ = new Tag;
 	    	$tag_->tag_id = $tag->tag->id;
 	    	$tag_->location_id = $locations->location->id;
 	    	$tag_->user_id = Auth::user()->id;
 	    	$tag_->name = $tag->tag->name;
 	    	$tag_->save();
-
+*/
 	    	return redirect()->route('user_edit_path', Auth::user()->id);
 
     	else:
@@ -334,15 +337,15 @@ class BeaconController extends Controller
     	if ($locations->status_code === 200):
 
 	    	$loca = Location::where('location_id', '=', $id)
-	    										->update(array(
-	    														'name' => $locations->location->name,
-														    	'city' => $locations->location->city,
-														    	'zip' => $locations->location->zip,
-														    	'street' => $locations->location->street,
-														    	'street_number' => $locations->location->street_number,
-														    	'lat' => $locations->location->lat,
-														    	'lng' =>  $locations->location->lng
-    														));
+					->update(array(
+									'name' => $locations->location->name,
+							    	'city' => $locations->location->city,
+							    	'zip' => $locations->location->zip,
+							    	'street' => $locations->location->street,
+							    	'street_number' => $locations->location->street_number,
+							    	'lat' => $locations->location->lat,
+							    	'lng' =>  $locations->location->lng
+								));
 
 	    	return redirect()->route('user_edit_path', Auth::user()->id)->with(['status' => 'Se edito la ubicacion con exito', 'type' => 'success']);
 

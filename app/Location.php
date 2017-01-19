@@ -12,7 +12,8 @@ class Location extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-			'location_id', 'user_id', 'name', 'country', 'city', 'zip', 'street', 'street_number', 'timezone', 'lat', 'lng',
+//			'location_id', 'user_id', 'name', 'country', 'city', 'zip', 'street', 'street_number', 'timezone', 'lat', 'lng',
+			'location_id', 'user_id', 'name', 'country', 'city', 'zip', 'street', 'street_number', 'timezone',
 	];
 	
 	public function user()
