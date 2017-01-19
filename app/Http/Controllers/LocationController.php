@@ -115,53 +115,6 @@ class LocationController extends Controller
     	// Nuevo cliente con un url base
     	$client = new Client();
 
-        $logo_mime = $archivo->getMimeType();
-
-        $path = public_path().'\assets\images\\';
-
-        switch ($logo_mime)
-        {
-            case "image/jpeg":
-            case "image/png":
-                if ($archivo->isValid())
-                {
-                    $producto_imagen = ProductoImagen::findOrFail( $id );
-
-                    if (\File::delete(public_path().$producto_imagen->pim_uri))
-                    {
-
-                        $nombre = $archivo->getClientOriginalName();
-
-                        $archivo->move($path, $nombre);
-
-                        $pim_tipo = strtolower($archivo->getClientOriginalExtension());
-
-                        $pim_uri = '\assets\\images\\'.$nombre;
-
-                        $producto_imagen->pim_uri = $pim_uri;
-                        $producto_imagen->pim_tipo = $pim_tipo;
-                        $producto_imagen->pro_id = $pro_id;
-
-                        if ($producto_imagen->save())
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                    
-                }
-            break;
-            default:
-                return false;
-        }
-
     	//Token Crud
     	$crud = BeaconController::crud();
 
@@ -269,6 +222,32 @@ class LocationController extends Controller
     	// Nuevo cliente con un url base
     	$client = new Client();
 
+        //se obtiene el logo
+        $imagen = $request->file('logo');
+
+        //mime del logo
+        $logo_mime = $imagen->getMimeType();
+
+        //path donde se almacenara el logo
+        $path = public_path().'\assets\images\\';
+
+        switch ($logo_mime)
+        {
+            case "image/jpeg":
+            case "image/png":
+                if ($imagen->isValid())
+                {
+
+                    $nombre = $id.$imagen->getClientOriginalName();
+
+                    $imagen->move($path, $nombre);
+
+                    $logo = '\assets\images\\'.$nombre;
+                    
+                }
+            break;
+        }
+
     	//Token Crud
     	$crud = LocationController::crud();
 
@@ -284,7 +263,7 @@ class LocationController extends Controller
     					'street' => $request->street,
     					'street_number' => $request->street_number,
     					'lat' =>  $request->lat,
-    					'lng' =>  $request->lng
+                        'lng' =>  $request->lng
     			]
     	]);
 
@@ -302,7 +281,8 @@ class LocationController extends Controller
 							    	'city' => $locations->location->city,
 							    	'zip' => $locations->location->zip,
 							    	'street' => $locations->location->street,
-							    	'street_number' => $locations->location->street_number,
+                                    'street_number' => $locations->location->street_number,
+                                    'logo' => $logo,
 							    	// 'lat' => $locations->location->lat,
 							    	// 'lng' =>  $locations->location->lng
 								));
