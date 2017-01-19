@@ -14,7 +14,7 @@
       <center>
         <a href="#agregarSection" class="waves-effect">
           <div class="">
-            <span class="text">Agregar <br><strong>Seccion</strong></span>
+            <span class="text">Agregar <br><strong>Sección</strong></span>
             <span class="icon"><i class="material-icons">add</i></span>
           </div>
         </a>
@@ -40,7 +40,11 @@
               <tr id='{{$s->id}}'>
                 <td><input type="checkbox" id="test{{$s->id}}" /><label for="test{{$s->id}}"></label>
                 </td>
-                <td>{{$s->section_translation[0]->name}}</td>
+                <td>
+                    @if( ! empty($s->section_translation[0]) )
+                      {{$s->section_translation[0]->name}}
+                    @endif
+                </td>
                 <td><a href="{{ route('show_menu', $s->id) }}"><i class="material-icons">input</i></a></td>
                 <td><a href="#"><i class="material-icons">edit</i></a></td>
                 <td><a href="#eliminarSection"><i class="material-icons">clear</i></a></td>
