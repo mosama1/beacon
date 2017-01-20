@@ -30,11 +30,30 @@ class MovilController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index()
+	public function index($campana_id)
 	{
-		$sections = Section::all();
+		$campana = Campana::where([
+			['campana_id', '=', array( $campana_id ) ],
+		])->first();
 
-		return view('index',['sections' => $sections]);
+		//$campana->content->coupon->sections;
+		$content = $campana->content;
+
+		$coupon = Coupon::where([
+			['coupon_id', '=', array( $content->coupon_id ) ],
+		])->first();
+
+		$sections = Section::where([
+			['coupon_id', '=', array( $coupon->coupon_id ) ],
+		])->get();
+
+		foreach ($sections as $key => $section) {
+			$section->section_translation;
+		}
+
+		//	echo "<pre>"; var_dump($sections);	echo "</pre>";
+
+		return view('index', ['sections' => $sections] );
 
 	}
 

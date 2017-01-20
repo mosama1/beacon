@@ -19,4 +19,14 @@ class Coupon extends Model
 	{
 	    return $this->hasMany('Beacon\CouponTranslation', 'coupon_id', 'id');
 	}
+
+	public function content()
+	{
+	    return $this->hasOne('Beacon\Content', 'coupon_id', 'coupon_id');
+	}
+
+	public function sections()
+	{
+	    return $this->hasMany('Beacon\Section', 'coupon_id', 'coupon_id');
+	}
 }

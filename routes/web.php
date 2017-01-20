@@ -171,12 +171,15 @@ Route::post('user/{id}/edit', 'UserController@update')->name('user_patch_path')-
 
 Route::group(['prefix' => 'movil'], function(){
 
-	Route::get('/', ['uses' => 'MovilController@index', 'as' => 'inicio']);
+	Route::get('/campanas/{campanas_id}', ['uses' => 'MovilController@index', 'as' => 'inicio'])->where('id', '[0-9]+');
 
 	Route::get('/seccions/{id}/platos', ['uses' => 'MovilController@show_plate', 'as' => 'movil_show_plate'])->where('id', '[0-9]+');
 
 	Route::get('/platos/{id}/descripcion', 'MovilController@show_desc_plate')->name('showDescPlate')->where('id', '[0-9]+');
 
 });
+
+Route::get('token/analytics', 'BeaconController@crud')->name('token_generate');
+
 
 Auth::routes();

@@ -1,4 +1,6 @@
-@extends('layouts.appFinal')
+<?php
+  $nivel = '../../';
+?>@extends('layouts.appFinal')
 
 @section('content')
 
