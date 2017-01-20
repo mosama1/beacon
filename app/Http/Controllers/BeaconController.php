@@ -994,8 +994,9 @@ class BeaconController extends Controller
 	public function showPlate($id)
 	{
 		$plates = Menu::whereRaw('section_id = ? ', array($id))->get();
+		$sections = Section::all();
 
-		return view('clientes.plates', ['plates' => $plates]);
+		return view('clientes.plates', ['plates' => $plates, 'sections' => $sections]);
 	}
 
 	/**

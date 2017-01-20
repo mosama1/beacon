@@ -1,5 +1,5 @@
 <?php
-  $nivel = '../../';
+  $nivel = '../../../';
   $menu2 = '';
 ?>
 
@@ -28,9 +28,13 @@
             </thead>
 
             <tbody>
-              @foreach($plates as $p)
+              @foreach($menus as $p)
                 <tr id='{{$p->id}}'>
-                  <td>{{$p->name}}</td>
+                  <td>
+                    @if( ! empty($p->menu_translation[0]) )
+                      {{$p->menu_translation[0]->name}}
+                    @endif
+                  </td>
                   <td>{{$p->price}}</td>
                   <td><a href="{{ route('showDescPlate', $p->id) }}"><i class="material-icons">input</i></a></td>
                 </tr>

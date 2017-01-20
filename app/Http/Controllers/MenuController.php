@@ -126,18 +126,12 @@ class MenuController extends Controller
         $type_plates = TypesPlates::where([
             ['language_id', '=', 1],
         ])->get();
-
+        
         $menu = new Menu;
 
         $menus = $menu->where([
             ['section_id', '=', $section_id],
         ])->get();
-
-				$type_plate = new TypesPlates;
-
-				$type_plates = $type_plate->where([
-						['language_id', '=', 1],
-				])->get();
 
         foreach ($menus as $key => $menu) {
             $menu->menu_translation;

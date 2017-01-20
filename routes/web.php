@@ -82,7 +82,8 @@ Route::get('campanas/{id}/edit', 'CampanaController@edit_campana')->name('edit_c
 Route::post('campanas/{id}/edit', 'CampanaController@update_campana')->name('update_campana')->where('id', '[0-9]+');
 
 //Campa�aContent
-Route::get('campanas/{id}/contenidos', 'CampanaController@show_campana_content')->name('show_campana_content');
+Route::get('campanas/{id}/contents', 'CampanaController@show_content')
+			->name('show_content')->where('id', '[0-9]+');
 
 Route::post('campanas/{id}/contenidos/add', 'CampanaController@store_campana_content')->name('store_campana_content');
 
@@ -164,5 +165,18 @@ Route::delete('idiomas/{id}', 'LanguageController@destroy')->name('delete')->whe
 Route::get('user/{id}', 'UserController@edit')->name('user_edit_path')->where('id', '[0-9]+');
 
 Route::post('user/{id}/edit', 'UserController@update')->name('user_patch_path')->where('id', '[0-9]+');
+
+
+//Rutas para mobil
+
+Route::group(['prefix' => 'movil'], function(){
+
+	Route::get('/', ['uses' => 'MovilController@index', 'as' => 'inicio']);
+
+	Route::get('/seccions/{id}/platos', ['uses' => 'MovilController@show_plate', 'as' => 'movil_show_plate'])->where('id', '[0-9]+');
+
+	Route::get('/platos/{id}/descripcion', 'MovilController@show_desc_plate')->name('showDescPlate')->where('id', '[0-9]+');
+
+});
 
 Auth::routes();

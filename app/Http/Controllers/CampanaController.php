@@ -243,7 +243,7 @@ class CampanaController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show_campana_content($id)
+	public function show_content($id)
 	{
 		$coupon = new Coupon;
 
@@ -339,7 +339,7 @@ class CampanaController extends Controller
 		// 	echo "<pre>";var_dump($campana_c);echo "</pre>";
 		// return;
 
-		// 	return redirect()->route('show_campana_content', $id)->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
+		// 	return redirect()->route('show_content', $id)->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
 
 		// endif;
 

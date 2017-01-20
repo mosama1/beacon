@@ -33,4 +33,9 @@ class Section extends Model
 	{
 		return $this->belongsTo('Beacon\Coupon', 'coupon_id', 'id');
 	}
+
+	public function menu()
+	{
+	    return $this->belongsTo('Beacon\Menu', 'id', 'section_id');
+	}
 }

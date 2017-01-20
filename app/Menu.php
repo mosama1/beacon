@@ -19,4 +19,14 @@ class Menu extends Model
 	{
 	    return $this->hasMany('Beacon\MenuTranslation', 'menu_id', 'id');
 	}
+
+	public function section()
+	{
+	    return $this->hasOne('Beacon\Section', 'id', 'section_id');
+	}
+
+	public function plate()
+	{
+	    return $this->hasOne('Beacon\Plate', 'menu_id', 'id');
+	}
 }
