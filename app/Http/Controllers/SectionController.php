@@ -139,28 +139,62 @@ class SectionController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit_section($id)
+    {
+        //consulta
+
+        $section = Section::find($id);
+        echo "<pre>";  var_dump($section); echo "</pre>";
+
+
+        //return view('sections.section_edit', ['section' => $section]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update_section(Request $request, $id)
+    {
+
+        $section = Section::find( $id);
+        $section->coupon_id = $request->coupon_id;
+        $section->save();
+
+        $section->section_translation->name = $request->name;
+        $section->section_translation->language_id = $request->language_id;
+        $section->section_translation->section_id = $section->section_id;
+        $section->section_translation->save();
+
+        return redirect()->route('show', Auth::user()->id)
+                ->with(['status' => 'Se actualizó la seccion con exito', 'type' => 'success']);
+
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy_section(Request $request)
+    public function destroy_section($id)
     {
 
+    	$section =  Section::find($id);
 
-    	$section =  Section::find($request->id);
+        $coupon = $section->coupon;
 
     	$section->delete();
 
-	    if($section):
-
-	    	return 1;
-
-    	else:
-
-    		return 0;
-
-    	endif;
+        return redirect()->route('show_section', ['coupon_id' => $coupon->id])
+                ->with(['status' => 'Se ha Eliminado la sección con éxito', 'type' => 'success']);
 
     }
 

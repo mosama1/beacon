@@ -133,7 +133,7 @@ Route::get('beacons/languageEdit', 'BeaconController@show_languageEdit')->name('
 
 Route::get('beacons/tipoPlato', 'BeaconController@show_tipoPlato')->name('show_tipoPlato');
 
-Route::post('beacons/tipoPlato', 'BeaconController@create_tipoPlato')->name('create_tipoPlato');
+Route::post('beacons/tipoPlato', 'TypePlateController@store')->name('store');
 
 Route::put('beacons/tipoPlato', 'BeaconController@edit_tipoPlato')->name('edit_tipoPlato');
 
