@@ -27,4 +27,9 @@ class Section extends Model
 	{
 	    return $this->hasMany('Beacon\SectionTranslation', 'section_id', 'id');
 	}
+
+	public function coupon()
+	{
+		return $this->belongsTo('Beacon\Coupon', 'coupon_id', 'id');
+	}	
 }

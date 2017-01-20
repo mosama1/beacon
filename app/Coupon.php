@@ -12,6 +12,11 @@ class Coupon extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-			'coupon_id', 'user_id', 'name', 'description', 'message', 'type', 'url',
+			'coupon_id', 'user_id', 'type', 'url',
 	];
+
+	public function coupon_translation()
+	{
+	    return $this->hasMany('Beacon\CouponTranslation', 'coupon_id', 'id');
+	}
 }

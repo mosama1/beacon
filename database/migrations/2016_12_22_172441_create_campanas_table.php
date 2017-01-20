@@ -19,13 +19,15 @@ class CreateCampanasTable extends Migration
             $table->string('description');
             $table->string('start_time');
             $table->string('end_time');
-            $table->string('location');
+
             $table->boolean('enabled');
 
         	$table->integer('campana_id')
-                    ->unique()
-                    ->foreign('campana_id')
-                    ->references('id')->on('campanas')
+                    ->unique();
+            
+            $table->integer('location_id')
+                    ->foreign('location_id')
+                    ->references('id')->on('locations')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
 

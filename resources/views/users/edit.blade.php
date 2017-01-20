@@ -196,7 +196,7 @@
               <center  id="vista_previa">
                 <a href="#" class="vistaPreviaImg">
                   <div class="img active" id="vista_logo">
-                    <img class="thumb" src="{{$location->logo}}">
+                    <img class="thumb" src="{{ asset($location->logo) }}">
                   </div>
                 </a>
 

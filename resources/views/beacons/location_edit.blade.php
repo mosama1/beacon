@@ -16,7 +16,7 @@
            <strong>{{ session('status') }}</strong>
          </span>
        @endif
-       <form class="form-horizontal" role="form" method="POST" action="{{ route('location_update', $location->location_id) }}">
+       <form class="form-horizontal" role="form" method="POST" action="{{ route('location_update', $location->location_id) }}" enctype="multipart/form-data">
         {{ csrf_field() }}
 
 

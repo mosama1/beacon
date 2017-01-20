@@ -69,12 +69,12 @@
 <div id="agregarPlan" class="modal modal_">
   <div class="titulo">
     <h3>
-      Agregar Horario
+      Agregar Plan
     </h3>
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_timeframe') }}">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_campana') }}">
       {{ csrf_field() }}
 
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">

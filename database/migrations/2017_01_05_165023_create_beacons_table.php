@@ -20,11 +20,7 @@ class CreateBeaconsTable extends Migration
             $table->integer('minor');
 
         	$table->integer('beacon_id')
-                    ->unique()
-                    ->foreign('beacon_id')
-                    ->references('id')->on('beacons')
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
+                    ->unique();
 
         	$table->integer('user_id')
                     ->foreign('user_id')

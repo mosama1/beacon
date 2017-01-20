@@ -141,8 +141,9 @@
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('destroy_timeframe', $t->timeframe_id) }}">
       {{ csrf_field() }}
+      <input type="hidden" name="_method" value="DELETE">
       <div class="button">
         <center>
           <button type="submit" name="button">
