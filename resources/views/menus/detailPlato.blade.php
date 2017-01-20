@@ -55,7 +55,7 @@
         <div class="vista_previa">
           <center  id="vista_previa">
             <div class="img active" id="vista_plato">
-              <img src="{{asset($plate->img)}}" alt="">
+              <img src="\assets\images\platos\{{($plate->img)}}" alt="">
             </div>
           </center>
         </div>

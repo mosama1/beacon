@@ -1777,6 +1777,13 @@ body.menu2 .menu_cliente{
   margin-left: 40px;
   width: calc(100% - 80px);
 }
+.contenedor .principal .form .input.select._100,
+.modal_ .form .input.select._100{
+  max-width: none;
+  height: 30px;
+  margin-left: 0px;
+  width: calc(100%);
+}
 .contenedor .principal .form .input.select input,
 .modal_ .form .input.select input{
   height: 30px;
@@ -1801,28 +1808,28 @@ body.menu2 .menu_cliente{
   top: 6px;
   left: 15px;
 }
-.contenedor .principal .form .input-field,
-.modal_ .form .input-field{
+.contenedor .principal .form .input-field:not(.input_file),
+.modal_ .form .input-field:not(.input_file){
   background: rgb(255, 255, 255);
   height: 30px;
   border-radius: 20px;
 }
-.contenedor .principal .form .input-field input,
-.modal_ .form .input-field input{
+.contenedor .principal .form .input-field:not(.input_file) input,
+.modal_ .form .input-field:not(.input_file) input{
   height: 30px;
   padding-left: 25px;
   color: #000;
   border: none;
   font-weight: bold;
 }
-.contenedor .principal .form .input-field span.caret,
-.modal_ .form .input-field span.caret{
+.contenedor .principal .form .input-field:not(.input_file) span.caret,
+.modal_ .form .input-field:not(.input_file) span.caret{
   right: 15px;
   font-size: 15px;
   z-index: 10;
 }
-.contenedor .principal .form .input-field ul,
-.modal_ .form .input-field ul{
+.contenedor .principal .form .input-field:not(.input_file) ul,
+.modal_ .form .input-field:not(.input_file) ul{
   border-radius: 15px;
   width: 100% !important;
 }
@@ -2573,8 +2580,8 @@ body.clienteFinal footer{
     height: auto;
     position: relative;
     top: 0;
-    transform: translate(0,0);
-    
+ n    transform: translate(0,0);
+
   }
   .authenticate .divide .divide_cont.files .vista_previa .img {
     height: auto;

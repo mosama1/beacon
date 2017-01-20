@@ -32,8 +32,8 @@
 									<th data-field="type">Tipo</th>
 									<th data-field="price">Precio</th>
 									<th data-field="name">Detalles</th>
-									<th data-field="price">Eliminar</th>
 									<th data-field="price">Idioma</th>
+									<th data-field="price">Eliminar</th>
 							</tr>
 						</thead>
 
@@ -49,16 +49,16 @@
 									<td>{{$m->price}}</td>
 									<td><a href="{{ route('show_plate', $m->id) }}"><i class="material-icons">input</i></a></td>
 
-					                <?php
-
-					                  echo "<td onclick= \"modal_activate('".
-					                     route( "destroy_menu", $m->id ).
-					                    "' , '#eliminarPlato')\" >";
-
-					                ?>
-				                		<a href="#eliminarPlato"><i class="material-icons">clear</i></a>
-				                	</td>
 									<td><a href="#Idioma"><i class="material-icons">language</i></a></td>
+									<?php
+
+									echo "<td onclick= \"modal_activate('".
+									route( "destroy_menu", $m->id ).
+									"' , '#eliminarPlato')\" >";
+
+									?>
+									<a href="#eliminarPlato"><i class="material-icons">clear</i></a>
+								</td>
 								</tr>
 							@endforeach
 						</tbody>
@@ -107,13 +107,12 @@
 				@endif
 			</div>
 
-			<div class="input select {{ $errors->has('type') ? 'error' : '' }}">
+			<div class="input select no_icon {{ $errors->has('type') ? 'error' : '' }}">
 				<!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
 				<select id="type" class="form-control icons" name="type" required>
 
 				@if( !empty($type_plates) )
           <option value="" disabled selected>Seleccion un tipo de plato</option>
-
 					@foreach ($type_plates as $type_plate)
 						<option value="{{$type_plate->id}}">{{$type_plate->name}}</option>
 					@endforeach
