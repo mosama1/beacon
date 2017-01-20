@@ -2574,6 +2574,7 @@ body.clienteFinal footer{
     position: relative;
     top: 0;
     transform: translate(0,0);
+    
   }
   .authenticate .divide .divide_cont.files .vista_previa .img {
     height: auto;
