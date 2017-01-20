@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class SectionTranslation extends Model
 {
 
-	protected $table = 'beacon.section_Translations';
+	protected $table = 'section_translations';
 
 
 	public $timestamps = false;
-	
+
 	/**
 	 * The attributes that are mass assignable.
 	 *
@@ -20,12 +20,12 @@ class SectionTranslation extends Model
 	protected $fillable = [
 			'description', 'language_id', 'section_id',
 	];
-    
+
     public function language()
     {
         return $this->hasOne('Beacon\Language', 'language_id', 'id');
     }
-    
+
     public function section()
     {
         return $this->belongsTo('Beacon\Section', 'section_id', 'id');

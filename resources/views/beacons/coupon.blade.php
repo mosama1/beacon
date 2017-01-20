@@ -112,7 +112,7 @@
         </div>
       @endif
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioMenu">
-        <input type="number" name="price" step="0.01" min="0" value=""  id="price" min="1.00">
+        <input type="number" name="price" step="0.01" min="0" value="0"  id="price" min="1.00">
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Ingresar Precio: 0,00</span>

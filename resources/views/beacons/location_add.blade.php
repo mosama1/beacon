@@ -26,7 +26,7 @@
           <input type="text" name="name" value="" required="" id="nombreEmpresa">
           <label for="">
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-            <span class="text">Name</span>
+            <span class="text">Nombre del local</span>
           </label>
         </div>
         @if ($errors->has('name'))
@@ -39,7 +39,7 @@
           <input type="text" name="city" value="" required="">
           <label for="">
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-            <span class="text">City</span>
+            <span class="text">Ciudad</span>
           </label>
         </div>
         @if ($errors->has('city'))
@@ -52,7 +52,7 @@
           <input type="text" name="street" value="" required="">
           <label for="">
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-            <span class="text">Street</span>
+            <span class="text">Calle</span>
           </label>
         </div>
         @if ($errors->has('street'))
@@ -65,7 +65,7 @@
           <input type="text" name="street_number" value="" required="">
           <label for="">
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-            <span class="text">Street Number</span>
+            <span class="text">Número de calle</span>
           </label>
         </div>
         @if ($errors->has('street_number'))
@@ -78,7 +78,7 @@
           <input type="text" name="zip" value="" required="">
           <label for="">
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-            <span class="text">Zip</span>
+            <span class="text">Código Postal</span>
           </label>
         </div>
         @if ($errors->has('zip'))
@@ -86,28 +86,6 @@
               <span>{{ $errors->first('zip') }}</span>
           </div>
         @endif
-        <!-- <div class="input no_icon {{ $errors->has('lat') ? 'error' : '' }}">
-          <input type="text" name="lat" value="" required="">
-          <label for="">
-            <span class="text">Lat</span>
-          </label>
-        </div>-->
-        <!-- @if ($errors->has('lat'))
-          <div class="input_error">
-              <span>{{ $errors->first('lat') }}</span>
-          </div>
-        @endif -->
-        <!-- <div class="input no_icon {{ $errors->has('lng') ? 'error' : '' }}">
-          <input type="text" name="lng" value="" required="">
-          <label for="">
-            <span class="text">Lng</span>
-          </label>
-          @if ($errors->has('lng'))
-            <span class="error_input">
-                <strong>{{ $errors->first('lng') }}</strong>
-            </span>
-          @endif
-        </div> -->
         <div class="divide_cont files">
           <div class="file-field input-field input_file {{ $errors->has('logo') ? 'has-error' : '' }}">
             <div class="btn">

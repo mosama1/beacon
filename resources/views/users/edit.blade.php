@@ -32,18 +32,7 @@
             </span>
             @endif
           </div>
-          <!-- <div class="input {{ $errors->has('name') ? 'error' : '' }}">
-            <input type="text" name="name" value="{{ $user->name }}" required="">
-            <label for="">
-              <span class="icon"><img src="img/icons/usuario.png" alt=""></span>
-              <span class="text">Usuario</span>
-            </label>
-            @if ($errors->has('name'))
-            <span class="error_input">
-              <strong>{{ $errors->first('name') }}</strong>
-            </span>
-            @endif
-          </div> -->
+
           <div class="input {{ $errors->has('email') ? 'error' : '' }}">
             <input type="email" name="email" value="{{ $user->email }}" required="">
             <label for="">
@@ -132,7 +121,7 @@
 <!-- <textarea name="city" rows="8" cols="80">{{ old('city') }}</textarea> -->
 
             <label for="">
-              <span class="text">City</span>
+              <span class="text">Ciudad</span>
             </label>
             @if ($errors->has('city'))
             <span class="error_input">
@@ -144,7 +133,7 @@
             <div class="input {{ $errors->has('street') ? 'error' : '' }}">
               <input type="text" name="street" value="{{$location->street}}" required="">
               <label for="">
-                <span class="text">Street</span>
+                <span class="text">Calle</span>
               </label>
               @if ($errors->has('street'))
               <span class="error_input">
@@ -155,7 +144,7 @@
             <div class="input {{ $errors->has('street_number') ? 'error' : '' }}">
               <input type="text" name="street_number" value="{{$location->street_number}}" required="">
               <label for="">
-                <span class="text">Street Number</span>
+                <span class="text">Número de calle</span>
               </label>
               @if ($errors->has('street_number'))
               <span class="error_input">
@@ -168,7 +157,7 @@
           <div class="input {{ $errors->has('zip') ? 'error' : '' }}">
             <input type="text" name="zip" value="{{$location->zip}}" required="">
             <label for="">
-              <span class="text">Zip</span>
+              <span class="text">Código postal</span>
             </label>
             @if ($errors->has('zip'))
             <span class="error_input">

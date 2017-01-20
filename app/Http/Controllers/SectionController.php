@@ -149,10 +149,10 @@ class SectionController extends Controller
         //consulta
 
         $section = Section::find($id);
-        echo "<pre>";  var_dump($section); echo "</pre>";
+        // echo "<pre>";  var_dump($section); echo "</pre>";
 
 
-        //return view('sections.section_edit', ['section' => $section]);
+        return view('sections.section_edit', ['section' => $section]);
     }
 
     /**
