@@ -39,10 +39,30 @@
             <tbody>
               @foreach($coupon as $c)
                 <tr id='{{$c->id}}'>
-                  <td>{{$c->name}}</td>
-                  <td>{{$c->description}}</td>
+                  <td>
+                    @if( ! empty($c->coupon_translation[0]) )
+                      {{$c->coupon_translation[0]->name}}
+                    @endif
+                  </td>
+                  <td>
+                    @if( ! empty($c->coupon_translation[0]) )
+                      {{$c->coupon_translation[0]->description}}
+                    @endif
+                  </td>
                   <td><a href="{{ route('show_section', $c->id) }}"><i class="material-icons">input</i></a></td>
-                  <td><a href="#eliminarMenu"><i class="material-icons">clear</i></a></td>
+                  
+                  <?php
+
+                    echo "<td onclick= \"modal_activate('".
+                       route( "destroy_coupon", $c->coupon_id ).
+                      "' , '#eliminarCoupon')\" >";
+
+                  ?>
+
+                    <a href="#eliminarCoupon"><i class="material-icons">clear</i></a>
+
+                  </td>
+
                   <td><a href="#idioma"><i class="material-icons">language</i></a></td>
                 </tr>
               @endforeach
@@ -92,7 +112,7 @@
         </div>
       @endif
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioMenu">
-        <input type="number" name="precioMenu" step="0.01" min="0" value=""  id="precioMenu" min="1.00">
+        <input type="number" name="price" step="0.01" min="0" value=""  id="price" min="1.00">
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Ingresar Precio: 0,00</span>
@@ -189,7 +209,7 @@
   </div>
 </div>
 
-<div id="eliminarMenu" class="modal modal_">
+<div id="eliminarCoupon" class="modal modal_">
 
   <div class="titulo">
     <h3>
@@ -198,8 +218,9 @@
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
+    <form class="form-horizontal" role="form" method="POST">
       {{ csrf_field() }}
+      <input type="hidden" name="_method" value="DELETE">
       <div class="button">
         <center>
           <button type="submit" name="button">

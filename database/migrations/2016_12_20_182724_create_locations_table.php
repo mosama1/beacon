@@ -26,11 +26,7 @@ class CreateLocationsTable extends Migration
             $table->float('lat');
             $table->float('lng');
 
-            $table->integer('location_id')->unique()
-                    ->foreign('location_id')
-                    ->references('id')->on('locations')
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
+            $table->integer('location_id')->unique();
 
             $table->integer('user_id')
                     ->foreign('user_id')

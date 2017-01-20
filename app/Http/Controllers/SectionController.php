@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 //use Beacon\Beacon;
 use Beacon\Section;
 use Beacon\SectionTranslation;
-//use Beacon\Menu;
+use Beacon\Menu;
 //use Beacon\Plate;
 //use Beacon\TypesPlates;
 use Illuminate\Support\Facades\Input;
@@ -74,20 +74,43 @@ class SectionController extends Controller
 
     //************************************* Section Menu **************************************************//
 
-    public function show_section($id)
+    public function show_section($coupon_id)
     {
         $section = new Section;
 
         $sections = $section->where([
             ['user_id', '=', Auth::user()->id],
-            ['coupon_id', '=', $id],
+            ['coupon_id', '=', $coupon_id],
         ])->get();
 
         foreach ($sections as $key => $section) {
             $section->section_translation;
         }
 
-        return view('menus.home', ['sections' => $sections, 'coupon_id' => $id]);
+        return view('menus.home', ['sections' => $sections, 'coupon_id' => $coupon_id]);
+    }
+
+
+    /**
+     * get set of resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function show_sectionMenus($section_id)
+    {
+        $menu = new Menu;
+
+        $menus = $menu->where([
+            ['user_id', '=', Auth::user()->id],
+            ['section_id', '=', $section_id],
+        ])->get();
+
+        foreach ($menus as $key => $menu) {
+            $menu->menu_translation;
+        }
+
+        return view('menus.plato', ['menus' => $menus, 'section_id' => $section_id]);
     }
 
     /**

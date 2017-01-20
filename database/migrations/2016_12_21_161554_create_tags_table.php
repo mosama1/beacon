@@ -17,11 +17,7 @@ class CreateTagsTable extends Migration
         	$table->increments('id');
         	$table->string('name');
 
-            $table->integer('tag_id')->unique()
-                    ->foreign('tag_id')
-                    ->references('id')->on('tags')
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
+            $table->integer('tag_id')->unique();
 
             $table->integer('location_id')->unique()
                     ->foreign('location_id')

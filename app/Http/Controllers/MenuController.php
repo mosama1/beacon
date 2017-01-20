@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\DB;
 //use Beacon\Campana;
 //use Beacon\Content;
 //use Beacon\Beacon;
-//use Beacon\Section;
+use Beacon\Section;
 use Beacon\Menu;
 use Beacon\MenuTranslation;
 //use Beacon\Plate;
-//use Beacon\TypesPlates;
+use Beacon\TypesPlates;
 use Illuminate\Support\Facades\Input;
 //use Beacon\User;
 
@@ -91,23 +91,56 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show_menu($id)
+    public function show_menu($section_id, $menu_id)
     {
+        $type_plate = new TypesPlates;
+
+        $type_plates = $type_plate->where([
+            ['language_id', '=', 1],
+        ])->get();
+
         $menu = new Menu;
 
         $menus = $menu->where([
             ['user_id', '=', Auth::user()->id],
-            ['section_id', '=', $id],
+            ['section_id', '=', $section_id],
         ])->get();
 
         foreach ($menus as $key => $menu) {
             $menu->menu_translation;
         }
 
-    	return view('menus.plato',['menus' => $menus , 'section_id' => $id]);
+        $section = Section::where('id', '=', $section_id)->first();
+        $section->coupon();
+
+    	return view('menus.plato',['menus' => $menus,'type_plates' => $type_plates, 'section_id' => $section_id, 'coupon_id' => $section->coupon->coupon_id]);
 
     }
 
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show_sectionMenus($section_id)
+    {
+        $menu = new Menu;
+
+        $menus = $menu->where([
+            ['section_id', '=', $section_id],
+        ])->get();
+
+        foreach ($menus as $key => $menu) {
+            $menu->menu_translation;
+        }
+
+        $section = Section::where('id', '=', $section_id)->first();
+        $section->coupon();
+
+        return view('menus.plato',['menus' => $menus, 'section_id' => $section_id, 'coupon_id' => $section->coupon->coupon_id]);
+
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -131,7 +164,35 @@ class MenuController extends Controller
     	$menu_translation->save();
 
 
-    	return redirect()->route('show_menu', $menu->section_id)->with(['status' => 'Se creo el plato', 'type' => 'success']);
+    	return redirect()->route('show_sectionMenus', $menu->section_id)->with(['status' => 'Se creo el plato', 'type' => 'success']);
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy_menu($id)
+    {
+
+    	$menu =  Menu::find($id);
+    	$section_id = $menu->section_id;
+    	$menu->delete();
+
+	    if($menu):
+
+	    	return redirect()->route('show_sectionMenus', $section_id )
+                        ->with(['status' => 'Plato eliminado con éxito', 'type' => 'success']);
+
+    	else:
+
+			return redirect()->route('show_sectionMenus', $section_id )
+                        ->with(['status' => 'Error al eliminar plato', 'type' => 'error']);
+
+
+    	endif;
 
     }
 

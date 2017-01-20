@@ -194,7 +194,7 @@
             <div class="vista_previa">
               <center  id="vista_previa">
                 <div class="img" id="vista_logo">
-                <img class="thumb" src="{{public_path().$location->logo}}">
+                <img class="thumb" src="{{ asset($location->logo) }}">
                 </div>
               </center>
             </div>

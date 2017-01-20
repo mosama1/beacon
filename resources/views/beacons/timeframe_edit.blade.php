@@ -18,7 +18,7 @@
            <strong>{{ session('status') }}</strong>
          </span>
        @endif
-       <form class="form-horizontal" role="form" method="POST" action="{{ route('store_timeframe') }}">
+       <form class="form-horizontal" role="form" method="POST" action="{{ route('update_timeframe',$timeframe->timeframe_id) }}">
         {{ csrf_field() }}
 
 

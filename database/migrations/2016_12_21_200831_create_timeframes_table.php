@@ -22,11 +22,7 @@ class CreateTimeframesTable extends Migration
         	$table->string('days');
 
             $table->integer('timeframe_id')
-                    ->unique()
-                    ->foreign('timeframe_id')
-                    ->references('id')->on('timeframes')
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
+                    ->unique();
 
             $table->integer('user_id')
                     ->foreign('user_id')

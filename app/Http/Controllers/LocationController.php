@@ -115,8 +115,34 @@ class LocationController extends Controller
     	// Nuevo cliente con un url base
     	$client = new Client();
 
+        //se obtiene el logo
+        $imagen = $request->file('logo');
+
+        //mime del logo
+        $logo_mime = $imagen->getMimeType();
+
+        //path donde se almacenara el logo
+        $path = public_path().'\assets\images\\';
+
+        switch ($logo_mime)
+        {
+            case "image/jpeg":
+            case "image/png":
+                if ($imagen->isValid())
+                {
+
+                    $nombre = $imagen->getClientOriginalName();
+
+                    $imagen->move($path, $nombre);
+
+                    $logo = 'assets\images\\'.$nombre;
+                    
+                }
+            break;
+        }
+
     	//Token Crud
-    	$crud = BeaconController::crud();
+    	$crud = LocationController::crud();
 
     	//Location
     	$location__ = $client->post('https://connect.onyxbeacon.com/api/v2.5/locations', [
@@ -132,9 +158,8 @@ class LocationController extends Controller
     					'street_number' => $request->street_number,
     					'floor' => ' ',
     					'timezone' => 'Europe/Madrid',
-    					'lat' =>  $request->lat,
-                        'lng' =>  $request->lng,
-                        'logo' =>  $request->logo
+    					'lat' =>  0,
+                        'lng' =>  0
     			]
     	]);
 
@@ -171,7 +196,7 @@ class LocationController extends Controller
 	    	$loca->street = $locations->location->street;
 	    	$loca->street_number = $locations->location->street_number;
 	    	$loca->timezone = $locations->location->timezone;
-            $loca->logo = $locations->location->logo;
+            $loca->logo = $logo;
             $loca->lat =  0;
             $loca->lng =  0;
 	    	$loca->save();
@@ -242,7 +267,7 @@ class LocationController extends Controller
 
                     $imagen->move($path, $nombre);
 
-                    $logo = '\assets\images\\'.$nombre;
+                    $logo = 'assets\images\\'.$nombre;
                     
                 }
             break;
@@ -310,7 +335,7 @@ class LocationController extends Controller
     	$client = new Client();
 
     	//Token Crud
-    	$crud = BeaconController::crud();
+    	$crud = LocationController::crud();
 
     	//Location delete
     	$location_delete = $client->post('https://connect.onyxbeacon.com/api/v2.5/locations/'.$request->id.'/delete', [

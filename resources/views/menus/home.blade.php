@@ -45,8 +45,8 @@
                       {{$s->section_translation[0]->name}}
                     @endif
                 </td>
-                <td><a href="{{ route('show_menu', $s->id) }}"><i class="material-icons">input</i></a></td>
-                <td><a href="#"><i class="material-icons">edit</i></a></td>
+                <td><a href="{{ route('show_sectionMenus', $s->id) }}"><i class="material-icons">input</i></a></td>
+                <td><a href="{{ route('edit_section', $s->id) }}"><i class="material-icons">edit</i></a></td>
                 <td><a href="#eliminarSection"><i class="material-icons">clear</i></a></td>
                 <td><a href="#Idioma"><i class="material-icons">language</i></a></td>
               </tr>
