@@ -87,7 +87,7 @@ Route::get('campanas/{id}/contenidos', 'CampanaController@show_campana_content')
 Route::post('campanas/{id}/contenidos/add', 'CampanaController@store_campana_content')->name('store_campana_content');
 
 //Section
-Route::get('sections/{id}', 'SectionController@show_section')->name('show_section');
+Route::get('coupons/{id}/sections', 'SectionController@show_section')->name('show_section');
 
 Route::post('sections', 'SectionController@store_section')->name('store_section');
 
@@ -95,13 +95,15 @@ Route::get('sections/{id}/edit', 'SectionController@edit_section')->name('edit_s
 
 Route::put('sections/{id}', 'SectionController@update_section')->name('update_section');
 
-Route::delete('sections', 'SectionController@destroy_section')->name('destroy_section');
+Route::delete('sections/{id}', 'SectionController@destroy_section')
+			->name('destroy_section')->where('id', '[0-9]+');
 
 
 //Menu
 Route::get('bacons/menus', 'BeaconController@show_coupon')->name('show_coupon');
 
-Route::delete('bacons/menus/{id}', 'BeaconController@destroy_coupon')->name('destroy_coupon');
+Route::delete('bacons/menus/{id}', 'BeaconController@destroy_coupon')
+			->name('destroy_coupon')->where('id', '[0-9]+');
 
 Route::get('sections/{section_id}/menus/{menu_id}', 'MenuController@show_menu')
 			->name('show_menu')->where(['section_id' => '[0-9]+', 'menu_id' => '[0-9]+']);

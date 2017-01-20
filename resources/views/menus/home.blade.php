@@ -47,7 +47,14 @@
                 </td>
                 <td><a href="{{ route('show_sectionMenus', $s->id) }}"><i class="material-icons">input</i></a></td>
                 <td><a href="{{ route('edit_section', $s->id) }}"><i class="material-icons">edit</i></a></td>
-                <td><a href="#eliminarSection"><i class="material-icons">clear</i></a></td>
+                  <?php
+
+                    echo "<td onclick= \"modal_activate('".
+                       route( "destroy_section", $s->id ).
+                      "' , '#eliminarSection')\" >";
+
+                  ?>
+                  <a href="#eliminarSection"><i class="material-icons">clear</i></a></td>
                 <td><a href="#Idioma"><i class="material-icons">language</i></a></td>
               </tr>
               @endforeach
@@ -169,8 +176,9 @@
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
+    <form class="form-horizontal" role="form" method="POST"">
       {{ csrf_field() }}
+      <input type="hidden" name="_method" value="DELETE">
       <div class="button">
         <center>
           <button type="submit" name="button">
