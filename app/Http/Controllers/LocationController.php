@@ -44,7 +44,7 @@ class LocationController extends Controller
 
 		$token_crud = json_decode($json_c);
 
-        Log::info('This is some useful information.');        
+        Log::info('This is some useful information.');
 
 		return $token_crud->access_token;
 	}
@@ -122,7 +122,7 @@ class LocationController extends Controller
         $logo_mime = $imagen->getMimeType();
 
         //path donde se almacenara el logo
-        $path = public_path().'\assets\images\\';
+        $path = public_path().'/assets/images/';
 
         switch ($logo_mime)
         {
@@ -135,8 +135,8 @@ class LocationController extends Controller
 
                     $imagen->move($path, $nombre);
 
-                    $logo = 'assets\images\\'.$nombre;
-                    
+                    $logo = '/assets/images/'.$nombre;
+
                 }
             break;
         }
@@ -254,7 +254,7 @@ class LocationController extends Controller
         $logo_mime = $imagen->getMimeType();
 
         //path donde se almacenara el logo
-        $path = public_path().'\assets\images\\';
+        $path = public_path().'/assets/images/';
 
         switch ($logo_mime)
         {
@@ -267,8 +267,8 @@ class LocationController extends Controller
 
                     $imagen->move($path, $nombre);
 
-                    $logo = 'assets\images\\'.$nombre;
-                    
+                    $logo = '/assets/images/'.$nombre;
+
                 }
             break;
         }
