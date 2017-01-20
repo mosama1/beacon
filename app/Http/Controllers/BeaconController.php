@@ -777,6 +777,29 @@ class BeaconController extends Controller
 
 	}
 
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update_type_plate(Request $request, $type_plate_id)
+	{
+
+		$type_plate = TypesPlates::find($type_plate_id);
+
+		$type_plate->name = $request->name;
+		$type_plate->description = $request->description;
+		//$type_plate->language_id = $request->language_id;
+		$type_plate->language_id = 1;
+		$type_plate->save();
+
+		return redirect()->route('show_tipoPlato')
+			->with(['status' => 'Se ha actualizado el tipo de plato satisfactoriamente', 'type' => 'success']);
+
+	}
+
 	/**
 	 * Delete a resource in storage.
 	 *

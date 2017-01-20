@@ -1,4 +1,4 @@
-<?php $nivel = '../../' ?>
+<?php $nivel = '../../../' ?>
 
 @extends('layouts.app')
 
@@ -18,7 +18,7 @@
            <strong>{{ session('status') }}</strong>
          </span>
        @endif
-       <form class="form-horizontal" role="form" method="POST" action="#">
+       <form class="form-horizontal" role="form" method="POST" action="{{ route('update_tipoPlato', $tipo_plato->id)}}">
         {{ csrf_field() }}
 
         <input type="hidden" name="_method" value="PUT">
