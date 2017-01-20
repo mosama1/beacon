@@ -1,5 +1,5 @@
 <?php
-  $nivel = '../../../';
+  $nivel = '../../../../../';
   $menu2 = '';
 ?>
 
@@ -27,6 +27,7 @@
               </tr>
             </thead>
 
+
             <tbody>
               @foreach($menus as $p)
                 <tr id='{{$p->id}}'>
@@ -36,7 +37,7 @@
                     @endif
                   </td>
                   <td>{{$p->price}}</td>
-                  <td><a href="{{ route('showDescPlate', $p->id) }}"><i class="material-icons">input</i></a></td>
+                  <td><a href="{{ route('showDescPlate', array('campana_id' => $campana_id, 'menu_id' => $p->id) ) }}"><i class="material-icons">input</i></a></td>
                 </tr>
               @endforeach
             </tbody>
