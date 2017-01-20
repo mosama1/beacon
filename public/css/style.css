@@ -1625,7 +1625,12 @@ body.menu2 .menu_cliente{
   width: calc(100%)
 }
 
-
+.clienteFinal{
+  background-image: url(img/fondos/completo.jpg);
+}
+.colorClienteFinal{
+  color: #fff;
+}
 .contenedor .principal .form .input.no_icon input,
 .modal_ .form .input.no_icon input{
   padding-left: 25px;
