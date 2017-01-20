@@ -67,7 +67,7 @@ use Beacon\User;
                           <a href="#" class="sb_mn2">
                             <span>Del Servicio</span>
                           </a>
-                          <ul class="sub_menu2">
+                          <ul class="sub_menu2 delServicio">
                             <li>
                               <a href="{{ route('show_tipoPlato')}}">
                                 <span>Los tipos de platos</span>
@@ -87,12 +87,12 @@ use Beacon\User;
                           </a>
                           <ul class="sub_menu2">
                             <li>
-                              <a href="#">
+                              <a href="#kitBienvenida">
                                 <span>Kit de Bienvenida</span>
                               </a>
                             </li>
                             <li>
-                              <a href="#">
+                              <a href="#kitFidelidad">
                                 <span>Kit de Fidelidad</span>
                               </a>
                             </li>
@@ -192,6 +192,132 @@ use Beacon\User;
         </ul>
       </div>
 
+    </div>
+
+    <div id="kitBienvenida" class="modal modal_">
+      <div class="titulo">
+        <h3>
+          Kit de Bienvenida
+        </h3>
+      </div>
+
+      <div class="form">
+        <form class="form-horizontal" role="form" method="POST" action="#">
+          {{ csrf_field() }}
+
+          <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
+            <input type="text" name="name" value="" required="">
+            <label for="">
+              <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
+              <span class="text">Nombre</span>
+            </label>
+          </div>
+          @if ($errors->has('name'))
+          <div class="input_error">
+            <span>{{ $errors->first('name') }}</span>
+          </div>
+          @endif
+
+          <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
+            <input type="text" name="name" value="" required="">
+            <label for="">
+              <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
+              <span class="text">Nombre</span>
+            </label>
+          </div>
+          @if ($errors->has('name'))
+          <div class="input_error">
+            <span>{{ $errors->first('name') }}</span>
+          </div>
+          @endif
+
+          <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
+            <input type="text" name="name" value="" required="">
+            <label for="">
+              <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
+              <span class="text">Nombre</span>
+            </label>
+          </div>
+          @if ($errors->has('name'))
+          <div class="input_error">
+            <span>{{ $errors->first('name') }}</span>
+          </div>
+          @endif
+          <div class="button">
+            <center>
+              <button type="submit" name="button" id="guardar">
+                <span>Guardar</span>
+              </button>
+              <a href="#" class="" onclick="$('#kitBienvenida').modal('close'); return false;">
+                <span>Cancelar</span>
+              </a>
+            </center>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="kitFidelidad" class="modal modal_">
+      <div class="titulo">
+        <h3>
+          Kit de Fidelidad
+        </h3>
+      </div>
+
+      <div class="form">
+        <form class="form-horizontal" role="form" method="POST" action="#">
+          {{ csrf_field() }}
+
+          <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
+            <input type="text" name="name" value="" required="">
+            <label for="">
+              <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
+              <span class="text">Nombre</span>
+            </label>
+          </div>
+          @if ($errors->has('name'))
+          <div class="input_error">
+            <span>{{ $errors->first('name') }}</span>
+          </div>
+          @endif
+
+          <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
+            <input type="text" name="name" value="" required="">
+            <label for="">
+              <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
+              <span class="text">Nombre</span>
+            </label>
+          </div>
+          @if ($errors->has('name'))
+          <div class="input_error">
+            <span>{{ $errors->first('name') }}</span>
+          </div>
+          @endif
+
+          <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
+            <input type="text" name="name" value="" required="">
+            <label for="">
+              <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
+              <span class="text">Nombre</span>
+            </label>
+          </div>
+          @if ($errors->has('name'))
+          <div class="input_error">
+            <span>{{ $errors->first('name') }}</span>
+          </div>
+          @endif
+          <div class="button">
+            <center>
+              <button type="submit" name="button" id="guardar">
+                <span>Guardar</span>
+              </button>
+              <a href="#" class="" onclick="$('#kitFidelidad').modal('close'); return false;">
+                <span>Cancelar</span>
+              </a>
+            </center>
+          </div>
+        </form>
+      </div>
     </div>
 
     <!--  Scripts-->

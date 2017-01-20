@@ -13,7 +13,7 @@
     </div>
     <div class="agregar">
       <center>
-        <a href="{{ route('add_campana') }}" class="waves-effect">
+        <a href="#agregarPlan" class="waves-effect">
           <div class="">
             <span class="text">Agregar <br><strong>Plan</strong></span>
             <span class="icon"><i class="material-icons">add</i></span>
@@ -65,14 +65,80 @@
   </div>
 </div>
 
-<div id="eliminarPlan" class="modal modal_">
 
+<div id="agregarPlan" class="modal modal_">
+  <div class="titulo">
+    <h3>
+      Agregar Horario
+    </h3>
+  </div>
+
+  <div class="form">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_timeframe') }}">
+      {{ csrf_field() }}
+
+      <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
+        <input type="text" name="name" value="" required="">
+        <label for="">
+          <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
+          <span class="text">Nombre</span>
+        </label>
+      </div>
+      @if ($errors->has('name'))
+        <div class="input_error">
+            <span>{{ $errors->first('name') }}</span>
+        </div>
+      @endif
+      <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
+        <input type="text" name="description" value="" required="">
+        <label for="">
+          <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
+          <span class="text">Descripción</span>
+        </label>
+      </div>
+      @if ($errors->has('description'))
+        <div class="input_error">
+            <span>{{ $errors->first('description') }}</span>
+        </div>
+      @endif
+
+      <div class="input select {{ $errors->has('location_id') ? 'error' : '' }}">
+        <!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
+        <select id="location_id" class="form-control icons" name="location_id" required>
+          <option value="" disabled selected>Seleccione una ubicación</option>
+          @foreach($locations as $location)
+              <option value="{{$location->location_id}}">{{$location->name}}</option>
+          @endforeach
+        </select>
+
+      </div>
+      @if ($errors->has('location_id'))
+      <div class="input_error">
+        <span>{{ $errors->first('location_id') }}</span>
+      </div>
+      @endif
+
+      <div class="button">
+        <center>
+          <button type="submit" name="button" id="guardar">
+            <span>Guardar</span>
+          </button>
+          <a href="#" class="" onclick="$('#agregarPlan').modal('close'); return false;">
+            <span>Cancelar</span>
+          </a>
+        </center>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div id="eliminarPlan" class="modal modal_">
   <div class="titulo">
     <h3>
       Esta seguro que desea eliminar esta planificación
     </h3>
   </div>
-
   <div class="form">
     <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
       {{ csrf_field() }}

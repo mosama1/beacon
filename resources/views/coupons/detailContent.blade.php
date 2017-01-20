@@ -27,10 +27,10 @@
           <table>
             <thead>
               <tr>
-                  <th data-field="id">Nombre</th>
-                  <th data-field="country">Descripción</th>
-                  <th data-field="country">Descripción</th>
-                  <th data-field="country">Descripción</th>
+                  <th data-field="id">Coupon</th>
+                  <th data-field="country">Tag</th>
+                  <th data-field="country">Horarios</th>
+                  <th data-field="country">Trigger Name</th>
                   <th>Editar</th>
                   <th>Eliminar</th>
             </thead>
@@ -64,15 +64,17 @@
     <form class="form-horizontal" role="form" method="POST" action="#">
       {{ csrf_field() }}
 
+      <input type="hidden" name="tigger_name_id" value="DWELL_TIME">
 
 
-      <div class="input select {{ $errors->has('coupon_id') ? 'error' : '' }}">
+
+
+      <div class="input select no_icon {{ $errors->has('coupon_id') ? 'error' : '' }}">
         <select id="coupon_id" class="form-control icons" name="coupon_id" required>
           <option value="" disabled selected>Seleccione un Menú</option>
-          <option value="xxxxxxxx">xxxxxxxx</option>
-          <option value="xxxxxxxx">xxxxxxxx</option>
-          <option value="xxxxxxxx">xxxxxxxx</option>
-          <option value="xxxxxxxx">xxxxxxxx</option>
+          @foreach($coupon as $c)
+              <option value="{{$c->coupon_id}}">{{$c->name}}</option>
+          @endforeach
 
         </select>
       </div>
@@ -82,15 +84,13 @@
       </div>
       @endif
 
-      <div class="input select {{ $errors->has('timeframe_id') ? 'error' : '' }}">
-        <select id="timeframe_id" class="form-control icons" name="timeframe_id" required>
-          <option value="" disabled selected>Seleccione un Horario</option>
-          <option value="ALL">All</option>
-          <option value="xxxxxxxx">xxxxxxxx</option>
-          <option value="xxxxxxxx">xxxxxxxx</option>
-          <option value="xxxxxxxx">xxxxxxxx</option>
-          <option value="xxxxxxxx">xxxxxxxx</option>
 
+      <div class="input-field col s12">
+        <select multiple>
+          <option value="" disabled selected>Seleccione un Horario</option>
+          @foreach($timeframes as $t)
+              <option value="{{$t->timeframe_id}}">{{$t->name}}</option>
+          @endforeach
         </select>
       </div>
       @if ($errors->has('timeframe_id'))

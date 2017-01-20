@@ -11,7 +11,7 @@
       </div>
       <div class="agregar">
         <center>
-          <a href="{{ route('edit_beacon') }}" class="waves-effect">
+          <a href="#agregarBeacon" class="waves-effect">
             <div class="">
               <span class="text">Agregar <br><strong>Beacon</strong></span>
               <span class="icon"><i class="material-icons">add</i></span>
@@ -43,6 +43,56 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+
+  <div id="agregarBeacon" class="modal modal_">
+    <div class="titulo">
+      <h3>
+        Agregar Beacons
+      </h3>
+    </div>
+
+    <div class="form">
+      <form class="form-horizontal" role="form" method="POST" action="{{ route('beacon_store_beacon') }}">
+        {{ csrf_field() }}
+
+        <div class="input no_icon {{ $errors->has('major') ? 'error' : '' }}">
+          <input type="text" name="major" value="" required="">
+          <label for="">
+            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
+            <span class="text">Major</span>
+          </label>
+        </div>
+        @if ($errors->has('major'))
+          <div class="input_error">
+              <span>{{ $errors->first('major') }}</span>
+          </div>
+        @endif
+        <div class="input no_icon {{ $errors->has('minor') ? 'error' : '' }}">
+          <input type="text" name="minor" value="" required="">
+          <label for="">
+            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
+            <span class="text">Minor</span>
+          </label>
+        </div>
+        @if ($errors->has('minor'))
+          <div class="input_error">
+              <span>{{ $errors->first('minor') }}</span>
+          </div>
+        @endif
+        <div class="button">
+          <center>
+            <button type="submit" name="button">
+              <span>Guardar</span>
+            </button>
+            <a href="#" class="" onclick="$('#agregarBeacon').modal('close'); return false;">
+              <span>Cancelar</span>
+            </a>
+          </center>
+        </div>
+      </form>
     </div>
   </div>
 

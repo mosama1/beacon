@@ -364,10 +364,14 @@ $('.vistaPreviaImg').click(function(){
   }else {
     $('.vistaPrevia .titulo h3').html(nombreDefault);
   }
-  $('.vistaPrevia').removeClass('none');
+
   setTimeout(function(){
-    $('.vistaPrevia').addClass('active');
-  },10);
+    $('.vistaPrevia').removeClass('none');
+    setTimeout(function(){
+      $('.vistaPrevia').addClass('active');
+    },10);
+  },100);
+
 
   function cerrar() {
     $('.vistaPrevia').removeClass('active');

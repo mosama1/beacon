@@ -633,7 +633,14 @@ class BeaconController extends Controller
     {
     	$campana = Campana::where('user_id', '=', Auth::user()->id)->get();
 
-    	return view('beacons.campana',['campana' => $campana]);
+			$locations = DB::table('locations')
+										->select('location_id', 'name')
+										->where('user_id', '=', Auth::user()->id)
+										->get();
+
+
+
+    	return view('beacons.campana',['campana' => $campana, 'locations' => $locations]);
     }
 
     public function show_tipoPlato()
@@ -1133,13 +1140,19 @@ class BeaconController extends Controller
 
 		public function show_content()
     {
-    	// $plate = Plate::whereRaw('menu_id = ? ', array($id))->first();
-			//
-    	// $plateName = Menu::whereRaw('id = ? ', array($id))->first();
-			//
-      //   $plateName->menu_translation;
+			$coupon = Coupon::where('user_id', '=', Auth::user()->id)->get();
 
-    	return view('coupons.detailContent');
+			$tags = Tag::where('user_id', '=', Auth::user()->id)->get();
+
+    	$timeframes = Timeframe::where('user_id', '=', Auth::user()->id)->get();
+
+    	return view('coupons.detailContent',[
+    												'coupon' => $coupon,
+    												'tags' => $tags,
+    												'timeframes' => $timeframes,
+    												// 'campana_id' => $id
+    											]);
+
     }
 
 

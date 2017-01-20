@@ -68,7 +68,7 @@
             </span>
             @endif
           </div>
-          <div class="input {{ $errors->has('password') ? 'error' : '' }}">
+          <!-- <div class="input {{ $errors->has('password') ? 'error' : '' }}">
             <input type="hidden" name="password" value="{{ $user->password }}" required="">
             <label for="">
               <span class="icon"><img src="img/icons/contrasena.png" alt=""></span>
@@ -80,6 +80,7 @@
             </span>
             @endif
           </div>
+
           <div class="input {{ $errors->has('password_update') ? 'error' : '' }}">
             <input type="password" name="password_update" value="" >
             <label for="">
@@ -91,10 +92,10 @@
               <strong>{{ $errors->first('password_update') }}</strong>
             </span>
             @endif
-          </div>
+          </div> -->
         </div>
         <div class="links">
-          <a href="{{ route('list_beacons') }}">Información de Beacons</a>
+          <a href="#cambiarContrasena">Cambiar Contraseña</a> || <a href="{{ route('list_beacons') }}">Información de Beacons</a>
         </div>
         <div class="button">
           <center>
@@ -203,29 +204,6 @@
             </div>
           </div>
 
-          <!-- <div class="input {{ $errors->has('lat') ? 'error' : '' }}">
-            <input type="text" name="lat" value="{{$location->lat}}" required="">
-            <label for="">
-              <span class="text">Lat</span>
-            </label>
-            @if ($errors->has('lat'))
-            <span class="error_input">
-              <strong>{{ $errors->first('lat') }}</strong>
-            </span>
-            @endif
-          </div>
-
-          <div class="input {{ $errors->has('lng') ? 'error' : '' }}">
-            <input type="text" name="lng" value="{{$location->lng}}" required="">
-            <label for="">
-              <span class="text">Lng</span>
-            </label>
-            @if ($errors->has('lng'))
-            <span class="error_input">
-              <strong>{{ $errors->first('lng') }}</strong>
-            </span>
-            @endif
-          </div> -->
         </div>
 
         <div class="button">
@@ -250,6 +228,71 @@
 
 
 
+
+<div id="cambiarContrasena" class="modal modal_">
+  <div class="titulo">
+    <h3>
+      Cambiar Contraseña
+    </h3>
+  </div>
+
+  <div class="form">
+    <form class="form-horizontal" role="form" method="POST" action="#">
+      {{ csrf_field() }}
+
+
+
+      <div class="input no_icon {{ $errors->has('old_password') ? 'error' : '' }}">
+        <input type="text" name="old_password" value="" required="">
+        <label for="">
+          <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
+          <span class="text">Contraseña Actual</span>
+        </label>
+      </div>
+      @if ($errors->has('old_password'))
+      <div class="input_error">
+        <span>{{ $errors->first('old_password') }}</span>
+      </div>
+      @endif
+
+      <div class="input no_icon {{ $errors->has('new_password') ? 'error' : '' }}">
+        <input type="text" name="new_password" value="" required="">
+        <label for="">
+          <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
+          <span class="text">Nueva Contraseña</span>
+        </label>
+      </div>
+      @if ($errors->has('new_password'))
+      <div class="input_error">
+        <span>{{ $errors->first('new_password') }}</span>
+      </div>
+      @endif
+
+      <div class="input no_icon {{ $errors->has('confirm_password') ? 'error' : '' }}">
+        <input type="text" name="confirm_password" value="" required="">
+        <label for="">
+          <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
+          <span class="text">Confirmar Contraseña</span>
+        </label>
+      </div>
+      @if ($errors->has('confirm_password'))
+      <div class="input_error">
+        <span>{{ $errors->first('confirm_password') }}</span>
+      </div>
+      @endif
+      <div class="button">
+        <center>
+          <button type="submit" name="button" id="guardar">
+            <span>Guardar</span>
+          </button>
+          <a href="#" class="" onclick="$('#cambiarContrasena').modal('close'); return false;">
+            <span>Cancelar</span>
+          </a>
+        </center>
+      </div>
+    </form>
+  </div>
+</div>
 
 
 

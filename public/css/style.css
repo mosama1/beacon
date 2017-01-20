@@ -1589,6 +1589,43 @@ body.menu2 .menu_cliente{
   font-weight: bold;
   /*background: #b3b3b3;*/
 }
+
+.contenedor .principal .form .input input.input_time:focus + label,
+.modal_ .form .input input.input_time:focus + label{
+  opacity: 0;
+}
+.contenedor .principal .form .input input.input_time:not(:focus),
+.modal_ .form .input input.input_time:not(:focus){
+  opacity: 0;
+}
+.contenedor .principal .form .input input.input_time:valid,
+.modal_ .form .input input.input_time:valid{
+  opacity: 1;
+}
+.contenedor .principal .form .input input.input_time::before,
+.modal_ .form .input input.input_time::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50px;
+  height: 100%;
+  background: #999999;
+}
+.contenedor .principal .form .input.time,
+.modal_ .form .input.time{
+  overflow: hidden;
+}
+.contenedor .principal .form .input input.input_time,
+.modal_ .form .input input.input_time{
+  width: calc(100% + 50px)
+}
+.contenedor .principal .form .input input.input_time.number,
+.modal_ .form .input input.input_time.number{
+  width: calc(100%)
+}
+
+
 .contenedor .principal .form .input.no_icon input,
 .modal_ .form .input.no_icon input{
   padding-left: 25px;
@@ -1764,6 +1801,33 @@ body.menu2 .menu_cliente{
   top: 6px;
   left: 15px;
 }
+.contenedor .principal .form .input-field,
+.modal_ .form .input-field{
+  background: rgb(255, 255, 255);
+  height: 30px;
+  border-radius: 20px;
+}
+.contenedor .principal .form .input-field input,
+.modal_ .form .input-field input{
+  height: 30px;
+  padding-left: 25px;
+  color: #000;
+  border: none;
+  font-weight: bold;
+}
+.contenedor .principal .form .input-field span.caret,
+.modal_ .form .input-field span.caret{
+  right: 15px;
+  font-size: 15px;
+  z-index: 10;
+}
+.contenedor .principal .form .input-field ul,
+.modal_ .form .input-field ul{
+  border-radius: 15px;
+  width: 100% !important;
+}
+
+
 .contenedor .principal .form .input.select .dropdown-content,
 .modal_ .form .input.select .dropdown-content{
   border-radius: 25px;
@@ -2189,6 +2253,8 @@ body.menu2 .contenedor.cliente_final{
   width: 400px;
   height: 500px;
   background-image: url(../img/fondos/completo.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
 
   display: inline-block;
 }
@@ -2223,7 +2289,6 @@ body.menu2 .contenedor.cliente_final{
 .vistaPrevia ul li .vista .content{
   width: 100%;
   height: calc(100% - 60px);
-  /*background: rgb(187, 154, 97);*/
   padding: 60px;
 }
 .vistaPrevia ul li .vista .content .vistaInicio{
@@ -2370,6 +2435,9 @@ body.clienteFinal footer{
 
 
 @media (max-width: 600px) {
+  .menu ul li ul.sub_menu li ul.delServicio{
+    top: 72px;
+  }
   .titulologo {
     font-size: 30px;
   }
@@ -2486,7 +2554,34 @@ body.clienteFinal footer{
   .authenticate .divide .divide_cont .input label {
     font-size: 13px;
   }
-
+  #register.authenticate .divide.dat_ris {
+      padding: 0 20px;
+  }
+  .authenticate .divide .divide_cont .input_file {
+    width: calc(100%);
+  }
+  .authenticate .divide .divide_cont.files .vista_previa {
+    position: relative;
+    width: 100%;
+    height: auto;
+    right: 0px;
+    top: 0;
+    padding: 20px 0;
+  }
+  .authenticate .divide .divide_cont.files .vista_previa img {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 0;
+    transform: translate(0,0);
+  }
+  .authenticate .divide .divide_cont.files .vista_previa .img {
+    height: auto;
+    position: relative;
+  }
+  #register.authenticate .divide .divide_cont {
+    margin: 0px;
+  }
 
   .menu{
     height: 50px;
@@ -2525,7 +2620,7 @@ body.clienteFinal footer{
     top: 0;
   }
   .menu ul li ul.sub_menu {
-    top: 30px;
+    top: 35px;
   }
   .menu ul li ul.sub_menu.active {
     opacity: 1;

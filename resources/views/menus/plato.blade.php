@@ -118,7 +118,7 @@
       </div>
 
       <div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}">
-        <input type="number" name="price" value="" required=""  max="99999">
+        <input type="number" name="price" value="" required=""  max="99999" step="any">
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Precio</span>
