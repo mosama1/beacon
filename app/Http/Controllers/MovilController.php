@@ -1,0 +1,104 @@
+<?php
+
+namespace Beacon\Http\Controllers;
+
+use Illuminate\Http\Request;
+use GuzzleHttp\Client;
+use Beacon\Location;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Beacon\Tag;
+use Beacon\Coupon;
+use Beacon\Timeframe;
+use Beacon\Campana;
+use Beacon\Content;
+use Beacon\Beacon;
+use Beacon\Section;
+use Beacon\SectionTranslation;
+use Beacon\Menu;
+use Beacon\MenuTranslation;
+use Beacon\Plate;
+use Beacon\TypesPlates;
+use Illuminate\Support\Facades\Input;
+use Beacon\User;
+
+class MovilController extends Controller
+{
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function index()
+	{
+		$sections = Section::all();
+
+		return view('index',['sections' => $sections]);
+
+	}
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show_plate($section_id)
+	{
+		$menus = Menu::where([
+			['section_id', '=', array( $section_id ) ],
+		])->get();
+		foreach ($menus as $key => $menu) {
+			$menu->plate;
+			$menu->menu_translation;
+			if ($menu->plate) {
+				$menu->plate->plate_translation;
+			}
+		}
+
+		//echo "<pre>"; var_dump($menus);	echo "</pre>";
+
+		$sections = Section::all();
+
+		return view('clientes.plates', ['menus' => $menus, 'sections' => $sections]);
+
+	}
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show_desc_plate($menu_id)
+	{
+	// 	$plate = Plate::where([
+	// 		['menu_id', '=', array( $menu_id )]
+	// 	])->first();
+
+	// 	if ($plate) {
+
+	// 	$plate->section;
+
+	// 	$plate->plate_translation;
+	// 	}
+
+	// 	return view('clientes.detailPlato', ['plate' => $plate, 'section_id' => $plate->section->id]);
+
+		$menu = Menu::where([
+	 		['id', '=', array( $menu_id )]
+	 	])->first();
+
+		$menu->menu_translation;
+
+		$menu->plate;
+
+		$menu->section;
+
+		$sections = Section::all();
+
+		//echo "<pre>"; var_dump($menu);	echo "</pre>";
+
+		return view('clientes.detailPlato', ['menu' => $menu, 'sections' => $sections]);
+	}
+
+}

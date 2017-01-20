@@ -45,16 +45,10 @@
           <ul>
             <li class="opciones">
               <ul class="sub_menu">
-              	@php
-                  use Beacon\Section;
-                  use Beacon\SectionTranslation;
-
-              		$sections = Section::all();
-              	@endphp
               	@foreach($sections as $s)
                   <?php  $s->section_translation; ?>
 	                <li>
-	                  <a href="{{ route('showPlate', $s->id) }}">
+	                  <a href="{{ route('movil_show_plate', $s->id) }}">
 	                    <span>
                         @if( ! empty($s->section_translation[0]) )
                           {{$s->section_translation[0]->name}}
@@ -70,7 +64,7 @@
             </li>
             @if(isset($menu2))
             <li class="logo">
-              <img src="img/logo/logo1.png" alt="">
+              LOGO
             </li>
             @endif
             <!-- <li class="idioma">

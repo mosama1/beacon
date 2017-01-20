@@ -1,5 +1,5 @@
 <?php
-$nivel = '../../' ;
+$nivel = '../../../' ;
 $menu2 = '';
 ?>
 @extends('layouts.appFinal')
@@ -9,27 +9,30 @@ $menu2 = '';
   <div class="principal">
     <div class="titulo">
       <h3>
-        {{$name->menu_translation[0]->name}}
+        @if( ! empty($menu->menu_translation[0]) )
+          {{$menu->menu_translation[0]->name}}
+        @endif
       </h3>
       <h4>
-        {{$name->price}} €
+        {{$menu->price}} €
       </h4>
     </div>
 
     <div class="inf">
 
       <div class="description">
-        <p>{{$plate->description}}</p>
+        <p>{{$menu->description}}</p>
+        
       </div>
       <div class="img">
-        <img alt="" src="img/platos/{{$plate->img}}">
+        <img alt="" src="{{ asset($menu->plate->img) }}">
       </div>
 
     </div>
 
     <div class="agregar regresar">
       <center>
-        <a href="{{ URL::previous() }}" class="waves-effect">
+        <a href="{{ route('movil_show_plate', [$menu->section_id]) }}" class="waves-effect">
           <div class="">
             <span class="text">Regresar</span>
             <span class="icon"><i class="material-icons">reply</i></span>
