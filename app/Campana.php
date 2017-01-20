@@ -14,4 +14,9 @@ class Campana extends Model
 	protected $fillable = [
 			'campana_id', 'user_id', 'name', 'description', 'start_time', 'end_time', 'location', 'enabled',
 	];
+
+	public function content()
+	{
+	    return $this->hasOne('Beacon\Content', 'campana_id', 'campana_id');
+	}
 }
