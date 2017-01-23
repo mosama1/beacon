@@ -22,6 +22,7 @@ use Beacon\TypesPlates;
 use Illuminate\Support\Facades\Input;
 use Beacon\User;
 
+
 class MovilController extends Controller
 {
 
