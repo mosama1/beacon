@@ -34,7 +34,7 @@
           </div>
         @endif
         <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
-          <input type="text" name="description" value="{{$campana->description}}" required="">
+          <input type="text" name="description" value="{{$campana->description}}">
           <label for="">
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Descripción</span>

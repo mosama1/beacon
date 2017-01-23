@@ -84,7 +84,7 @@
         @endif
       </div>
       <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
-        <input type="text" name="description" value="" required="">
+        <input type="text" name="description" value="">
         <label for="">
           <span class="text">Descripcion</span>
         </label>
