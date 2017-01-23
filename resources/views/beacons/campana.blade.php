@@ -54,7 +54,14 @@
                   <td><a href="{{ route('show_content', 1) }}"><i class="material-icons">input</i></a></td>
 
                   <!-- <td><a href="{{ route('show_content', $c->campana_id) }}"><i class="material-icons">add</i></a></td> -->
-                  <td><a href="#eliminarPlan"><i class="material-icons">clear</i></a></td>
+                <?php
+
+                  echo "<td onclick= \"modal_activate('".
+                     route( "destroy_campana", $c->campana_id ).
+                    "' , '#eliminarPlan')\" >";
+
+                ?>
+                  <a href="#eliminarPlan"><i class="material-icons">clear</i></a></td>
                 </tr>
               @endforeach
             </tbody>
@@ -140,8 +147,9 @@
     </h3>
   </div>
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
+    <form class="form-horizontal" role="form" method="POST">
       {{ csrf_field() }}
+      {{ method_field('DELETE') }}
       <div class="button">
         <center>
           <button type="submit" name="button">
