@@ -145,13 +145,13 @@ class BeaconController extends Controller
 						]
 				]);
 
-				$beac = new Beacon();
+				$beac = Beacon::where('');
 				$beac->beacon_id = $beacon_->beacons[0]->id;
 				$beac->user_id = Auth::user()->id;
 				$beac->name = $beacon_->beacons[0]->name;
 				$beac->major = $beacon_->beacons[0]->major;
 				$beac->minor = $beacon_->beacons[0]->minor;
-				$beac->save();
+				$beac->update();
 
 				return redirect()->route('list_beacons');
 
@@ -164,6 +164,69 @@ class BeaconController extends Controller
 		else:
 
 			return redirect()->route('edit_beacon')->with(['status' => 'El beacons no existe', 'type' => 'error']);
+
+		endif;
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy_beacon(Request $request)
+	{
+		// Nuevo cliente con un url base
+		$client = new Client();
+
+		//Token Crud
+		$crud = BeaconController::crud();
+
+		//Beacons
+		$beacon_update = $client->get('https://connect.onyxbeacon.com/api/v2.5/beacons?filter[major]='.$request->major.'&filter[minor]='.$request->minor.'', [
+				// un array con la data de los headers como tipo de peticion, etc.
+				'headers' => ['Authorization' => 'Bearer '.$crud ],
+		]);
+
+		//Json parse
+		$json_b = $beacon_update->getBody();
+
+		$beacon_ = json_decode($json_b);
+
+
+		if ($beacon_->beacons):
+
+			$beacons = Beacon::where('beacon_id', '=', $beacon_->beacons[0]->id)->first();
+
+			if (!$beacons):
+
+				$locations_id = Location::where('user_id', '=', Auth::user()->id)->first();
+
+				//Location
+				$beacons_location = $client->post('https://connect.onyxbeacon.com/api/v2.5/beacons/'.$beacon_->beacons[0]->id.'/update', [
+						// un array con la data de los headers como tipo de peticion, etc.
+						'headers' => ['Authorization' => 'Bearer '.$crud ],
+						// array de datos del formulario
+						'form_params' => [
+		//						'location' => '3987'
+								'location' => ''
+						]
+				]);
+
+				$beacons->delete();
+
+				return redirect()->route('list_beacons');
+
+			else:
+
+				return redirect()->route('list_beacons')->with(['status' => 'El beacons ya esta registrado', 'type' => 'error']);
+
+			endif;
+
+		else:
+
+			return redirect()->route('list_beacons')->with(['status' => 'El beacons no existe', 'type' => 'error']);
 
 		endif;
 	}
