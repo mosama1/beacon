@@ -114,7 +114,6 @@
         <div class="input_error">
             <span>{{ $errors->first('description') }}</span>
         </div>
-
       @endif
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioMenu">
         <input type="number" name="price" step="0.01" min="0" value="0"  id="price" min="1.00">
