@@ -107,7 +107,7 @@
         <textarea name="description" rows="8" cols="80"></textarea>
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-          <span class="text">Descripción</span>
+          <span class="text">Descripción (Opcional)</span>
         </label>
       </div>
       @if ($errors->has('description'))

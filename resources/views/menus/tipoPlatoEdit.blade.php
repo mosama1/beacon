@@ -39,7 +39,7 @@
         <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
           <input type="text" name="description" value="{{$tipo_plato->description}}">
           <label for="">
-            <span class="text">Descripción</span>
+            <span class="text">Descripción (Opcional)</span>
           </label>
           @if ($errors->has('description'))
             <span class="error_input">

@@ -100,7 +100,7 @@
         <input type="text" name="description" value="">
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-          <span class="text">Descripción</span>
+          <span class="text">Descripción (Opcional)</span>
         </label>
       </div>
       @if ($errors->has('description'))
