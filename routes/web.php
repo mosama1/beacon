@@ -106,8 +106,8 @@ Route::get('menus', 'BeaconController@show_coupon')->name('show_coupon');
 
 Route::post('menus', 'BeaconController@store_coupon')->name('store_coupon');
 
-Route::delete('menus/{id}', 'BeaconController@destroy_coupon')
-			->name('destroy_coupon')->where('id', '[0-9]+');
+Route::delete('menus/{coupon_id}', 'BeaconController@destroy_coupon')
+			->name('destroy_coupon')->where('coupon_id', '[0-9]+');
 
 Route::get('sections/{section_id}/menus/{menu_id}', 'MenuController@show_menu')
 			->name('show_menu')->where(['section_id' => '[0-9]+', 'menu_id' => '[0-9]+']);
