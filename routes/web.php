@@ -14,11 +14,7 @@ use Beacon\Section;
 */
 
 Route::get('/', function () {
-  if (Auth::guest()) {
-    return view('index');
-  } else {
-    return view('home');
-  }
+	return view('auth.login');
 });
 
 Route::get('login', function () {
