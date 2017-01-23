@@ -32,6 +32,8 @@
                   <th data-field="id">Descripción</th>
                   <th data-field="name">Visualizar</th>
                   <th data-field="price">Idioma</th>
+                  <th data-field="price">Editar</th>
+
                   <th data-field="price">Eliminar</th>
               </tr>
             </thead>
@@ -53,6 +55,8 @@
 
 
                   <td><a href="#idioma"><i class="material-icons">language</i></a></td>
+                  <td><a href="#"><i class="material-icons">edit</i></a></td>
+
                   <?php
 
                   echo "<td onclick= \"modal_activate('".
@@ -226,7 +230,7 @@
           <button type="submit" name="button">
             <span>Si</span>
           </button>
-          <a href="#" class="" onclick="$('#eliminarMenu').modal('close'); return false;">
+          <a href="#" class="" onclick="$('#eliminarCoupon').modal('close'); return false;">
             <span>No</span>
           </a>
         </center>

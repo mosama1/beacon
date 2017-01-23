@@ -22,7 +22,7 @@
   </script>
 
 </head>
-<body class="clienteFinal {{ isset($menu2) ? 'meu2' : '' }}">
+<body style="" class="clienteFinal {{ isset($menu2) ? 'meu2' : '' }}">
   <div class="preload">
     <div class="img">
       <h2 class="colorClienteFinal">LOGO</h2>

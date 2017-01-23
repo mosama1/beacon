@@ -1707,7 +1707,7 @@ body.menu2 .menu_cliente{
 }
 
 .clienteFinal{
-  background-image: url(img/fondos/completo.jpg);
+  background-image: url(../img/fondos/completo.jpg);
 }
 .colorClienteFinal{
   color: #fff;
@@ -2741,10 +2741,10 @@ body.clienteFinal footer{
     opacity: 1;
     height: auto;
     transition-delay: 0s;
-    -webkit-transform: translate(-50%);
-    -ms-transform: translate(-50%);
-    -o-transform: translate(-50%);
-    transform: translate(-50%);
+    -webkit-transform: ;
+    -ms-transform: ;
+    -o-transform: ;
+    transform: ;
   }
 
   .menu ul li ul.sub_menu {
