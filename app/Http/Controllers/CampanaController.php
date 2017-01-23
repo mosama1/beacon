@@ -162,6 +162,9 @@ class CampanaController extends Controller
 
 		else:
 
+			var_dump($campana);
+		return;
+
 			return redirect()->route('show_campana')->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
 
 		endif;
@@ -345,51 +348,48 @@ class CampanaController extends Controller
 
 	}
 
-	//************************************* Section Menu **************************************************//
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function store_section(Request $request)
-	{
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy_campana($campana_id)
+    {
+		// Nuevo cliente con un url base
+		$client = new Client();
 
-		$section = new Section();
-		$section->user_id = Auth::user()->id;
-		$section->coupon_id = $request->coupon_id;
-		$section->name = $request->name;
-		$section->save();
+		//Token Crud
+		$crud = CampanaController::crud();
 
+		$campana_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/delete', [
+				// un array con la data de los headers como tipo de peticion, etc.
+				'headers' => ['Authorization' => 'Bearer '.$crud ]
+		]);
 
-		return redirect()->route('show_section', $request->coupon_id)->with(['status' => 'Se ingreso Section de Menu con exito', 'type' => 'success']);
-
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public function destroy_section(Request $request)
-	{
+		//Json parse
+		$json_c = $campana_->getBody();
 
 
-		$section =  Section::find($request->id);
+		$campana = json_decode($json_c);
 
-		$section->delete();
+		if ($campana->status_code === 200 ):
 
-		if($section):
+	    	$campana =  Campana::where('campana_id', '=', $campana_id)->first();
 
-			return 1;
+	    	$campana->delete();
+
+	        return redirect()->route('show_campana')
+	                ->with(['status' => 'Se ha Eliminado la Campaña con éxito', 'type' => 'success']);
 
 		else:
 
-			return 0;
+			echo "<pre>"; var_dump($campaña); echo "</pre>"; 
+
+			return redirect()->route('show_campana')->with(['status' => 'Error al eliminar la Campaña', 'type' => 'error']);
 
 		endif;
 
-	}
+    }
 
 }

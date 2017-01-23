@@ -14,11 +14,7 @@ use Beacon\Section;
 */
 
 Route::get('/', function () {
-  if (Auth::guest()) {
-    return view('index');
-  } else {
-    return view('home');
-  }
+	return view('auth.login');
 });
 
 Route::get('login', function () {
@@ -80,6 +76,9 @@ Route::post('campanas/add', 'CampanaController@store_campana')->name('store_camp
 Route::get('campanas/{id}/edit', 'CampanaController@edit_campana')->name('edit_campana')->where('id', '[0-9]+');
 
 Route::post('campanas/{id}/edit', 'CampanaController@update_campana')->name('update_campana')->where('id', '[0-9]+');
+
+Route::delete('campanas/{campana_id}', 'CampanaController@destroy_campana')
+			->name('destroy_campana')->where('campana_id', '[0-9]+');
 
 //Campa�aContent
 Route::get('campanas/{id}/contents', 'CampanaController@show_content')
