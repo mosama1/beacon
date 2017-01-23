@@ -1033,5 +1033,10 @@ class BeaconController extends Controller
 
     }
 
+		public function menu_edit()
+		{
+			return view('beacons.coupon_edit');
+		}
+
 
 }

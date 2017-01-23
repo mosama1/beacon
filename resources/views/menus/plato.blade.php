@@ -109,7 +109,7 @@
 
 			<div class="input select no_icon {{ $errors->has('type') ? 'error' : '' }}">
 				<!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
-				<select id="type" class="form-control icons" name="type" required>
+				<select id="type" class="form-control icons" name="type">
 
 				@if( !empty($type_plates) )
           <option value="" disabled selected>Seleccion un tipo de plato</option>
