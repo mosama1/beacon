@@ -537,7 +537,10 @@ class BeaconController extends Controller
 
 			$coupon_translation = new CouponTranslation();
 			$coupon_translation->name = $coupon->coupon->name;
-			$coupon_translation->description = $coupon->coupon->description;
+			(isset($coupon->coupon->description)) ?
+				$coupon_translation->description = $coupon->coupon->description :
+				$coupon_translation->description = "";
+
 			$coupon_translation->message = $coupon->coupon->message;
 
 			$coupon_translation->language_id = 1;
@@ -663,7 +666,9 @@ class BeaconController extends Controller
 			$time->timeframe_id = $timeframe->timeframe->id;
 			$time->user_id = Auth::user()->id;
 			$time->name = $timeframe->timeframe->name;
-			$time->description = $timeframe->timeframe->description;
+			(isset($timeframe->timeframe->description)) ?
+				$time->description = $timeframe->timeframe->description :
+				$time->description = "";
 			$time->start_time = $timeframe->timeframe->start_time;
 			$time->end_time = $timeframe->timeframe->end_time;
 			$time->days = $timeframe->timeframe->days;
@@ -1132,6 +1137,11 @@ class BeaconController extends Controller
 					]);
 
     }
+
+		public function menu_edit()
+		{
+			return view('beacons.coupon_edit');
+		}
 
 
 }

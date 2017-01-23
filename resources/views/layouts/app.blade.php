@@ -34,8 +34,15 @@ use Beacon\User;
 
           <!-- <a id="logo-container" class="brand-logo logo-patrocinante logo" href="{{ Auth::guest() ? url('/') : url('home') }}"> -->
             <a id="logo-container" class="brand-logo logo-patrocinante logo" href="{{ Auth::guest() ? url('/login') : url('home') }}">
-              <!-- <img src="img/logo/logo.png" alt=""> -->
-              <h3 class="titulologo">Logo</h3>
+              <?php if (Auth::user()): ?>
+                @php
+                $locatiom = Location::where('user_id', '=', Auth::user()->id)->first();
+                @endphp
+                <?php if (!empty($locatiom)): ?>
+                  <img src="{{$locatiom->logo}}" alt="">
+                <?php endif; ?>
+              <?php endif; ?>
+              <!-- <h3 class="titulologo">Logo</h3> -->
             </a>
 
             <ul class="right">

@@ -44,7 +44,7 @@ class LocationController extends Controller
 
 		$token_crud = json_decode($json_c);
 
-        Log::info('This is some useful information.');        
+        Log::info('This is some useful information.');
 
 		return $token_crud->access_token;
 	}
@@ -122,7 +122,9 @@ class LocationController extends Controller
         $logo_mime = $imagen->getMimeType();
 
         //path donde se almacenara el logo
-        $path = public_path().'\assets\images\\';
+        $path = public_path().'/assets/images/logos/';
+				// $path = '/home/demente/public_html/prueba/beacons/assets/images/logos/';
+
 
         switch ($logo_mime)
         {
@@ -132,11 +134,12 @@ class LocationController extends Controller
                 {
 
                     $nombre = $imagen->getClientOriginalName();
+										$nombre = date('dmyhis').'-'.$nombre;
 
                     $imagen->move($path, $nombre);
 
-                    $logo = 'assets\images\\'.$nombre;
-                    
+                    $logo = 'assets/images/logos/'.$nombre;
+
                 }
             break;
         }
@@ -196,9 +199,9 @@ class LocationController extends Controller
 	    	$loca->street = $locations->location->street;
 	    	$loca->street_number = $locations->location->street_number;
 	    	$loca->timezone = $locations->location->timezone;
-            $loca->logo = $logo;
-            $loca->lat =  0;
-            $loca->lng =  0;
+        $loca->logo = $logo;
+        $loca->lat =  0;
+        $loca->lng =  0;
 	    	$loca->save();
 
 /*	    	$tag_ = new Tag;
@@ -254,7 +257,9 @@ class LocationController extends Controller
         $logo_mime = $imagen->getMimeType();
 
         //path donde se almacenara el logo
-        $path = public_path().'\assets\images\\';
+        $path = public_path().'/assets/images/logos/';
+				// $path = '/home/demente/public_html/prueba/beacons/assets/images/logos/';
+
 
         switch ($logo_mime)
         {
@@ -263,12 +268,13 @@ class LocationController extends Controller
                 if ($imagen->isValid())
                 {
 
-                    $nombre = $id.$imagen->getClientOriginalName();
+									$nombre = $id.$imagen->getClientOriginalName();
+									$nombre = date('dmyhis').'-'.$nombre;
 
                     $imagen->move($path, $nombre);
 
-                    $logo = 'assets\images\\'.$nombre;
-                    
+                    $logo = 'assets/images/logos/'.$nombre;
+
                 }
             break;
         }

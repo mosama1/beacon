@@ -87,10 +87,10 @@
         </div>
       @endif
       <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
-        <input type="text" name="description" value="" required="">
+        <input type="text" name="description" value="">
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-          <span class="text">Descripción</span>
+          <span class="text">Descripción (Opcional)</span>
         </label>
       </div>
       @if ($errors->has('description'))
@@ -151,7 +151,6 @@
     <form class="form-horizontal" role="form" method="POST">
       {{ csrf_field() }}
       {{ method_field('DELETE') }}
-      <input type="hidden" name="_method" value="DELETE">
       <div class="button">
         <center>
           <button type="submit" name="button">

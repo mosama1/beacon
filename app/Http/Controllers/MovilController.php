@@ -22,6 +22,7 @@ use Beacon\TypesPlates;
 use Illuminate\Support\Facades\Input;
 use Beacon\User;
 
+
 class MovilController extends Controller
 {
 
@@ -35,7 +36,7 @@ class MovilController extends Controller
 
 		//		echo "<pre>"; var_dump($sections);	echo "</pre>";
 
-		return view('index', [ 'campana_id' => $campana_id, 'sections' => $this->obtener_sections_movil($campana_id) ] );
+		return view('index', [ 'campana_id' => $campana_id, 'sections' => $this->obtener_sections_movil($campana_id), 'logo' => $this->obtener_logo_movil($campana_id) ] );
 
 	}
 
@@ -69,6 +70,28 @@ class MovilController extends Controller
 		//		echo "<pre>"; var_dump($sections);	echo "</pre>";
 
 		return $sections;
+
+	}
+
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function obtener_logo_movil( $campana_id )
+	{
+		$campana = Campana::where([
+			['campana_id', '=', array( $campana_id ) ],
+		])->first();
+
+		$location = Location::where([
+			['location_id', '=', array( $campana->location_id ) ],
+		])->first();
+
+		// echo "<pre>"; var_dump($location);	echo "</pre>";
+		// return;
+		return $location->logo;
 
 	}
 

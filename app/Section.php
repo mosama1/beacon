@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Section extends Model
 {
 
-	protected $table = 'beacon.sections';
+	//protected $table = 'beacon.sections';
+	protected $table = 'sections';
 
 	/**
 	 * The attributes that are mass assignable.
@@ -15,9 +16,9 @@ class Section extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-			'user_id', 'coupon_id', 'name', 
+			'user_id', 'coupon_id', 'name',
 	];
-	
+
 	public function user()
 	{
 		return $this->belongsTo('Beacon\User', 'user_id', 'id');

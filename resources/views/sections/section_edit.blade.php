@@ -1,4 +1,4 @@
-<?php $nivel = '../../../' ?>
+<?php $nivel = '../../' ?>
 
 @extends('layouts.app')
 
@@ -8,7 +8,7 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Editar Tipo de Plato
+        Editar Seccion
       </h3>
     </div>
 
@@ -18,14 +18,14 @@
            <strong>{{ session('status') }}</strong>
          </span>
        @endif
-       <form class="form-horizontal" role="form" method="POST" action="{{ route('update_tipoPlato', $tipo_plato->id)}}">
+       <form class="form-horizontal" role="form" method="POST" action="#">
         {{ csrf_field() }}
 
         <input type="hidden" name="_method" value="PUT">
 
 
         <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-          <input type="text" name="name" value="{{$tipo_plato->name}}" required="">
+          <input type="text" name="name" value="" required="">
           <label for="">
             <span class="text">Nombre</span>
           </label>
@@ -36,17 +36,6 @@
           @endif
         </div>
 
-        <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
-          <input type="text" name="description" value="{{$tipo_plato->description}}">
-          <label for="">
-            <span class="text">Descripción (Opcional)</span>
-          </label>
-          @if ($errors->has('description'))
-            <span class="error_input">
-                <strong>{{ $errors->first('description') }}</strong>
-            </span>
-          @endif
-        </div>
 
 
         <div class="button">
@@ -64,5 +53,4 @@
     </div>
   </div>
 </div>
-
 @endsection

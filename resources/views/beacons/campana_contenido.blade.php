@@ -1,4 +1,4 @@
-<?php $nivel = '../../../' ?>
+<?php $nivel = '../../' ?>
 @extends('layouts.app')
 
 @section('content')
@@ -19,7 +19,7 @@
 
 
 
-        <div class="input select {{ $errors->has('coupon_id') ? 'error' : '' }}">
+        <div class="input select no_icon _100 {{ $errors->has('coupon_id') ? 'error' : '' }}">
           <select id="coupon_id" class="form-control icons" name="coupon_id" required>
             <option value="" disabled selected>Seleccione un Menú</option>
             @foreach($coupons as $c)
@@ -36,10 +36,9 @@
         </div>
         @endif
 
-        <div class="input select {{ $errors->has('timeframe_id') ? 'error' : '' }}">
-          <select id="timeframe_id" class="form-control icons" name="timeframe_id" required>
+        <div class="input-field col s12 {{ $errors->has('timeframe_id') ? 'error' : '' }}">
+          <select multiple id="timeframe_id" name="timeframe_id" required>
             <option value="" disabled selected>Seleccione un Horario</option>
-            <option value="ALL">All</option>
             @foreach($timeframes as $t)
                 <option value="{{$t->timeframe_id}}">{{$t->name}}</option>
             @endforeach
@@ -50,6 +49,8 @@
           <span>{{ $errors->first('timeframe_id') }}</span>
         </div>
         @endif
+
+
 
         <div class="input no_icon {{ $errors->has('xxxxxx') ? 'error' : '' }}">
           <input type="number" name="xxxxxx" min="0" value="" class="input_time number" required="true">

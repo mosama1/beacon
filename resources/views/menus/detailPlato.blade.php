@@ -27,7 +27,7 @@
           <textarea name="description" rows="8" cols="80">{{$plate->plate_translation->description}}</textarea>
           <label for="">
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-            <span class="text">Descripción</span>
+            <span class="text">Descripción (Opcional)</span>
           </label>
           @if ($errors->has('description'))
           <span class="error_input">
@@ -55,7 +55,7 @@
         <div class="vista_previa">
           <center  id="vista_previa">
             <div class="img active" id="vista_plato">
-              <img src="{{asset($plate->img)}}" alt="">
+              <img src="assets\images\platos\{{($plate->img)}}" alt="">
             </div>
           </center>
         </div>

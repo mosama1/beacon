@@ -1,4 +1,4 @@
-<?php $nivel = ''?>
+<?php $nivel = '../'?>
 @extends('layouts.app')
 
 @section('content')
@@ -31,7 +31,7 @@
                   <th data-field="id">Nombre</th>
                   <th data-field="id">Descripción</th>
                   <th data-field="name">Visualizar</th>
-                  <!-- <th data-field="price">Idioma</th> -->
+                  <th data-field="price">Idioma</th>
                   <th data-field="price">Editar</th>
 
                   <th data-field="price">Eliminar</th>
@@ -54,7 +54,7 @@
                   <td><a href="{{ route('show_section', $c->id) }}"><i class="material-icons">input</i></a></td>
 
 
-                  <!-- <td><a href="#idioma"><i class="material-icons">language</i></a></td> -->
+                  <td><a href="#idioma"><i class="material-icons">language</i></a></td>
                   <td><a href="{{ route('menu_edit') }}"><i class="material-icons">edit</i></a></td>
 
                   <?php
@@ -114,7 +114,6 @@
         <div class="input_error">
             <span>{{ $errors->first('description') }}</span>
         </div>
-
       @endif
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioMenu">
         <input type="number" name="price" step="0.01" min="0" value="0"  id="price" min="1.00">
@@ -225,7 +224,7 @@
   <div class="form">
     <form class="form-horizontal" role="form" method="POST">
       {{ csrf_field() }}
-      {{ method_field('DELETE') }}
+      <input type="hidden" name="_method" value="DELETE">
       <div class="button">
         <center>
           <button type="submit" name="button">
@@ -239,5 +238,6 @@
     </form>
   </div>
 </div>
+
 
 @endsection

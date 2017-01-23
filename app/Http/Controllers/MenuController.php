@@ -80,7 +80,7 @@ class MenuController extends Controller
     public function index()
     {
 
-        $coupon = Coupon::whereRaw('user_id = ? ', array(Auth::user()->id))->get();
+        $coupon = Menu::where('user_id', '=', Auth::user()->id)->get();
 
         return view('beacons.coupon', ['coupon' => $coupon]);
 
@@ -94,14 +94,14 @@ class MenuController extends Controller
     public function show_menu($section_id, $menu_id)
     {
         $type_plates = TypesPlates::where([
-            ['language_id', '=', 1],
+            ['language_id', '=', 1]
         ])->get();
 
         $menu = new Menu;
 
         $menus = $menu->where([
             ['user_id', '=', Auth::user()->id],
-            ['section_id', '=', $section_id],
+            ['section_id', '=', $section_id]
         ])->get();
 
         foreach ($menus as $key => $menu) {
@@ -124,7 +124,7 @@ class MenuController extends Controller
     public function show_sectionMenus($section_id)
     {
         $type_plates = TypesPlates::where([
-            ['language_id', '=', 1],
+            ['language_id', '=', 1]
         ])->get();
         
         $menu = new Menu;

@@ -1,4 +1,4 @@
-<?php $nivel = '../' ?>
+<?php $nivel = '' ?>
 
 @extends('layouts.app')
 
@@ -51,7 +51,7 @@
                 </p>
                   </td>
                   <td><a href="{{ route('edit_campana', $c->campana_id) }}"><i class="material-icons">edit</i></a></td>
-                  <td><a href="{{ route('show_content', 1) }}"><i class="material-icons">input</i></a></td>
+                  <td><a href="{{ route('show_content', $c->campana_id) }}"><i class="material-icons">add</i></a></td>
 
                   <!-- <td><a href="{{ route('show_content', $c->campana_id) }}"><i class="material-icons">add</i></a></td> -->
                 <?php
@@ -97,10 +97,10 @@
         </div>
       @endif
       <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
-        <input type="text" name="description" value="" required="">
+        <input type="text" name="description" value="">
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-          <span class="text">Descripción</span>
+          <span class="text">Descripción (Opcional)</span>
         </label>
       </div>
       @if ($errors->has('description'))
@@ -147,7 +147,11 @@
     </h3>
   </div>
   <div class="form">
+<<<<<<< HEAD
+    <form class="form-horizontal" role="form" method="POST" action="#">
+=======
     <form class="form-horizontal" role="form" method="POST">
+>>>>>>> 2119e70b1892798c9bd31afc08e37ac38097aa53
       {{ csrf_field() }}
       {{ method_field('DELETE') }}
       <div class="button">
