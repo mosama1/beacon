@@ -225,7 +225,7 @@
   <div class="form">
     <form class="form-horizontal" role="form" method="POST">
       {{ csrf_field() }}
-      <input type="hidden" name="_method" value="DELETE">
+      {{ method_field('DELETE') }}
       <div class="button">
         <center>
           <button type="submit" name="button">
@@ -239,6 +239,5 @@
     </form>
   </div>
 </div>
-
 
 @endsection
