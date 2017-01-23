@@ -128,7 +128,10 @@ class BeaconController extends Controller
 
 		if ($beacon_->beacons):
 
-			$beacons = Beacon::where('beacon_id', '=', $beacon_->beacons[0]->id)->first();
+			$beacons = Beacon::where(
+								['user_id', '=', Auth::user()->id],
+								['beacon_id', '=', $beacon_->beacons[0]->id]
+							)->first();
 
 			if (!$beacons):
 
@@ -140,12 +143,12 @@ class BeaconController extends Controller
 						'headers' => ['Authorization' => 'Bearer '.$crud ],
 						// array de datos del formulario
 						'form_params' => [
-		//						'location' => '3987'
+						//		'location' => '3987'
 								'location' => ''
 						]
 				]);
 
-				$beac = Beacon::where('');
+				$beac = new BeaconController;
 				$beac->beacon_id = $beacon_->beacons[0]->id;
 				$beac->user_id = Auth::user()->id;
 				$beac->name = $beacon_->beacons[0]->name;
@@ -197,7 +200,10 @@ class BeaconController extends Controller
 
 		if ($beacon_->beacons):
 
-			$beacons = Beacon::where('beacon_id', '=', $beacon_->beacons[0]->id)->first();
+			$beacons = Beacon::where(
+								['user_id', '=', Auth::user()->id],
+								['beacon_id', '=', $beacon_->beacons[0]->id]
+							)->first();
 
 			if (!$beacons):
 
@@ -479,7 +485,7 @@ class BeaconController extends Controller
 	public function show_coupon()
 	{
 
-		$coupon = Coupon::whereRaw('user_id = ? ', array(Auth::user()->id))->get();
+		$coupon = Coupon::where('user_id', '=', Auth::user()->id)->get();
 
 		return view('beacons.coupon', ['coupon' => $coupon]);
 
@@ -575,16 +581,19 @@ class BeaconController extends Controller
 
 		if ($coupon_delete->status_code === 200):
 
-			$coupon =  Coupon::where('coupon_id', '=', $coupon_id);
+			$coupon =  Coupon::where(
+								['user_id', '=', Auth::user()->id],
+								['coupon_id', '=', $coupon_id]
+							);
 
 			$coupon->delete();
 
-        return redirect()->route('show_coupon')
+        	return redirect()->route('show_coupon')
                         ->with(['status' => 'Menú eliminado con éxito', 'type' => 'success']);
 
 		else:
 
-        return redirect()->route('show_coupon')
+        	return redirect()->route('show_coupon')
                         ->with(['status' => 'Error al eliminar Menú', 'type' => 'error']);
 
 		endif;
@@ -772,13 +781,13 @@ class BeaconController extends Controller
 
 			$timeframe->delete();
 
-        return redirect()->route('show_timeframe')
-                        ->with(['status' => 'Horario eliminado con éxito', 'type' => 'success']);
+	        return redirect()->route('show_timeframe')
+	                        ->with(['status' => 'el horario ha sido eliminado con éxito', 'type' => 'success']);
 
 		else:
 
-        return redirect()->route('show_timeframe')
-                        ->with(['status' => 'Error al eliminar horario', 'type' => 'error']);
+	        return redirect()->route('show_timeframe')
+	                        ->with(['status' => 'Error al eliminar horario', 'type' => 'error']);
 
 		endif;
 
@@ -907,7 +916,10 @@ class BeaconController extends Controller
 	 */
 	public function show_section($id)
 	{
-		$sections = Section::whereRaw('user_id = ? and coupon_id = ?', array(Auth::user()->id, $id))->get();
+		$sections = Section::where(
+							['user_id', '=', Auth::user()->id],
+							['coupon_id', '=', $id]
+						)->get();
 
 		return view('menus.home', ['sections' => $sections, 'coupon_id' => $id]);
 	}
@@ -919,9 +931,12 @@ class BeaconController extends Controller
 	 */
 	public function show_menu($section_id, $id)
 	{
-		$menus = Menu::whereRaw('user_id = ? and section_id = ?', array(Auth::user()->id, $id))->get();
+		$menus = Menu::where(
+						['user_id', '=', Auth::user()->id],
+						['section_id', '=', $section_id]
+					)->get();
 
-		return view('menus.plato',['menus' => $menus , 'section_id' => $id]);
+		return view('menus.plato',['menus' => $menus , 'section_id' => $section_id]);
 
 	}
 
@@ -943,7 +958,8 @@ class BeaconController extends Controller
 		$menu->save();
 
 
-		return redirect()->route('show_menu', $menu->section_id, $menu->id)->with(['status' => 'Se creo el plato', 'type' => 'success']);
+		return redirect()->route('show_menu', $menu->section_id, $menu->id)
+			->with(['status' => 'Se creo el plato', 'type' => 'success']);
 
 	}
 
@@ -954,7 +970,9 @@ class BeaconController extends Controller
 	 */
 	public function show_plate($menu_id)
 	{
-		$plate = Plate::whereRaw('user_id = ? and menu_id = ?', array(Auth::user()->id, $menu_id))->first();
+		$plate = Plate::where([
+							['menu_id', '=', $menu_id]
+						])->first();
 		if ($plate) {
 			$plate->plate_translation;
 		}
@@ -980,8 +998,10 @@ class BeaconController extends Controller
 
 		//Obtengo el nombre del documento
 
-		$menu = Menu::where( 'id', '=', $menu_id )
-					->first()->get();
+		$menu = Menu::where(
+						['user_id', '=', Auth::user()->id],
+						[ 'user_id', '=', $menu_id ]
+					)->first()->get();
 
 		$plate = new Plate();
 		$plate->menu_id = $menu_id;
@@ -1015,9 +1035,10 @@ class BeaconController extends Controller
 		$plate_translation->plate_id = $plate->id;
 		$plate_translation->save();
 
-		$menu = Menu::where('id', '=', $menu_id)->first();
-
-		echo "<pre>";	var_dump($menu);	echo "</pre>";
+		$menu = Menu::where(
+						['user_id', '=', Auth::user()->id],
+						['id', '=', $menu_id]
+					)->first();
 
 		return redirect()->route('show_menu', ['section_id' => $menu->section_id, 'menu_id' => $menu_id])
 			->with(['status' => 'Descripción del plato almacenada exitosamente', 'type' => 'success']);
@@ -1034,15 +1055,20 @@ class BeaconController extends Controller
 	public function update_plate(Request $request, $menu_id)
 	{
 
-		$plate = Plate::where('menu_id', '=', $menu_id)
-					->first();
+		$plate = Plate::where(
+							['user_id', '=', Auth::user()->id],
+							['menu_id', '=', $menu_id]
+						)->first();
 
 		$plate->plate_translation;
 
 		$plate->plate_translation->description = $request->description;
 		$plate->plate_translation->save();
 
-		$menu = Menu::where('id', '=', $menu_id)->first();
+		$menu = Menu::where(
+						['user_id', '=', Auth::user()->id],
+						['id', '=', $menu_id]
+					)->first();
 
 		return redirect()->route('show_menu', ['section_id' => $menu->section_id, 'menu_id' => $menu_id])
 			->with(['status' => 'Se editó descripción de plato', 'type' => 'success']);
@@ -1055,9 +1081,12 @@ class BeaconController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function showPlate($id)
+	public function showPlate($section_id)
 	{
-		$plates = Menu::whereRaw('section_id = ? ', array($id))->get();
+		$plates = Menu::where(
+							['user_id', '=', Auth::user()->id],
+							['section_id', '=', $section_id]
+						)->get();
 		$sections = Section::all();
 
 		return view('clientes.plates', ['plates' => $plates, 'sections' => $sections]);
@@ -1070,9 +1099,15 @@ class BeaconController extends Controller
 	 */
 	public function showDescPlate($id)
 	{
-		$plate = Plate::whereRaw('menu_id = ? ', array($id))->first();
+		$plate = Plate::where(
+					['user_id', '=', Auth::user()->id],
+					['menu_id', '=', $id]
+				)->first();
 
-		$plateName = Menu::whereRaw('id = ? ', array($id))->first();
+		$plateName = Menu::where(
+					['user_id', '=', Auth::user()->id],
+					['id', '=', $id]
+				)->first();
 
 		$plateName->menu_translation;
 
@@ -1080,7 +1115,7 @@ class BeaconController extends Controller
 	}
 
 
-		public function show_content()
+	public function show_content()
     {
 			$coupon = Coupon::where('user_id', '=', Auth::user()->id)->get();
 
@@ -1088,12 +1123,13 @@ class BeaconController extends Controller
 
     	$timeframes = Timeframe::where('user_id', '=', Auth::user()->id)->get();
 
-    	return view('coupons.detailContent',[
-    												'coupon' => $coupon,
-    												'tags' => $tags,
-    												'timeframes' => $timeframes,
-    												// 'campana_id' => $id
-    											]);
+    	return view('coupons.detailContent',
+					[
+						'coupon' => $coupon,
+						'tags' => $tags,
+						'timeframes' => $timeframes,
+						// 'campana_id' => $id
+					]);
 
     }
 

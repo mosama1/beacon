@@ -329,7 +329,7 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($location_id)
     {
     	// Nuevo cliente con un url base
     	$client = new Client();
@@ -338,7 +338,7 @@ class LocationController extends Controller
     	$crud = LocationController::crud();
 
     	//Location delete
-    	$location_delete = $client->post('https://connect.onyxbeacon.com/api/v2.5/locations/'.$request->id.'/delete', [
+    	$location_delete = $client->post('https://connect.onyxbeacon.com/api/v2.5/locations/'.$location_id.'/delete', [
     			// un array con la data de los headers como tipo de peticion, etc.
     			'headers' => ['Authorization' => 'Bearer '.$crud ],
     	]);
@@ -350,15 +350,17 @@ class LocationController extends Controller
 
     	if ($location_delete->status_code === 200):
 
-	    	$location =  Location::where('location_id', '=', $request->id);
+	    	$location =  Location::where('location_id', '=', $location_id);
 
 	    	$location->delete();
 
-	    	return 1;
+	    	return redirect()->route('user_edit_path')
+                             ->with(['status' => 'Se ha Eliminado la Locación con éxito', 'type' => 'success']);
 
     	else:
 
-    		return 0;
+    		return redirect()->route('user_edit_path')
+                            ->with(['status' => 'Error al eliminar la Locación', 'type' => 'error']);
 
     	endif;
 

@@ -80,7 +80,7 @@ class SectionController extends Controller
 
         $sections = $section->where([
             ['user_id', '=', Auth::user()->id],
-            ['coupon_id', '=', $coupon_id],
+            ['coupon_id', '=', $coupon_id]
         ])->get();
 
         foreach ($sections as $key => $section) {
@@ -103,7 +103,7 @@ class SectionController extends Controller
 
         $menus = $menu->where([
             ['user_id', '=', Auth::user()->id],
-            ['section_id', '=', $section_id],
+            ['section_id', '=', $section_id]
         ])->get();
 
         foreach ($menus as $key => $menu) {
@@ -149,10 +149,7 @@ class SectionController extends Controller
         //consulta
 
         $section = Section::find($id);
-        echo "<pre>";  var_dump($section); echo "</pre>";
-
-
-        //return view('sections.section_edit', ['section' => $section]);
+        return view('sections.section_edit', ['section' => $section]);
     }
 
     /**
@@ -194,7 +191,7 @@ class SectionController extends Controller
     	$section->delete();
 
         return redirect()->route('show_section', ['coupon_id' => $coupon->id])
-                ->with(['status' => 'Se ha Eliminado la sección con éxito', 'type' => 'success']);
+                ->with(['status' => 'Se ha eliminado la sección con éxito', 'type' => 'success']);
 
     }
 

@@ -52,8 +52,12 @@ Route::post('beacons/locations/{id}', 'LocationController@update_location')->nam
 Route::delete('beacons/{id}', 'LocationController@destroy')->where('id', '[0-9]+');
 
 //Coupon
+Route::get('coupons', 'BeaconController@show_coupon')->name('show_coupon');
 
 Route::post('coupons', 'BeaconController@store_coupon')->name('store_coupon');
+
+Route::delete('coupons/{coupon_id}', 'BeaconController@destroy_coupon')
+			->name('destroy_coupon')->where('coupon_id', '[0-9]+');
 
 //timeframe
 Route::get('timeframes', 'BeaconController@show_timeframe')->name('show_timeframe');
@@ -102,12 +106,6 @@ Route::delete('sections/{id}', 'SectionController@destroy_section')
 
 
 //Menu
-Route::get('menus', 'BeaconController@show_coupon')->name('show_coupon');
-
-Route::post('menus', 'BeaconController@store_coupon')->name('store_coupon');
-
-Route::delete('menus/{coupon_id}', 'BeaconController@destroy_coupon')
-			->name('destroy_coupon')->where('coupon_id', '[0-9]+');
 
 Route::get('sections/{section_id}/menus/{menu_id}', 'MenuController@show_menu')
 			->name('show_menu')->where(['section_id' => '[0-9]+', 'menu_id' => '[0-9]+']);
@@ -120,11 +118,11 @@ Route::post('menus', 'MenuController@store_menu')->name('store_menu')->where('id
 Route::delete('menus/{id}', 'MenuController@destroy_menu')->name('destroy_menu')->where('id', '[0-9]+');
 
 //Platos
-Route::get('menus/{menu_id}/plates', 'BeaconController@show_plate')->name('show_plate')->where('menu_id', '[0-9]+');
+Route::get('menus/{menu_id}/detalles', 'BeaconController@show_plate')->name('show_plate')->where('menu_id', '[0-9]+');
 
-Route::post('menus/{menu_id}/plates', 'BeaconController@store_plate')->name('store_plate')->where('menu_id', '[0-9]+');
+Route::post('menus/{menu_id}/detalles', 'BeaconController@store_plate')->name('store_plate')->where('menu_id', '[0-9]+');
 
-Route::put('menus/{id}/plates', 'BeaconController@update_plate')->name('update_plate')->where('id', '[0-9]+');
+Route::put('menus/{id}/detalles', 'BeaconController@update_plate')->name('update_plate')->where('id', '[0-9]+');
 
 
 //Idiomas
