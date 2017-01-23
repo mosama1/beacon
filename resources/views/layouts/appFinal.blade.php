@@ -1,3 +1,9 @@
+@php
+  use Beacon\Location;
+  use Beacon\User;
+  use Beacon\Campana;
+
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +31,17 @@
 <body style="" class="clienteFinal {{ isset($menu2) ? 'meu2' : '' }}">
   <div class="preload">
     <div class="img">
-      <h2 class="colorClienteFinal">LOGO</h2>
+      @php
+        $campana = Campana::where([
+          ['campana_id', '=', array( $campana_id ) ],
+        ])->first();
+
+        $location = Location::where([
+          ['location_id', '=', array( $campana->location_id ) ],
+        ])->first();
+      @endphp
+      <img src="{{ $location->logo }}" alt="">
+
     </div>
   </div>
     <nav class="menu_cliente" role="navigation">
@@ -63,7 +79,7 @@
             </li>
             @if(isset($menu2))
             <li class="logo">
-              LOGO
+              <img src="{{ $location->logo }}" alt="">
             </li>
             @endif
             <!-- <li class="idioma">

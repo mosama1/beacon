@@ -151,7 +151,9 @@ class CampanaController extends Controller
 			$cam->campana_id = $campana->campaign->id;
 			$cam->user_id = Auth::user()->id;
 			$cam->name = $campana->campaign->name;
-			$cam->description = $campana->campaign->description;
+			(isset($campana->campaign->description)) ?
+				$cam->description = $campana->campaign->description :
+				$cam->description = "";
 			$cam->start_time = $campana->campaign->start_time;
 			$cam->end_time = $campana->campaign->end_time;
 			$cam->location_id = $request->location_id;
@@ -384,7 +386,7 @@ class CampanaController extends Controller
 
 		else:
 
-			echo "<pre>"; var_dump($campaña); echo "</pre>"; 
+			echo "<pre>"; var_dump($campaña); echo "</pre>";
 
 			return redirect()->route('show_campana')->with(['status' => 'Error al eliminar la Campaña', 'type' => 'error']);
 
