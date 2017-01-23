@@ -36,6 +36,28 @@ textarea.materialize-textarea:focus:not([readonly]) {
   box-shadow: none;
   border-bottom: none;
 }
+
+
+
+.links{
+  text-align: center;
+  position: relative;
+  top: calc(50% - 60px);
+}
+.links li{
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  border-radius: 100%;
+  margin: 0 15px;
+}
+.links li a{
+  line-height: 1;
+  margin: 0;
+}
+.links li a img{
+  width: 100px;
+}
 .logopatrocinantes{
   color: #000;
   margin: 0;
@@ -46,8 +68,12 @@ textarea.materialize-textarea:focus:not([readonly]) {
 .titulologo{
   color: #000;
   margin: 0;
-  font-size: 2.52rem;
-  /*margin-top: 8px;*/
+  margin-top: 12px;
+  float: left;
+}
+.titulologo h5{
+  font-size: 18px;
+
 }
 .section_{
   width: 100%;
@@ -75,6 +101,9 @@ textarea.materialize-textarea:focus:not([readonly]) {
 /*********************  Menu  *********************/
 /**************************************************/
 
+.MenuResponsive{
+  display: none;
+}
 .menu{
   background: rgb(255, 255, 255);
   color: #333333;
@@ -98,6 +127,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
 }
 .menu ul:not(.sub_menu) li a i{
   height: auto;
+  margin-left: 0;
 }
 .menu ul:not(.sub_menu) li a{
   padding: 25px 15px;
@@ -2184,7 +2214,7 @@ body.menu2 .contenedor.cliente_final{
   transform: translate(-50%);
 }
 .vista_final .logo{
-  width: 190px;
+  width: auto;
   height: auto;
   min-height: 50px;
   display: inline-block;
@@ -2542,15 +2572,40 @@ body.clienteFinal footer{
   .vista_final .titulo h3 {
     font-size: 30px;
   }
+  .links{
+    text-align: center;
+    position: relative;
+    top: 60px;
+  }
+  .links li{
+    width: 100%;
+    height: 70px;
+    display: inline-block;
+    margin: 10px 0;
+  }
+  .links li a{
+    line-height: 1;
+    margin: 0;
+    text-align: center;
+  }
+  .links li a img{
+    width: 70px;
+  }
 }
 
 
 @media (max-width: 600px) {
+
+  .MenuResponsive{
+    display: block;
+    color: #000;
+    float: right;
+  }
   .menu ul li ul.sub_menu li ul.delServicio{
     top: 72px;
   }
   .titulologo {
-    font-size: 30px;
+    font-size: 18px;
   }
   .contenedor {
     height: calc(100% - 110px);
@@ -2697,8 +2752,69 @@ body.clienteFinal footer{
   #register.authenticate .divide .divide_cont {
     margin: 0px;
   }
-
   .menu{
+    z-index: 100;
+  }
+
+  .menu ul:not(.sub_menu) {
+    background: rgb(255, 255, 255);
+    position: absolute;
+    top: 65px;
+    z-index: 1;
+    height: auto;
+    left: -330px;
+
+    opacity: 0;
+
+    -webkit-transition: all .7s ease-in-out;
+    -moz-transition: all .7s ease-in-out;
+    -o-transition: all .7s ease-in-out;
+    transition: all .7s ease-in-out;
+  }
+  .menu ul:not(.sub_menu).active {
+    left: -30px;
+    opacity: 1;
+  }
+
+  .menu ul:not(.sub_menu) li{
+    float: none;
+    width: auto;
+    height: auto;
+    position: relative;
+  }
+  .menu ul li ul.sub_menu.active {
+    opacity: 1;
+    height: auto;
+    width: auto;
+    left: 212px;
+
+  }
+  .menu ul li ul.sub_menu {
+    width: auto;
+    min-width: auto;
+    height: auto;
+    background: rgb(242, 242, 242);
+    position: absolute;
+    top: 0;
+    left: 212px;
+
+  }
+  .menu ul li ul.sub_menu li{
+    float: none;
+    width: auto;
+    height: auto;
+    display: block;
+  }
+  .menu ul li ul.sub_menu li a{
+    padding: 5px;
+  }
+  .menu ul li ul.sub_menu li ul{
+    position: absolute;
+    width: calc(100% + 30px);
+    top: 25px;
+  }
+
+  /*.menu{
     height: 50px;
     z-index: 100;
   }
@@ -2762,7 +2878,7 @@ body.clienteFinal footer{
   }
   .menu ul li ul.sub_menu li a{
     padding: 10px 0;
-  }
+  }*/
 
 
 

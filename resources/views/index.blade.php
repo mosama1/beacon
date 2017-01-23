@@ -12,13 +12,13 @@
           <!-- <h2>LOGO</h2> -->
         </div>
         <div class="titulo">
-          <h3>Logo de la locacion</h3>
+          <h3>{{ $name }}</h3>
         </div>
         <div class="logo_patrocinador logo">
           <!-- <img src="img/logo/logo.png" alt=""> -->
           <h4>
 
-            logo<br>patrocinante
+            Logo Patrocinante
           </h4>
         </div>
       </div>

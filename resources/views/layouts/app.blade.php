@@ -40,54 +40,57 @@ use Beacon\User;
                 @endphp
                 <?php if (!empty($locatiom)): ?>
                   <img src="{{$locatiom->logo}}" alt="">
+                <?php else: ?>
+                  <a href="{{ route('user_edit_path', Auth::user()->id) }}" class="titulologo">
+                    <h5>Recuerda Colocar tu logo</h5>
+                  </a>
                 <?php endif; ?>
+
               <?php endif; ?>
               <!-- <h3 class="titulologo">Logo</h3> -->
             </a>
 
-            <ul class="right">
+            <ul class="right ul_principal">
                 <!-- Authentication Links -->
                 @if (!Auth::guest())
                     <!-- Dropdown Trigger -->
+                    <li>
+                      <a class="" href="{{ Auth::guest() ? url('/login') : url('home') }}">
+                         <span>Inicio</span>
+                      </a>
+                    </li>
                     <li class="">
                       <a class="sb_mn" href="#">
-                          El Servicio <span class="caret"></span><i class="material-icons right">arrow_drop_down</i>
+                          Servicios <span class="caret"></span><i class="material-icons right">arrow_drop_down</i>
                       </a>
                       <ul class="sub_menu none">
                         <li>
                           <a href="{{ route('show_coupon') }}">
-                            <span>El Menú</span>
+                            <span>Menú</span>
                           </a>
                         </li>
                         <li>
                             <a href="{{ route('show_timeframe')}}">
-                                <span>Los Horarios</span>
+                                <span>Horarios</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('show_campana')}}">
-                              <span>La Planificación</span>
+                              <span>Planificación</span>
                               <!-- <span>Campa&ntilde;a</span> -->
                             </a>
                         </li>
                         <li>
-                          <a href="#" class="sb_mn2">
-                            <span>Del Servicio</span>
+                          <a href="{{ route('show_tipoPlato')}}">
+                            <span>Servicio</span>
                           </a>
-                          <ul class="sub_menu2 delServicio">
-                            <li>
-                              <a href="{{ route('show_tipoPlato')}}">
-                                <span>Los tipos de platos</span>
-                              </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('show_language')}}">
-                                  <span>Idiomas del menu</span>
-                                </a>
-                            </li>
-                          </ul>
                         </li>
 
+                        <li>
+                          <a href="{{ route('show_language')}}">
+                            <span>Idiomas</span>
+                          </a>
+                        </li>
                         <li>
                           <a href="#" class="sb_mn2">
                             <span>Promociones</span>
@@ -112,7 +115,7 @@ use Beacon\User;
 
                     <li>
                         <a class="" href="{{ route('user_edit_path', Auth::user()->id) }}">
-                           <span>El Usuario</span>
+                           <span>Mi Cuenta</span>
                             <!-- <span>{{ Auth::user()->name }}</span> -->
                         </a>
 
@@ -131,17 +134,18 @@ use Beacon\User;
                 @else
                 <a id="logo-container" class="brand-logo logo-patrocinante logo logo_right" href="#">
                   <!-- <img src="img/logo/logo.png" alt=""> -->
-                  <h3 class="logopatrocinantes">Logo<br>patrocinante</h3>
+                  <h3 class="logopatrocinantes">Logo patrocinante</h3>
 
                 </a>
 
                 @endif
             </ul>
 
+
             <!-- <ul id="nav-mobile" class="side-nav">
                 <li><a href="#">Navbar Link</a></li>
             </ul> -->
-            <!-- <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a> -->
+            <a href="#" class="MenuResponsive"><i class="material-icons">menu</i></a>
         </div>
     </nav>
 

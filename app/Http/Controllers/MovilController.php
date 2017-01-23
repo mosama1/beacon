@@ -34,9 +34,9 @@ class MovilController extends Controller
 	public function index( $campana_id )
 	{
 
-		//		echo "<pre>"; var_dump($sections);	echo "</pre>";
+		//		echo "<pre>"; var_dump($sections);	echo "</pre>";obtener_name_movil
 
-		return view('index', [ 'campana_id' => $campana_id, 'sections' => $this->obtener_sections_movil($campana_id), 'logo' => $this->obtener_logo_movil($campana_id) ] );
+		return view('index', [ 'campana_id' => $campana_id, 'sections' => $this->obtener_sections_movil($campana_id), 'logo' => $this->obtener_logo_movil($campana_id), 'name' => $this->obtener_name_movil($campana_id) ] );
 
 	}
 
@@ -91,6 +91,21 @@ class MovilController extends Controller
 		// echo "<pre>"; var_dump($location);	echo "</pre>";
 		// return;
 		return $location->logo;
+
+	}
+	public function obtener_name_movil( $campana_id )
+	{
+		$campana = Campana::where([
+			['campana_id', '=', array( $campana_id ) ],
+		])->first();
+
+		$location = Location::where([
+			['location_id', '=', array( $campana->location_id ) ],
+		])->first();
+
+		// echo "<pre>"; var_dump($location);	echo "</pre>";
+		// return;
+		return $location->name;
 
 	}
 
