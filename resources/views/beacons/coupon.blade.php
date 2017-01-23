@@ -55,7 +55,7 @@
 
 
                   <!-- <td><a href="#idioma"><i class="material-icons">language</i></a></td> -->
-                  <td><a href="{{ route('menu_edit') }}"><i class="material-icons">edit</i></a></td>
+                  <td><a href="{{ route('edit_coupon') }}"><i class="material-icons">edit</i></a></td>
 
                   <?php
 

@@ -1138,7 +1138,7 @@ class BeaconController extends Controller
 
     }
 
-		public function menu_edit()
+		public function coupon_edit()
 		{
 			return view('beacons.coupon_edit');
 		}

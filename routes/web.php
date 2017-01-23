@@ -38,7 +38,11 @@ Route::get('beacons/list', 'BeaconController@show')->name('list_beacons');
 
 Route::get('beacons/add', 'BeaconController@edit')->name('edit_beacon')->where('id', '[0-9]+');
 
-Route::post('beacons/add', 'BeaconController@store_beacon')->name('beacon_store_beacon')->where('id', '[0-9]+');
+Route::post('beacons/add', 'BeaconController@edit_coupon')->name('edit_coupon')->where('id', '[0-9]+');
+
+Route::get('beacons/{id}/edit', 'BeaconController@edit')->name('edit_beacon')->where('id', '[0-9]+');
+
+Route::post('beacons/{id}', 'BeaconController@store_beacon')->name('beacon_store_beacon')->where('id', '[0-9]+');
 
 Route::delete('beacons/{beacon_id}', 'BeaconController@beacon_destroy')->name('beacon_destroy')->where('id', '[0-9]+');
 
