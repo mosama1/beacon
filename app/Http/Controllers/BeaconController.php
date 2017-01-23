@@ -140,7 +140,8 @@ class BeaconController extends Controller
 						'headers' => ['Authorization' => 'Bearer '.$crud ],
 						// array de datos del formulario
 						'form_params' => [
-								'location' => '3987'
+		//						'location' => '3987'
+								'location' => ''
 						]
 				]);
 
@@ -521,7 +522,7 @@ class BeaconController extends Controller
 		else:
 
         return redirect()->route('show_coupon')
-                        ->with(['status' => 'Error al menú horario', 'type' => 'error']);
+                        ->with(['status' => 'Error al eliminar Menú', 'type' => 'error']);
 
 		endif;
 
