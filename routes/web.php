@@ -34,40 +34,42 @@ Route::get('beacons/list', 'BeaconController@show')->name('list_beacons');
 
 Route::get('beacons/add', 'BeaconController@edit')->name('edit_beacon')->where('id', '[0-9]+');
 
-Route::post('beacons/add', 'BeaconController@store_beacon')->name('beacon_store_beacon')->where('id', '[0-9]+');;
+Route::post('beacons/add', 'BeaconController@store_beacon')->name('beacon_store_beacon')->where('id', '[0-9]+');
+
+Route::delete('beacons/{beacon_id}', 'BeaconController@beacon_destroy')->name('beacon_destroy')->where('id', '[0-9]+');
 
 Route::get('beacons', 'BeaconController@index')->name('location_beacons');
 
 //Locations
-Route::get('beacons/location', 'LocationController@create_location')->name('location_add');
+Route::get('beacons/locations', 'LocationController@create_location')->name('location_add');
 
 Route::post('beacons/locations', 'LocationController@store')->name('store_locations');
 
-Route::get('beacons/location/{id}/edit', 'LocationController@edit_location')->name('edit_location')->where('id', '[0-9]+');
+Route::get('beacons/locations/{id}/edit', 'LocationController@edit_location')->name('edit_location')->where('id', '[0-9]+');
 
-Route::post('beacons/location/{id}/edit', 'LocationController@update_location')->name('location_update')->where('id', '[0-9]+');
+Route::post('beacons/locations/{id}', 'LocationController@update_location')->name('location_update')->where('id', '[0-9]+');
 
-Route::get('beacons/delete', 'BeaconController@destroy')->where('id', '[0-9]+');
+Route::delete('beacons/{id}', 'LocationController@destroy')->where('id', '[0-9]+');
 
 //Coupon
 
-Route::post('beacons/coupons', 'BeaconController@store_coupon')->name('store_coupon');
+Route::post('coupons', 'BeaconController@store_coupon')->name('store_coupon');
 
 Route::get('beacons/menu_edit', 'BeaconController@menu_edit')->name('menu_edit');
 
 
 //timeframe
-Route::get('beacons/timeframes', 'BeaconController@show_timeframe')->name('show_timeframe');
+Route::get('timeframes', 'BeaconController@show_timeframe')->name('show_timeframe');
 
-Route::get('beacons/timeframes/add', 'BeaconController@create_timeframe')->name('add_timeframe');
+Route::get('timeframes/add', 'BeaconController@create_timeframe')->name('add_timeframe');
 
-Route::post('beacons/timeframes/add', 'BeaconController@store_timeframe')->name('store_timeframe');
+Route::post('timeframes/add', 'BeaconController@store_timeframe')->name('store_timeframe');
 
-Route::get('beacons/timeframes/{id}/edit', 'BeaconController@edit_timeframe')->name('edit_timeframe')->where('id', '[0-9]+');
+Route::get('timeframes/{id}/edit', 'BeaconController@edit_timeframe')->name('edit_timeframe')->where('id', '[0-9]+');
 
-Route::post('beacons/timeframes/{id}/edit', 'BeaconController@update_timeframe')->name('update_timeframe')->where('id', '[0-9]+');
+Route::post('timeframes/{id}', 'BeaconController@update_timeframe')->name('update_timeframe')->where('id', '[0-9]+');
 
-Route::delete('beacons/timeframes/{id}', 'BeaconController@destroy_timeframe')->name('destroy_timeframe')->where('id', '[0-9]+');
+Route::delete('timeframes/{id}', 'BeaconController@destroy_timeframe')->name('destroy_timeframe')->where('id', '[0-9]+');
 
 //Campa�a
 Route::get('campanas', 'CampanaController@show_campana')->name('show_campana');
@@ -103,9 +105,11 @@ Route::delete('sections/{id}', 'SectionController@destroy_section')
 
 
 //Menu
-Route::get('bacons/menus', 'BeaconController@show_coupon')->name('show_coupon');
+Route::get('menus', 'BeaconController@show_coupon')->name('show_coupon');
 
-Route::delete('bacons/menus/{id}', 'BeaconController@destroy_coupon')
+Route::post('menus', 'BeaconController@store_coupon')->name('store_coupon');
+
+Route::delete('menus/{id}', 'BeaconController@destroy_coupon')
 			->name('destroy_coupon')->where('id', '[0-9]+');
 
 Route::get('sections/{section_id}/menus/{menu_id}', 'MenuController@show_menu')
