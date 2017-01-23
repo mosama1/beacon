@@ -36,17 +36,6 @@
           @endif
         </div>
 
-        <div class="input no_icon {{ $errors->has('language') ? 'error' : '' }}">
-          <input type="text" name="language" value="" required="">
-          <label for="">
-            <span class="text">Idioma</span>
-          </label>
-          @if ($errors->has('language'))
-            <span class="error_input">
-                <strong>{{ $errors->first('language') }}</strong>
-            </span>
-          @endif
-        </div>
 
 
         <div class="button">

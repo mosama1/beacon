@@ -31,8 +31,8 @@
                   <th data-field="id">Nombre</th>
                   <th data-field="id">Descripción</th>
                   <th data-field="name">Visualizar</th>
-                  <th data-field="price">Idioma</th>
-                  <!-- <th data-field="price">Editar</th> -->
+                  <!-- <th data-field="price">Idioma</th> -->
+                  <th data-field="price">Editar</th>
 
                   <th data-field="price">Eliminar</th>
               </tr>
@@ -54,8 +54,8 @@
                   <td><a href="{{ route('show_section', $c->id) }}"><i class="material-icons">input</i></a></td>
 
 
-                  <td><a href="#idioma"><i class="material-icons">language</i></a></td>
-                  <!-- <td><a href="{{ route('menu_edit') }}"><i class="material-icons">edit</i></a></td> -->
+                  <!-- <td><a href="#idioma"><i class="material-icons">language</i></a></td> -->
+                  <td><a href="{{ route('menu_edit') }}"><i class="material-icons">edit</i></a></td>
 
                   <?php
 

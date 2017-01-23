@@ -38,7 +38,9 @@ use Beacon\User;
                 @php
                 $locatiom = Location::where('user_id', '=', Auth::user()->id)->first();
                 @endphp
-                <img src="{{$locatiom->logo}}" alt="">
+                <?php if (!empty($locatiom)): ?>
+                  <img src="{{$locatiom->logo}}" alt="">
+                <?php endif; ?>
               <?php endif; ?>
               <!-- <h3 class="titulologo">Logo</h3> -->
             </a>

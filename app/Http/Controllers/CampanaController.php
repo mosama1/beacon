@@ -226,7 +226,7 @@ class CampanaController extends Controller
 			$campana = Campana::where('campana_id', '=', $id)
 								->update(array(
 									'name' => $campana->campaign->name,
-									'description' => $campana->campaign->description,
+									'description' => (isset($campana->campaign->description)) ? $campana->campaign->description : '',
 									'start_time' => $campana->campaign->start_time,
 									'end_time' => $campana->campaign->end_time,
 								));
