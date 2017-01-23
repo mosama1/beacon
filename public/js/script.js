@@ -4,6 +4,7 @@ $(document).ready(function() {
   $('.materialboxed').materialbox();
 });
 
+
 $('.sb_mn2').click(function(){
   return false;
 });
@@ -384,5 +385,23 @@ $('.vistaPreviaImg').click(function(){
   $(document).keyup(function(event){
     if(event.which==27){ cerrar(); }
   });
+  return false;
+});
+
+
+/* abrir y cerrar menu en responsive*/
+
+$('.MenuResponsive').click(function(){
+  // console.log($('.ul_principal.active').length);
+
+  if ($('.ul_principal.active').length <= 0) {
+    $('.ul_principal').addClass('active');
+  }else {
+    $('.ul_principal').removeClass('active');
+  }
+
+
+
+
   return false;
 });

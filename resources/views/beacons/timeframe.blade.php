@@ -1,4 +1,4 @@
-<?php $nivel = '../' ?>
+<?php $nivel = '' ?>
 
 @extends('layouts.app')
 

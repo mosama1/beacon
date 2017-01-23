@@ -232,7 +232,7 @@
 
 
       <div class="input no_icon {{ $errors->has('old_password') ? 'error' : '' }}">
-        <input type="text" name="old_password" value="" required="">
+        <input type="password" name="old_password" value="" required="">
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Contraseña Actual</span>
@@ -245,7 +245,7 @@
       @endif
 
       <div class="input no_icon {{ $errors->has('new_password') ? 'error' : '' }}">
-        <input type="text" name="new_password" value="" required="">
+        <input type="password" name="new_password" value="" required="">
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Nueva Contraseña</span>
@@ -258,7 +258,7 @@
       @endif
 
       <div class="input no_icon {{ $errors->has('confirm_password') ? 'error' : '' }}">
-        <input type="text" name="confirm_password" value="" required="">
+        <input type="password" name="confirm_password" value="" required="">
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Confirmar Contraseña</span>
