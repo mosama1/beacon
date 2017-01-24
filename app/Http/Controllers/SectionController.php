@@ -196,9 +196,12 @@ class SectionController extends Controller
 
         $coupon = $section->coupon;
 
+        // echo "<pre>"; var_dump($section->coupon); echo "</pre>";
+        // return;
+
     	$section->delete();
 
-        return redirect()->route('show_section', ['coupon_id' => $coupon->id])
+        return redirect()->route('show_section', ['coupon_id' => $coupon->coupon_id])
                 ->with(['status' => 'Se ha eliminado la sección con éxito', 'type' => 'success']);
 
     }

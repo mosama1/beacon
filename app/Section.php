@@ -31,7 +31,7 @@ class Section extends Model
 
 	public function coupon()
 	{
-		return $this->belongsTo('Beacon\Coupon', 'coupon_id', 'id');
+		return $this->belongsTo('Beacon\Coupon', 'coupon_id', 'coupon_id');
 	}
 
 	public function menu()

@@ -22,6 +22,7 @@
        @endif
        <form class="form-horizontal" role="form" method="POST" action="{{ route('update_campana', $campana->campana_id) }}">
         {{ csrf_field() }}
+        {{ method_field('PUT') }}
 
 
         <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">

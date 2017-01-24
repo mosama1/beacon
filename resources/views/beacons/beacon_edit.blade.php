@@ -13,6 +13,7 @@
     <div class="form">
       <form class="form-horizontal" role="form" method="POST" action="{{ route('beacon_store_beacon') }}">
         {{ csrf_field() }}
+        {{ method_field('PUT') }}
 
         <div class="input no_icon {{ $errors->has('major') ? 'error' : '' }}">
           <input type="text" name="major" value="" required="">

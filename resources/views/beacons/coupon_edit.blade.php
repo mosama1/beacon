@@ -18,11 +18,12 @@
            <strong>{{ session('status') }}</strong>
          </span>
        @endif
-       <form class="form-horizontal" role="form" method="POST" action="{{ route('store_coupon') }}">
+       <form class="form-horizontal" role="form" method="POST" action="{{ route('update_coupon', $coupon->coupon_id ) }}">
          {{ csrf_field() }}
+         {{ method_field('PUT') }}
 
          <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-           <input type="text" name="name" value="" required="">
+           <input type="text" name="name" value="{{ $coupon->coupon_translation[0]->name }}" required="">
            <label for="">
              <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
              <span class="text">Nombre</span>
@@ -36,7 +37,7 @@
 
          <div class="input textarea no_icon {{ $errors->has('description') ? 'error' : '' }}">
            <!-- <input type="text" name="description" value="" required=""> -->
-           <textarea name="description" rows="8" cols="80"></textarea>
+           <textarea name="description" rows="8" cols="80"> {{ $coupon->coupon_translation[0]->description }}</textarea>
            <label for="">
              <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
              <span class="text">Descripción (Opcional)</span>
@@ -48,7 +49,7 @@
            </div>
          @endif
          <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioMenu">
-           <input type="number" name="price" step="0.01" min="0" value="0"  id="price" min="1.00">
+           <input type="number" name="price" step="0.01" min="0" value="{{ $coupon->price }}"  id="price" min="1.00">
            <label for="">
              <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
              <span class="text">Ingresar Precio: 0,00</span>
