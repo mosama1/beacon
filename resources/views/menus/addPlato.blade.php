@@ -19,6 +19,7 @@
       @endif
       <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data"  action="{{ route('store_plate', $menu_id) }}">
         {{ csrf_field() }}
+        
         <input type="hidden" name="menu_id" value="{{$menu_id}}" required>
 
 

@@ -160,13 +160,13 @@ class BeaconController extends Controller
 
 			else:
 
-				return redirect()->route('edit_beacon')->with(['status' => 'El beacons ya esta registrado', 'type' => 'error']);
+				return redirect()->route('edit_beacon', $beac->beacon_id )->with(['status' => 'El beacons ya esta registrado', 'type' => 'error']);
 
 			endif;
 
 		else:
 
-			return redirect()->route('edit_beacon')->with(['status' => 'El beacons no existe', 'type' => 'error']);
+			return redirect()->route('list_beacons')->with(['status' => 'El beacons no existe', 'type' => 'error']);
 
 		endif;
 	}
@@ -1136,7 +1136,7 @@ class BeaconController extends Controller
 						['id', '=', $menu_id]
 					])->first();
 
-		return redirect()->route('show_menu', ['section_id' => $menu->section_id, 'menu_id' => $menu_id])
+		return redirect()->route('show_sectionMenus', ['section_id' => $menu->section_id])
 			->with(['status' => 'Descripción del plato almacenada exitosamente', 'type' => 'success']);
 
 	}
