@@ -27,7 +27,7 @@
           <table class="bordered centered">
             <thead>
               <tr>
-                <th data-field="id"></th>
+                <!-- <th data-field="id"></th> -->
                   <th data-field="id">Nombre</th>
                   <th data-field="name">Visualizar</th>
                   <th data-field="price">Editar</th>
@@ -38,7 +38,7 @@
             <tbody>
               @foreach($sections as $s)
               <tr id='{{$s->id}}'>
-                <td><input type="checkbox" id="test{{$s->id}}" /><label for="test{{$s->id}}"></label></td>
+                <!-- <td><input type="checkbox" id="test{{$s->id}}" /><label for="test{{$s->id}}"></label></td> -->
                 @if( ! empty($s->section_translation[0]) )
                 <td>
                   {{$s->section_translation[0]->name}}
