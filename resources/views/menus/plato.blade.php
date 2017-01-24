@@ -28,12 +28,12 @@
 					<table class="bordered centered">
 						<thead>
 							<tr>
-									<th data-field="name">Nombre</th>
-									<th data-field="type">Tipo</th>
-									<th data-field="price">Precio</th>
-									<th data-field="name">Detalles</th>
-									<th data-field="price">Idioma</th>
-									<th data-field="price">Eliminar</th>
+								<th data-field="name">Nombre</th>
+								<th data-field="type">Tipo</th>
+								<th data-field="price">Precio</th>
+								<th data-field="name">Detalles</th>
+								<th data-field="price">Idioma</th>
+								<th data-field="price">Eliminar</th>
 							</tr>
 						</thead>
 
@@ -69,7 +69,7 @@
 
 		<div class="agregar regresar">
 			<center>
-				<a href="{{ route('show_section', 1) }}" class="waves-effect">
+				<a href="{{ route('show_section', $coupon_id) }}" class="waves-effect">
 					<div class="">
 						<span class="text">Regresar</span>
 						<span class="icon"><i class="material-icons">reply</i></span>

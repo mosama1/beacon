@@ -349,8 +349,8 @@ class BeaconController extends Controller
 			return redirect()->route('user_edit_path', Auth::user()->id);
 
 		else:
-			var_dump($locations);
-		return;
+			//var_dump($locations);
+			//return;
 
 			return redirect()->route('location_add')->with(['status' => 'Error al ingresar la localidad', 'type' => 'error']);
 
@@ -1003,10 +1003,10 @@ class BeaconController extends Controller
 
 		//Obtengo el nombre del documento
 
-		$menu = Menu::where(
+		$menu = Menu::where([
 						['user_id', '=', Auth::user()->id],
-						[ 'user_id', '=', $menu_id ]
-					)->first()->get();
+						['id', '=', $menu_id ]
+					])->first()->get();
 
 		$plate = new Plate();
 		$plate->menu_id = $menu_id;
@@ -1040,10 +1040,10 @@ class BeaconController extends Controller
 		$plate_translation->plate_id = $plate->id;
 		$plate_translation->save();
 
-		$menu = Menu::where(
+		$menu = Menu::where([
 						['user_id', '=', Auth::user()->id],
 						['id', '=', $menu_id]
-					)->first();
+					])->first();
 
 		return redirect()->route('show_menu', ['section_id' => $menu->section_id, 'menu_id' => $menu_id])
 			->with(['status' => 'Descripción del plato almacenada exitosamente', 'type' => 'success']);
@@ -1060,22 +1060,46 @@ class BeaconController extends Controller
 	public function update_plate(Request $request, $menu_id)
 	{
 
-		$plate = Plate::where(
+		$plate = Plate::where([
 							['user_id', '=', Auth::user()->id],
 							['menu_id', '=', $menu_id]
-						)->first();
+						])->first();
+
+		// se valida si esta seteada la variable de la imagen para ser actualizada
+		$file_logo = Input::file('plato');
+		if ( !empty($file_logo) ) {
+
+			$name_logo = $file_logo->getClientOriginalName();
+			$plate->img = $name_logo;
+			//Ruta donde se va a guardar la img
+			$storage_logo = 'assets/images/platos';
+
+			// Muevo el docuemnto a la ruta
+			$file_logo = $file_logo->move($storage_logo, $name_logo);
+		}
+		else{
+			$location = Location::where( 'user_id', '=', Auth::user()->id )->first();
+
+			$plate->img = $location->logo;
+		}
+
+		$tipo_platos = TypesPlates::where([
+							['language_id', '=', 1]
+						])->get();
 
 		$plate->plate_translation;
 
 		$plate->plate_translation->description = $request->description;
 		$plate->plate_translation->save();
 
-		$menu = Menu::where(
+		$plate->save();
+
+		$menu = Menu::where([
 						['user_id', '=', Auth::user()->id],
 						['id', '=', $menu_id]
-					)->first();
+					])->first();
 
-		return redirect()->route('show_menu', ['section_id' => $menu->section_id, 'menu_id' => $menu_id])
+		return redirect()->route('show_menu', ['section_id' => $menu->section_id, 'menu_id' => $menu_id, 'type_plates_names' => $tipo_platos ])
 			->with(['status' => 'Se editó descripción de plato', 'type' => 'success']);
 
 	}
@@ -1138,7 +1162,7 @@ class BeaconController extends Controller
 
     }
 
-		public function coupon_edit()
+		public function edit_coupon()
 		{
 			return view('beacons.coupon_edit');
 		}

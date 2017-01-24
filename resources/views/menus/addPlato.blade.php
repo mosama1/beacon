@@ -69,7 +69,7 @@
             <button type="submit" name="button">
               <span>Guardar</span>
             </button>
-            <a href="{{ URL::previous() }}" class="">
+            <a href="{{ route('show_menu', array('section_id' => $section_id, 'menu_id' => $menu_id)) }}" class="">
               <span>Cancelar</span>
             </a>
           </center>
