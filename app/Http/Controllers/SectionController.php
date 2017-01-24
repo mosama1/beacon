@@ -133,7 +133,6 @@ class SectionController extends Controller
         $section_translation->name = $request->name;
         $section_translation->save();
 
-
     	return redirect()->route('show_section', $request->coupon_id)->with(['status' => 'Se ingreso Section de Menu con exito', 'type' => 'success']);
 
     }

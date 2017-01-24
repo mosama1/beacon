@@ -539,7 +539,6 @@ class BeaconController extends Controller
 				$cou->price = $request->price;
 			$cou->url = $coupon->coupon->url;
 
-
 			  // echo "<pre>"; var_dump($cou); echo "</pre>";
 			  // return;
 
@@ -1138,7 +1137,6 @@ class BeaconController extends Controller
 
 		return redirect()->route('show_sectionMenus', ['section_id' => $menu->section_id])
 			->with(['status' => 'Descripción del plato almacenada exitosamente', 'type' => 'success']);
-
 	}
 
 
