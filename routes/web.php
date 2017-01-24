@@ -38,8 +38,6 @@ Route::get('beacons/list', 'BeaconController@show')->name('list_beacons');
 
 Route::get('beacons/add', 'BeaconController@edit')->name('edit_beacon')->where('id', '[0-9]+');
 
-Route::post('beacons/add', 'BeaconController@edit_coupon')->name('edit_coupon')->where('id', '[0-9]+');
-
 Route::get('beacons/{id}/edit', 'BeaconController@edit')->name('edit_beacon')->where('id', '[0-9]+');
 
 Route::post('beacons/{id}', 'BeaconController@store_beacon')->name('beacon_store_beacon')->where('id', '[0-9]+');
@@ -63,6 +61,10 @@ Route::delete('beacons/{id}', 'LocationController@destroy')->where('id', '[0-9]+
 Route::get('coupons', 'BeaconController@show_coupon')->name('show_coupon');
 
 Route::post('coupons', 'BeaconController@store_coupon')->name('store_coupon');
+
+Route::get('coupons/{coupon_id}', 'BeaconController@edit_coupon')->name('edit_coupon')->where('id', '[0-9]+');
+
+Route::put('coupons/{id}', 'BeaconController@update_coupon')->name('update_coupon')->where('id', '[0-9]+');
 
 Route::delete('coupons/{coupon_id}', 'BeaconController@destroy_coupon')
 			->name('destroy_coupon')->where('coupon_id', '[0-9]+');
@@ -101,7 +103,7 @@ Route::get('campanas/{id}/contents', 'CampanaController@show_content')
 Route::post('campanas/{id}/contenidos/add', 'CampanaController@store_campana_content')->name('store_campana_content');
 
 //Section
-Route::get('coupons/{id}/sections', 'SectionController@show_section')->name('show_section');
+Route::get('coupons/{coupon_id}/sections', 'SectionController@show_section')->name('show_section');
 
 Route::post('sections', 'SectionController@store_section')->name('store_section');
 

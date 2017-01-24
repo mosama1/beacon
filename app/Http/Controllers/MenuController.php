@@ -208,7 +208,7 @@ class MenuController extends Controller
     	$menu_translation->save();
 
 
-    	return redirect()->route('show_sectionMenus', $menu->section_id)->with(['status' => 'Se creo el plato', 'type' => 'success']);
+    	return redirect()->route('show_sectionMenus', $menu->section_id)->with(['status' => 'Se ha actualizado el plato', 'type' => 'success']);
 
     }
 

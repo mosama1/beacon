@@ -40,7 +40,7 @@
 
             <tbody>
               @foreach($coupon as $c)
-                <tr id='{{$c->id}}'>
+                <tr id='{{$c->coupon_id}}'>
                   <td>
                     @if( ! empty($c->coupon_translation[0]) )
                       {{$c->coupon_translation[0]->name}}
@@ -51,11 +51,11 @@
                       {{$c->coupon_translation[0]->description}}
                     @endif
                   </td>
-                  <td><a href="{{ route('show_section', $c->id) }}"><i class="material-icons">input</i></a></td>
+                  <td><a href="{{ route( 'show_section', $c->coupon_id ) }}"><i class="material-icons">input</i></a></td>
 
 
                   <!-- <td><a href="#idioma"><i class="material-icons">language</i></a></td> -->
-                  <td><a href="{{ route('edit_coupon') }}"><i class="material-icons">edit</i></a></td>
+                  <td><a href="{{ route( 'edit_coupon', $c->coupon_id ) }}"><i class="material-icons">edit</i></a></td>
 
                   <?php
 
@@ -148,12 +148,12 @@
 <div id="idioma" class="modal modal_">
   <div class="titulo">
     <h3>
-      Agregar Menú
+      Agregar Idioma
     </h3>
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_coupon') }}">
+    <form class="form-horizontal" role="form" method="POST"> <!-- action="{{ route('store_coupon') }}" -->
       {{ csrf_field() }}
 
       <div class="input select {{ $errors->has('type') ? 'error' : '' }}">
@@ -224,8 +224,10 @@
 
   <div class="form">
     <form class="form-horizontal" role="form" method="POST">
+
       {{ csrf_field() }}
       {{ method_field('DELETE') }}
+
       <div class="button">
         <center>
           <button type="submit" name="button">

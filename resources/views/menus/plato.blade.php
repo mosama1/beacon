@@ -71,7 +71,7 @@
 
 		<div class="agregar regresar">
 			<center>
-				<a href="{{ route('show_section', $coupon->id) }}" class="waves-effect">
+				<a href="{{ route('show_section', $coupon->coupon_id) }}" class="waves-effect">
 					<div class="">
 						<span class="text">Regresar</span>
 						<span class="icon"><i class="material-icons">reply</i></span>

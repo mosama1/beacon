@@ -128,10 +128,10 @@ class BeaconController extends Controller
 
 		if ($beacon_->beacons):
 
-			$beacons = Beacon::where(
-								['user_id', '=', Auth::user()->id],
-								['beacon_id', '=', $beacon_->beacons[0]->id]
-							)->first();
+			$beacons = Beacon::where([
+									['user_id', '=', Auth::user()->id],
+									['beacon_id', '=', $beacon_->beacons[0]->id]
+								])->first();
 
 			if (!$beacons):
 
@@ -558,9 +558,78 @@ class BeaconController extends Controller
 	}
 
 	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update_coupon(Request $request, $coupon_id)
+	{
+		// Nuevo cliente con un url base
+		$client = new Client();
+
+		//Token Crud
+		$crud = BeaconController::crud();
+
+		//Location
+		$coupon_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons/'.$coupon_id.'/update', [
+				// un array con la data de los headers como tipo de peticion, etc.
+				'headers' => ['Authorization' => 'Bearer '.$crud ],
+				// array de datos del formulario
+				'form_params' => [
+						'name' => $request->name,
+						'description' => $request->description,
+						'message' => 'newMessage',
+						'type' => 'url',
+						'url' => 'google.com',
+				]
+		]);
+
+		//Json parse
+		$json_c = $coupon_->getBody();
+
+		$coupon = json_decode($json_c);
+
+		if ($coupon->status_code === 200 ):
+
+
+			$cou = Coupon::where([
+								['coupon_id', '=', $coupon->coupon->id]
+							]);
+		
+		// echo "<pre>"; var_dump($cou); echo "</pre>";
+		// return;
+			$cou->type = $coupon->coupon->type;
+			$cou->price = $request->price;
+			$cou->url = $coupon->coupon->url;
+			$cou->save();
+
+
+			$coupon_translation = CouponTranslation::where('coupon_id', '=', $cou->coupon_id);
+			$coupon_translation->name = $coupon->coupon->name;
+			(isset($coupon->coupon->description)) ?
+				$coupon_translation->description = $coupon->coupon->description :
+				$coupon_translation->description = "";
+
+			$coupon_translation->message = $coupon->coupon->message;
+			$coupon_translation->save();
+
+			return redirect()->route('show_coupon', $request->section_id)
+							->with(['status' => 'El menu se ha registrado con éxito', 'type' => 'success']);
+
+		else:
+
+			return redirect()->route('show_coupon', $request->section_id)
+							->with(['status' => 'Error al ingresar el menu', 'type' => 'error']);
+
+		endif;
+
+	}
+
+	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  int  $coupon_id
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy_coupon($coupon_id)
@@ -1122,10 +1191,10 @@ class BeaconController extends Controller
 	 */
 	public function showPlate($section_id)
 	{
-		$plates = Menu::where(
-							['user_id', '=', Auth::user()->id],
-							['section_id', '=', $section_id]
-						)->get();
+		$plates = Menu::where([
+						['user_id', '=', Auth::user()->id],
+						['section_id', '=', $section_id]
+					])->get();
 		$sections = Section::all();
 
 		return view('clientes.plates', ['plates' => $plates, 'sections' => $sections]);
@@ -1172,10 +1241,20 @@ class BeaconController extends Controller
 
     }
 
-		public function edit_coupon()
-		{
-			return view('beacons.coupon_edit');
-		}
+	public function edit_coupon($coupon_id)
+	{
+		$coupon = Coupon::where([
+							['user_id', '=', Auth::user()->id],
+							['coupon_id', '=', $coupon_id]
+						])->first();
+
+		$coupon->coupon_translation;
+
+		// echo "<pre>"; var_dump($coupon); echo "</pre>";
+		// return;
+
+		return view('beacons.coupon_edit', ['coupon' => $coupon] );
+	}
 
 
 }
