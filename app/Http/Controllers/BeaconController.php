@@ -706,7 +706,7 @@ class BeaconController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update_timeframe(Request $request, $id)
+	public function update_timeframe(Request $request, $timeframe_id)
 	{
 		// Nuevo cliente con un url base
 		$client = new Client();
@@ -715,7 +715,7 @@ class BeaconController extends Controller
 		$crud = BeaconController::crud();
 
 		//Location
-		$timeframe_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/timeframes/'.$id.'/update', [
+		$timeframe_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/timeframes/'.$timeframe_id.'/update', [
 				// un array con la data de los headers como tipo de peticion, etc.
 				'headers' => ['Authorization' => 'Bearer '.$crud ],
 				// array de datos del formulario
@@ -730,25 +730,30 @@ class BeaconController extends Controller
 		//Json parse
 		$json_t = $timeframe_->getBody();
 
-		$timeframe = json_decode($json_t);
+		$timeframe_j = json_decode($json_t);
 
 
-		if ($timeframe->status_code === 200):
+		if ($timeframe_j->status_code === 200):
 
-			$timeframe = Timeframe::where('timeframe_id', '=', $id)
-						->update(array(
-							'name' => $timeframe->timeframe->name,
-							'description' => $timeframe->timeframe->description,
-							'start_time' => $timeframe->timeframe->start_time,
-							'end_time' => $timeframe->timeframe->end_time
-						));
+			$timeframe = Timeframe::where('timeframe_id', '=', $timeframe_id)->first();
+
+			// echo "<pre>";var_dump($timeframe);echo "</pre>";
+			// return;
+
+			$timeframe->name = $timeframe_j->timeframe->name;
+			(isset($timeframe_j->timeframe->description)) ?
+			$timeframe->description = $timeframe_j->timeframe->description : 
+			$timeframe->description = NULL ;
+			$timeframe->start_time = $timeframe_j->timeframe->start_time;
+			$timeframe->end_time = $timeframe_j->timeframe->end_time;
+			$timeframe->save();
 
 			return redirect()->route('show_timeframe')
 							->with(['status' => 'Horario Actualizado exitosamente', 'type' => 'success']);
 
 		else:
 
-			return redirect()->route('edit_timeframe', $id)
+			return redirect()->route('edit_timeframe', $timeframe_id)
 							->with(['status' => 'Error al editar el timeframe', 'type' => 'error']);
 
 		endif;

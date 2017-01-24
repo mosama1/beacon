@@ -183,10 +183,10 @@ class CampanaController extends Controller
 	{
 		//consulta
 
-		$campana = Campana::where(
+		$campana = Campana::where([
 								['user_id', '=', Auth::user()->id],
 								['campana_id', '=', $id]
-							)->first();
+							])->first();
 
 
 		return view('beacons.campana_edit', ['campana' => $campana]);
@@ -226,10 +226,10 @@ class CampanaController extends Controller
 
 		if ($campana->status_code === 200 ):
 
-			$campana = Campana::where(
+			$campana = Campana::where([
 									['user_id', '=', Auth::user()->id],
 									['campana_id', '=', $id]
-								)
+								])
 								->update(array(
 									'name' => $campana->campaign->name,
 									'description' => (isset($campana->campaign->description)) ? $campana->campaign->description : '',
@@ -384,10 +384,10 @@ class CampanaController extends Controller
 
 		if ($campana->status_code === 200 ):
 
-			$campana =  Campana::where(
+			$campana =  Campana::where([
 									['user_id', '=', Auth::user()->id],
 									['campana_id', '=', $campana_id]
-								)->first();
+								])->first();
 
 			$campana->delete();
 
