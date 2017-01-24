@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 //use Beacon\Tag;
-//use Beacon\Coupon;
+use Beacon\Coupon;
 //use Beacon\Timeframe;
 //use Beacon\Campana;
 //use Beacon\Content;

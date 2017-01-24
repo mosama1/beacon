@@ -29,6 +29,15 @@
             <img src="img/icons/idiomas.png" title="Idiomas">
           </a>
         </li>
+        <li>
+          <a href="#">
+            <img src="img/icons/promociones.png" title="Promociones">
+          </a>
+          <ul>
+            <li><a href=""><span>Kit de <br>Bienvenida</span></a></li>
+            <li><a href=""><span>Kit de <br>Fidelidad</span></a></li>
+          </ul>
+        </li>
       </ul>
     </div>
   </div>

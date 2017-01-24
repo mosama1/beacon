@@ -73,7 +73,7 @@
 			<center>
 				<a href="{{ route('show_section', 1) }}" class="waves-effect">
 					<div class="">
-						<span class="text">Regresar</span>
+						<span class="text">Regresar{{ $coupon_id }}</span>
 						<span class="icon"><i class="material-icons">reply</i></span>
 					</div>
 				</a>

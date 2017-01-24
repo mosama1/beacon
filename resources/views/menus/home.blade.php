@@ -174,7 +174,7 @@
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST"">
+    <form class="form-horizontal" role="form" method="POST">
       {{ csrf_field() }}
       <input type="hidden" name="_method" value="DELETE">
       <div class="button">
