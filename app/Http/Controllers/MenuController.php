@@ -120,7 +120,6 @@ class MenuController extends Controller
 
 	}
 
-
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -128,65 +127,92 @@ class MenuController extends Controller
 	 */
 	public function show_sectionMenus($section_id)
 	{
-	   $type_plates = TypesPlates::where([
+	    $type_plates = TypesPlates::where([
 		   ['language_id', '=', 1],
-	   ])->get();
-
-	   foreach ($type_plates as $key => $tipo) {
-		   $tipo->name;
-	   }
-	   
-	   $menu = new Menu;
-
-	   $menus = $menu->where([
-		   ['section_id', '=', $section_id],
 	    ])->get();
 
-	    foreach ($menus as $key => $menu) {
-		   $menu->menu_translation;
+	    foreach ($type_plates as $key => $tipo) {
+		   $tipo->name;
 	    }
+	   
+	    $menu = new Menu;
 
-	    $section = Section::where('id', '=', $section_id)->first();
-	    $section->coupon();
+        $menus = $menu->where([
+            ['section_id', '=', $section_id],
+        ])->get();
+
+        foreach ($menus as $key => $menu) {
+            $menu->menu_translation;
+        }
+
+        $section = Section::where('id', '=', $section_id)->first();
+        $section->coupon();
+
+        return view('menus.plato',['menus' => $menus,'type_plates' => $type_plates, 'section_id' => $section_id, 'coupon_id' => $section->coupon->coupon_id]);
+
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store_menu(Request $request)
+    {
+
+    	$menu = new Menu();
+    	$menu->section_id = $request->section_id;
+    	$menu->user_id = Auth::user()->id;
+    	$menu->type = $request->type;
+    	$menu->price = $request->price;
+    	$menu->save();
+
+    	$menu_translation = new MenuTranslation();
+    	$menu_translation->menu_id = $menu->id;
+    	$menu_translation->language_id = 1;
+    	$menu_translation->name = $request->name;
+    	$menu_translation->save();
 
 
-	    return view('menus.plato',['menus' => $menus,'type_plates_names' => $type_plates[0], 'section_id' => $section_id, 'coupon_id' => $section->coupon->id]);
-	}
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function store_menu(Request $request)
-	{
+    	return redirect()->route('show_sectionMenus', $menu->section_id)->with(['status' => 'Se creo el plato', 'type' => 'success']);
 
-		$menu = new Menu();
-		$menu->section_id = $request->section_id;
-		$menu->user_id = Auth::user()->id;
-		$menu->type = $request->type;
-		$menu->price = $request->price;
-		$menu->save();
+    }
 
-		$menu_translation = new MenuTranslation();
-		$menu_translation->menu_id = $menu->id;
-		$menu_translation->language_id = 1;
-		$menu_translation->name = $request->name;
-		$menu_translation->save();
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update_menu(Request $request, $id)
+    {
+
+    	$menu = Menu::find($id);
+    	$menu->type = $request->type;
+    	$menu->price = $request->price;
+    	$menu->save();
+
+    	$menu_translation = MenuTranslation::where([
+						    			['menu_id', '=', $menu->id],
+						    			['language_id', '=', 1]
+						    		])->first();
+    	$menu_translation->name = $request->name;
+    	$menu_translation->save();
 
 
-		return redirect()->route('show_sectionMenus', $menu->section_id)->with(['status' => 'Se creo el plato', 'type' => 'success']);
+    	return redirect()->route('show_sectionMenus', $menu->section_id)->with(['status' => 'Se creo el plato', 'type' => 'success']);
 
-	}
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public function destroy_menu($id)
-	{
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy_menu($id)
+    {
 
 		$menu =  Menu::find($id);
 		$section_id = $menu->section_id;
@@ -204,8 +230,20 @@ class MenuController extends Controller
 
 
 		endif;
-
 	}
 
+	public function edit_menu($menu_id)
+    {
+	    $menu = Menu::where([
+		   ['id', '=', $menu_id],
+	    ])->first();
+
+		$type_plates = TypesPlates::where([
+				['language_id', '=', 1],
+		])->get();
+
+        return view('menus.platoEdit', ['type_plates' => $type_plates, 'menu' => $menu]);
+
+    }
 
 }

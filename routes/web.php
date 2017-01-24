@@ -123,7 +123,12 @@ Route::get('sections/{section_id}/menus', 'MenuController@show_sectionMenus')
 
 Route::post('menus', 'MenuController@store_menu')->name('store_menu')->where('id', '[0-9]+');
 
+Route::put('menus/{id}', 'MenuController@update_menu')->name('update_menu')->where('id', '[0-9]+');
+
+Route::get('menus/{id}/edit', 'MenuController@edit_menu')->name('edit_menu')->where('id', '[0-9]+');
+
 Route::delete('menus/{id}', 'MenuController@destroy_menu')->name('destroy_menu')->where('id', '[0-9]+');
+
 
 //Platos
 Route::get('menus/{menu_id}/detalles', 'BeaconController@show_plate')->name('show_plate')->where('menu_id', '[0-9]+');

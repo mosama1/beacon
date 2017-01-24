@@ -32,7 +32,8 @@
 								<th data-field="type">Tipo</th>
 								<th data-field="price">Precio</th>
 								<th data-field="name">Detalles</th>
-								<th data-field="price">Idioma</th>
+								<!-- <th data-field="price">Idioma</th> -->
+								<th data-field="price">Editar</th>
 								<th data-field="price">Eliminar</th>
 							</tr>
 						</thead>
@@ -49,7 +50,8 @@
 									<td>{{$m->price}}</td>
 									<td><a href="{{ route('show_plate', $m->id) }}"><i class="material-icons">input</i></a></td>
 
-									<td><a href="#Idioma"><i class="material-icons">language</i></a></td>
+									<!-- <td><a href="#Idioma"><i class="material-icons">language</i></a></td> -->
+									<td><a href="{{ route( 'edit_menu', array('menu_id' => $m->id) ) }}"><i class="material-icons">edit</i></a></td>
 									<?php
 
 									echo "<td onclick= \"modal_activate('".
