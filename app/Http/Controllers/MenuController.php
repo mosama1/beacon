@@ -116,7 +116,13 @@ class MenuController extends Controller
 		$section = Section::where('id', '=', $section_id)->first();
 		$section->coupon();
 
-		return view('menus.plato',['menus' => $menus,'type_plates' => $type_plates, 'section_id' => $section_id, 'coupon_id' => $section->coupon->coupon_id]);
+		return view('menus.plato',
+					[
+						'menus' => $menus,
+						'type_plates' => $type_plates,
+						'section_id' => $section_id,
+						'coupon' => $section->coupon
+					]);
 
 	}
 
@@ -130,10 +136,6 @@ class MenuController extends Controller
 	    $type_plates = TypesPlates::where([
 		   ['language_id', '=', 1],
 	    ])->get();
-
-	    foreach ($type_plates as $key => $tipo) {
-		   $tipo->name;
-	    }
 	   
 	    $menu = new Menu;
 
@@ -143,6 +145,11 @@ class MenuController extends Controller
 
         foreach ($menus as $key => $menu) {
             $menu->menu_translation;
+            foreach ($type_plates as $key => $type) {
+            	if ($menu->type == $type->id ) {
+            		$menu->type = $type->name;
+            	}
+            }
         }
 
         $section = Section::where('id', '=', $section_id)->first();

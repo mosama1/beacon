@@ -72,11 +72,11 @@ Route::get('timeframes', 'BeaconController@show_timeframe')->name('show_timefram
 
 Route::get('timeframes/add', 'BeaconController@create_timeframe')->name('add_timeframe');
 
-Route::post('timeframes/add', 'BeaconController@store_timeframe')->name('store_timeframe');
+Route::post('timeframes', 'BeaconController@store_timeframe')->name('store_timeframe');
 
 Route::get('timeframes/{id}/edit', 'BeaconController@edit_timeframe')->name('edit_timeframe')->where('id', '[0-9]+');
 
-Route::post('timeframes/{id}', 'BeaconController@update_timeframe')->name('update_timeframe')->where('id', '[0-9]+');
+Route::put('timeframes/{id}', 'BeaconController@update_timeframe')->name('update_timeframe')->where('id', '[0-9]+');
 
 Route::delete('timeframes/{id}', 'BeaconController@destroy_timeframe')->name('destroy_timeframe')->where('id', '[0-9]+');
 
@@ -85,11 +85,11 @@ Route::get('campanas', 'CampanaController@show_campana')->name('show_campana');
 
 Route::get('campanas/add', 'CampanaController@create_campana')->name('add_campana');
 
-Route::post('campanas/add', 'CampanaController@store_campana')->name('store_campana');
+Route::post('campanas', 'CampanaController@store_campana')->name('store_campana');
 
 Route::get('campanas/{id}/edit', 'CampanaController@edit_campana')->name('edit_campana')->where('id', '[0-9]+');
 
-Route::post('campanas/{id}/edit', 'CampanaController@update_campana')->name('update_campana')->where('id', '[0-9]+');
+Route::put('campanas/{id}', 'CampanaController@update_campana')->name('update_campana')->where('id', '[0-9]+');
 
 Route::delete('campanas/{campana_id}', 'CampanaController@destroy_campana')
 			->name('destroy_campana')->where('campana_id', '[0-9]+');
