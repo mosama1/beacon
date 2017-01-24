@@ -17,8 +17,8 @@
             <img src="img/icons/idioma.png" alt="" class="icon">
             <select id="language" class="form-control icons" name="language" required>
               <option value="" disabled selected>Idioma</option>
-              <option value="es" data-icon="img/icons/es.png" class="left circle">Español</option>
-              <option value="en" data-icon="img/icons/en.png" class="left circle">English</option>
+              <option value="Español" data-icon="img/icons/es.png" class="left circle">Español</option>
+              <option value="English" data-icon="img/icons/en.png" class="left circle">English</option>
             </select>
           </div>
           @if ($errors->has('language'))

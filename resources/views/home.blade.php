@@ -30,7 +30,7 @@
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="#" onclick="return false;">
             <img src="img/icons/promociones.png" title="Promociones">
           </a>
           <ul>
