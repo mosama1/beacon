@@ -8,7 +8,7 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Editar Idioma
+        Editar Plato
       </h3>
     </div>
 
