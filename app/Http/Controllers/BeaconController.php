@@ -606,7 +606,7 @@ class BeaconController extends Controller
 			$cou->save();
 
 			$coupon_translation = CouponTranslation::where([['coupon_id', '=', $cou->id]])->first();
-			
+
 			(isset($coupon->coupon->name)) ?
 				$coupon_translation->name = $coupon->coupon->name :
 				$coupon_translation->name = "";
@@ -819,7 +819,7 @@ class BeaconController extends Controller
 
 			$timeframe->name = $timeframe_j->timeframe->name;
 			(isset($timeframe_j->timeframe->description)) ?
-			$timeframe->description = $timeframe_j->timeframe->description : 
+			$timeframe->description = $timeframe_j->timeframe->description :
 			$timeframe->description = NULL ;
 			$timeframe->start_time = $timeframe_j->timeframe->start_time;
 			$timeframe->end_time = $timeframe_j->timeframe->end_time;
@@ -1186,7 +1186,7 @@ class BeaconController extends Controller
 									'section_id' => $menu->section_id,
 									'menu_id' => $menu_id,
 									'type_plates_names' => $tipo_platos
-								])	
+								])
 						->with(['status' => 'Se editó descripción de plato', 'type' => 'success']);
 
 	}
