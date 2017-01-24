@@ -11,6 +11,9 @@
       </h3>
     </div>
 
+
+
+
     <div class="form">
       @if (session('status'))
          <span class="help-block">
@@ -45,6 +48,12 @@
               <span>{{ $errors->first('description') }}</span>
           </div>
         @endif
+        <div class="checkbox">
+          <p style="padding-left: 30px;">
+            <input type="checkbox" id="campanaei" />
+            <label for="campanaei">xxxxxx</label>
+          </p>
+        </div>
 
         <!-- <div class="input no_icon time {{ $errors->has('start_time') ? 'error' : '' }}">
           <input type="time" name="start_time" value="{{date('H:i', strtotime($campana->start_time))}}" required="" class="input_time">
