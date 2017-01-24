@@ -148,7 +148,7 @@ class MenuController extends Controller
         $section = Section::where('id', '=', $section_id)->first();
         $section->coupon();
 
-        return view('menus.plato',['menus' => $menus,'type_plates' => $type_plates, 'section_id' => $section_id, 'coupon_id' => $section->coupon->coupon_id]);
+        return view('menus.plato',['menus' => $menus,'type_plates' => $type_plates, 'section_id' => $section_id, 'coupon' => $section->coupon]);
 
     }
 
