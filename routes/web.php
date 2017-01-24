@@ -38,7 +38,11 @@ Route::get('beacons/list', 'BeaconController@show')->name('list_beacons');
 
 Route::get('beacons/add', 'BeaconController@edit')->name('edit_beacon')->where('id', '[0-9]+');
 
-Route::post('beacons/add', 'BeaconController@store_beacon')->name('beacon_store_beacon')->where('id', '[0-9]+');
+Route::post('beacons/add', 'BeaconController@edit_coupon')->name('edit_coupon')->where('id', '[0-9]+');
+
+Route::get('beacons/{id}/edit', 'BeaconController@edit')->name('edit_beacon')->where('id', '[0-9]+');
+
+Route::post('beacons/{id}', 'BeaconController@store_beacon')->name('beacon_store_beacon')->where('id', '[0-9]+');
 
 Route::delete('beacons/{beacon_id}', 'BeaconController@beacon_destroy')->name('beacon_destroy')->where('id', '[0-9]+');
 
@@ -56,11 +60,12 @@ Route::post('beacons/locations/{id}', 'LocationController@update_location')->nam
 Route::delete('beacons/{id}', 'LocationController@destroy')->where('id', '[0-9]+');
 
 //Coupon
+Route::get('coupons', 'BeaconController@show_coupon')->name('show_coupon');
 
 Route::post('coupons', 'BeaconController@store_coupon')->name('store_coupon');
 
-Route::get('beacons/menu_edit', 'BeaconController@menu_edit')->name('menu_edit');
-
+Route::delete('coupons/{coupon_id}', 'BeaconController@destroy_coupon')
+			->name('destroy_coupon')->where('coupon_id', '[0-9]+');
 
 //timeframe
 Route::get('timeframes', 'BeaconController@show_timeframe')->name('show_timeframe');
@@ -109,12 +114,6 @@ Route::delete('sections/{id}', 'SectionController@destroy_section')
 
 
 //Menu
-Route::get('menus', 'BeaconController@show_coupon')->name('show_coupon');
-
-Route::post('menus', 'BeaconController@store_coupon')->name('store_coupon');
-
-Route::delete('menus/{coupon_id}', 'BeaconController@destroy_coupon')
-			->name('destroy_coupon')->where('coupon_id', '[0-9]+');
 
 Route::get('sections/{section_id}/menus/{menu_id}', 'MenuController@show_menu')
 			->name('show_menu')->where(['section_id' => '[0-9]+', 'menu_id' => '[0-9]+']);
@@ -124,17 +123,19 @@ Route::get('sections/{section_id}/menus', 'MenuController@show_sectionMenus')
 
 Route::post('menus', 'MenuController@store_menu')->name('store_menu')->where('id', '[0-9]+');
 
-Route::delete('menus/{id}', 'MenuController@destroy_menu')->name('destroy_menu')->where('id', '[0-9]+');
+Route::put('menus/{id}', 'MenuController@update_menu')->name('update_menu')->where('id', '[0-9]+');
 
-Route::get('menus/edit', 'MenuController@menus_edit')->name('menus_edit');;
+Route::get('menus/{id}/edit', 'MenuController@edit_menu')->name('edit_menu')->where('id', '[0-9]+');
+
+Route::delete('menus/{id}', 'MenuController@destroy_menu')->name('destroy_menu')->where('id', '[0-9]+');
 
 
 //Platos
-Route::get('menus/{menu_id}/plates', 'BeaconController@show_plate')->name('show_plate')->where('menu_id', '[0-9]+');
+Route::get('menus/{menu_id}/detalles', 'BeaconController@show_plate')->name('show_plate')->where('menu_id', '[0-9]+');
 
-Route::post('menus/{menu_id}/plates', 'BeaconController@store_plate')->name('store_plate')->where('menu_id', '[0-9]+');
+Route::post('menus/{menu_id}/detalles', 'BeaconController@store_plate')->name('store_plate')->where('menu_id', '[0-9]+');
 
-Route::put('menus/{id}/plates', 'BeaconController@update_plate')->name('update_plate')->where('id', '[0-9]+');
+Route::put('menus/{id}/detalles', 'BeaconController@update_plate')->name('update_plate')->where('id', '[0-9]+');
 
 
 //Idiomas

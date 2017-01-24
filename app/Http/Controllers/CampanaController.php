@@ -183,7 +183,10 @@ class CampanaController extends Controller
 	{
 		//consulta
 
-		$campana = Campana::where('campana_id', '=', $id)->first();
+		$campana = Campana::where([
+								['user_id', '=', Auth::user()->id],
+								['campana_id', '=', $id]
+							])->first();
 
 
 		return view('beacons.campana_edit', ['campana' => $campana]);
@@ -223,7 +226,10 @@ class CampanaController extends Controller
 
 		if ($campana->status_code === 200 ):
 
-			$campana = Campana::where('campana_id', '=', $id)
+			$campana = Campana::where([
+									['user_id', '=', Auth::user()->id],
+									['campana_id', '=', $id]
+								])
 								->update(array(
 									'name' => $campana->campaign->name,
 									'description' => (isset($campana->campaign->description)) ? $campana->campaign->description : '',
@@ -318,6 +324,7 @@ class CampanaController extends Controller
 
 			$coupons = Coupon::where([
 				['coupon_id', '=', $request->coupon_id],
+				['user_id', '=', Auth::user()->id]
 			])->get();
 
 			foreach ($coupons as $key => $coupon) {
@@ -350,14 +357,14 @@ class CampanaController extends Controller
 
 	}
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy_campana($campana_id)
-    {
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy_campana($campana_id)
+	{
 		// Nuevo cliente con un url base
 		$client = new Client();
 
@@ -377,21 +384,24 @@ class CampanaController extends Controller
 
 		if ($campana->status_code === 200 ):
 
-	    	$campana =  Campana::where('campana_id', '=', $campana_id)->first();
+			$campana =  Campana::where([
+									['user_id', '=', Auth::user()->id],
+									['campana_id', '=', $campana_id]
+								])->first();
 
-	    	$campana->delete();
+			$campana->delete();
 
-	        return redirect()->route('show_campana')
-	                ->with(['status' => 'Se ha Eliminado la Campaña con éxito', 'type' => 'success']);
+			return redirect()->route('show_campana')
+					->with(['status' => 'Se ha Eliminado la Campaña con éxito', 'type' => 'success']);
 
 		else:
 
-			echo "<pre>"; var_dump($campaña); echo "</pre>";
+			//echo "<pre>"; var_dump($campaña); echo "</pre>";
 
 			return redirect()->route('show_campana')->with(['status' => 'Error al eliminar la Campaña', 'type' => 'error']);
 
 		endif;
 
-    }
+	}
 
 }

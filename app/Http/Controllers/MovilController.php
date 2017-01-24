@@ -55,6 +55,7 @@ class MovilController extends Controller
 		$content = $campana->content;
 
 		$coupon = Coupon::where([
+			['user_id', '=', Auth::user()->id ],
 			['coupon_id', '=', array( $content->coupon_id ) ],
 		])->first();
 

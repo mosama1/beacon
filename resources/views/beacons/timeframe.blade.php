@@ -44,15 +44,14 @@
                   <td>{{date("h:i a", strtotime($t->start_time))}}</td>
                   <td>{{date("h:i a", strtotime($t->end_time))}}</td>
                   <td><a href="{{ route('edit_timeframe', $t->timeframe_id) }}"><i class="material-icons">edit</i></a></td>
-                  <?php
+                <?php
 
                   echo "<td onclick= \"modal_activate('".
-                  route( "destroy_timeframe", $t->timeframe_id ).
-                  "' , '#eliminarHorario')\" >";
+                     route( "destroy_timeframe", $t->timeframe_id ).
+                    "' , '#eliminarHorario')\" >";
 
-                  ?>
+                ?>
                   <a href="#eliminarHorario"><i class="material-icons">clear</i></a></td>
-
                 </tr>
               @endforeach
             </tbody>
@@ -149,9 +148,9 @@
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="#">
+    <form class="form-horizontal" role="form" method="POST">
       {{ csrf_field() }}
-      <input type="hidden" name="_method" value="DELETE">
+      {{ method_field('DELETE') }}
       <div class="button">
         <center>
           <button type="submit" name="button">

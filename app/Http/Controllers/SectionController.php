@@ -80,7 +80,7 @@ class SectionController extends Controller
 
         $sections = $section->where([
             ['user_id', '=', Auth::user()->id],
-            ['coupon_id', '=', $coupon_id],
+            ['coupon_id', '=', $coupon_id]
         ])->get();
 
         foreach ($sections as $key => $section) {
@@ -103,7 +103,7 @@ class SectionController extends Controller
 
         $menus = $menu->where([
             ['user_id', '=', Auth::user()->id],
-            ['section_id', '=', $section_id],
+            ['section_id', '=', $section_id]
         ])->get();
 
         foreach ($menus as $key => $menu) {
@@ -149,10 +149,11 @@ class SectionController extends Controller
         //consulta
 
         $section = Section::find($id);
-        // echo "<pre>";  var_dump($section); echo "</pre>";
+        $section->section_translation;
+         // echo "<pre>";  var_dump($section); echo "</pre>";
+         // return;
 
-
-        return view('sections.section_edit', ['section' => $section]);
+        return view('sections.section_edit', ['section' => $section, 'coupon_id' => $section->coupon_id]);
     }
 
     /**
@@ -161,19 +162,23 @@ class SectionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update_section(Request $request, $id)
+    public function update_section(Request $request, $section_id)
     {
 
-        $section = Section::find( $id);
-        $section->coupon_id = $request->coupon_id;
-        $section->save();
+        $section_translation = SectionTranslation::where( [
+                                                    ['section_id', '=', $section_id],
+                                                    ['language_id', '=', $request->language_id]
+                                                ])->first();
 
-        $section->section_translation->name = $request->name;
-        $section->section_translation->language_id = $request->language_id;
-        $section->section_translation->section_id = $section->section_id;
-        $section->section_translation->save();
 
-        return redirect()->route('show', Auth::user()->id)
+         // echo "<pre>";  var_dump($section_translation); echo "</pre>";
+         // return;
+
+        $section_translation->name = $request->name;
+        $section_translation->language_id = $request->language_id;
+        $section_translation->save();
+
+        return redirect()->route('show_section', $request->coupon_id )
                 ->with(['status' => 'Se actualizó la seccion con exito', 'type' => 'success']);
 
     }
@@ -194,7 +199,7 @@ class SectionController extends Controller
     	$section->delete();
 
         return redirect()->route('show_section', ['coupon_id' => $coupon->id])
-                ->with(['status' => 'Se ha Eliminado la sección con éxito', 'type' => 'success']);
+                ->with(['status' => 'Se ha eliminado la sección con éxito', 'type' => 'success']);
 
     }
 

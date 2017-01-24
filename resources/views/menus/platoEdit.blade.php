@@ -18,11 +18,12 @@
            <strong>{{ session('status') }}</strong>
          </span>
        @endif
-       <form class="form-horizontal" role="form" method="POST" action="#">
+       <form class="form-horizontal" role="form" method="POST" action="{{ route( 'update_menu', $menu->id ) }}">
         {{ csrf_field() }}
+        {{ method_field('PUT') }}
 
         <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-  				<input type="text" name="name" value="" required="">
+  				<input type="text" name="name" value="{{$menu->menu_translation[0]->name}}" required="">
   				<label for="">
   					<!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
   					<span class="text">Nombre</span>
@@ -36,12 +37,12 @@
 
   			<div class="input select no_icon {{ $errors->has('type') ? 'error' : '' }}">
   				<!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
-  				<select id="type" class="form-control icons" name="type">
+  				<select id="type" class="form-control icons" name="type" @if(!isset($menu->type)) echo("selected") @endif >
 
   				@if( !empty($type_plates) )
             <option value="" disabled selected>Seleccion un tipo de plato</option>
   					@foreach ($type_plates as $type_plate)
-  						<option value="{{$type_plate->id}}">{{$type_plate->name}}</option>
+  						<option value="{{$type_plate->id}}" selected="{{($type_plate->id == $menu->type)}}"  >{{$type_plate->name}}</option>
   					@endforeach
   				@else
   					<option value="" disabled selected>No hay tipos de platos registrados</option>
@@ -56,7 +57,7 @@
   			</div>
 
   			<div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}">
-  				<input type="number" name="price" value="" required=""  max="99999" step="any">
+  				<input type="number" name="price" value="{{$menu->price}}" required=""  max="99999" step="any">
   				<label for="">
   					<!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
   					<span class="text">Precio</span>
@@ -74,7 +75,7 @@
             <button type="submit" name="button">
               <span>Guardar</span>
             </button>
-            <a href="{{ URL::previous() }}" class="">
+            <a href="{{ route( 'show_sectionMenus', $menu->section_id ) }}" class="">
               <span>Cancelar</span>
             </a>
           </center>

@@ -27,4 +27,9 @@ class TypesPlates extends Model
     {
         return $this->hasMany('Baecon\Plate', 'type_plate_id', 'id');
     }
+
+	public function menus()
+	{
+		return $this->hasMany('Baecon\TypesPlates', 'type', 'id');
+	}
 }

@@ -18,14 +18,16 @@
            <strong>{{ session('status') }}</strong>
          </span>
        @endif
-       <form class="form-horizontal" role="form" method="POST" action="#">
+       <form class="form-horizontal" role="form" method="POST" action="{{ route( 'update_section', $section->id ) }}">
         {{ csrf_field() }}
 
-        <input type="hidden" name="_method" value="PUT">
+        {{ method_field('PUT') }}
 
+        <input type="hidden" name="coupon_id" value="{{ $coupon_id }}">
+        <input type="hidden" name="language_id" value="1">
 
         <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-          <input type="text" name="name" value="" required="">
+          <input type="text" name="name" value="{{ $section->section_translation[0]->name }}" required="">
           <label for="">
             <span class="text">Nombre</span>
           </label>
@@ -43,7 +45,7 @@
             <button type="submit" name="button">
               <span>Guardar</span>
             </button>
-            <a href="{{ URL::previous() }}" class="">
+            <a href="{{ route( 'show_section', $coupon_id ) }}" class="">
               <span>Cancelar</span>
             </a>
           </center>

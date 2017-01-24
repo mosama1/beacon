@@ -20,16 +20,19 @@ class TypePlateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($menu_id)
     {
-    	$plate = TypePlate::whereRaw('user_id = ? and menu_id = ?', array(Auth::user()->id, $id))->first();
+    	$plate = TypePlate::get();
 
-        $menu = Menu::where('id', '=', $menu_id)->first();
+        $menu = Menu::where(
+                    ['user_id', '=', Auth::user()->id],
+                    ['id', '=', $menu_id]
+                )->first();
 
     	if ($plate):
-    		return view('menus.detailPlato',['plate' => $plate ,'section_id' => $menu->section_id,  'menu_id' => $id]);
+    		return view('menus.detailPlato',['plate' => $plate ,'section_id' => $menu->section_id,  'menu_id' => $menu_id]);
     	else:
-    		return view('menus.addPlato',['section_id' => $menu->section_id, 'menu_id' => $id]);
+    		return view('menus.addPlato',['section_id' => $menu->section_id, 'menu_id' => $menu_id]);
     	endif;
 
     }
@@ -83,17 +86,17 @@ class TypePlateController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-
-    	$plate = TypePlate::whereRaw(' id= ?', array( $id ) )
-				    	->update(array(
-                            'name' => $request->name,
-                            'description' => $request->description,
-				    	));
+    	$plate = TypePlate::where(
+                                ['id', '=', $id]
+                            )
+    				    	->update(array(
+                                'name' => $request->name,
+                                'description' => $request->description,
+    				    	));
 
 
     	return redirect()->route( 'show_menu', $id )
-                        ->with( [ 'status' => 'Se edito el tipo de plato', 'type' => 'success' ] );
+                        ->with( [ 'status' => 'Se edito el tipo de plato exitosamente', 'type' => 'success' ] );
 
     }
 
