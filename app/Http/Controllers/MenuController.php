@@ -45,6 +45,7 @@ class MenuController extends Controller
 		$token_crud = json_decode($json_c);
 
 		return $token_crud->access_token;
+		
 	}
 
 

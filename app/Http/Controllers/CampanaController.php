@@ -379,7 +379,6 @@ class CampanaController extends Controller
 		//Json parse
 		$json_c = $campana_->getBody();
 
-
 		$campana = json_decode($json_c);
 
 		if ($campana->status_code === 200 ):
