@@ -530,7 +530,9 @@ class BeaconController extends Controller
 			$cou->coupon_id = $coupon->coupon->id;
 			$cou->user_id = Auth::user()->id;
 			$cou->type = $coupon->coupon->type;
-			$cou->price = $request->price;
+			(!empty($request->price)) ?
+				$cou->price = 0 :
+				$cou->price = $request->price;
 			$cou->url = $coupon->coupon->url;
 			$cou->save();
 
