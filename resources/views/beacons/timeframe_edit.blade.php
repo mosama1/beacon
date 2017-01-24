@@ -22,7 +22,6 @@
         {{ csrf_field() }}
         {{ method_field('PUT') }}
 
-
         <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
           <input type="text" name="name" value="{{$timeframe->name}}" required="">
           <label for="">
