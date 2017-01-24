@@ -137,11 +137,7 @@
     </h3>
   </div>
   <div class="form">
-<<<<<<< HEAD
-    <form class="form-horizontal" role="form" method="POST" action="#">
-=======
     <form class="form-horizontal" role="form" method="POST">
->>>>>>> 2119e70b1892798c9bd31afc08e37ac38097aa53
       {{ csrf_field() }}
       {{ method_field('DELETE') }}
       <div class="button">

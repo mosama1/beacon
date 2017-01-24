@@ -36,11 +36,11 @@ Route::get('home', 'HomeController@index');
 //Beacons
 Route::get('beacons/list', 'BeaconController@show')->name('list_beacons');
 
-Route::get('beacons/add', 'BeaconController@edit')->name('edit_beacon')->where('id', '[0-9]+');
+Route::get('beacons/add', 'BeaconController@edit')->name('create_beacon')->where('id', '[0-9]+');
 
 Route::get('beacons/{id}/edit', 'BeaconController@edit')->name('edit_beacon')->where('id', '[0-9]+');
 
-Route::post('beacons/{id}', 'BeaconController@store_beacon')->name('beacon_store_beacon')->where('id', '[0-9]+');
+Route::post('beacons', 'BeaconController@store_beacon')->name('beacon_store_beacon');
 
 Route::delete('beacons/{beacon_id}', 'BeaconController@beacon_destroy')->name('beacon_destroy')->where('id', '[0-9]+');
 
