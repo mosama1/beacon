@@ -40,9 +40,9 @@
   				<select id="type" class="form-control icons" name="type" @if(!isset($menu->type)) echo("selected") @endif >
 
   				@if( !empty($type_plates) )
-            <option value="" disabled selected>Seleccion un tipo de plato</option>
+            <option value="">Seleccion un tipo de plato</option>
   					@foreach ($type_plates as $type_plate)
-  						<option value="{{$type_plate->id}}" selected="{{($type_plate->id == $menu->type)}}"  >{{$type_plate->name}}</option>
+  						<option value="{{$type_plate->id}}" @if($type_plate->id == $menu->type) echo("selected") @endif  >{{$type_plate->name}}</option>
   					@endforeach
   				@else
   					<option value="" disabled selected>No hay tipos de platos registrados</option>
