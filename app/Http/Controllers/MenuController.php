@@ -126,7 +126,7 @@ class MenuController extends Controller
         $type_plates = TypesPlates::where([
             ['language_id', '=', 1],
         ])->get();
-        
+
         $menu = new Menu;
 
         $menus = $menu->where([
@@ -197,6 +197,14 @@ class MenuController extends Controller
     	endif;
 
     }
+		public function menus_edit()
+    {
+			$type_plates = TypesPlates::where([
+					['language_id', '=', 1],
+			])->get();
 
+        return view('menus.platoEdit', ['type_plates' => $type_plates]);
+
+    }
 
 }

@@ -126,6 +126,9 @@ Route::post('menus', 'MenuController@store_menu')->name('store_menu')->where('id
 
 Route::delete('menus/{id}', 'MenuController@destroy_menu')->name('destroy_menu')->where('id', '[0-9]+');
 
+Route::get('menus/edit', 'MenuController@menus_edit')->name('menus_edit');;
+
+
 //Platos
 Route::get('menus/{menu_id}/plates', 'BeaconController@show_plate')->name('show_plate')->where('menu_id', '[0-9]+');
 

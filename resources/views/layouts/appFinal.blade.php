@@ -15,7 +15,7 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>{{ config('app.name', 'Laravel') }}</title>
+  <title>Nombre de la Aplicación</title>
 
   <!-- Styles -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -82,8 +82,8 @@
               <img src="{{ $location->logo }}" alt="">
             </li>
             @endif
-            <!-- <li class="idioma">
-              <ul class="sub_menu">
+            <li class="idioma">
+              <!-- <ul class="sub_menu">
                 <li>
                   <a href="#">
                     <span>
@@ -112,12 +112,12 @@
                     </span>
                   </a>
                 </li>
-              </ul>
+              </ul> -->
 
               <a href="#" class="sb_mn">
-                <img src="img/icons/idioma_cliente.png" alt="">
+                <img src="img/icons/filtro.png" alt="">
               </a>
-            </li> -->
+            </li>
           </ul>
 
 
@@ -128,11 +128,11 @@
     @yield('content')
 
     <footer>
-      <!-- <div class="footer">
+      <div class="footer">
         <p>
-          Xxxxxxx © {{date('Y')}} - Todos los derechos reservados. Diseñado por <a href="#"><img src="img/demente.png" alt=""></a>
+          © {{date('Y')}} - Todos los derechos reservados. Diseñado por <a href="#"><img src="img/demente.png" alt=""></a>
         </p>
-      </div> -->
+      </div>
     </footer>
 
     <!--  Scripts-->

@@ -2160,7 +2160,8 @@ body.menu2 .menu_cliente{
 }
 
 
-.modal_ .form .input.select{
+.modal_ .form .input.select,
+.contenedor .principal .form .input.select{
   margin-left: 0px;
   width: calc(100%);
   max-width: 100%;
