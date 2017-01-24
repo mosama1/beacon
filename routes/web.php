@@ -36,7 +36,7 @@ Route::get('home', 'HomeController@index');
 //Beacons
 Route::get('beacons/list', 'BeaconController@show')->name('list_beacons');
 
-Route::get('beacons/add', 'BeaconController@edit')->name('create_beacon')->where('id', '[0-9]+');
+Route::get('beacons/add', 'BeaconController@create_beacon')->name('create_beacon')->where('id', '[0-9]+');
 
 Route::get('beacons/{id}/edit', 'BeaconController@edit')->name('edit_beacon')->where('id', '[0-9]+');
 

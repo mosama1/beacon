@@ -499,6 +499,8 @@ class BeaconController extends Controller
 	 */
 	public function store_coupon(Request $request)
 	{
+
+
 		// Nuevo cliente con un url base
 		$client = new Client();
 
@@ -524,16 +526,23 @@ class BeaconController extends Controller
 
 		$coupon = json_decode($json_c);
 
+
+
 		if ($coupon->status_code === 200 ):
 
 			$cou = new Coupon();
 			$cou->coupon_id = $coupon->coupon->id;
 			$cou->user_id = Auth::user()->id;
 			$cou->type = $coupon->coupon->type;
-			(!empty($request->price)) ?
-				$cou->price = 0 :
+			(empty($request->price)) ?
+				$cou->price = 0.0 :
 				$cou->price = $request->price;
 			$cou->url = $coupon->coupon->url;
+
+
+			  // echo "<pre>"; var_dump($cou); echo "</pre>";
+			  // return;
+
 			$cou->save();
 
 
