@@ -595,17 +595,20 @@ class BeaconController extends Controller
 
 			$cou = Coupon::where([
 								['coupon_id', '=', $coupon->coupon->id]
-							]);
-		
-		// echo "<pre>"; var_dump($cou); echo "</pre>";
-		// return;
+							])->first();
+
+
 			$cou->type = $coupon->coupon->type;
 			$cou->price = $request->price;
 			$cou->url = $coupon->coupon->url;
 			$cou->save();
 
+			$coupon_translation = CouponTranslation::where([['coupon_id', '=', $cou->id]])->first();
+			
+			(isset($coupon->coupon->name)) ?
+				$coupon_translation->name = $coupon->coupon->name :
+				$coupon_translation->name = "";
 
-			$coupon_translation = CouponTranslation::where('coupon_id', '=', $cou->coupon_id);
 			$coupon_translation->name = $coupon->coupon->name;
 			(isset($coupon->coupon->description)) ?
 				$coupon_translation->description = $coupon->coupon->description :
@@ -614,13 +617,16 @@ class BeaconController extends Controller
 			$coupon_translation->message = $coupon->coupon->message;
 			$coupon_translation->save();
 
+			 // echo "<pre>"; var_dump($coupon_translation); echo "</pre>";
+			 // return;
+
 			return redirect()->route('show_coupon', $request->section_id)
-							->with(['status' => 'El menu se ha registrado con éxito', 'type' => 'success']);
+							->with(['status' => 'El menu se ha actualizado con éxito', 'type' => 'success']);
 
 		else:
 
 			return redirect()->route('show_coupon', $request->section_id)
-							->with(['status' => 'Error al ingresar el menu', 'type' => 'error']);
+							->with(['status' => 'Error al actualizar el menu', 'type' => 'error']);
 
 		endif;
 
@@ -653,10 +659,10 @@ class BeaconController extends Controller
 
 		if ($coupon_delete->status_code === 200):
 
-			$coupon =  Coupon::where(
+			$coupon =  Coupon::where([
 								['user_id', '=', Auth::user()->id],
 								['coupon_id', '=', $coupon_id]
-							);
+							]);
 
 			$coupon->delete();
 
