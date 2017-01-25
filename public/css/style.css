@@ -2444,6 +2444,46 @@ body.menu2 .contenedor.cliente_final{
 }
 
 
+.nombreEmpresa{
+  position: absolute;
+  top: 110px;
+  left: 15%;
+  background: rgb(255, 255, 255);
+  width: 70%;
+  height: 50px;
+  z-index: 10;
+  border-radius: 0 0 15px 15px;
+
+  box-shadow: inset 0 2px 2px 0 rgba(0, 0, 0, 0.14), inset 0 1px 5px 0 rgba(0, 0, 0, 0.12), inset 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+.padding_top{
+  padding-top: 150px !important;
+}
+.nombreEmpresa h4{
+  margin: 0;
+  color: #212121;
+  text-align: center;
+  font-size: 30px;
+  line-height: 1;
+
+  position: relative;
+  top: calc(50% - 15px);
+}
+.contenedor.cliente_final .principal .tabla table.bordered > thead,
+.contenedor.cliente_final .principal .tabla table.bordered > thead > tr,
+.contenedor.cliente_final .principal .tabla table.bordered > tbody > tr{
+  border-bottom: none;
+}
+.contenedor.cliente_final .principal .tabla table.bordered > thead{
+  background: #666666;
+}
+.contenedor.cliente_final .principal .tabla table.bordered > tbody > tr{
+  background: #525252;
+}
+.contenedor.cliente_final .principal .tabla table.bordered > tbody > tr:nth-child(even) {
+  background: #666666;
+}
+
 /*Mostara Vista Previa*/
 .vistaPrevia{
   position: fixed;
@@ -2674,45 +2714,7 @@ body.clienteFinal footer{
   nav .brand-logo {
     left: 80px;
   }
-  .nombreEmpresa{
-    position: absolute;
-    top: 110px;
-    left: 15%;
-    background: rgb(255, 255, 255);
-    width: 70%;
-    height: 50px;
-    z-index: 10;
-    border-radius: 0 0 15px 15px;
 
-    box-shadow: inset 0 2px 2px 0 rgba(0, 0, 0, 0.14), inset 0 1px 5px 0 rgba(0, 0, 0, 0.12), inset 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-  }
-  .padding_top{
-    padding-top: 150px !important;
-  }
-  .nombreEmpresa h4{
-    margin: 0;
-    color: #212121;
-    text-align: center;
-    font-size: 30px;
-    line-height: 1;
-
-    position: relative;
-    top: calc(50% - 15px);
-  }
-  .contenedor.cliente_final .principal .tabla table.bordered > thead,
-  .contenedor.cliente_final .principal .tabla table.bordered > thead > tr,
-  .contenedor.cliente_final .principal .tabla table.bordered > tbody > tr{
-    border-bottom: none;
-  }
-  .contenedor.cliente_final .principal .tabla table.bordered > thead{
-    background: #666666;
-  }
-  .contenedor.cliente_final .principal .tabla table.bordered > tbody > tr{
-    background: #525252;
-  }
-  .contenedor.cliente_final .principal .tabla table.bordered > tbody > tr:nth-child(even) {
-    background: #666666;
-  }
   #register .divide {
     min-height: 100%;
     height: auto !important;
@@ -3142,6 +3144,9 @@ body.clienteFinal footer{
   }
   .contenedor .principal .titulo{
     padding: 30px 0 10px;
+  }
+  .contenedor.cliente_final .principal .titulo {
+    padding: 75px 0 10px;
   }
   .contenedor .principal .agregar a span {
     font-size: 14px;
