@@ -2,11 +2,12 @@
 
 namespace Beacon\Http\Controllers;
 
-use Illuminate\Http\Request;
 use GuzzleHttp\Client;
-use Beacon\Location;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Beacon\Location;
 use Beacon\Tag;
 use Beacon\Coupon;
 use Beacon\CouponTranslation;
@@ -19,11 +20,10 @@ use Beacon\Menu;
 use Beacon\Plate;
 use Beacon\PlateTranslation;
 use Beacon\TypesPlates;
-use Illuminate\Support\Facades\Input;
 use Beacon\User;
 use Log;
 
-class BeaconController extends Controller
+class TimeframeController extends Controller
 {
 	/**
 	 * @return token crud

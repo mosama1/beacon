@@ -51,7 +51,7 @@
                       {{$c->coupon_translation[0]->description}}
                     @endif
                   </td>
-                  <td><a href="{{ route( 'show_section', $c->coupon_id ) }}"><i class="material-icons">input</i></a></td>
+                  <td><a href="{{ route( 'all_section', $c->coupon_id ) }}"><i class="material-icons">input</i></a></td>
 
 
                   <!-- <td><a href="#idioma"><i class="material-icons">language</i></a></td> -->

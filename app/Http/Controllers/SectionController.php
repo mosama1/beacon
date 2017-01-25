@@ -3,23 +3,23 @@
 namespace Beacon\Http\Controllers;
 
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
-//use Beacon\Location;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use GuzzleHttp\Client;
+//use Beacon\Location;
 //use Beacon\Tag;
 //use Beacon\Coupon;
 //use Beacon\Timeframe;
 //use Beacon\Campana;
 //use Beacon\Content;
 //use Beacon\Beacon;
+//use Beacon\Plate;
+//use Beacon\TypesPlates;
+//use Beacon\User;
 use Beacon\Section;
 use Beacon\SectionTranslation;
 use Beacon\Menu;
-//use Beacon\Plate;
-//use Beacon\TypesPlates;
-use Illuminate\Support\Facades\Input;
-//use Beacon\User;
 
 class SectionController extends Controller
 {
@@ -74,7 +74,7 @@ class SectionController extends Controller
 
     //************************************* Section Menu **************************************************//
 
-    public function show_section($coupon_id)
+    public function index($coupon_id)
     {
         $section = new Section;
 

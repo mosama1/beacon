@@ -81,13 +81,13 @@ use Beacon\User;
                             </a>
                         </li>
                         <li>
-                          <a href="{{ route('show_tipoPlato')}}">
+                          <a href="{{ route('all_type_plate')}}">
                             <span>Servicio</span>
                           </a>
                         </li>
 
                         <li>
-                          <a href="{{ route('show_language')}}">
+                          <a href="{{ route('all_language')}}">
                             <span>Idiomas</span>
                           </a>
                         </li>

@@ -4,7 +4,6 @@ namespace Beacon\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
-//use Beacon\Location;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Beacon\Tag;
@@ -13,13 +12,7 @@ use Beacon\CouponTranslation;
 use Beacon\Timeframe;
 use Beacon\Campana;
 use Beacon\Content;
-//use Beacon\Beacon;
-//use Beacon\Section;
-//use Beacon\Menu;
-//use Beacon\Plate;
-//use Beacon\TypesPlates;
 use Illuminate\Support\Facades\Input;
-//use Beacon\User;
 use Log;
 
 class CampanaController extends Controller
@@ -244,7 +237,51 @@ class CampanaController extends Controller
 			return redirect()->route('add_campana')->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
 
 		endif;
+	}
 
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy_campana($campana_id)
+	{
+		// Nuevo cliente con un url base
+		$client = new Client();
+
+		//Token Crud
+		$crud = CampanaController::crud();
+
+		$campana_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/delete', [
+				// un array con la data de los headers como tipo de peticion, etc.
+				'headers' => ['Authorization' => 'Bearer '.$crud ]
+		]);
+
+		//Json parse
+		$json_c = $campana_->getBody();
+
+		$campana = json_decode($json_c);
+
+		if ($campana->status_code === 200 ):
+
+			$campana =  Campana::where([
+									['user_id', '=', Auth::user()->id],
+									['campana_id', '=', $campana_id]
+								])->first();
+
+			$campana->delete();
+
+			return redirect()->route('show_campana')
+					->with(['status' => 'Se ha Eliminado la Campaña con éxito', 'type' => 'success']);
+
+		else:
+
+			//echo "<pre>"; var_dump($campaña); echo "</pre>";
+
+			return redirect()->route('show_campana')->with(['status' => 'Error al eliminar la Campaña', 'type' => 'error']);
+
+		endif;
 	}
 
 	//************************************* Campaña Contenido **************************************************//
@@ -272,12 +309,13 @@ class CampanaController extends Controller
 
 		$timeframes = Timeframe::where('user_id', '=', Auth::user()->id)->get();
 
-		return view('beacons.campana_contenido',[
-					'coupons' => $coupons,
-					'tags' => $tags,
-					'timeframes' => $timeframes,
-					'campana_id' => $id
-				]);
+		return view('beacons.campana_contenido',
+					[
+						'coupons' => $coupons,
+						'tags' => $tags,
+						'timeframes' => $timeframes,
+						'campana_id' => $id
+					]);
 	}
 
 
@@ -354,52 +392,6 @@ class CampanaController extends Controller
 		// 	return redirect()->route('show_content', $id)->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
 
 		// endif;
-
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public function destroy_campana($campana_id)
-	{
-		// Nuevo cliente con un url base
-		$client = new Client();
-
-		//Token Crud
-		$crud = CampanaController::crud();
-
-		$campana_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/delete', [
-				// un array con la data de los headers como tipo de peticion, etc.
-				'headers' => ['Authorization' => 'Bearer '.$crud ]
-		]);
-
-		//Json parse
-		$json_c = $campana_->getBody();
-
-		$campana = json_decode($json_c);
-
-		if ($campana->status_code === 200 ):
-
-			$campana =  Campana::where([
-									['user_id', '=', Auth::user()->id],
-									['campana_id', '=', $campana_id]
-								])->first();
-
-			$campana->delete();
-
-			return redirect()->route('show_campana')
-					->with(['status' => 'Se ha Eliminado la Campaña con éxito', 'type' => 'success']);
-
-		else:
-
-			//echo "<pre>"; var_dump($campaña); echo "</pre>";
-
-			return redirect()->route('show_campana')->with(['status' => 'Error al eliminar la Campaña', 'type' => 'error']);
-
-		endif;
 
 	}
 

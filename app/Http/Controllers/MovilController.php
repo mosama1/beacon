@@ -116,7 +116,7 @@ class MovilController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show_plate( $campana_id, $section_id )
+	public function all_plate( $campana_id, $section_id )
 	{
 		$menus = Menu::where([
 			['section_id', '=', array( $section_id ) ],
