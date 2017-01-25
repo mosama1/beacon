@@ -83,7 +83,7 @@ class TimeframeController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show_timeframe()
+	public function index()
 	{
 		$timeframe = Timeframe::where('user_id', '=', Auth::user()->id)->get();
 
@@ -145,7 +145,7 @@ class TimeframeController extends Controller
 			$time->days = $timeframe->timeframe->days;
 			$time->save();
 
-			return redirect()->route('show_timeframe');
+			return redirect()->route('all_timeframe');
 
 		else:
 
@@ -220,7 +220,7 @@ class TimeframeController extends Controller
 							'end_time' => $timeframe->timeframe->end_time
 						));
 
-			return redirect()->route('show_timeframe')
+			return redirect()->route('all_timeframe')
 							->with(['status' => 'Horario Actualizado exitosamente', 'type' => 'success']);
 
 		else:
@@ -266,7 +266,7 @@ class TimeframeController extends Controller
 
 			$timeframe->delete();
 
-			return redirect()->route('show_timeframe')
+			return redirect()->route('all_timeframe')
 							->with(['status' => 'Horario ha sido eliminado exitosamente', 'type' => 'success']);
 
 		else:

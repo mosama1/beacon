@@ -17,10 +17,10 @@
 
 Route::group(['prefix' => 'campanas'], function () {
 
-	Route::get('{campana_id}/contents', 'ContentController@show_content')
-				->name('show_content')->where('campana_id', '[0-9]+');
+	Route::get('{campana_id}/contents', 'ContentController@all_content')
+				->name('all_content')->where('campana_id', '[0-9]+');
 
-	Route::post('{campana_id}/contenidos/add', 'ContentController@store_campana_content')
-				->name('store_campana_content')->where('campana_id', '[0-9]+');
+	Route::post('{campana_id}/contenidos/add', 'ContentController@store_content')
+				->name('store_content')->where('campana_id', '[0-9]+');
 
 });

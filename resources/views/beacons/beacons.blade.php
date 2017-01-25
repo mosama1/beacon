@@ -62,7 +62,7 @@
     </div>
 
     <div class="form">
-      <form class="form-horizontal" role="form" method="POST" action="{{ route('beacon_store_beacon') }}">
+      <form class="form-horizontal" role="form" method="POST" action="{{ route('store_beacon') }}">
         {{ csrf_field() }}
 
         <div class="input no_icon {{ $errors->has('major') ? 'error' : '' }}">

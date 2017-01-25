@@ -17,7 +17,7 @@
 
 Route::group(['prefix' => 'coupons'], function () {
 
-	Route::get('/', 'CouponController@show_coupon')->name('show_coupon');
+	Route::get('/', 'CouponController@index')->name('all_coupon');
 
 	Route::post('/', 'CouponController@store_coupon')->name('store_coupon');
 

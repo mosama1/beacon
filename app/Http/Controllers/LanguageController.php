@@ -46,7 +46,7 @@ class LanguageController extends Controller
 	 * @param  integer $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function new()
+	public function create()
 	{
 		return "vista para crear el idioma";
 	}
@@ -57,7 +57,7 @@ class LanguageController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function create( Request $request )
+	public function store( Request $request )
 	{
 
 		$language = new Language();

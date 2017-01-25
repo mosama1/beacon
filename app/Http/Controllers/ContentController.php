@@ -73,7 +73,7 @@ class ContentController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show_content($id)
+	public function index($id)
 	{
 		$coupon = new Coupon;
 
@@ -107,7 +107,7 @@ class ContentController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store_campana_content(Request $request, $id)
+	public function store_content(Request $request, $id)
 	{
 		// Nuevo cliente con un url base
 		$client = new Client();
@@ -164,7 +164,7 @@ class ContentController extends Controller
 			$cam_c->trigger_name = $request->tigger_name_id;
 			$cam_c->save();
 
-			return redirect()->route('show_campana');
+			return redirect()->route('all_campana');
 
 		// else:
 

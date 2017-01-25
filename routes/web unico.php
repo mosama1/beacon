@@ -51,7 +51,7 @@ Route::post('beacons/locations', 'LocationController@store')->name('store_locati
 
 Route::get('beacons/locations/{id}/edit', 'LocationController@edit_location')->name('edit_location')->where('id', '[0-9]+');
 
-Route::post('beacons/locations/{id}', 'LocationController@update_location')->name('location_update')->where('id', '[0-9]+');
+Route::post('beacons/locations/{id}', 'LocationController@update_location')->name('update_location')->where('id', '[0-9]+');
 
 Route::delete('beacons/{id}', 'LocationController@destroy')->where('id', '[0-9]+');
 

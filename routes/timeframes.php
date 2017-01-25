@@ -17,7 +17,7 @@
 
 Route::group(['prefix' => 'timeframes'], function () {
 
-	Route::get('/', 'TimeframeController@show_timeframe')->name('show_timeframe');
+	Route::get('/', 'TimeframeController@index')->name('all_timeframe');
 
 	Route::get('add', 'TimeframeController@create_timeframe')->name('add_timeframe');
 

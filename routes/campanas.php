@@ -17,7 +17,7 @@
 
 Route::group(['prefix' => 'campanas'], function () {
 
-	Route::get('/', 'CampanaController@show_campana')->name('show_campana');
+	Route::get('/', 'CampanaController@index')->name('all_campana');
 
 	Route::get('add', 'CampanaController@create_campana')->name('add_campana');
 

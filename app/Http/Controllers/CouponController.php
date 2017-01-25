@@ -249,12 +249,12 @@ class CouponController extends Controller
 			 // echo "<pre>"; var_dump($coupon_translation); echo "</pre>";
 			 // return;
 
-			return redirect()->route('all_coupon', $request->section_id)
+			return redirect()->route('show_coupon', $request->section_id)
 							->with(['status' => 'El menu se ha actualizado con éxito', 'type' => 'success']);
 
 		else:
 
-			return redirect()->route('all_coupon', $request->section_id)
+			return redirect()->route('show_coupon', $request->section_id)
 							->with(['status' => 'Error al actualizar el menu', 'type' => 'error']);
 
 		endif;

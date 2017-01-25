@@ -75,7 +75,7 @@ class CampanaController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show_campana()
+	public function index()
 	{
 		$campana = Campana::where('user_id', '=', Auth::user()->id)->get();
 
@@ -153,14 +153,14 @@ class CampanaController extends Controller
 			$cam->enabled = $campana->campaign->enabled;
 			$cam->save();
 
-			return redirect()->route('show_campana');
+			return redirect()->route('all_campana');
 
 		else:
 
 			var_dump($campana);
 		return;
 
-			return redirect()->route('show_campana')->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
+			return redirect()->route('all_campana')->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
 
 		endif;
 
@@ -230,7 +230,7 @@ class CampanaController extends Controller
 									'end_time' => $campana->campaign->end_time,
 								));
 
-			return redirect()->route('show_campana');
+			return redirect()->route('all_campana');
 
 		else:
 
@@ -272,127 +272,16 @@ class CampanaController extends Controller
 
 			$campana->delete();
 
-			return redirect()->route('show_campana')
+			return redirect()->route('all_campana')
 					->with(['status' => 'Se ha Eliminado la Campaña con éxito', 'type' => 'success']);
 
 		else:
 
 			//echo "<pre>"; var_dump($campaña); echo "</pre>";
 
-			return redirect()->route('show_campana')->with(['status' => 'Error al eliminar la Campaña', 'type' => 'error']);
+			return redirect()->route('all_campana')->with(['status' => 'Error al eliminar la Campaña', 'type' => 'error']);
 
 		endif;
-	}
-
-	//************************************* Campaña Contenido **************************************************//
-
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function show_content($id)
-	{
-		$coupon = new Coupon;
-
-		$coupons = $coupon->where([
-			['user_id', '=', Auth::user()->id],
-		])->get();
-
-		foreach ($coupons as $key => $coupon) {
-			$coupon->coupon_translation;
-		}
-		//$coupon->coupon_translation;
-		//echo "<pre>";var_dump($coupon);echo "</pre>";
-
-		$tags = Tag::where('user_id', '=', Auth::user()->id)->get();
-
-		$timeframes = Timeframe::where('user_id', '=', Auth::user()->id)->get();
-
-		return view('beacons.campana_contenido',
-					[
-						'coupons' => $coupons,
-						'tags' => $tags,
-						'timeframes' => $timeframes,
-						'campana_id' => $id
-					]);
-	}
-
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function store_campana_content(Request $request, $id)
-	{
-		// Nuevo cliente con un url base
-		$client = new Client();
-
-		//Token Crud
-		$crud = CampanaController::crud();
-
-		//Location
-		// $campana_content = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$id.'/contents', [
-		// 		// un array con la data de los headers como tipo de peticion, etc.
-		// 		'headers' => ['Authorization' => 'Bearer '.$crud ],
-		// 		// array de datos del formulario
-		// 		'form_params' => [
-		// 				 'coupon' => 12937,
-		// 				 'timeframes' => '4 , 31',
-		// 				 'trigger_name' => "DWELL_TIME",
-		// 				 'trigger_entiry'=>"TAG"
-		// 				// 'coupon' => $request->coupon_id,
-		// 				// 'tag' => 'ALL',
-		// 				// 'timeframes' => $request->timeframe_id,
-		// 				// 'trigger_name' => $request->tigger_name_id,
-		// 				// 'trigger_entity' => 'tag'
-		// 		]
-		// ]);
-
-		// //Json parse
-		// $json_c = $campana_content->getBody();
-
-		// $campana_c = json_decode($json_c);
-
-		// $content_id = substr($campana_content->getBody(),168, 5);
-
-		// if ($campana_c->status_code === 200 ):
-
-			$coupons = Coupon::where([
-				['coupon_id', '=', $request->coupon_id],
-				['user_id', '=', Auth::user()->id]
-			])->get();
-
-			foreach ($coupons as $key => $coupon) {
-				$coupon->coupon_translation;
-			}
-			$cam_c = new Content();
-		//	$cam_c->content_id = $content_id;
-			$cam_c->content_id = rand(9999, 99999);
-			$cam_c->user_id = Auth::user()->id;
-			//coupon_translation[0] posicion [0] es en español idioma por defecto
-			$cam_c->coupon = $coupons[0]->coupon_translation[0]->name;
-			$cam_c->coupon_id = $coupons[0]->coupon_id;
-		//	$cam_c->tag = $request->tag_id;
-			$cam_c->tag = 1;
-			$cam_c->campana_id = $id;
-			$cam_c->timeframe_id = $request->timeframe_id;
-			$cam_c->trigger_name = $request->tigger_name_id;
-			$cam_c->save();
-
-			return redirect()->route('show_campana');
-
-		// else:
-
-		// 	echo "<pre>";var_dump($campana_c);echo "</pre>";
-		// return;
-
-		// 	return redirect()->route('show_content', $id)->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
-
-		// endif;
-
 	}
 
 }
