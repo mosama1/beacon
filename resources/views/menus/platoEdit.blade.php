@@ -75,7 +75,7 @@
             <button type="submit" name="button">
               <span>Guardar</span>
             </button>
-            <a href="{{ route( 'show_sectionMenus', $menu->section_id ) }}" class="">
+            <a href="{{ route( 'all_sectionMenus', $menu->section_id ) }}" class="">
               <span>Cancelar</span>
             </a>
           </center>

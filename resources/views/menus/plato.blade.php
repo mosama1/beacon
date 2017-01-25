@@ -48,7 +48,7 @@
 									</td>
 									<td>{{$m->type}}</td>
 									<td>{{$m->price}}</td>
-									<td><a href="{{ route('show_plate', $m->id) }}"><i class="material-icons">input</i></a></td>
+									<td><a href="{{ route('all_plate', $m->id) }}"><i class="material-icons">input</i></a></td>
 
 									<!-- <td><a href="#Idioma"><i class="material-icons">language</i></a></td> -->
 									<td><a href="{{ route( 'edit_menu', array('menu_id' => $m->id) ) }}"><i class="material-icons">edit</i></a></td>
@@ -71,7 +71,7 @@
 
 		<div class="agregar regresar">
 			<center>
-				<a href="{{ route('show_section', $coupon->coupon_id) }}" class="waves-effect">
+				<a href="{{ route('all_section', $coupon->coupon_id) }}" class="waves-effect">
 					<div class="">
 						<span class="text">Regresar</span>
 						<span class="icon"><i class="material-icons">reply</i></span>

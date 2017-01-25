@@ -75,7 +75,7 @@
             <button type="submit" name="button">
               <span>Guardar</span>
             </button>
-            <a href="{{ route('show_timeframe') }}" class="">
+            <a href="{{ route('all_timeframe') }}" class="">
               <span>Cancelar</span>
             </a>
           </center>

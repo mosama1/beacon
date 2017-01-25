@@ -21,8 +21,15 @@ $menu2 = '';
     <div class="inf">
 
       <div class="description">
-        <p>{{$menu->description}}</p>
-        
+        @php
+        use Beacon\PlateTranslation;
+
+          $plate_translation = PlateTranslation::where([
+          ['plate_id', '=', $menu->plate->id ],
+          ])->first();
+        @endphp
+        <p>{{$plate_translation->description}}</p>
+
       </div>
       <div class="img">
         <img alt="" src="{{ asset($menu->plate->img) }}">
@@ -33,7 +40,7 @@ $menu2 = '';
 
     <div class="agregar regresar">
       <center>
-        <a href="{{ route('movil_show_plate', array('campana_id' => $campana_id, 'section_id' => $menu->section_id, 'menu_id' => $menu->menu_id) ) }}" class="waves-effect">
+        <a href="{{ route('movil_all_plate', array('campana_id' => $campana_id, 'section_id' => $menu->section_id, 'menu_id' => $menu->menu_id) ) }}" class="waves-effect">
           <div class="">
             <span class="text">Regresar</span>
             <span class="icon"><i class="material-icons">reply</i></span>

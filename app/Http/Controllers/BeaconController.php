@@ -1108,12 +1108,16 @@ class BeaconController extends Controller
 		if ( !empty($file_logo) ) {
 
 			$name_logo = $file_logo->getClientOriginalName();
+			$name_logo = date('dmyhis').'-'.$plate->menu_id.'-'.$name_logo;
+
 			$plate->img = $name_logo;
 			//Ruta donde se va a guardar la img
 			$storage_logo = 'assets/images/platos';
 
 			// Muevo el docuemnto a la ruta
 			$file_logo = $file_logo->move($storage_logo, $name_logo);
+			$plate->img = $storage_logo.'/'.$name_logo;
+
 		}
 		else{
 			$location = Location::where( 'user_id', '=', Auth::user()->id )->first();
@@ -1159,6 +1163,8 @@ class BeaconController extends Controller
 		if ( !empty($file_logo) ) {
 
 			$name_logo = $file_logo->getClientOriginalName();
+			$name_logo = date('dmyhis').'-'.$plate->menu_id.'-'.$name_logo;
+
 			//Ruta donde se va a guardar la img
 			$storage_logo = 'assets/images/platos';
 
@@ -1188,13 +1194,11 @@ class BeaconController extends Controller
 						['id', '=', $menu_id]
 					])->first();
 
-		return redirect()->route('show_menu',
-								[
-									'section_id' => $menu->section_id,
-									'menu_id' => $menu_id,
-									'type_plates_names' => $tipo_platos
-								])
-						->with(['status' => 'Se editó descripción de plato', 'type' => 'success']);
+
+
+		return redirect()->route('show_sectionMenus', ['section_id' => $menu->section_id])
+			->with(['status' => 'Se editó descripción de plato', 'type' => 'success']);
+
 
 	}
 

@@ -5,27 +5,27 @@
     <div class="principal">
       <ul class="links">
         <li>
-          <a href="{{ route('show_coupon') }}">
+          <a href="{{ route('all_coupon') }}">
             <img src="img/icons/menu.png" title="Menú">
           </a>
         </li>
         <li>
-          <a href="{{ route('show_timeframe')}}">
+          <a href="{{ route('all_timeframe')}}">
             <img src="img/icons/horarios.png" title="Horarios">
           </a>
         </li>
         <li>
-          <a href="{{ route('show_campana')}}">
+          <a href="{{ route('all_campana')}}">
             <img src="img/icons/plan.png" title="Planificación">
           </a>
         </li>
         <li>
-          <a href="{{ route('show_tipoPlato')}}">
+          <a href="{{ route('all_tipoPlato')}}">
             <img src="img/icons/servicio.png" title="Servicio">
           </a>
         </li>
         <li>
-          <a href="{{ route('show_language')}}">
+          <a href="{{ route('all_language')}}">
             <img src="img/icons/idiomas.png" title="Idiomas">
           </a>
         </li>

@@ -45,7 +45,7 @@
             <button type="submit" name="button">
               <span>Guardar</span>
             </button>
-            <a href="{{ route( 'show_section', $coupon_id ) }}" class="">
+            <a href="{{ route( 'all_section', $coupon_id ) }}" class="">
               <span>Cancelar</span>
             </a>
           </center>

@@ -85,7 +85,7 @@
             <button type="submit" name="button">
               <span>Guardar</span>
             </button>
-            <a href="{{ route('show_campana') }}" class="">
+            <a href="{{ route('all_campana') }}" class="">
               <span>Cancelar</span>
             </a>
           </center>

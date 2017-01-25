@@ -41,9 +41,9 @@
                   <td>{{$c->description}}</td>
 
                   <td><a href="{{ route('edit_campana', $c->campana_id) }}"><i class="material-icons">edit</i></a></td>
-                  <td><a href="{{ route('show_content', $c->campana_id) }}"><i class="material-icons">add</i></a></td>
+                  <td><a href="{{ route('all_content', $c->campana_id) }}"><i class="material-icons">add</i></a></td>
 
-                  <!-- <td><a href="{{ route('show_content', $c->campana_id) }}"><i class="material-icons">add</i></a></td> -->
+                  <!-- <td><a href="{{ route('all_content', $c->campana_id) }}"><i class="material-icons">add</i></a></td> -->
                 <?php
 
                   echo "<td onclick= \"modal_activate('".

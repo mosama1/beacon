@@ -219,8 +219,17 @@ textarea.materialize-textarea:focus:not([readonly]) {
   padding: 25px 15px;
   position: relative;
   top: calc(50% - 32.5px);
-
 }
+.menu ul:not(.sub_menu) li a span{
+  position: relative;
+}
+.menu ul:not(.sub_menu) li a span i{
+  position: absolute;
+  top: 9px;
+  right: -7px;
+}
+
+
 .menu .logo img{
   height: 100%;
 }
@@ -1687,6 +1696,7 @@ body.menu2 .menu_cliente{
 .contenedor .principal .tabla table td{
   text-align: center;
   color: #fff;
+  padding: 10px 5px;
   /*border: solid 1px #000;*/
 
 }
@@ -2047,7 +2057,7 @@ body.menu2 .menu_cliente{
 .modal_ .form .button{
   width: 100%;
   overflow: hidden;
-  margin-top: 35px;
+  margin-top: 15px;
   text-align: center;
 }
 
@@ -2078,19 +2088,19 @@ body.menu2 .menu_cliente{
   top: calc(50% - 7.5px);
 }
 
-.contenedor .authenticate .links{
+.contenedor .authenticate .links_{
   width: 100%;
   text-align: center;
   margin-top: 15px;
 }
-.contenedor .authenticate .links a{
+.contenedor .authenticate .links_ a{
   color: #0e0e0e;
   font-weight: bold;
   text-decoration: underline;
 }
 
-.contenedor .principal .form .links a,
-.modal_ .form .links a{
+.contenedor .principal .form .links_ a,
+.modal_ .form .links_ a{
 
 }
 
@@ -2170,11 +2180,25 @@ body.menu2 .menu_cliente{
   height: 100px;
   left: 50%;
   margin-top: 15px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+
+  -webkit-transition: all .5s ease-in-out;
+  -moz-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+
   -webkit-transform: translate(-50%);
   -ms-transform: translate(-50%);
   -o-transform: translate(-50%);
   transform: translate(-50%);
 }
+.contenedor .principal .form .vista_previa.active{
+  max-height: 1000px;
+  opacity: 1;
+}
+
 .contenedor .principal .form .vista_previa center{
   width: 100%;
   height: 100%;
@@ -2336,7 +2360,7 @@ body.menu2 .contenedor.cliente_final{
   color: #a2a2a2;
 }
 .contenedor.cliente_final .principal .tabla table th, .contenedor.cliente_final .principal .tabla table td{
-  font-size: 12px;
+  font-size: 14px;
   border-radius: 0;
 }
 .contenedor.cliente_final .principal .inf{
@@ -2358,6 +2382,7 @@ body.menu2 .contenedor.cliente_final{
   /*background: rgb(116, 57, 227);*/
   padding: 0 50px;
   left: 50%;
+  text-align: center;
   -webkit-transform: translate(-50%);
   -ms-transform: translate(-50%);
   -o-transform: translate(-50%);
@@ -2674,23 +2699,33 @@ body.clienteFinal footer{
     position: relative;
     top: calc(50% - 15px);
   }
-  .contenedor .principal .tabla table.bordered > thead,
-  .contenedor .principal .tabla table.bordered > thead > tr,
-  .contenedor .principal .tabla table.bordered > tbody > tr{
+  .contenedor.cliente_final .principal .tabla table.bordered > thead,
+  .contenedor.cliente_final .principal .tabla table.bordered > thead > tr,
+  .contenedor.cliente_final .principal .tabla table.bordered > tbody > tr{
     border-bottom: none;
   }
-  .contenedor .principal .tabla table.bordered > thead{
+  .contenedor.cliente_final .principal .tabla table.bordered > thead{
     background: #666666;
   }
-  .contenedor .principal .tabla table.bordered > tbody > tr{
+  .contenedor.cliente_final .principal .tabla table.bordered > tbody > tr{
     background: #525252;
   }
-  .contenedor .principal .tabla table.bordered > tbody > tr:nth-child(even) {
+  .contenedor.cliente_final .principal .tabla table.bordered > tbody > tr:nth-child(even) {
     background: #666666;
+  }
+  #register .divide {
+    min-height: 100%;
+    height: auto !important;
   }
 }
 @media (max-width: 768px) {
+
   .vista_final .logo {
+    width: auto;
+  }
+  .contenedor.cliente_final .principal .inf .img img,
+  .vista_final .logo img.alto {
+    height: 170px;
     width: auto;
   }
   .vista_final .logo.logo_principal {
@@ -2713,7 +2748,7 @@ body.clienteFinal footer{
     top: 60px;
   }
   .links li{
-    width: 100%;
+    width: 49%;
     height: 70px;
     display: inline-block;
     margin: 10px 0;
@@ -2730,6 +2765,11 @@ body.clienteFinal footer{
 
 
 @media (max-width: 600px) {
+  .contenedor.cliente_final .principal .inf .img img,
+  .vista_final .logo img.alto {
+    height: 120px;
+    width: auto;
+  }
   .nombreEmpresa {
     top: 60px;
     height: 35px;
@@ -2746,6 +2786,8 @@ body.clienteFinal footer{
     display: block;
     color: #000;
     float: right;
+    position: relative;
+    right: 10px;
   }
   .menu ul li ul.sub_menu li ul.delServicio{
     top: 72px;
@@ -2754,7 +2796,13 @@ body.clienteFinal footer{
     font-size: 18px;
   }
   .contenedor {
-    height: calc(100% - 110px);
+    height: calc(100% - 130px);
+  }
+  .titulologo {
+    margin-top: 15px;
+  }
+  .titulologo h5 {
+    font-size: 16px;
   }
 
   .menu_cliente .nav-wrapper {
@@ -2792,7 +2840,10 @@ body.clienteFinal footer{
     padding-left: 0px;
   }
 
-
+  .authenticate .divide .divide_cont .input label span.icon img {
+    width: 20px;
+    top: calc(50% - 10px);
+  }
   .authenticate .divide .divide_cont.new_user .new_user_head {
     height: 25px;
     width: 240px;
@@ -2814,10 +2865,14 @@ body.clienteFinal footer{
     top: calc(50% - 10px);
   }
   .authenticate .divide .divide_cont .input {
-    height: 40px;
+    height: 30px;
+    border-radius: 10px;
   }
   .authenticate .divide .divide_cont form{
     padding: 0 10px;
+  }
+  .authenticate .divide .divide_cont .input_file .btn span.icon {
+    width: 25px;
   }
   .authenticate .divide .divide_cont .login_footer .remind {
     width: 100%;
@@ -2842,8 +2897,13 @@ body.clienteFinal footer{
     text-align: center;
   }
   .authenticate .divide .divide_cont .login_footer .button {
-    left: 30%;
+    left: 0%;
     position: relative;
+    width: 100%;
+    text-align: center;
+  }
+  .authenticate .divide .divide_cont .login_footer .button button {
+    float: none;
   }
 
   #recuperar .divide{
@@ -2855,13 +2915,14 @@ body.clienteFinal footer{
   }
 
   .authenticate .divide .divide_cont .input input {
-    height: 40px;
+    height: 30px;
+    font-size: 13px;
   }
   #register.authenticate .divide .divide_cont .input input {
-    height: 40px;
+    height: 30px;
   }
   .authenticate .divide .divide_cont {
-    max-width: 300px;
+    max-width: 320px;
   }
   .authenticate .divide .divide_cont .input label {
     font-size: 13px;
@@ -2898,6 +2959,9 @@ body.clienteFinal footer{
   #register.authenticate .divide .divide_cont {
     margin: 0px;
   }
+  .contenedor .authenticate .links_ a {
+    font-size: 13px;
+  }
   .menu{
     z-index: 100;
   }
@@ -2906,7 +2970,7 @@ body.clienteFinal footer{
     background: rgb(255, 255, 255);
     position: absolute;
     top: 65px;
-    z-index: 1;
+    z-index: 10;
     height: auto;
     left: -330px;
 
@@ -2924,15 +2988,19 @@ body.clienteFinal footer{
 
   .menu ul:not(.sub_menu) li{
     float: none;
-    width: auto;
+    width: 120px;
     height: auto;
+    /*min-height: 80px;*/
     position: relative;
+  }
+  .menu ul:not(.sub_menu) li a{
+    text-align: center;
   }
   .menu ul li ul.sub_menu.active {
     opacity: 1;
     height: auto;
     width: auto;
-    left: 212px;
+    left: 222px;
 
   }
   .menu ul li ul.sub_menu {
@@ -2959,7 +3027,17 @@ body.clienteFinal footer{
     width: calc(100% + 30px);
     top: 25px;
   }
-
+  .menu ul li ul.sub_menu li ul:hover,
+  .menu ul li ul.sub_menu li a.sb_mn2:hover + ul {
+    max-height: 1000px;
+    opacity: 1;
+  }
+  .menu .logo {
+    padding: 5px 0;
+  }
+  nav .brand-logo {
+    left: 40px;
+  }
   /*.menu{
     height: 50px;
     z-index: 100;
@@ -3031,31 +3109,73 @@ body.clienteFinal footer{
 
 
 
-  .contenedor .principal .form, .modal_ .form {
+  .contenedor .principal .form,
+  .modal_ .form {
     max-width: 300px;
     margin-top: 30px;
     padding: 0 10px;
   }
-  .contenedor .principal .titulo h3, .modal .titulo h3 {
-    font-size: 20px;
-  }
-  .contenedor .principal .form .input, .modal_ .form .input {
-    height: 40px;
-  }
-  .contenedor .principal .form .input input, .modal_ .form .input input {
-    height: 40px;
-  }
-  .contenedor .principal .titulo{
-    padding: 75px 0 10px;
+  [type="checkbox"] + label {
+    font-size: 13px;
   }
 
+  .contenedor .principal .titulo h3,
+  .modal .titulo h3 {
+    font-size: 25px;
+  }
+  .contenedor .principal .form .input, .modal_ .form .input {
+    height: 30px;
+  }
+  .contenedor .principal .form .input input, .modal_ .form .input input {
+    height: 30px;
+  }
+  .contenedor .principal .form .input label, .modal_ .form .input label {
+    font-size: 13px;
+  }
+  .contenedor .principal .form .input textarea,
+  .modal_ .form .input textarea {
+    height: 65px;
+  }
+  .contenedor .principal .form .input.textarea,
+  .modal_ .form .input.textarea {
+    height: 65px;
+  }
+  .contenedor .principal .titulo{
+    padding: 30px 0 10px;
+  }
+  .contenedor .principal .agregar a span {
+    font-size: 14px;
+  }
+  .contenedor .principal .agregar a span strong {
+    font-size: 16px;
+  }
+  .contenedor .principal .agregar a span.icon i {
+    font-size: 24px;
+  }
+  .contenedor .principal .tabla table th,
+  .contenedor .principal .tabla table td {
+    padding: 6px 5px;
+    font-size: 13px;
+  }
+  .contenedor .principal .tabla table th i,
+  .contenedor .principal .tabla table td i {
+
+    font-size: 20px;
+  }
+
+  .contenedor .principal .agregar a {
+    width: 100px;
+    height: 100px;
+  }
 
   body.clienteFinal footer {
     height: auto;
   }
 
 
-
+  footer .footer p {
+    font-size: 13px;
+  }
 }
 
 
@@ -3066,7 +3186,7 @@ body.clienteFinal footer{
   }
 
   .contenedor.cliente_final .principal .titulo {
-      padding: 30px 0 10px;
+    padding: 50px 0 10px;
   }
   .padding_top {
     padding-top: 80px !important;
@@ -3074,5 +3194,25 @@ body.clienteFinal footer{
   .nombreEmpresa{
     left: 5%;
     width: 90%;
+  }
+}
+@media (max-width: 420px) {
+  .authenticate .divide .divide_cont {
+    max-width: 90%;
+  }
+  .contenedor:not(.cliente_final) .principal .tabla table th,
+  .contenedor:not(.cliente_final) .principal .tabla table td {
+    border-left: solid 1px #d0d0d0;
+    border-right: solid 1px #d0d0d0;
+  }
+  .contenedor:not(.cliente_final) .principal .tabla table th:first-child,
+  .contenedor:not(.cliente_final) .principal .tabla table td:first-child {
+    border-left: none;
+    /*border-right: solid 1px #d0d0d0;*/
+  }
+  .contenedor:not(.cliente_final) .principal .tabla table th:last-child,
+  .contenedor:not(.cliente_final) .principal .tabla table td:last-child {
+    border-right: none;
+    /*border-right: solid 1px #d0d0d0;*/
   }
 }

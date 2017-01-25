@@ -83,8 +83,8 @@
             @endif
           </div> -->
         </div>
-        <div class="links">
-          <a href="#cambiarContrasena">Cambiar Contraseña</a> || <a href="{{ route('list_beacons') }}">Información de Beacons</a>
+        <div class="links_">
+          <a href="#cambiarContrasena">Cambiar Contraseña</a> || <a href="{{ route('all_beacons') }}">Información de Beacons</a>
         </div>
         <div class="button">
           <center>

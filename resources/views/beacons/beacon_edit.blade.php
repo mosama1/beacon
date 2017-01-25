@@ -44,7 +44,7 @@
             <button type="submit" name="button">
               <span>Guardar</span>
             </button>
-            <a href="{{ route('list_beacons') }}" class="">
+            <a href="{{ route('all_beacons') }}" class="">
               <span>Cancelar</span>
             </a>
           </center>
