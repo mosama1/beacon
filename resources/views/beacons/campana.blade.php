@@ -29,7 +29,6 @@
               <tr>
                   <th data-field="id">Nombre</th>
                   <th data-field="country">Descripción</th>
-                  <th>Habilitar</th>
                   <th>Editar</th>
                   <th>Contenido</th>
                   <th>Eliminar</th>
@@ -40,20 +39,11 @@
                 <tr id="{{$c->campana_id}}">
                   <td>{{$c->name}}</td>
                   <td>{{$c->description}}</td>
-                  <td>
-                    <p>
-                     @if($c->enabled === 1)
-                  <input type="checkbox" id="test{{$c->campana_id}}" checked="checked"/>
-                 @else
-                  <input type="checkbox" id="test{{$c->campana_id}}" />
-                 @endif
-                 <label for="test{{$c->campana_id}}"></label>
-                </p>
-                  </td>
-                  <td><a href="{{ route('edit_campana', $c->campana_id) }}"><i class="material-icons">edit</i></a></td>
-                  <td><a href="{{ route('show_content', $c->campana_id) }}"><i class="material-icons">add</i></a></td>
 
-                  <!-- <td><a href="{{ route('show_content', $c->campana_id) }}"><i class="material-icons">add</i></a></td> -->
+                  <td><a href="{{ route('edit_campana', $c->campana_id) }}"><i class="material-icons">edit</i></a></td>
+                  <td><a href="{{ route('all_content', $c->campana_id) }}"><i class="material-icons">add</i></a></td>
+
+                  <!-- <td><a href="{{ route('all_content', $c->campana_id) }}"><i class="material-icons">add</i></a></td> -->
                 <?php
 
                   echo "<td onclick= \"modal_activate('".

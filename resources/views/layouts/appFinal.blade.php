@@ -24,7 +24,7 @@
   {{--<link href="css/app.css" rel="stylesheet">--}}
   <!-- Scripts -->
   <script>
-      window.Laravel = <?php echo json_encode(['csrfToken' => csrf_token(), ]); ?>
+      window.Laravel = "<?php echo json_encode(['csrfToken' => csrf_token(), ]); ?>"
   </script>
 
 </head>
@@ -45,17 +45,6 @@
     </div>
   </div>
     <nav class="menu_cliente" role="navigation">
-      @if(isset($menu2))
-      <!-- <div class="menu_head">
-      <div class="logo">
-      <img src="img/logo/logo.png" alt="">
-    </div>
-    <div class="name">
-
-    </div>
-    </div> -->
-
-    @endif
         <div class="nav-wrapper">
           <ul>
             <li class="opciones">
@@ -63,7 +52,7 @@
               	@foreach($sections as $s)
                   <?php  $s->section_translation; ?>
 	                <li>
-	                  <a href="{{ route('movil_show_plate', array('campana_id' => $campana_id, 'section_id' => $s->id) ) }}">
+	                  <a href="{{ route('movil_all_plate', array('campana_id' => $campana_id, 'section_id' => $s->id) ) }}">
 	                    <span>
                         @if( ! empty($s->section_translation[0]) )
                           {{$s->section_translation[0]->name}}
@@ -83,8 +72,31 @@
             </li>
             @endif
             <li class="idioma">
-              <!-- <ul class="sub_menu">
-                <li>
+              <ul class="sub_menu">
+                @php
+                use Beacon\TypesPlates;
+
+                $type_plates = TypesPlates::where([
+                ['language_id', '=', 1],
+                ])->get();
+
+                @endphp
+
+
+                @if( !empty($type_plates) )
+                @foreach ($type_plates as $type_plate)
+                  <li>
+                    <a href="#">
+                      <span>
+                        {{$type_plate->name}}
+                      </span>
+                    </a>
+                  </li>
+                @endforeach
+
+                @endif
+
+                <!-- <li>
                   <a href="#">
                     <span>
                       ejemplo
@@ -111,8 +123,8 @@
                       ejemplo
                     </span>
                   </a>
-                </li>
-              </ul> -->
+                </li> -->
+              </ul>
 
               <a href="#" class="sb_mn">
                 <img src="img/icons/filtro.png" alt="">
@@ -122,6 +134,13 @@
 
 
         </div>
+        @if(isset($menu2))
+        <div class="nombreEmpresa">
+          <h4>
+            {{ $location->name }}
+          </h4>
+        </div>
+        @endif
     </nav>
 
 

@@ -32,7 +32,7 @@
                 <th data-field="id">Nombre</th>
                 <th data-field="tipo">Tipo</th>
                 <th data-field="id">Editar</th>
-                <th data-field="name">Idioma</th>
+                <!-- <th data-field="name">Idioma</th> -->
                 <th data-field="name">Eliminar</th>
               </tr>
             </thead>
@@ -44,7 +44,7 @@
                 <td>{{$tipoplato->description}}</td>
                 <td><a href="{{ route('edit_tipoPlato', $tipoplato->id) }}"><i class="material-icons">edit</i></a></td>
 
-                <td><a href="#Idioma"><i class="material-icons">language</i></a></td>
+                <!-- <td><a href="#Idioma"><i class="material-icons">language</i></a></td> -->
                 <?php
 
                   echo "<td onclick= \"modal_activate('".

@@ -79,22 +79,10 @@ function vistaLogo(evt) {
         };
       })(f);
       reader.readAsDataURL(f);
-      tamanoImgVista('#vista_logo');
+      setTimeout(function(){
+        tamanoImgVista('#vista_logo');
+      },500);
 
-      // setTimeout(function(){
-      //   var width_img = $('#vista_logo img').width();
-      //   var height_img = $('#vista_logo img').height();
-      //   var width = $('#vista_logo').width();
-      //   var height = $('#vista_logo').height();
-      //   if (width >= width_img && height <= height_img) {
-      //     // console.log('img mas grande');
-      //     $('#vista_logo').addClass('alto');
-      //   }else {
-      //     $('#vista_logo').removeClass('alto');
-      //   }
-      //   $('#vista_fondo').removeClass('active');
-      //   $('#vista_logo').addClass('active');
-      // },150);
     }
 }
 $('#addLogo').change(vistaLogo);
@@ -113,22 +101,10 @@ function vistaFondo(evt) {
         };
       })(f);
         reader.readAsDataURL(f);
-        tamanoImgVista('#vista_fondo');
+        setTimeout(function(){
+          tamanoImgVista('#vista_fondo');
+        },500);
 
-        // setTimeout(function(){
-        //   var width_img = $('#vista_fondo img').width();
-        //   var height_img = $('#vista_fondo img').height();
-        //   var width = $('#vista_fondo').width();
-        //   var height = $('#vista_fondo').height();
-        //   if (width >= width_img && height <= height_img) {
-        //     // console.log('img mas grande');
-        //     $('#vista_fondo').addClass('alto');
-        //   }else {
-        //     $('#vista_fondo').removeClass('alto');
-        //   }
-        //   $('#vista_logo').removeClass('active');
-        //   $('#vista_fondo').addClass('active');
-        // },150);
     }
 }
 $('#addFondo').change(vistaFondo);
@@ -149,40 +125,48 @@ function vistaPlato(evt) {
         };
       })(f);
         reader.readAsDataURL(f);
-        tamanoImgVista('#vista_plato');
-        // setTimeout(function(){
-        //   var width_img = $('#vista_plato img').width();
-        //   var height_img = $('#vista_plato img').height();
-        //   var width = $('#vista_plato').width();
-        //   var height = $('#vista_plato').height();
-        //   if (width >= width_img && height <= height_img) {
-        //     // console.log('img mas grande');
-        //     $('#vista_plato').addClass('alto');
-        //   }else {
-        //     $('#vista_plato').removeClass('alto');
-        //   }
-        //   $('#vista_plato').addClass('active');
-        // },150);
+        setTimeout(function(){
+          tamanoImgVista('#vista_plato');
+        },500);
     }
 }
 $('#addPlato').change(vistaPlato);
 
 function tamanoImgVista(id) {
-  setTimeout(function(){
-    var width_img = $(id+' img').width();
-    var height_img = $(id+' img').height();
-    var width = $(id).width();
-    var height = $(id).height();
-    if (width >= width_img && height <= height_img) {
-      // console.log('img mas grande');
-      $(id).addClass('alto');
-    }else {
-      $(id).removeClass('alto');
-    }
-    $(id).addClass('active');
-  },150);
+  if ($(id+' img').length > 0) {
+    setTimeout(function(){
+      var width_img = $(id+' img').width();
+      var height_img = $(id+' img').height();
+      var width = $(id).width();
+      var height = $(id).height();
+      if (width >= width_img && height <= height_img) {
+        // console.log('img mas grande');
+        $(id).addClass('alto');
+      }else {
+        $(id).removeClass('alto');
+      }
+      $(id).addClass('active');
+      $('.vista_previa').addClass('active');
+
+    },150);
+  }
 }
 tamanoImgVista('#vista_plato');
+tamanoImgVista('#vista_logo');
+
+
+function tamanoLogoVistaFinal(){
+  var height = $('.vista_final .logo img, .contenedor.cliente_final .principal .inf .img img').height();
+  if (height > 170) {
+    $('.vista_final .logo img, .contenedor.cliente_final .principal .inf .img img').addClass('alto');
+  }
+}
+tamanoLogoVistaFinal();
+
+
+
+
+
 
 function verificarInputVacios(campo) {
   if (campo.val() !== '') {
@@ -307,9 +291,13 @@ $('.menu ul li a.sb_mn, .menu_cliente ul li a.sb_mn').click(function(){
 // });
 
 function divideHeight() {
-  var height1 = $('#register .divide.reg_user').height();
-  var height2 = $('#register .divide.dat_ris').height();
-  $('#register .divide.reg_user').height(height2);
+  var width = $(window).width();
+  if (width >= 993) {
+    var height1 = $('#register .divide.reg_user').height();
+    var height2 = $('#register .divide.dat_ris').height();
+    $('#register .divide.reg_user').height(height2);
+  }
+
 }
 
 $(document).ready(divideHeight);

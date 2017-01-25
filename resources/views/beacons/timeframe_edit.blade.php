@@ -1,4 +1,4 @@
-<?php $nivel = '../../../' ?>
+<?php $nivel = '../../' ?>
 
 @extends('layouts.app')
 
@@ -13,11 +13,7 @@
     </div>
 
     <div class="form">
-      @if (session('status'))
-         <span class="help-block">
-           <strong>{{ session('status') }}</strong>
-         </span>
-       @endif
+
        <form class="form-horizontal" role="form" method="POST" action="{{ route('update_timeframe',$timeframe->timeframe_id) }}">
         {{ csrf_field() }}
         {{ method_field('PUT') }}
@@ -78,7 +74,7 @@
             <button type="submit" name="button">
               <span>Guardar</span>
             </button>
-            <a href="{{ route('show_timeframe') }}" class="">
+            <a href="{{ route('all_timeframe') }}" class="">
               <span>Cancelar</span>
             </a>
           </center>

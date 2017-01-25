@@ -5,7 +5,7 @@ use Beacon\User;
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <base href="{{ isset($nivel) ? $nivel : '' }}localhost" target="_parent">
+  <base href="{{ isset($nivel) ? $nivel : '' }}" target="_parent">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -61,21 +61,21 @@ use Beacon\User;
                     </li>
                     <li class="">
                       <a class="sb_mn" href="#">
-                          Servicios <span class="caret"></span><i class="material-icons right">arrow_drop_down</i>
+                          <span>Servicios <i class="material-icons right">arrow_drop_down</i></span>
                       </a>
                       <ul class="sub_menu none">
                         <li>
-                          <a href="{{ route('show_coupon') }}">
+                          <a href="{{ route('all_coupon') }}">
                             <span>Menú</span>
                           </a>
                         </li>
                         <li>
-                            <a href="{{ route('show_timeframe')}}">
+                            <a href="{{ route('all_timeframe')}}">
                                 <span>Horarios</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('show_campana')}}">
+                            <a href="{{ route('all_campana')}}">
                               <span>Planificación</span>
                               <!-- <span>Campa&ntilde;a</span> -->
                             </a>
@@ -155,7 +155,7 @@ use Beacon\User;
     <footer>
       <div class="footer">
         <p>
-          Xxxxxxx © {{date('Y')}} - Todos los derechos reservados. Diseñado por <a href="#"><img src="img/demente.png" alt=""></a>
+          © {{date('Y')}} - Todos los derechos reservados. Diseñado por <a href="#"><img src="img/demente.png" alt=""></a>
         </p>
       </div>
     </footer>

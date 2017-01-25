@@ -27,7 +27,7 @@
           <table class="bordered centered">
             <thead>
               <tr>
-                <th data-field="id"></th>
+                <!-- <th data-field="id"></th> -->
                   <th data-field="id">Nombre</th>
                   <th data-field="name">Visualizar</th>
                   <th data-field="price">Editar</th>
@@ -38,13 +38,13 @@
             <tbody>
               @foreach($sections as $s)
               <tr id='{{$s->id}}'>
-                <td><input type="checkbox" id="test{{$s->id}}" /><label for="test{{$s->id}}"></label></td>
+                <!-- <td><input type="checkbox" id="test{{$s->id}}" /><label for="test{{$s->id}}"></label></td> -->
                 @if( ! empty($s->section_translation[0]) )
                 <td>
                   {{$s->section_translation[0]->name}}
                 </td>
                 @endif
-                <td><a href="{{ route('show_sectionMenus', $s->id) }}"><i class="material-icons">input</i></a></td>
+                <td><a href="{{ route('all_sectionMenus', $s->id) }}"><i class="material-icons">input</i></a></td>
                 <td><a href="{{ route('edit_section', $s->id) }}"><i class="material-icons">edit</i></a></td>
                 <!-- <td><a href="#Idioma"><i class="material-icons">language</i></a></td> -->
                 <?php
@@ -65,7 +65,7 @@
 
     <div class="agregar regresar">
       <center>
-        <a href="{{ route('show_coupon') }}" class="waves-effect">
+        <a href="{{ route('all_coupon') }}" class="waves-effect">
           <div class="">
             <span class="text">Regresar</span>
             <span class="icon"><i class="material-icons">reply</i></span>
@@ -174,7 +174,7 @@
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST"">
+    <form class="form-horizontal" role="form" method="POST">
       {{ csrf_field() }}
       <input type="hidden" name="_method" value="DELETE">
       <div class="button">

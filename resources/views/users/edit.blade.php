@@ -17,12 +17,12 @@
           <div class="input select {{ $errors->has('language') ? 'error' : '' }}">
             <img src="img/icons/idioma.png" alt="" class="icon">
             <select id="language" class="form-control icons" name="language" required>
-              @if($user->language == 'es')
-                <option value="{{ $user->language }}" data-icon="img/icons/{{ $user->language }}.png" class="left circle">{{ $user->language }}</option>
-                <option value="en" data-icon="img/icons/en.png" class="left circle">en</option>
+              @if($user->language == 'Español')
+                <option value="{{ $user->language }}" data-icon="img/icons/es.png" class="left circle">{{ $user->language }}</option>
+                <option value="English" data-icon="img/icons/en.png" class="left circle">English</option>
               @else
-                <option value="{{ $user->language }}" data-icon="img/icons/{{ $user->language }}.png" class="left circle">{{ $user->language }}</option>
-                <option value="es" data-icon="img/icons/es.png" class="left circle">es</option>
+                <option value="{{ $user->language }}" data-icon="img/icons/en.png" class="left circle">{{ $user->language }}</option>
+                <option value="Español" data-icon="img/icons/es.png" class="left circle">Español</option>
               @endif
             </select>
 
@@ -83,7 +83,7 @@
             @endif
           </div> -->
         </div>
-        <div class="links">
+        <div class="links_">
           <a href="#cambiarContrasena">Cambiar Contraseña</a> || <a href="{{ route('all_beacons') }}">Información de Beacons</a>
         </div>
         <div class="button">

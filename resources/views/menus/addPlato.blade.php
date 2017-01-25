@@ -19,7 +19,7 @@
       @endif
       <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data"  action="{{ route('store_plate', $menu_id) }}">
         {{ csrf_field() }}
-        
+
         <input type="hidden" name="menu_id" value="{{$menu_id}}" required>
 
 
@@ -70,7 +70,7 @@
             <button type="submit" name="button">
               <span>Guardar</span>
             </button>
-            <a href="{{ route('show_menu', array('section_id' => $section_id, 'menu_id' => $menu_id)) }}" class="">
+            <a href="{{ route('show_sectionMenus', array('section_id' => $section_id)) }}" class="">
               <span>Cancelar</span>
             </a>
           </center>
