@@ -52,7 +52,7 @@
         <div class="checkbox">
           <p style="padding-left: 30px;">
             <input type="checkbox" id="campanaei" />
-            <label for="campanaei">xxxxxx</label>
+            <label for="campanaei">Habilitado</label>
           </p>
         </div>
 
