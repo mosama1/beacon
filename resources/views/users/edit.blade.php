@@ -96,7 +96,7 @@
       </div>
     </form>
 
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('location_update', $location->location_id) }}"  enctype="multipart/form-data">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('update_location', $location->location_id) }}"  enctype="multipart/form-data">
       {{ csrf_field() }}
 
       <div class="divide dat_ris">

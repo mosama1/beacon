@@ -38,7 +38,7 @@
                 <?php
 
                   echo "<td onclick= \"modal_activate('".
-                     route( "beacon_destroy", $b->beacon_id ).
+                     route( "destroy_beacon", $b->beacon_id ).
                     "' , '#eliminarBeacon')\" >";
 
                 ?>
