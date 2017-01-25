@@ -3145,7 +3145,7 @@ body.clienteFinal footer{
   .contenedor .principal .titulo{
     padding: 30px 0 10px;
   }
-  .contenedor.cliente_final .principal .titulo {
+  .contenedor.cliente_final .principal .titulo span{
     padding: 75px 0 10px;
   }
   .contenedor .principal .agregar a span {
