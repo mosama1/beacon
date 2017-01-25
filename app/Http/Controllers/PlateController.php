@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Input;
 use Beacon\User;
 use Log;
 
-class BeaconController extends Controller
+class PlateController extends Controller
 {
 	/**
 	 * @return token crud

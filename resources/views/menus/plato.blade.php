@@ -48,7 +48,7 @@
 									</td>
 									<td>{{$m->type}}</td>
 									<td>{{$m->price}}</td>
-									<td><a href="{{ route('all_plate', $m->id) }}"><i class="material-icons">input</i></a></td>
+									<td><a href="{{ route('show_plate', $m->id) }}"><i class="material-icons">input</i></a></td>
 
 									<!-- <td><a href="#Idioma"><i class="material-icons">language</i></a></td> -->
 									<td><a href="{{ route( 'edit_menu', array('menu_id' => $m->id) ) }}"><i class="material-icons">edit</i></a></td>
