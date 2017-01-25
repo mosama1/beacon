@@ -20,8 +20,8 @@ Route::group(['prefix' => 'sections'], function () {
 	Route::get('{section_id}/menus/{menu_id}', 'MenuController@show_menu')
 				->name('show_menu')->where(['section_id' => '[0-9]+', 'menu_id' => '[0-9]+']);
 
-	Route::get('{section_id}/menus', 'MenuController@show_sectionMenus')
-				->name('show_sectionMenus')->where('section_id', '[0-9]+');
+	Route::get('{section_id}/menus', 'MenuController@index')
+				->name('all_menu')->where('section_id', '[0-9]+');
 
 });
 

@@ -72,18 +72,36 @@ class MenuController extends Controller
 
 	/**
 	 * Display a listing of the resource.
-	 *
+	 * 
+	 * @param  Integer $section_id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index()
+	public function index($section_id)
 	{
+	    $type_plates = TypesPlates::where([
+		   ['language_id', '=', 1],
+	    ])->get();
+	   
+	    $menu = new Menu;
 
-		$menu = Menu::where([
-						['user_id', '=', Auth::user()->id]
-					])->get();
+        $menus = $menu->where([
+            ['section_id', '=', $section_id],
+        ])->get();
 
-		return view('menuss.menu', ['menu' => $menu]);
-	}
+        foreach ($menus as $key => $menu) {
+            $menu->menu_translation;
+            foreach ($type_plates as $key => $type) {
+            	if ($menu->type == $type->id ) {
+            		$menu->type = $type->name;
+            	}
+            }
+        }
+
+        $section = Section::where('id', '=', $section_id)->first();
+        $section->coupon();
+
+        return view('menus.plato',['menus' => $menus,'type_plates' => $type_plates, 'section_id' => $section_id, 'coupon' => $section->coupon]);
+    }
 
 	/**
 	 * Display a listing of the resource.
@@ -141,39 +159,6 @@ class MenuController extends Controller
 	// 	return view('clientes.plates', ['plates' => $plates, 'sections' => $sections]);
 	// }
 
-	/**
-	 * Display a listing of the resource.
-	 * 
-	 * @param  Integer $section_id
-	 * @return \Illuminate\Http\Response
-	 */
-	public function show_sectionMenus($section_id)
-	{
-	    $type_plates = TypesPlates::where([
-		   ['language_id', '=', 1],
-	    ])->get();
-	   
-	    $menu = new Menu;
-
-        $menus = $menu->where([
-            ['section_id', '=', $section_id],
-        ])->get();
-
-        foreach ($menus as $key => $menu) {
-            $menu->menu_translation;
-            foreach ($type_plates as $key => $type) {
-            	if ($menu->type == $type->id ) {
-            		$menu->type = $type->name;
-            	}
-            }
-        }
-
-        $section = Section::where('id', '=', $section_id)->first();
-        $section->coupon();
-
-        return view('menus.plato',['menus' => $menus,'type_plates' => $type_plates, 'section_id' => $section_id, 'coupon' => $section->coupon]);
-    }
-
     /**
      * Show view to edit a stored resource
      *
@@ -197,7 +182,7 @@ class MenuController extends Controller
     	$menu_translation->save();
 
 
-    	return redirect()->route('show_sectionMenus', $menu->section_id)->with(['status' => 'Se creo el plato', 'type' => 'success']);
+    	return redirect()->route('show_menu', $menu->section_id)->with(['status' => 'Se creo el plato', 'type' => 'success']);
     }
 
     /**
@@ -241,7 +226,7 @@ class MenuController extends Controller
     	$menu_translation->save();
 
 
-    	return redirect()->route('show_sectionMenus', $menu->section_id)->with(['status' => 'Se ha actualizado el plato', 'type' => 'success']);
+    	return redirect()->route('show_menu', $menu->section_id)->with(['status' => 'Se ha actualizado el plato', 'type' => 'success']);
     }
 
     /**
@@ -259,12 +244,12 @@ class MenuController extends Controller
 
 		if($menu):
 
-			return redirect()->route('show_sectionMenus', $section_id )
+			return redirect()->route('show_menu', $section_id )
 						->with(['status' => 'Plato eliminado con éxito', 'type' => 'success']);
 
 		else:
 
-			return redirect()->route('show_sectionMenus', $section_id )
+			return redirect()->route('show_menu', $section_id )
 						->with(['status' => 'Error al eliminar plato', 'type' => 'error']);
 
 

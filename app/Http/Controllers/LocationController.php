@@ -217,7 +217,7 @@ class LocationController extends Controller
             var_dump($locations);
         return;
 
-	    	return redirect()->route('location_add')->with(['status' => 'Error al ingresar la localidad', 'type' => 'error']);
+	    	return redirect()->route('create_location')->with(['status' => 'Error al ingresar la localidad', 'type' => 'error']);
 
     	endif;
 

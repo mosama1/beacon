@@ -153,7 +153,7 @@ class BeaconController extends Controller
 						['id', '=', $menu_id]
 					])->first();
 
-		return redirect()->route('show_sectionMenus', ['section_id' => $menu->section_id])
+		return redirect()->route('allmenu', ['section_id' => $menu->section_id])
 			->with(['status' => 'Descripción del plato almacenada exitosamente', 'type' => 'success']);
 	}
 

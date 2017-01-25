@@ -90,29 +90,6 @@ class SectionController extends Controller
         return view('menus.home', ['sections' => $sections, 'coupon_id' => $coupon_id]);
     }
 
-
-    /**
-     * get set of resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function show_sectionMenus($section_id)
-    {
-        $menu = new Menu;
-
-        $menus = $menu->where([
-            ['user_id', '=', Auth::user()->id],
-            ['section_id', '=', $section_id]
-        ])->get();
-
-        foreach ($menus as $key => $menu) {
-            $menu->menu_translation;
-        }
-
-        return view('menus.plato', ['menus' => $menus, 'section_id' => $section_id]);
-    }
-
     /**
      * Store a newly created resource in storage.
      *
