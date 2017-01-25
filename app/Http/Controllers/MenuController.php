@@ -182,7 +182,7 @@ class MenuController extends Controller
     	$menu_translation->save();
 
 
-    	return redirect()->route('show_menu', $menu->section_id)->with(['status' => 'Se creo el plato', 'type' => 'success']);
+    	return redirect()->route('all_menu', $menu->section_id)->with(['status' => 'Se creo el plato', 'type' => 'success']);
     }
 
     /**
@@ -226,7 +226,7 @@ class MenuController extends Controller
     	$menu_translation->save();
 
 
-    	return redirect()->route('show_menu', $menu->section_id)->with(['status' => 'Se ha actualizado el plato', 'type' => 'success']);
+    	return redirect()->route('all_menu', $menu->section_id)->with(['status' => 'Se ha actualizado el plato', 'type' => 'success']);
     }
 
     /**
@@ -244,12 +244,12 @@ class MenuController extends Controller
 
 		if($menu):
 
-			return redirect()->route('show_menu', $section_id )
+			return redirect()->route('all_menu', $section_id )
 						->with(['status' => 'Plato eliminado con éxito', 'type' => 'success']);
 
 		else:
 
-			return redirect()->route('show_menu', $section_id )
+			return redirect()->route('all_menu', $section_id )
 						->with(['status' => 'Error al eliminar plato', 'type' => 'error']);
 
 

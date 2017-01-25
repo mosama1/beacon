@@ -19,8 +19,6 @@ Route::group(['prefix' => 'timeframes'], function () {
 
 	Route::get('/', 'TimeframeController@index')->name('all_timeframe');
 
-	Route::get('add', 'TimeframeController@create_timeframe')->name('add_timeframe');
-
 	Route::post('/', 'TimeframeController@store_timeframe')->name('store_timeframe');
 
 	Route::get('{timeframe_id}/edit', 'TimeframeController@edit_timeframe')->name('edit_timeframe')->where('timeframe_id', '[0-9]+');

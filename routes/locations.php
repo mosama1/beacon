@@ -19,8 +19,6 @@ Route::group(['prefix' => 'locations'], function () {
 
 	Route::get('/', 'LocationController@index')->name('location_beacons');
 
-	Route::get('/add', 'LocationController@create_location')->name('create_location');
-
 	Route::post('/', 'LocationController@store')->name('store_locations');
 
 	Route::get('/{id}/edit', 'LocationController@edit_location')->name('edit_location')->where('id', '[0-9]+');
