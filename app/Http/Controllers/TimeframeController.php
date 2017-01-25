@@ -8,18 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Beacon\Location;
-use Beacon\Tag;
 use Beacon\Coupon;
-use Beacon\CouponTranslation;
 use Beacon\Timeframe;
-use Beacon\Campana;
-use Beacon\Content;
 use Beacon\Beacon;
-use Beacon\Section;
-use Beacon\Menu;
 use Beacon\Plate;
-use Beacon\PlateTranslation;
-use Beacon\TypesPlates;
 use Beacon\User;
 use Log;
 
@@ -102,7 +94,7 @@ class TimeframeController extends Controller
 		$client = new Client();
 
 		//Token Crud
-		$crud = BeaconController::crud();
+		$crud = TimeframeController::crud();
 
 		//Location
 		$timeframe_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/timeframes', [
@@ -155,10 +147,10 @@ class TimeframeController extends Controller
 	{
 		//consulta
 
-		$timeframe = Timeframe::where(
-				['user_id', '=', Auth::user()->id],
-				['timeframe_id', '=', $id]
-			)->first();
+		$timeframe = Timeframe::where([
+						['user_id', '=', Auth::user()->id],
+						['timeframe_id', '=', $id]
+					])->first();
 
 
 		return view('beacons.timeframe_edit', ['timeframe' => $timeframe]);
@@ -176,7 +168,7 @@ class TimeframeController extends Controller
 		$client = new Client();
 
 		//Token Crud
-		$crud = BeaconController::crud();
+		$crud = TimeframeController::crud();
 
 		//Location
 		$timeframe_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/timeframes/'.$timeframe_id.'/update', [
@@ -199,16 +191,24 @@ class TimeframeController extends Controller
 
 		if ($timeframe->status_code === 200):
 
-			$timeframe = Timeframe::where(
-							['user_id', '=', Auth::user()->id],
-							['timeframe_id', '=', $timeframe_id]
-						)
-						->update(array(
-							'name' => $timeframe->timeframe->name,
-							'description' => $timeframe->timeframe->description,
-							'start_time' => $timeframe->timeframe->start_time,
-							'end_time' => $timeframe->timeframe->end_time
-						));
+			$timeframe = Timeframe::where([
+										['user_id', '=', Auth::user()->id],
+										['timeframe_id', '=', $timeframe_id]
+									])->first();
+
+			if (isset($timeframe->timeframe->name))
+			$timeframe->name = $timeframe->timeframe->name;
+
+			if (isset($timeframe->timeframe->description))
+			$timeframe->description = $timeframe->timeframe->description;
+
+			if (isset($timeframe->timeframe->start_time))
+			$timeframe->start_time = $timeframe->timeframe->start_time;
+		
+			if (isset($timeframe->timeframe->end_time))
+			$timeframe->end_time = $timeframe->timeframe->end_time;
+
+			$timeframe->save();
 
 			return redirect()->route('all_timeframe')
 							->with(['status' => 'Horario Actualizado exitosamente', 'type' => 'success']);
@@ -234,7 +234,7 @@ class TimeframeController extends Controller
 		$client = new Client();
 
 		//Token Crud
-		$crud = BeaconController::crud();
+		$crud = TimeframeController::crud();
 
 		//Timeframe delete
 		$timeframe_delete = $client->post('https://connect.onyxbeacon.com/api/v2.5/timeframes/'.$timeframe_id.'/delete', [
@@ -249,10 +249,10 @@ class TimeframeController extends Controller
 
 		if ($timeframe_delete->status_code === 200):
 
-			$timeframe =  Timeframe::where(
-							['user_id', '=', Auth::user()->id],
-							['timeframe_id', '=', $timeframe_id]
-						));
+			$timeframe =  Timeframe::where([
+										['user_id', '=', Auth::user()->id],
+										['timeframe_id', '=', $timeframe_id]
+									]);
 
 			$timeframe->delete();
 

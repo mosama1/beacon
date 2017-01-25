@@ -6,12 +6,11 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Beacon\Tag;
-use Beacon\Coupon;
-use Beacon\CouponTranslation;
-use Beacon\Timeframe;
 use Beacon\Campana;
 use Beacon\Content;
+use Beacon\Coupon;
+use Beacon\Tag;
+use Beacon\Timeframe;
 use Illuminate\Support\Facades\Input;
 use Log;
 
@@ -100,7 +99,6 @@ class ContentController extends Controller
 					]);
 	}
 
-
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -174,7 +172,80 @@ class ContentController extends Controller
 		// 	return redirect()->route('show_content', $id)->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
 
 		// endif;
+	}
 
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function edit($campana_id,$content_id)
+	{
+		//consulta
+
+		$content = Content::where([
+								['user_id', '=', Auth::user()->id],
+								['content_id', '=', $content_id]
+							])->first();
+
+
+		return view('beacons.content_edit', ['content' => $content]);
+	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update(Request $request, $id)
+	{
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy($campana_id)
+	{
+		// Nuevo cliente con un url base
+		$client = new Client();
+
+		//Token Crud
+		$crud = CampanaController::crud();
+
+		$content_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/content/'.$content_id.'/delete', [
+				// un array con la data de los headers como tipo de peticion, etc.
+				'headers' => ['Authorization' => 'Bearer '.$crud ]
+		]);
+
+		//Json parse
+		$json_c = $content_->getBody();
+
+		$content = json_decode($json_c);
+
+		if ($content->status_code === 200 ):
+
+			$content =  Content::where([
+									['user_id', '=', Auth::user()->id],
+									['content_id', '=', $content_id]
+								])->first();
+
+			$content->delete();
+
+			return redirect()->route('all_campana')
+					->with(['status' => 'Se ha Eliminado el contenido con éxito', 'type' => 'success']);
+
+		else:
+
+			//echo "<pre>"; var_dump($campaña); echo "</pre>";
+
+			return redirect()->route('all_campana')->with(['status' => 'Error al eliminar el contenido', 'type' => 'error']);
+
+		endif;
 	}
 
 }
