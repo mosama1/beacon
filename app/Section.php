@@ -38,4 +38,5 @@ class Section extends Model
 	{
 	    return $this->belongsTo('Beacon\Menu', 'id', 'section_id');
 	}
+	
 }

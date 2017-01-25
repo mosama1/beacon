@@ -2,11 +2,12 @@
 
 namespace Beacon\Http\Controllers;
 
-use Illuminate\Http\Request;
 use GuzzleHttp\Client;
-use Beacon\Location;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Beacon\Location;
 use Beacon\Tag;
 use Beacon\Coupon;
 use Beacon\CouponTranslation;
@@ -19,11 +20,10 @@ use Beacon\Menu;
 use Beacon\Plate;
 use Beacon\PlateTranslation;
 use Beacon\TypesPlates;
-use Illuminate\Support\Facades\Input;
 use Beacon\User;
 use Log;
 
-class BeaconController extends Controller
+class TimeframeController extends Controller
 {
 	/**
 	 * @return token crud
@@ -83,7 +83,7 @@ class BeaconController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show_timeframe()
+	public function index()
 	{
 		$timeframe = Timeframe::where('user_id', '=', Auth::user()->id)->get();
 
@@ -145,7 +145,7 @@ class BeaconController extends Controller
 			$time->days = $timeframe->timeframe->days;
 			$time->save();
 
-			return redirect()->route('show_timeframe');
+			return redirect()->route('all_timeframe');
 
 		else:
 
@@ -220,7 +220,7 @@ class BeaconController extends Controller
 							'end_time' => $timeframe->timeframe->end_time
 						));
 
-			return redirect()->route('show_timeframe')
+			return redirect()->route('all_timeframe')
 							->with(['status' => 'Horario Actualizado exitosamente', 'type' => 'success']);
 
 		else:
@@ -266,7 +266,7 @@ class BeaconController extends Controller
 
 			$timeframe->delete();
 
-			return redirect()->route('show_timeframe')
+			return redirect()->route('all_timeframe')
 							->with(['status' => 'Horario ha sido eliminado exitosamente', 'type' => 'success']);
 
 		else:

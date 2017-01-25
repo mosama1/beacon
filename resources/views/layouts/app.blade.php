@@ -81,7 +81,7 @@ use Beacon\User;
                             </a>
                         </li>
                         <li>
-                          <a href="{{ route('all_tipoPlato')}}">
+                          <a href="{{ route('all_type_plate')}}">
                             <span>Servicio</span>
                           </a>
                         </li>

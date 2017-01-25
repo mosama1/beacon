@@ -20,12 +20,12 @@
           </a>
         </li>
         <li>
-          <a href="{{ route('all_tipoPlato')}}">
+          <a href="{{ route('all_type_plate')}}">
             <img src="img/icons/servicio.png" title="Servicio">
           </a>
         </li>
         <li>
-          <a href="{{ route('all_language')}}">
+          <a href="{{ route('all_language') }}">
             <img src="img/icons/idiomas.png" title="Idiomas">
           </a>
         </li>

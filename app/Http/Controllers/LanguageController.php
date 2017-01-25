@@ -22,10 +22,9 @@ class LanguageController extends Controller
 	 */
 	public function index()
 	{
-		$language = Language::all();
+		$languages = Language::all()->get();
 
-			return  $language;
-
+		return view('menus.language', ['languages' => $languages]);
 	}
 
 	/**
@@ -47,7 +46,7 @@ class LanguageController extends Controller
 	 * @param  integer $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function news()
+	public function create()
 	{
 		return "vista para crear el idioma";
 	}
@@ -58,7 +57,7 @@ class LanguageController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function create( Request $request )
+	public function store( Request $request )
 	{
 
 		$language = new Language();
@@ -67,7 +66,7 @@ class LanguageController extends Controller
 		$language->save();
 
 
-		return redirect()->route( 'show_language', $request->language_id )
+		return redirect()->route( 'all_language' )
 						->with( [ 'status' => 'Se creo el tipo de plato', 'type' => 'success' ] );
 
 	}
@@ -80,7 +79,7 @@ class LanguageController extends Controller
 	 */
 	public function edit( $id )
 	{
-		return "vista para editar el recurso idioma";
+		return view('menus.languageEdit');
 	}
 
 	/**
@@ -98,7 +97,7 @@ class LanguageController extends Controller
 		$language->save();
 
 
-		return redirect()->route( 'show_language' , $request->language_id )
+		return redirect()->route( 'all_language' )
 						->with( [ 'status' => 'Se actualizó el idioma con éxito', 'type' => 'success' ] );
 
 	}
@@ -115,7 +114,7 @@ class LanguageController extends Controller
         $language = Language::where('id', '=', $id)
                         ->first()->delete();
 
-        return redirect()->route('show_language')
+        return redirect()->route('all_language')
                         ->with(['status' => 'Idioma eliminado con éxito', 'type' => 'success']);
 
 	}

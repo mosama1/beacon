@@ -199,25 +199,25 @@ class LocationController extends Controller
 	    	$loca->street = $locations->location->street;
 	    	$loca->street_number = $locations->location->street_number;
 	    	$loca->timezone = $locations->location->timezone;
-        $loca->logo = $logo;
-        $loca->lat =  0;
-        $loca->lng =  0;
+            $loca->logo = $logo;
+            $loca->lat =  0;
+            $loca->lng =  0;
 	    	$loca->save();
 
-/*	    	$tag_ = new Tag;
-	    	$tag_->tag_id = $tag->tag->id;
-	    	$tag_->location_id = $locations->location->id;
-	    	$tag_->user_id = Auth::user()->id;
-	    	$tag_->name = $tag->tag->name;
-	    	$tag_->save();
-*/
+	    	$tag_ = new Tag;
+	    	// $tag_->tag_id = $tag->tag->id;
+	    	// $tag_->location_id = $locations->location->id;
+	    	// $tag_->user_id = Auth::user()->id;
+	    	// $tag_->name = $tag->tag->name;
+	    	// $tag_->save();
+
 	    	return redirect()->route('user_edit_path', Auth::user()->id);
 
     	else:
             var_dump($locations);
         return;
 
-	    	return redirect()->route('location_add')->with(['status' => 'Error al ingresar la localidad', 'type' => 'error']);
+	    	return redirect()->route('create_location')->with(['status' => 'Error al ingresar la localidad', 'type' => 'error']);
 
     	endif;
 

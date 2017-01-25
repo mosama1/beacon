@@ -12,7 +12,7 @@
     </div>
     <div class="agregar">
       <center>
-        <a href="{{ route('location_add') }}" class="waves-effect">
+        <a href="{{ route('create_location') }}" class="waves-effect">
           <div class="">
             <span class="text">Agregar <br><strong>Ubicación</strong></span>
             <span class="icon"><i class="material-icons">add</i></span>
