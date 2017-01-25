@@ -22,7 +22,7 @@ class LanguageController extends Controller
 	 */
 	public function index()
 	{
-		$languages = Language::all()->get();
+		$languages = Language::all();
 
 		return view('menus.language', ['languages' => $languages]);
 	}

@@ -89,22 +89,6 @@ class LocationController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create_location()
-    {
-    	$locatiom = Location::where('user_id', '=', Auth::user()->id)->first();
-
-    	if ($locatiom):
-    		return redirect()->route('user_edit_path', Auth::user()->id);
-    	else:
-    		return view('beacons.location_add');
-    	endif;
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

@@ -69,7 +69,7 @@
              <button type="submit" name="button" id="guardar">
                <span>Guardar</span>
              </button>
-             <a href="#" class="" onclick="$('#agregarMenu').modal('close'); return false;">
+             <a href="{{ route('all_coupon') }}" class="">
                <span>Cancelar</span>
              </a>
            </center>

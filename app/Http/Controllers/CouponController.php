@@ -249,12 +249,12 @@ class CouponController extends Controller
 			 // echo "<pre>"; var_dump($coupon_translation); echo "</pre>";
 			 // return;
 
-			return redirect()->route('show_coupon', $request->section_id)
+			return redirect()->route('all_coupon')
 							->with(['status' => 'El menu se ha actualizado con éxito', 'type' => 'success']);
 
 		else:
 
-			return redirect()->route('show_coupon', $request->section_id)
+			return redirect()->route('all_coupon')
 							->with(['status' => 'Error al actualizar el menu', 'type' => 'error']);
 
 		endif;
@@ -294,12 +294,12 @@ class CouponController extends Controller
 
 			$coupon->delete();
 
-        	return redirect()->route('show_coupon')
+        	return redirect()->route('all_coupon')
                         ->with(['status' => 'Menú eliminado con éxito', 'type' => 'success']);
 
 		else:
 
-        	return redirect()->route('show_coupon')
+        	return redirect()->route('all_coupon')
                         ->with(['status' => 'Error al eliminar Menú', 'type' => 'error']);
 
 		endif;

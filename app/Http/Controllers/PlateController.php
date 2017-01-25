@@ -206,13 +206,11 @@ class PlateController extends Controller
 						['id', '=', $menu_id]
 					])->first();
 
-		return redirect()->route('show_menu',
+		return redirect()->route('all_menu',
 								[
-									'section_id' => $menu->section_id,
-									'menu_id' => $menu_id,
-									'type_plates_names' => $tipo_platos
+									'section_id' => $menu->section_id
 								])	
-						->with(['status' => 'Se editó descripción de plato', 'type' => 'success']);
+						->with(['status' => 'Se editó descripción de plato', 'type' => 'success', 'type_plates_names' => $tipo_platos]);
 
 	}
 

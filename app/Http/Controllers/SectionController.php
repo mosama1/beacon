@@ -110,7 +110,7 @@ class SectionController extends Controller
         $section_translation->name = $request->name;
         $section_translation->save();
 
-    	return redirect()->route('show_section', $request->coupon_id)->with(['status' => 'Se ingreso Section de Menu con exito', 'type' => 'success']);
+    	return redirect()->route('all_section', $request->coupon_id)->with(['status' => 'Se ingreso Section de Menu con exito', 'type' => 'success']);
 
     }
 
@@ -154,7 +154,7 @@ class SectionController extends Controller
         $section_translation->language_id = $request->language_id;
         $section_translation->save();
 
-        return redirect()->route('show_section', $request->coupon_id )
+        return redirect()->route('all_section', $request->coupon_id )
                 ->with(['status' => 'Se actualizó la seccion con exito', 'type' => 'success']);
 
     }
@@ -177,7 +177,7 @@ class SectionController extends Controller
 
     	$section->delete();
 
-        return redirect()->route('show_section', ['coupon_id' => $coupon->coupon_id])
+        return redirect()->route('all_section', ['coupon_id' => $coupon->coupon_id])
                 ->with(['status' => 'Se ha eliminado la sección con éxito', 'type' => 'success']);
 
     }
