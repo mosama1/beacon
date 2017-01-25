@@ -52,7 +52,7 @@
               	@foreach($sections as $s)
                   <?php  $s->section_translation; ?>
 	                <li>
-	                  <a href="{{ route('movil_all_plate', array('campana_id' => $campana_id, 'section_id' => $s->id) ) }}">
+	                  <a href="{{ route('movil_show_plate', array('campana_id' => $campana_id, 'section_id' => $s->id) ) }}">
 	                    <span>
                         @if( ! empty($s->section_translation[0]) )
                           {{$s->section_translation[0]->name}}

@@ -69,7 +69,7 @@
             <button type="submit" name="button">
               <span>Guardar</span>
             </button>
-            <a href="{{ route('show_sectionMenus', array('section_id' => $section_id)) }}" class="">
+            <a href="{{ route('show_menu', array('section_id' => $section_id)) }}" class="">
               <span>Cancelar</span>
             </a>
           </center>
