@@ -100,7 +100,7 @@ class ContentController extends Controller
 
 		$timeframes = Timeframe::where('user_id', '=', Auth::user()->id)->get();
 
-		return view('beacons.content',
+		return view('contents.content',
 					[
 						'coupons' => $coupons,
 						'contents' => $contents,
@@ -201,7 +201,7 @@ class ContentController extends Controller
 							])->first();
 
 
-		return view('beacons.content_edit', ['content' => $content]);
+		return view('contents.content_edit', ['content' => $content]);
 	}
 
 	/**

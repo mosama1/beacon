@@ -24,7 +24,7 @@ class LanguageController extends Controller
 	{
 		$languages = Language::all();
 
-		return view('menus.language', ['languages' => $languages]);
+		return view('languages.language', ['languages' => $languages]);
 	}
 
 	/**
@@ -79,7 +79,7 @@ class LanguageController extends Controller
 	 */
 	public function edit( $id )
 	{
-		return view('menus.languageEdit');
+		return view('languages.languageEdit');
 	}
 
 	/**
