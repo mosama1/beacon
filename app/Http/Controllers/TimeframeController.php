@@ -77,9 +77,9 @@ class TimeframeController extends Controller
 	 */
 	public function index()
 	{
-		$timeframe = Timeframe::where('user_id', '=', Auth::user()->id)->get();
+		$timeframes = Timeframe::where('user_id', '=', Auth::user()->id)->get();
 
-		return view('beacons.timeframe',['timeframe' => $timeframe]);
+		return view('timeframes.timeframe',['timeframes' => $timeframes]);
 	}
 
 	/**
@@ -155,7 +155,7 @@ class TimeframeController extends Controller
 					])->first();
 
 
-		return view('beacons.timeframe_edit', ['timeframe' => $timeframe]);
+		return view('timeframes.timeframe_edit', ['timeframe' => $timeframe]);
 	}
 
 	/**

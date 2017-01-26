@@ -87,7 +87,7 @@ class CouponController extends Controller
 
 		$coupon = Coupon::where('user_id', '=', Auth::user()->id)->get();
 
-		return view('beacons.coupon', ['coupon' => $coupon]);
+		return view('coupons.coupon', ['coupon' => $coupon]);
 	}
 
 	/**
@@ -183,7 +183,7 @@ class CouponController extends Controller
 		// echo "<pre>"; var_dump($coupon); echo "</pre>";
 		// return;
 
-		return view('beacons.coupon_edit', ['coupon' => $coupon] );
+		return view('coupons.coupon_edit', ['coupon' => $coupon] );
 	}
 
 	/**

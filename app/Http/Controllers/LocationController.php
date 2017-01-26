@@ -85,7 +85,7 @@ class LocationController extends Controller
     {
     	$locations = Location::where('user_id', '=', Auth::user()->id)->get();
 
-    	return view('beacons.locations',['locations' => $locations]);
+    	return view('locations.locations',['locations' => $locations]);
     }
 
     /**
@@ -220,7 +220,7 @@ class LocationController extends Controller
     	$location = Location::where('location_id', '=', $id)->first();
 
 
-    	return view('beacons.location_edit', ['location' => $location]);
+    	return view('locations.location_edit', ['location' => $location]);
     }
 
     /**

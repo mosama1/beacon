@@ -84,7 +84,7 @@ class CampanaController extends Controller
 									->where('user_id', '=', Auth::user()->id)
 									->get();
 
-		return view('beacons.campana',['campana' => $campana, 'locations' => $locations]);
+		return view('campanas.campana',['campana' => $campana, 'locations' => $locations]);
 	}
 
 	/**
@@ -100,7 +100,7 @@ class CampanaController extends Controller
 									->where('user_id', '=', Auth::user()->id)
 									->get();
 
-		return view('beacons.campana_add', ['locations' => $locations]);
+		return view('campanas.campana_add', ['locations' => $locations]);
 	}
 
 	/**
@@ -181,7 +181,7 @@ class CampanaController extends Controller
 							])->first();
 
 
-		return view('beacons.campana_edit', ['campana' => $campana]);
+		return view('campanas.campana_edit', ['campana' => $campana]);
 	}
 
 	/**

@@ -27,10 +27,10 @@
 					<table>
 						<thead>
 							<tr>
-									<th data-field="country">Cupon</th>
-									<th data-field="country">Horario</th>
-									<th>Editar</th>
-									<th>Eliminar</th>
+							<th data-field="country">Cupon</th>
+							<th data-field="country">Horario</th>
+							<th>Editar</th>
+							<th>Eliminar</th>
 						</thead>
 
 						<tbody>
@@ -39,7 +39,7 @@
 								<td>{{$content->coupon}}</td>
 								<td>{{$content->timeframe->start_time}} - {{$content->timeframe->end_time}} </td>
 
-								<td><a href="{{ route('edit_content', $content->content_id) }}"><i class="material-icons">edit</i></a></td>
+								<td><a href="{{ route('edit_content', array('campana_id' => $campana_id, 'content_id' => $content->content_id) ) }}"><i class="material-icons">edit</i></a></td>
 
 							<?php
 

@@ -87,7 +87,7 @@ class SectionController extends Controller
 			$section->section_translation;
 		}
 
-		return view('menus.home', ['sections' => $sections, 'coupon_id' => $coupon_id]);
+		return view('sections.sections', ['sections' => $sections, 'coupon_id' => $coupon_id]);
 	}
 
 	/**
