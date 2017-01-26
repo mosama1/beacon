@@ -126,12 +126,14 @@ class PlateController extends Controller
 		if ( !empty($file_logo) ) {
 
 			$name_logo = $file_logo->getClientOriginalName();
-			$plate->img = $name_logo;
+			$name_logo = date('dmyhis').'-'.$name_logo;
+
 			//Ruta donde se va a guardar la img
 			$storage_logo = 'assets/images/platos';
 
 			// Muevo el docuemnto a la ruta
 			$file_logo = $file_logo->move($storage_logo, $name_logo);
+			$plate->img = $storage_logo.'/'.$name_logo;
 		}
 		else{
 			$location = Location::where( 'user_id', '=', Auth::user()->id )->first();
@@ -177,6 +179,8 @@ class PlateController extends Controller
 		if ( !empty($file_logo) ) {
 
 			$name_logo = $file_logo->getClientOriginalName();
+			$name_logo = date('dmyhis').'-'.$name_logo;
+
 			//Ruta donde se va a guardar la img
 			$storage_logo = 'assets/images/platos';
 
@@ -209,7 +213,7 @@ class PlateController extends Controller
 		return redirect()->route('all_menu',
 								[
 									'section_id' => $menu->section_id
-								])	
+								])
 						->with(['status' => 'Se editó descripción de plato', 'type' => 'success', 'type_plates_names' => $tipo_platos]);
 
 	}
