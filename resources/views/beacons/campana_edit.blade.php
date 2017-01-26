@@ -51,8 +51,8 @@
         @endif
         <div class="checkbox">
           <p style="padding-left: 30px;">
-            <input type="checkbox" id="campanaei" />
-            <label for="campanaei">Habilitado</label>
+            <input type="checkbox" id="enabled" name="enabled" />
+            <label for="enabled">Habilitado</label>
           </p>
         </div>
 

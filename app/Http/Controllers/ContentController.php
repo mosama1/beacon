@@ -74,6 +74,12 @@ class ContentController extends Controller
 	 */
 	public function index($id)
 	{
+		$content = new Content;
+
+		$contents = $content->where([
+			['user_id', '=', Auth::user()->id],
+		])->get();
+
 		$coupon = new Coupon;
 
 		$coupons = $coupon->where([
@@ -90,9 +96,10 @@ class ContentController extends Controller
 
 		$timeframes = Timeframe::where('user_id', '=', Auth::user()->id)->get();
 
-		return view('beacons.campana_contenido',
+		return view('beacons.content',
 					[
 						'coupons' => $coupons,
+						'contents' => $contents,
 						'tags' => $tags,
 						'timeframes' => $timeframes,
 						'campana_id' => $id

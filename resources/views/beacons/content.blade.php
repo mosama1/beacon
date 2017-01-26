@@ -35,7 +35,8 @@
             </thead>
 
             <tbody>
-              <tr id="{{$c->campana_id}}">
+              @foreach($contents as $content)
+              <tr id="{{$content->content_id}}">
                 <td>Nombre</td>
                 <td>Cupon</td>
                 <td>Horario</td>
@@ -51,6 +52,7 @@
               ?>
                 <!-- <a href="#eliminarContenido"><i class="material-icons">clear</i></a></td> -->
               </tr>
+              @endforeach
             </tbody>
           </table>
         </div>
