@@ -2298,7 +2298,7 @@ body.menu2 .menu_cliente{
   padding-top: 110px;
   overflow: auto;
   padding-bottom: 20px;
-  min-height: 100%;
+  min-height: calc(100% - 60px);
 
 }
 body.menu2 .contenedor.cliente_final{
@@ -2676,7 +2676,7 @@ footer .footer p img{
 
 
 body.clienteFinal footer{
-  height: 80px;
+  height: 60px;
 }
 
 
@@ -2846,6 +2846,7 @@ body.clienteFinal footer{
   }
   .contenedor.cliente_final {
     padding-top: 75px;
+    min-height: calc(100% - 49px);
   }
 
   .authenticate .divide:last-child {
@@ -3193,6 +3194,8 @@ body.clienteFinal footer{
 
   footer .footer p {
     font-size: 13px;
+    position: relative;
+    top: -8px;
   }
 }
 
@@ -3232,5 +3235,15 @@ body.clienteFinal footer{
   .contenedor:not(.cliente_final) .principal .tabla table td:last-child {
     border-right: none;
     /*border-right: solid 1px #d0d0d0;*/
+  }
+  .contenedor.cliente_final {
+    padding-top: 75px;
+    min-height: calc(100% - 55px);
+  }
+  footer .footer p {
+    top: 0px;
+  }
+  footer .footer p img {
+    margin-top: -7px;
   }
 }

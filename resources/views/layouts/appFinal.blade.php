@@ -48,7 +48,7 @@
         <div class="nav-wrapper">
           <ul>
             <li class="opciones">
-              <ul class="sub_menu">
+              <ul class="sub_menu none">
               	@foreach($sections as $s)
                   <?php  $s->section_translation; ?>
 	                <li>
@@ -72,7 +72,7 @@
             </li>
             @endif
             <li class="idioma">
-              <ul class="sub_menu">
+              <ul class="sub_menu none">
                 @php
                 use Beacon\TypesPlates;
 
