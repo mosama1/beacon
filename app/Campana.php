@@ -34,7 +34,7 @@ class Campana extends Model
 	// 				])->get();
 	// 	$sections = Section::all(Auth::user()->id);
 
-	// 	return view('clientes.plates', ['plates' => $plates, 'sections' => $sections]);
+	// 	return view('movil.plates', ['plates' => $plates, 'sections' => $sections]);
 	// }
 	
 }

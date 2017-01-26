@@ -70,7 +70,7 @@ class UserController extends Controller
 			
 			return view('users.edit', ['user' => $user, 'location' => $restaurant ]);
 		else:
-			return view('beacons.location_add');
+			return view('locations.location_add');
 		endif;
 
 	}
