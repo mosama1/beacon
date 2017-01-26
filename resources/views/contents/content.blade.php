@@ -8,14 +8,14 @@
 	<div class="principal">
 		<div class="titulo">
 			<h3>
-				Planificación
+				Contenidos
 			</h3>
 		</div>
 		<div class="agregar">
 			<center>
 				<a href="#agregarContenido" class="waves-effect">
 					<div class="">
-						<span class="text">Agregar <br><strong>Plan</strong></span>
+						<span class="text">Agregar <br><strong>Contenido</strong></span>
 						<span class="icon"><i class="material-icons">add</i></span>
 					</div>
 				</a>
@@ -49,7 +49,7 @@
 
 							?>
 									<a href="#eliminarContenido"><i class="material-icons">clear</i></a>
-								</td> 
+								</td>
 							</tr>
 							@endforeach
 						</tbody>
@@ -140,7 +140,7 @@
 <div id="eliminarContenido" class="modal modal_">
 	<div class="titulo">
 		<h3>
-			Esta seguro que desea eliminar esta planificación
+			Esta seguro que desea eliminar estes contenido
 		</h3>
 	</div>
 	<div class="form">
