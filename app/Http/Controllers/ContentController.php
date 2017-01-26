@@ -116,7 +116,7 @@ class ContentController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store(Request $request, $id)
+	public function store(Request $request, $campana_id)
 	{
 		// Nuevo cliente con un url base
 		$client = new Client();
@@ -125,7 +125,7 @@ class ContentController extends Controller
 		$crud = ContentController::crud();
 
 		//Location
-		// $campana_content = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$id.'/contents', [
+		// $campana_content = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/contents', [
 		// 		// un array con la data de los headers como tipo de peticion, etc.
 		// 		'headers' => ['Authorization' => 'Bearer '.$crud ],
 		// 		// array de datos del formulario
@@ -168,7 +168,7 @@ class ContentController extends Controller
 			$cam_c->coupon_id = $coupons[0]->coupon_id;
 		//	$cam_c->tag = $request->tag_id;
 			$cam_c->tag = 1;
-			$cam_c->campana_id = $id;
+			$cam_c->campana_id = $campana_id;
 			$cam_c->timeframe_id = $request->timeframe_id;
 			$cam_c->trigger_name = $request->tigger_name_id;
 			$cam_c->save();
@@ -180,7 +180,7 @@ class ContentController extends Controller
 		// 	echo "<pre>";var_dump($campana_c);echo "</pre>";
 		// return;
 
-		// 	return redirect()->route('show_content', $id)->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
+		// 	return redirect()->route('show_content', $campana_id)->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
 
 		// endif;
 	}
@@ -234,23 +234,23 @@ class ContentController extends Controller
 	 */
 	public function destroy( $campana_id, $content_id )
 	{
-		// Nuevo cliente con un url base
-		$client = new Client();
+		// // Nuevo cliente con un url base
+		// $client = new Client();
 
-		//Token Crud
-		$crud = ContentController::crud();
+		// //Token Crud
+		// $crud = ContentController::crud();
 
-		$content_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/content/'.$content_id.'/delete', [
-				// un array con la data de los headers como tipo de peticion, etc.
-				'headers' => ['Authorization' => 'Bearer '.$crud ]
-		]);
+		// $content_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/content/'.$content_id.'/delete', [
+		// 		// un array con la data de los headers como tipo de peticion, etc.
+		// 		'headers' => ['Authorization' => 'Bearer '.$crud ]
+		// ]);
 
-		//Json parse
-		$json_c = $content_->getBody();
+		// //Json parse
+		// $json_c = $content_->getBody();
 
-		$content = json_decode($json_c);
+		// $content = json_decode($json_c);
 
-		if ($content->status_code === 200 ):
+		// if ($content->status_code === 200 ):
 
 			$content =  Content::where([
 									['user_id', '=', Auth::user()->id],
@@ -259,16 +259,16 @@ class ContentController extends Controller
 
 			$content->delete();
 
-			return redirect()->route('all_campana')
+			return redirect()->route('all_content', array('campana_id' => $campana_id ) )
 					->with(['status' => 'Se ha Eliminado el contenido con éxito', 'type' => 'success']);
 
-		else:
+		// else:
 
-			//echo "<pre>"; var_dump($campaña); echo "</pre>";
+		// 	//echo "<pre>"; var_dump($campaña); echo "</pre>";
 
-			return redirect()->route('all_campana')->with(['status' => 'Error al eliminar el contenido', 'type' => 'error']);
+		// 	return redirect()->route('all_campana')->with(['status' => 'Error al eliminar el contenido', 'type' => 'error']);
 
-		endif;
+		// endif;
 	}
 
 }
