@@ -15,21 +15,21 @@
 
 //Contents
 
-Route::group(['prefix' => 'campanas/{campana_id}'], function () {
+Route::group(['prefix' => 'campanas/{campana_id}/contenidos'], function () {
 
-	Route::get('contenidos', 'ContentController@index')
+	Route::get('/', 'ContentController@index')
 				->name('all_content')->where('campana_id', '[0-9]+');
 
-	Route::post('contenidos', 'ContentController@store')
+	Route::post('/', 'ContentController@store')
 				->name('store_content')->where('campana_id', '[0-9]+');
 
-	Route::get('contenidos/{content_id}', 'ContentController@edit')
+	Route::get('{content_id}', 'ContentController@edit')
 				->name('edit_content')->where('campana_id', '[0-9]+')->where('content_id', '[0-9]+');
-				
-	Route::put('contenidos/{content_id}', 'ContentController@update')
+
+	Route::put('{content_id}', 'ContentController@update')
 				->name('update_content')->where('campana_id', '[0-9]+')->where('content_id', '[0-9]+');
 
-	Route::delete('contenidos/{content_id}', 'ContentController@destroy')
+	Route::delete('{content_id}', 'ContentController@destroy')
 				->name('destroy_content')->where('campana_id', '[0-9]+')->where('content_id', '[0-9]+');
 
 });

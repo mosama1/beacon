@@ -34,15 +34,14 @@
   					</span>
   				@endif
   			</div>
-
-  			<div class="input select no_icon {{ $errors->has('type') ? 'error' : '' }}">
-  				<!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
-  				<select id="type" class="form-control icons" name="type" @if(!isset($menu->type)) echo("selected") @endif >
+        <div class="input select no_icon {{ $errors->has('type') ? 'error' : '' }}">
+          <!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
+          <select id="type" class="form-control icons" name="type" @if(!isset($menu->type)) echo("selected") @endif >
 
   				@if( !empty($type_plates) )
             <option value="">Seleccion un tipo de plato</option>
   					@foreach ($type_plates as $type_plate)
-  						<option value="{{$type_plate->id}}" @if($type_plate->id == $menu->type) echo("selected") @endif  >{{$type_plate->name}}</option>
+  						<option value="{{$type_plate->id}}" @if($type_plate->id == $menu->type) echo(" selected ") @endif  >{{$type_plate->name}}</option>
   					@endforeach
   				@else
   					<option value="" disabled selected>No hay tipos de platos registrados</option>

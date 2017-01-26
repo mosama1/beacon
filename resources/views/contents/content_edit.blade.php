@@ -72,7 +72,7 @@
 						 <button type="submit" name="button" id="guardar">
 							 <span>Guardar</span>
 						 </button>
-						 <a href="{{ route('all_coupon') }}" class="">
+						 <a href="{{ route('all_content', array('$campana_id' => $campana_id )) }}" class="">
 							 <span>Cancelar</span>
 						 </a>
 					 </center>

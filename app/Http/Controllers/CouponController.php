@@ -228,7 +228,9 @@ class CouponController extends Controller
 
 
 			$cou->type = $coupon->coupon->type;
-			$cou->price = $request->price;
+			(isset($request->price)) ?
+				$coupon->price = $request->price :
+				$coupon->price = 0.0;
 			$cou->url = $coupon->coupon->url;
 			$cou->save();
 
