@@ -24,6 +24,6 @@ Route::group(['prefix' => 'movil'], function(){
 			->name('movil_all_plate')->where('campanas_id', '[0-9]+')->where('section_id', '[0-9]+');
 
 	Route::get('/campanas/{campanas_id}/platos/{id}/descripcion', 'MovilController@show_desc_plate')
-			->name('showDescPlate')->where('id', '[0-9]+')->where('id', '[0-9]+');
+			->name('show_desc_plate')->where('id', '[0-9]+')->where('id', '[0-9]+');
 
 });

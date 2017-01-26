@@ -19,7 +19,7 @@ class TypePlateController extends Controller
 	{
 		$tiposplatos = TypesPlates::get();
 
-		return view('typeplates.tipoPlato', ['tiposplatos' => $tiposplatos] );
+		return view('type_plates.types_plates', ['tiposplatos' => $tiposplatos] );
 	}
 
 	/**
@@ -53,7 +53,7 @@ class TypePlateController extends Controller
 
 		$tipo_plato = TypesPlates::where('id', '=', $id)->first();
 
-		return view('menus.tipoPlatoEdit', ['tipo_plato' => $tipo_plato]);
+		return view('type_plates.types_plates_edit', ['tipo_plato' => $tipo_plato]);
 	}
 
 

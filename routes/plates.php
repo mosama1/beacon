@@ -23,9 +23,4 @@ Route::group(['prefix' => 'platos'], function () {
 
 	Route::put('{menu_id}/detalles', 'PlateController@update_plate')->name('update_plate')->where('menu_id', '[0-9]+');
 
-
-	//Cliente
-
-	Route::get('{menu_id}/descripcion', 'PlateController@showDescPlate')->name('showDescPlate')->where('id', '[0-9]+');
-
 });

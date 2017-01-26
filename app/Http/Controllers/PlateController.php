@@ -214,26 +214,4 @@ class PlateController extends Controller
 
 	}
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function showDescPlate($id)
-	{
-		$plate = Plate::where(
-					['user_id', '=', Auth::user()->id],
-					['menu_id', '=', $id]
-				)->first();
-
-		$plateName = Menu::where(
-					['user_id', '=', Auth::user()->id],
-					['id', '=', $id]
-				)->first();
-
-		$plateName->menu_translation;
-
-		return view('clientes.detailPlato', ['plate' => $plate, 'name' => $plateName]);
-	}
-
 }
