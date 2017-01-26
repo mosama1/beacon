@@ -121,7 +121,9 @@ class TimeframeController extends Controller
 			$time->timeframe_id = $timeframe->timeframe->id;
 			$time->user_id = Auth::user()->id;
 			$time->name = $timeframe->timeframe->name;
-			$time->description = $timeframe->timeframe->description;
+			if ( isset($timeframe->timeframe->description) ) {
+				$time->description = $timeframe->timeframe->description;
+			}
 			$time->start_time = $timeframe->timeframe->start_time;
 			$time->end_time = $timeframe->timeframe->end_time;
 			$time->days = $timeframe->timeframe->days;
@@ -186,27 +188,31 @@ class TimeframeController extends Controller
 		//Json parse
 		$json_t = $timeframe_->getBody();
 
-		$timeframe = json_decode($json_t);
+		$timeframe_api = json_decode($json_t);
 
-
-		if ($timeframe->status_code === 200):
+		if ($timeframe_api->status_code === 200):
 
 			$timeframe = Timeframe::where([
 										['user_id', '=', Auth::user()->id],
 										['timeframe_id', '=', $timeframe_id]
 									])->first();
 
-			if (isset($timeframe->timeframe->name))
-			$timeframe->name = $timeframe->timeframe->name;
+			if (isset($timeframe_api->timeframe->name))
+			$timeframe->name = $timeframe_api->timeframe->name;
 
-			if (isset($timeframe->timeframe->description))
-			$timeframe->description = $timeframe->timeframe->description;
+			if (isset($timeframe_api->timeframe->description))
+			$timeframe->description = $timeframe_api->timeframe->description;
 
-			if (isset($timeframe->timeframe->start_time))
-			$timeframe->start_time = $timeframe->timeframe->start_time;
-		
-			if (isset($timeframe->timeframe->end_time))
-			$timeframe->end_time = $timeframe->timeframe->end_time;
+			if (isset($timeframe_api->timeframe->start_time))
+			$timeframe->start_time = $timeframe_api->timeframe->start_time;
+
+			if (isset($timeframe_api->timeframe->start_time))
+			$timeframe->end_time = $timeframe_api->timeframe->end_time;
+
+
+		 // echo "<pre>";  var_dump($timeframe); echo "</pre>";
+		 // return;
+
 
 			$timeframe->save();
 
