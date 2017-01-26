@@ -155,7 +155,7 @@ use Beacon\User;
     <footer>
       <div class="footer">
         <p>
-          © {{date('Y')}} - Todos los derechos reservados. Diseñado por <a href="#"><img src="img/demente.png" alt=""></a>
+          © {{date('Y')}} - Todos los derechos reservados. Diseñado por <a href="http://dementecreativo.com/" target="_blank"><img src="img/demente.png" alt=""></a>
         </p>
       </div>
     </footer>
