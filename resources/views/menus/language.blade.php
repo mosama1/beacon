@@ -38,17 +38,17 @@
             <tbody>
               <tr>
                 <td>Idioma</td>
-                <td><a href="{{ route('edit_language')}}"><i class="material-icons">edit</i></a></td>
+                <td><a href="{{ route('edit_language', 1)}}"><i class="material-icons">edit</i></a></td>
                 <td><a href="#eliminarIdioma"><i class="material-icons">clear</i></a></td>
               </tr>
               <tr>
                 <td>Idioma</td>
-                <td><a href="{{ route('edit_language')}}"><i class="material-icons">edit</i></a></td>
+                <td><a href="{{ route('edit_language', 1)}}"><i class="material-icons">edit</i></a></td>
                 <td><a href="#eliminarIdioma"><i class="material-icons">clear</i></a></td>
               </tr>
               <tr>
                 <td>Idioma</td>
-                <td><a href="{{ route('edit_language')}}"><i class="material-icons">edit</i></a></td>
+                <td><a href="{{ route('edit_language', 1)}}"><i class="material-icons">edit</i></a></td>
                 <td><a href="#eliminarIdioma"><i class="material-icons">clear</i></a></td>
               </tr>
             </tbody>
@@ -131,7 +131,7 @@
   <div class="form">
     <form class="form-horizontal" role="form" method="POST">
       {{ csrf_field() }}
-      <input type="hidden" name="_method" value="DELETE">
+      {{ method_field('DELETE') }}
       <div class="button">
         <center>
           <button type="submit" name="button">

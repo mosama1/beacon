@@ -163,7 +163,6 @@ class CampanaController extends Controller
 			return redirect()->route('all_campana')->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
 
 		endif;
-
 	}
 
 	/**

@@ -102,7 +102,7 @@
       <div class="input select {{ $errors->has('location_id') ? 'error' : '' }}">
         <!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
         <select id="location_id" class="form-control icons" name="location_id" required>
-          <option value="" disabled selected>Seleccione una ubicación</option>
+          <option value="" selected>Seleccione una ubicación</option>
           @foreach($locations as $location)
               <option value="{{$location->location_id}}">{{$location->name}}</option>
           @endforeach
