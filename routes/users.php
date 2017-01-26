@@ -17,7 +17,7 @@
 
 Route::group(['prefix' => 'user'], function () {
 
-    Route::get('{id}', 'UserController@edit')->name('user_edit_path')->where('id', '[0-9]+');
+	Route::get('{id}', 'UserController@edit')->name('user_edit_path')->where('id', '[0-9]+');
 
 	Route::post('{id}/edit', 'UserController@update')->name('user_patch_path')->where('id', '[0-9]+');
 	

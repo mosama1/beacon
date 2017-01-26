@@ -21,12 +21,13 @@
        <form class="form-horizontal" role="form" method="POST" action="{{ route('update_content', array('campana_id' => $campana_id, 'content_id' => $content->content_id) ) }}">
          {{ csrf_field() }}
          {{ method_field('PUT') }}
+          <!-- <pre> <?php var_dump($coupons); ?> </pre> -->
 
          <div class="input select no_icon _100 {{ $errors->has('coupon_id') ? 'error' : '' }}">
    				<select id="coupon_id" class="form-control icons" name="coupon_id" required>
-   					<option value="" disabled selected>Seleccione un Menú</option>
+   					<option value="" disabled selected @if(!isset($coupons)) echo("selected") @endif >Seleccione un Menú</option>
    					@foreach($coupons as $c)
-   						<option value="{{$c->coupon_id}}">
+   						<option value="{{$c->coupon_id}}" @if($c->coupon_id == $content->coupon_id) echo("selected") @endif >
    							@if( ! empty($c->coupon_translation[0]) )
    								{{$c->coupon_translation[0]->name}}
    							@endif
