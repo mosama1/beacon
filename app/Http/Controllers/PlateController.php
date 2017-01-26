@@ -136,9 +136,7 @@ class PlateController extends Controller
 			$plate->img = $storage_logo.'/'.$name_logo;
 		}
 		else{
-			$location = Location::where( 'user_id', '=', Auth::user()->id )->first();
-
-			$plate->img = $location->logo;
+			$plate->img = '';
 		}
 
 		$plate->save();
@@ -189,9 +187,7 @@ class PlateController extends Controller
 			$plate->img = $storage_logo.'/'.$name_logo;
 		}
 		else{
-			$location = Location::where( 'user_id', '=', Auth::user()->id )->first();
-
-			$plate->img = $location->logo;
+			$plate->img = '';
 		}
 
 		$tipo_platos = TypesPlates::where([

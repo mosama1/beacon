@@ -32,7 +32,9 @@ $menu2 = '';
 
       </div>
       <div class="img">
+        @if($menu->plate->img != NULL OR !empty($menu->plate->img))
         <img alt="" src="{{ asset($menu->plate->img) }}">
+        @endif
       </div>
 
     </div>

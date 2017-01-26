@@ -54,8 +54,10 @@
 
         <div class="vista_previa">
           <center  id="vista_previa">
-            <div class="img active" id="vista_plato">
+            <div class="img active {{ (!empty($plate->img)) ? 'active' : '' }}" id="vista_plato">
+              @if (!empty($plate->img))
               <img src="{{($plate->img)}}" alt="">
+              @endif
             </div>
           </center>
         </div>
