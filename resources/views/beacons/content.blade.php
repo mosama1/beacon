@@ -1,4 +1,4 @@
-<?php $nivel = '' ?>
+<?php $nivel = '../../' ?>
 
 @extends('layouts.app')
 
@@ -35,7 +35,8 @@
             </thead>
 
             <tbody>
-              <tr id="{{$c->campana_id}}">
+              @foreach($contents as $content)
+              <tr id="{{$content->content_id}}">
                 <td>Nombre</td>
                 <td>Cupon</td>
                 <td>Horario</td>
@@ -51,6 +52,7 @@
               ?>
                 <!-- <a href="#eliminarContenido"><i class="material-icons">clear</i></a></td> -->
               </tr>
+              @endforeach
             </tbody>
           </table>
         </div>
@@ -68,7 +70,7 @@
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="#">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_content', $campana_id) }}">
       {{ csrf_field() }}
       <input type="hidden" name="tigger_name_id" value="DWELL_TIME">
 
