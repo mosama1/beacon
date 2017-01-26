@@ -37,7 +37,7 @@
 							@foreach($contents as $content)
 							<tr id="{{$content->content_id}}">
 								<td>{{$content->coupon}}</td>
-								<td>{{$content->timeframe->start_time}} - {{$content->timeframe->end_time}} </td>
+								<td>{{$content->timeframe->name}} </td>
 
 								<td><a href="{{ route('edit_content', array('campana_id' => $campana_id, 'content_id' => $content->content_id) ) }}"><i class="material-icons">edit</i></a></td>
 

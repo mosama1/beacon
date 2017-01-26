@@ -23,8 +23,8 @@ Route::group(['prefix' => 'beacons'], function () {
 
 	Route::get('/{beacon_id}/edit', 'BeaconController@edit')->name('edit_beacon')->where('beacon_id', '[0-9]+');
 
-	Route::post('/{beacon_id}', 'BeaconController@store_beacon')->name('store_beacon');
+	Route::post('/', 'BeaconController@store_beacon')->name('store_beacon');
 
 	Route::delete('/{beacon_id}', 'BeaconController@destroy_beacon')->name('destroy_beacon')->where('id', '[0-9]+');
-	
+
 });

@@ -8,7 +8,7 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Editar Seccion
+        Editar Sección
       </h3>
     </div>
 

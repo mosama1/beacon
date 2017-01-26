@@ -7,7 +7,7 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Descripción del Platos
+        Descripción del Plato
       </h3>
     </div>
 
