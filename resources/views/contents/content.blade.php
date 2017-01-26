@@ -57,6 +57,16 @@
 				</div>
 			</div>
 		</div>
+		<div class="agregar regresar">
+			<center>
+				<a href="{{ route('all_coupon') }}" class="waves-effect">
+					<div class="">
+						<span class="text">Regresar</span>
+						<span class="icon"><i class="material-icons">reply</i></span>
+					</div>
+				</a>
+			</center>
+		</div>
 	</div>
 </div>
 
