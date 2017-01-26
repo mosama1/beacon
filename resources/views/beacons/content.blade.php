@@ -68,7 +68,7 @@
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_content', $campana_id) }}">
+    <form class="form-horizontal" role="form" method="POST" action="#">
       {{ csrf_field() }}
       <input type="hidden" name="tigger_name_id" value="DWELL_TIME">
 
