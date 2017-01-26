@@ -99,7 +99,7 @@
         </div>
       @endif
 
-      <div class="input select {{ $errors->has('location_id') ? 'error' : '' }}">
+      <div class="input select no_icon {{ $errors->has('location_id') ? 'error' : '' }}">
         <!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
         <select id="location_id" class="form-control icons" name="location_id" required>
           <option value="" selected>Seleccione una ubicación</option>

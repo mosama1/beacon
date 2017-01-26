@@ -36,7 +36,12 @@ textarea.materialize-textarea:focus:not([readonly]) {
   box-shadow: none;
   border-bottom: none;
 }
-
+select{
+  display: block;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+}
 
 
 .links{
