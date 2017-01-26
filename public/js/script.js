@@ -9,7 +9,9 @@ $('.sb_mn2').click(function(){
   return false;
 });
 
-
+/* Validacion de Inputs */
+$('.val_phone').mask('000 00-00-00');
+$('.val_zip').mask('00000');
 
 
 

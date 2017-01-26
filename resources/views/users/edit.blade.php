@@ -46,7 +46,7 @@
             @endif
           </div>
           <div class="input {{ $errors->has('phone') ? 'error' : '' }}">
-            <input type="text" name="phone" value="{{ $user->phone }}" required="">
+            <input type="text" name="phone" value="{{ $user->phone }}" required="" class="val_phone">
             <label for="">
               <span class="icon"><img src="img/icons/telefono.png" alt=""></span>
               <span class="text">Teléfono de contacto</span>
@@ -155,7 +155,7 @@
           <!-- </div> -->
 
           <div class="input {{ $errors->has('zip') ? 'error' : '' }}">
-            <input type="text" name="zip" value="{{$location->zip}}" required="">
+            <input type="text" name="zip" value="{{$location->zip}}" required="" class="val_zip">
             <label for="">
               <span class="text">Código postal</span>
             </label>

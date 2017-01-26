@@ -15,7 +15,7 @@
         <div class="divide_cont">
           <div class="input select {{ $errors->has('language') ? 'error' : '' }}">
             <img src="img/icons/idioma.png" alt="" class="icon">
-            <select id="language" class="form-control icons" name="language" required>
+            <select id="language" class="form-control icons" name="language" required="required">
               <option value="" disabled selected>Idioma</option>
               <option value="Español" data-icon="img/icons/es.png" class="left circle">Español</option>
               <option value="English" data-icon="img/icons/en.png" class="left circle">English</option>
@@ -51,7 +51,7 @@
           </div>
           @endif
           <div class="input {{ $errors->has('phone') ? 'error' : '' }}">
-            <input type="text" name="phone" value="{{ old('phone') }}" required="">
+            <input type="text" name="phone" value="{{ old('phone') }}" required="" class="val_phone">
             <label for="">
               <span class="icon"><img src="img/icons/telefono.png" alt=""></span>
               <span class="text">Teléfono de contacto</span>
