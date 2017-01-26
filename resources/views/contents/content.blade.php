@@ -89,11 +89,7 @@
 				<select id="coupon_id" class="form-control icons" name="coupon_id" required>
 					<option value="" disabled selected>Seleccione un Menú</option>
 					@foreach($coupons as $c)
-						<option value="{{$c->coupon_id}}">
-							@if( ! empty($c->coupon_translation[0]) )
-								{{$c->coupon_translation[0]->name}}
-							@endif
-						</option>
+						<option value="{{$c->coupon_id}}">{{ (!empty($c->coupon_translation[0])) ? $c->coupon_translation[0]->name : '' }}</option>
 					@endforeach
 				</select>
 			</div>
@@ -104,7 +100,7 @@
 			@endif
 
 			<div class="input-field col s12 {{ $errors->has('timeframe_id') ? 'error' : '' }}">
-				<select multiple id="timeframe_id" name="timeframe_id" required>
+				<select multiple id="timeframe_id" name="timeframe_id" required class="multiple_">
 					<option value="" disabled selected>Seleccione un Horario</option>
 					@foreach($timeframes as $t)
 						<option value="{{$t->timeframe_id}}">{{$t->name}}</option>
