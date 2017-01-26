@@ -24,8 +24,8 @@ Route::group(['prefix' => 'campanas/{campana_id}'], function () {
 				->name('store_content')->where('campana_id', '[0-9]+');
 
 	Route::get('contenidos/{content_id}', 'ContentController@edit')
-				->name('edit_content')->where('campana_id', '[0-9]+');
-
+				->name('edit_content')->where('campana_id', '[0-9]+')->where('content_id', '[0-9]+');
+				
 	Route::put('contenidos/{content_id}', 'ContentController@update')
 				->name('update_content')->where('campana_id', '[0-9]+')->where('content_id', '[0-9]+');
 

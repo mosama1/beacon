@@ -116,13 +116,13 @@ class ContentController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store_content(Request $request, $id)
+	public function store(Request $request, $id)
 	{
 		// Nuevo cliente con un url base
 		$client = new Client();
 
 		//Token Crud
-		$crud = CampanaController::crud();
+		$crud = ContentController::crud();
 
 		//Location
 		// $campana_content = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$id.'/contents', [
@@ -173,7 +173,7 @@ class ContentController extends Controller
 			$cam_c->trigger_name = $request->tigger_name_id;
 			$cam_c->save();
 
-			return redirect()->route('all_campana');
+			return redirect()->route('all_content', array('campana_id' => $campana_id ) );
 
 		// else:
 
@@ -232,13 +232,13 @@ class ContentController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy($campana_id)
+	public function destroy( $campana_id, $content_id )
 	{
 		// Nuevo cliente con un url base
 		$client = new Client();
 
 		//Token Crud
-		$crud = CampanaController::crud();
+		$crud = ContentController::crud();
 
 		$content_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/content/'.$content_id.'/delete', [
 				// un array con la data de los headers como tipo de peticion, etc.
