@@ -80,6 +80,10 @@ class ContentController extends Controller
 			['user_id', '=', Auth::user()->id],
 		])->get();
 
+		foreach ($contents as $key => $content) {
+			$content->timeframe;
+		}
+
 		$coupon = new Coupon;
 
 		$coupons = $coupon->where([
