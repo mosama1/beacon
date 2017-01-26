@@ -170,7 +170,8 @@ class ContentController extends Controller
 			$cam_c->tag = 1;
 			$cam_c->campana_id = $campana_id;
 			$cam_c->timeframe_id = $request->timeframe_id;
-			$cam_c->trigger_name = $request->tigger_name_id;
+			$cam_c->trigger_name = $request->trigger_name_id;
+			$cam_c->dwell_time = $request->dwell_time;
 			$cam_c->save();
 
 			return redirect()->route('all_content', array('campana_id' => $campana_id ) );
