@@ -75,7 +75,7 @@
         @endif
 
         <div class="input no_icon {{ $errors->has('zip') ? 'error' : '' }}">
-          <input type="text" name="zip" value="" required="">
+          <input type="number" name="zip" value="" required="" class="val_zip">
           <label for="">
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Código Postal</span>
