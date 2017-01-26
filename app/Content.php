@@ -12,7 +12,7 @@ class Content extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-			'content_id', 'user_id', 'coupon', 'tag', 'timeframes', 'trigger_name',
+			'content_id', 'user_id', 'coupon', 'tag', 'timeframes', 'trigger_name', 'dwell_time',
 	];
 
 	public function campana()

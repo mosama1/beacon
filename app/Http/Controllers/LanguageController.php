@@ -79,7 +79,7 @@ class LanguageController extends Controller
 	 */
 	public function edit( $id )
 	{
-		return view('languages.languageEdit');
+		return view('languages.language_edit');
 	}
 
 	/**
