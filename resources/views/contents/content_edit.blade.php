@@ -24,13 +24,9 @@
 					<!-- <pre> <?php var_dump($coupons); ?> </pre> -->
 				<div class="input select no_icon _100 {{ $errors->has('coupon_id') ? 'error' : '' }}">
 					<select id="coupon_id" class="form-control icons" name="coupon_id" required>
-						<option value="" disabled selected @if(!isset($coupons)) echo("selected") @endif >Seleccione un Menú</option>
+						<option value="" disabled @if(!isset($coupons)) echo("selected") @endif >Seleccione un Menú</option>
 						@foreach($coupons as $c)
-							<option value="{{$c->coupon_id}}" @if($c->coupon_id == $content->coupon_id) echo("selected") @endif >
-								@if( ! empty($c->coupon_translation[0]) )
-									{{$c->coupon_translation[0]->name}}
-								@endif
-							</option>
+							<option value="{{$c->coupon_id}}" {{ ($c->coupon_id == $content->coupon_id) ? 'selected' : '' }}>{{ (!empty($c->coupon_translation[0])) ? $c->coupon_translation[0]->name : '' }}</option>
 						@endforeach
 					</select>
 				</div>
@@ -43,11 +39,9 @@
 					<!-- <pre> <?php var_dump($timeframes); ?> </pre> -->
 				<div class="input-field col s12 {{ $errors->has('timeframe_id') ? 'error' : '' }}">
 					<select multiple id="timeframe_id" name="timeframe_id" required>
-						<option value="" disabled selected @if(!isset($timeframes)) echo("selected") @endif>Seleccione un Horario</option>
+						<option value="" disabled @if(!isset($timeframes)) echo("selected") @endif>Seleccione un Horario</option>
 						@foreach($timeframes as $t)
-							<option value="{{$t->timeframe_id}}" @if($t->timeframe_id == $content->timeframe_id) echo("selected") @endif >
-								{{$t->name}}
-							</option>
+							<option value="{{$t->timeframe_id}}" {{ ($t->timeframe_id == $content->timeframe_id) ? 'selected' : '' }}>{{$t->name}}</option>
 						@endforeach
 					</select>
 				</div>
