@@ -1626,6 +1626,9 @@ body.menu2 .menu_cliente{
   font-family: 'century';
   /*margin-top: 20px;*/
 }
+.contenedor .principal .titulo, .modal_ .titulo {
+  padding: 75px 0 10px;
+}
 .contenedor .principal .titulo h3,
 .modal .titulo h3{
   margin: 0;
