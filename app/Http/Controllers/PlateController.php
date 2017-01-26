@@ -93,9 +93,9 @@ class PlateController extends Controller
 		$menu = Menu::where('id', '=', $menu_id)->first();
 
 		if ($plate):
-			return view('plates.detailPlato',['plate' => $plate , 'section_id' => $menu->section_id, 'menu_id' => $menu_id]);
+			return view('plates.detail_plato',['plate' => $plate , 'section_id' => $menu->section_id, 'menu_id' => $menu_id]);
 		else:
-			return view('plates.addPlato',['section_id' => $menu->section_id, 'menu_id' => $menu_id]);
+			return view('plates.add_plato',['section_id' => $menu->section_id, 'menu_id' => $menu_id]);
 		endif;
 
 	}

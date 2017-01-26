@@ -37,7 +37,6 @@ class MovilController extends Controller
 		//		echo "<pre>"; var_dump($sections);	echo "</pre>";obtener_name_movil
 
 		return view('index', [ 'campana_id' => $campana_id, 'sections' => $this->obtener_sections_movil($campana_id), 'logo' => $this->obtener_logo_movil($campana_id), 'name' => $this->obtener_name_movil($campana_id) ] );
-
 	}
 
 	/**
@@ -55,7 +54,6 @@ class MovilController extends Controller
 		$content = $campana->content;
 
 		$coupon = Coupon::where([
-			['user_id', '=', Auth::user()->id ],
 			['coupon_id', '=', array( $content->coupon_id ) ],
 		])->first();
 
@@ -70,9 +68,7 @@ class MovilController extends Controller
 		//		echo "<pre>"; var_dump($sections);	echo "</pre>";
 
 		return $sections;
-
 	}
-
 
 	/**
 	 * Display a listing of the resource.
@@ -92,8 +88,8 @@ class MovilController extends Controller
 		// echo "<pre>"; var_dump($location);	echo "</pre>";
 		// return;
 		return $location->logo;
-
 	}
+
 	public function obtener_name_movil( $campana_id )
 	{
 		$campana = Campana::where([
@@ -107,9 +103,7 @@ class MovilController extends Controller
 		// echo "<pre>"; var_dump($location);	echo "</pre>";
 		// return;
 		return $location->name;
-
 	}
-
 
 	/**
 	 * Display a listing of the resource.
@@ -144,7 +138,6 @@ class MovilController extends Controller
 
 
 		return view('movil.plates', ['sections' => $this->obtener_sections_movil($campana_id), 'menus' => $menus, 'campana_id' => $campana_id, 'section_id' => $section_id, 'menu' => $menu_, 'section_name' => $sections_trans->name]);
-
 	}
 
 	/**
@@ -165,7 +158,7 @@ class MovilController extends Controller
 	// 	$plate->plate_translation;
 	// 	}
 
-	// 	return view('movil.detailPlato', ['plate' => $plate, 'section_id' => $plate->section->id]);
+	// 	return view('movil.detail_plato', ['plate' => $plate, 'section_id' => $plate->section->id]);
 
 		$menu = Menu::where([
 	 		['id', '=', array( $menu_id )]
@@ -179,7 +172,7 @@ class MovilController extends Controller
 
 		//echo "<pre>"; var_dump($menu);	echo "</pre>";
 
-		return view('movil.detailPlato', ['sections' => $this->obtener_sections_movil($campana_id), 'menu' => $menu, 'campana_id' => $campana_id]);
+		return view('movil.detail_plato', ['sections' => $this->obtener_sections_movil($campana_id), 'menu' => $menu, 'campana_id' => $campana_id]);
 	}
 
 }
