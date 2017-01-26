@@ -195,13 +195,25 @@ class ContentController extends Controller
 	{
 		//consulta
 
+		$coupon = new Coupon;
+
+		$coupons = $coupon->where([
+			['user_id', '=', Auth::user()->id],
+		])->get();
+
+		$tags = Tag::where('user_id', '=', Auth::user()->id)->get();
+
+		$timeframes = Timeframe::where('user_id', '=', Auth::user()->id)->get();
+
 		$content = Content::where([
 								['user_id', '=', Auth::user()->id],
 								['content_id', '=', $content_id]
 							])->first();
 
+		// echo "<pre>";var_dump($content->coupons);echo "</pre>";
+		// return;
 
-		return view('contents.content_edit', ['content' => $content]);
+		return view('contents.content_edit', ['campana_id' => $campana_id, 'content' => $content, 'coupons' => $coupons, 'timeframes' => $timeframes]);
 	}
 
 	/**

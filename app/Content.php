@@ -20,7 +20,7 @@ class Content extends Model
 	    return $this->belongsTo( 'Beacon\Campana', 'campana_id', 'campana_id');
 	}
 
-	public function coupon()
+	public function coupons()
 	{
 	    return $this->belongsTo('Beacon\Coupon', 'coupon_id', 'coupon_id');
 	}
