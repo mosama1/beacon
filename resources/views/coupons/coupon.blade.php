@@ -116,7 +116,7 @@
         </div>
 
       @endif
-      <div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}" id="divPrecioMenu">
+      <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioMenu">
         <input type="number" name="price" step="0.01" value=""  id="price" min="1.00" max="99999" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)">
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
