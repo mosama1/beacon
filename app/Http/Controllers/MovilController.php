@@ -235,12 +235,18 @@ class MovilController extends Controller
 
 		//echo "<pre>"; var_dump($menu);	echo "</pre>";
 
+		$section_translation = SectionTranslation::where([
+			['section_id', '=', $menu->section->id]
+		])->first();
+
+
 		return view('movil.detail_plato',
 					[
 						'sections' => $this->get_sections_movil( $campana_id ),
 						'type_plates' => $this->get_type_plates_movil( $campana_id ),
 						'menu' => $menu,
-						'campana_id' => $campana_id
+						'campana_id' => $campana_id,
+						'section_name' => $section_translation->name,
 					]);
 	}
 
@@ -278,13 +284,15 @@ class MovilController extends Controller
 			['section_id', '=', $menu->section->id]
 		])->first();
 
+
+
 		return view('movil.detail_plato',
 					[
 						'sections' => $this->get_sections_movil($campana_id),
 						'type_plates' => $this->get_type_plates_movil( $campana_id ),
 						'menu' => $menu,
 						'campana_id' => $campana_id,
-						'section_name' => $section_translation->name
+						'section_name' => $section_translation->name,
 					]);
 	}
 
