@@ -115,16 +115,16 @@
 
 
 
-			<div class="input no_icon {{ $errors->has('xxxxxx') ? 'error' : '' }}">
-				<input type="number" name="xxxxxx" min="0" value="" class="input_time number" required="true">
+			<div class="input no_icon {{ $errors->has('dwell_time') ? 'error' : '' }}">
+				<input type="number" name="dwell_time" min="0" value="" class="input_time number" required="true">
 				<label for="">
 					<!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
 					<span class="text">Minutos de espera</span>
 				</label>
 			</div>
-			@if ($errors->has('xxxxxx'))
+			@if ($errors->has('dwell_time'))
 			<div class="input_error">
-				<span>{{ $errors->first('xxxxxx') }}</span>
+				<span>{{ $errors->first('dwell_time') }}</span>
 			</div>
 			@endif
 
