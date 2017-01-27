@@ -247,6 +247,7 @@ class MovilController extends Controller
 						'menu' => $menu,
 						'campana_id' => $campana_id,
 						'section_name' => $section_translation->name,
+						'nivel' => '../../../../../../../'
 					]);
 	}
 

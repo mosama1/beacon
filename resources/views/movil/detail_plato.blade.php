@@ -1,5 +1,5 @@
 <?php
-$nivel = '../../../../../../../' ;
+$nivel = (isset($nivel)) ? $nivel : '../../../../../../../' ;
 $menu2 = '';
 ?>
 @extends('layouts.appFinal')
