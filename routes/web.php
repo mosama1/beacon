@@ -20,7 +20,6 @@ Route::group(['middleware' => 'auth'], function () {
 	require (__DIR__ . '/languages.php');
 	require (__DIR__ . '/locations.php');
 	require (__DIR__ . '/menus.php');
-	require (__DIR__ . '/movil.php');
 	require (__DIR__ . '/plates.php');
 	require (__DIR__ . '/sections.php');
 	require (__DIR__ . '/timeframes.php');
@@ -29,6 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('home', 'HomeController@index');
 });
 
+	require (__DIR__ . '/movil.php');
 
 Route::get('token/analytics', 'BeaconController@crud')->name('token_generate');
 
