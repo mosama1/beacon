@@ -8,6 +8,7 @@ $menu2 = '';
 <div class="contenedor cliente_final">
   <div class="principal">
     <div class="titulo">
+      <h1>{{ $section_name }}</h1>
       <h3>
         @if( ! empty($menu->menu_translation[0]) )
           {{$menu->menu_translation[0]->name}}
@@ -21,14 +22,7 @@ $menu2 = '';
     <div class="inf">
 
       <div class="description">
-        @php
-        use Beacon\PlateTranslation;
-
-          $plate_translation = PlateTranslation::where([
-          ['plate_id', '=', $menu->plate->id ],
-          ])->first();
-        @endphp
-        <p>{{$plate_translation->description}}</p>
+        <p>{{$menu->plate->plate_translation->description}}</p>
 
       </div>
       <div class="img">

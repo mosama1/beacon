@@ -511,11 +511,12 @@ select:not(.multiple_) {
   float: right;
 }
 .menu_cliente ul li.logo{
-  width: 150px;
+  width: auto;
   text-align: center;
   padding: 15px 0;
   position: relative;
-  left: calc(50% - 145px);
+  left: calc(50% - 75px);
+  transform: translate(-50%);
 }
 .menu_cliente ul li.logo img{
   height: 100%;
@@ -1626,8 +1627,15 @@ body.menu2 .menu_cliente{
   font-family: 'century';
   /*margin-top: 20px;*/
 }
-.contenedor .principal .titulo, .modal_ .titulo {
+.contenedor .principal .titulo,
+.modal_ .titulo {
   padding: 75px 0 10px;
+}
+.contenedor.cliente_final .principal .titulo h1,
+.contenedor.cliente_final .modal_ .titulo h1{
+  margin: 0 0 20px;
+  color: #fff;
+  font-size: 45px;
 }
 .contenedor .principal .titulo h3,
 .modal .titulo h3{
@@ -2842,7 +2850,7 @@ body.clienteFinal footer{
     padding: 5px 0;
   }
   .menu_cliente ul li.logo {
-    left: calc(50% - 140px);
+    left: calc(50% - 60px);
   }
   .contenedor.cliente_final {
     padding-top: 75px;
@@ -3157,7 +3165,10 @@ body.clienteFinal footer{
     padding: 30px 0 10px;
   }
   .contenedor.cliente_final .principal .titulo{
-    padding: 75px 0 10px;
+    padding: 40px 0 10px;
+  }
+  .contenedor.cliente_final .principal .titulo h1{
+    font-size: 30px;
   }
   .contenedor.cliente_final .principal .titulo span{
     padding: 75px 0 10px;

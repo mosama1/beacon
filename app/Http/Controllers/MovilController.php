@@ -18,6 +18,7 @@ use Beacon\SectionTranslation;
 use Beacon\Menu;
 use Beacon\MenuTranslation;
 use Beacon\Plate;
+use Beacon\PlateTranslation;
 use Beacon\TypesPlates;
 use Illuminate\Support\Facades\Input;
 use Beacon\User;
@@ -170,9 +171,11 @@ class MovilController extends Controller
 
 		$menu->section;
 
-		//echo "<pre>"; var_dump($menu);	echo "</pre>";
+		$section_translation = SectionTranslation::where([
+			['section_id', '=', $menu->section->id]
+		])->first();
 
-		return view('movil.detail_plato', ['sections' => $this->obtener_sections_movil($campana_id), 'menu' => $menu, 'campana_id' => $campana_id]);
+		return view('movil.detail_plato', ['sections' => $this->obtener_sections_movil($campana_id), 'menu' => $menu, 'campana_id' => $campana_id, 'section_name' => $section_translation->name]);
 	}
 
 }
