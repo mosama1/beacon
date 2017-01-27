@@ -34,10 +34,16 @@ class MovilController extends Controller
 	 */
 	public function index( $campana_id )
 	{
+		//		echo "<pre>"; var_dump($sections);	echo "</pre>";get_name_movil
 
-		//		echo "<pre>"; var_dump($sections);	echo "</pre>";obtener_name_movil
-
-		return view('index', [ 'campana_id' => $campana_id, 'sections' => $this->obtener_sections_movil($campana_id), 'logo' => $this->obtener_logo_movil($campana_id), 'name' => $this->obtener_name_movil($campana_id) ] );
+		return view('index',
+					[
+						'campana_id' => $campana_id,
+						'sections' => $this->get_sections_movil($campana_id),
+						'type_plates' => $this->get_type_plates_movil( $campana_id ),
+						'logo' => $this->get_logo_movil($campana_id),
+						'name' => $this->get_name_movil($campana_id)
+					] );
 	}
 
 	/**
@@ -45,7 +51,7 @@ class MovilController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function obtener_sections_movil( $campana_id )
+	public function get_sections_movil( $campana_id )
 	{
 		$campana = Campana::where([
 			['campana_id', '=', array( $campana_id ) ],
@@ -72,11 +78,30 @@ class MovilController extends Controller
 	}
 
 	/**
+	 * Display a list of the type_plate available for a campaign.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function get_type_plates_movil( $campana_id )
+	{
+		$type_plates = DB::table('campaing_types_plates')
+                    ->where([
+                    	['campana_id', '=', $campana_id],
+                    	])
+                    ->get();
+
+
+		//	echo "<pre>"; var_dump($type_plates);	echo "</pre>";
+
+		return $type_plates;
+	}
+
+	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function obtener_logo_movil( $campana_id )
+	public function get_logo_movil( $campana_id )
 	{
 		$campana = Campana::where([
 			['campana_id', '=', array( $campana_id ) ],
@@ -91,7 +116,7 @@ class MovilController extends Controller
 		return $location->logo;
 	}
 
-	public function obtener_name_movil( $campana_id )
+	public function get_name_movil( $campana_id )
 	{
 		$campana = Campana::where([
 			['campana_id', '=', array( $campana_id ) ],
@@ -138,7 +163,85 @@ class MovilController extends Controller
 		])->first();
 
 
-		return view('movil.plates', ['sections' => $this->obtener_sections_movil($campana_id), 'menus' => $menus, 'campana_id' => $campana_id, 'section_id' => $section_id, 'menu' => $menu_, 'section_name' => $sections_trans->name]);
+		return view('movil.plates',
+					[
+						'sections' => $this->get_sections_movil($campana_id),
+						'type_plates' => $this->get_type_plates_movil( $campana_id ),
+						'menus' => $menus,
+						'campana_id' => $campana_id,
+						'section_id' => $section_id,
+						'menu' => $menu_,
+						'section_name' => $sections_trans->name
+					]);
+	}
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function all_types_plates( $campana_id, $type_plate_id )
+	{
+		$menus = Menu::where([
+			['type', '=', array( $type_plate_id ) ],
+		])->get();
+		foreach ($menus as $key => $menu) {
+			$menu->plate;
+			$menu->menu_translation;
+			if ($menu->plate) {
+				$menu->plate->plate_translation;
+			}
+		}
+		$menu_ = Menu::where([
+			['id', '=', array( $menu->id )]
+		])->first();
+		$menu_->plate;
+
+		//echo "<pre>"; var_dump($menus);	echo "</pre>";
+
+		$type_plate = TypesPlates::where([
+			['id', '=', array( $type_plate_id )],
+			['language_id', '=', array( 1 )]
+		])->first();
+
+
+		return view('movil.by_types_plates',
+					[
+						'sections' => $this->get_sections_movil( $campana_id ),
+						'type_plates' => $this->get_type_plates_movil( $campana_id ),
+						'menus' => $menus,
+						'campana_id' => $campana_id,
+						'type_plate' => $type_plate,
+					]);
+	}
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show_desc_plate_by_type( $campana_id, $type_plate_id, $menu_id )
+	{
+
+		$menu = Menu::where([
+	 		['id', '=', array( $menu_id )]
+	 	])->first();
+
+		$menu->menu_translation;
+
+		$menu->plate;
+
+		$menu->section;
+
+		//echo "<pre>"; var_dump($menu);	echo "</pre>";
+
+		return view('movil.detail_plato',
+					[
+						'sections' => $this->get_sections_movil( $campana_id ),
+						'type_plates' => $this->get_type_plates_movil( $campana_id ),
+						'menu' => $menu,
+						'campana_id' => $campana_id
+					]);
 	}
 
 	/**
@@ -148,18 +251,18 @@ class MovilController extends Controller
 	 */
 	public function show_desc_plate( $campana_id, $menu_id )
 	{
-	// 	$plate = Plate::where([
-	// 		['menu_id', '=', array( $menu_id )]
-	// 	])->first();
+		// 	$plate = Plate::where([
+		// 		['menu_id', '=', array( $menu_id )]
+		// 	])->first();
 
-	// 	if ($plate) {
+		// 	if ($plate) {
 
-	// 	$plate->section;
+		// 	$plate->section;
 
-	// 	$plate->plate_translation;
-	// 	}
+		// 	$plate->plate_translation;
+		// 	}
 
-	// 	return view('movil.detail_plato', ['plate' => $plate, 'section_id' => $plate->section->id]);
+		// 	return view('movil.detail_plato', ['plate' => $plate, 'section_id' => $plate->section->id]);
 
 		$menu = Menu::where([
 	 		['id', '=', array( $menu_id )]
@@ -175,7 +278,14 @@ class MovilController extends Controller
 			['section_id', '=', $menu->section->id]
 		])->first();
 
-		return view('movil.detail_plato', ['sections' => $this->obtener_sections_movil($campana_id), 'menu' => $menu, 'campana_id' => $campana_id, 'section_name' => $section_translation->name]);
+		return view('movil.detail_plato',
+					[
+						'sections' => $this->get_sections_movil($campana_id),
+						'type_plates' => $this->get_type_plates_movil( $campana_id ),
+						'menu' => $menu,
+						'campana_id' => $campana_id,
+						'section_name' => $section_translation->name
+					]);
 	}
 
 }

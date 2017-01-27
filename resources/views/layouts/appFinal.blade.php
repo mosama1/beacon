@@ -84,15 +84,15 @@
 
 
                 @if( !empty($type_plates) )
-                @foreach ($type_plates as $type_plate)
-                  <li>
-                    <a href="#">
-                      <span>
-                        {{$type_plate->name}}
-                      </span>
-                    </a>
-                  </li>
-                @endforeach
+                  @foreach ($type_plates as $type_plate)
+                    <li>
+                      <a href="{{ route('movil_all_types_plates', array( 'campana_id' => $campana_id, 'type_plate_id' => $type_plate->id ) ) }}">
+                        <span>
+                          {{$type_plate->name}}
+                        </span>
+                      </a>
+                    </li>
+                  @endforeach
 
                 @endif
 
