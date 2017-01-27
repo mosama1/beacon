@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Validator;
 use Illuminate\Support\Facades\Auth;
 use Beacon\Location;
-use Validator;
 
 class UserController extends Controller
 {
@@ -62,17 +61,17 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $locatiom = Location::where('user_id', '=', Auth::user()->id)->first();
-         
-        if ($locatiom):
-            $user = User::findOrFail($id);
-            
-            $restaurant = User::findOrFail($id)->location;
-            
-            return view('users.edit', ['user' => $user, 'location' => $restaurant ]);
-        else:
-            return view('beacons.location_add');
-        endif;
+    	$locatiom = Location::where('user_id', '=', Auth::user()->id)->first();
+    	 
+    	if ($locatiom):
+	    	$user = User::findOrFail($id);
+	    	
+	    	$restaurant = User::findOrFail($id)->location;
+	    	
+	    	return view('users.edit', ['user' => $user, 'location' => $restaurant ]);
+    	else:
+    		return view('beacons.location_add');
+    	endif;
 
     }
 
@@ -106,39 +105,6 @@ class UserController extends Controller
         return redirect()->route('user_edit_path', $id)->with(['status' => 'Se edito el perfil con exito', 'type' => 'success']);
      }
 
-
-    /**
-     * Change Password the specified resource in storage.
-     * 
-     * @return \Illuminate\Http\Response
-     */
-     public function changePassword(Request $request, $id)
-     {
-        $messages = [
-            'current_password'    => 'La contraseña actual no es correcta.',
-            'password.confirmed'    => 'El campo confirmación de contraseña no coincide.',
-        ];
-
-        $validator = Validator::make($request->all(), [
-            'passwordActual' => 'required|current_password',
-            'password' => 'required|confirmed',
-            'password_confirmation' => 'required',
-        ],
-        $messages);
-
-        if ($validator->fails()) {
-            return redirect('user/'.$id)
-                        ->withErrors($validator)
-                        ->withInput();
-        }
-
-
-        $user = User::findOrFail($id);
-        $user->password = bcrypt($request->get('password'));
-        $user->save();
-
-        return redirect()->route('user_edit_path', $id)->with(['status' => 'Cambio de password exitoso.', 'type' => 'success']);
-     }
 
     /**
      * Remove the specified resource from storage.
