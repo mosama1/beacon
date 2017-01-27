@@ -1,4 +1,6 @@
-@extends('layouts.appFinal')
+<?php
+  $nivel = '../../';
+?>@extends('layouts.appFinal')
 
 @section('content')
 
@@ -6,17 +8,17 @@
     <div class="vista_final logos valign-wrapper">
       <div class="logos">
         <div class="logo_principal logo">
-          <!-- <img src="img/logo/logo1.png" alt=""> -->
-          <h2>LOGO</h2>
+          <img src="{{ $logo }}" alt="">
+          <!-- <h2>LOGO</h2> -->
         </div>
         <div class="titulo">
-          <h3>Logo de la locacion</h3>
+          <h3>{{ $name }}</h3>
         </div>
         <div class="logo_patrocinador logo">
           <!-- <img src="img/logo/logo.png" alt=""> -->
           <h4>
 
-            logo<br>patrocinante
+            Logo Patrocinante
           </h4>
         </div>
       </div>

@@ -2,24 +2,23 @@
 
 namespace Beacon\Http\Controllers;
 
-use Illuminate\Http\Request;
 use GuzzleHttp\Client;
-//use Beacon\Location;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-//use Beacon\Tag;
-//use Beacon\Coupon;
-//use Beacon\Timeframe;
-//use Beacon\Campana;
-//use Beacon\Content;
-//use Beacon\Beacon;
+use Illuminate\Support\Facades\Input;
 use Beacon\Section;
 use Beacon\Menu;
 use Beacon\MenuTranslation;
-//use Beacon\Plate;
 use Beacon\TypesPlates;
-use Illuminate\Support\Facades\Input;
-//use Beacon\User;
+// use Beacon\Tag;
+// use Beacon\Coupon;
+// use Beacon\Timeframe;
+// use Beacon\Campana;
+// use Beacon\Content;
+// use Beacon\Beacon;
+// use Beacon\Plate;
+// use Beacon\User;
 
 class MenuController extends Controller
 {
@@ -47,7 +46,6 @@ class MenuController extends Controller
 		return $token_crud->access_token;
 	}
 
-
 	/**
 	 * @return token analytics
 	 */
@@ -72,85 +70,97 @@ class MenuController extends Controller
 		return $token_analytics->access_token;
 	}
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-
-        $coupon = Coupon::whereRaw('user_id = ? ', array(Auth::user()->id))->get();
-
-        return view('beacons.coupon', ['coupon' => $coupon]);
-
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show_menu($section_id, $menu_id)
-    {
-        $type_plates = TypesPlates::where([
-            ['language_id', '=', 1],
-        ])->get();
-
-        $menu = new Menu;
-
-        $menus = $menu->where([
-            ['user_id', '=', Auth::user()->id],
-            ['section_id', '=', $section_id],
-        ])->get();
-
-        foreach ($menus as $key => $menu) {
-            $menu->menu_translation;
-        }
-
-        $section = Section::where('id', '=', $section_id)->first();
-        $section->coupon();
-
-    	return view('menus.plato',['menus' => $menus,'type_plates' => $type_plates, 'section_id' => $section_id, 'coupon_id' => $section->coupon->coupon_id]);
-
-    }
-
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show_sectionMenus($section_id)
-    {
-        $type_plates = TypesPlates::where([
-            ['language_id', '=', 1],
-        ])->get();
-
-        $menu = new Menu;
+	/**
+	 * Display a listing of the resource.
+	 * 
+	 * @param  Integer $section_id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function index($section_id)
+	{
+	    $type_plates = TypesPlates::where([
+		   ['language_id', '=', 1],
+	    ])->get();
+	   
+	    $menu = new Menu;
 
         $menus = $menu->where([
             ['section_id', '=', $section_id],
         ])->get();
 
-				$type_plate = new TypesPlates;
-
-				$type_plates = $type_plate->where([
-						['language_id', '=', 1],
-				])->get();
-
         foreach ($menus as $key => $menu) {
             $menu->menu_translation;
+            foreach ($type_plates as $key => $type) {
+            	if ($menu->type == $type->id ) {
+            		$menu->type = $type->name;
+            	}
+            }
         }
 
         $section = Section::where('id', '=', $section_id)->first();
         $section->coupon();
 
-        return view('menus.plato',['menus' => $menus,'type_plates' => $type_plates, 'section_id' => $section_id, 'coupon_id' => $section->coupon->coupon_id]);
-
+        return view('menus.plates',['menus' => $menus,'type_plates' => $type_plates, 'section_id' => $section_id, 'coupon' => $section->coupon]);
     }
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show_menu($section_id, $menu_id)
+	{
+		$type_plates = TypesPlates::where([
+			['language_id', '=', 1]
+		])->get();
+
+		$menu = new Menu;
+
+		$menus = $menu->where([
+			['user_id', '=', Auth::user()->id],
+			['section_id', '=', $section_id]
+		])->get();
+
+		foreach ($menus as $key => $menu) {
+			$menu->menu_translation;
+			foreach ($type_plates as $key => $tipo) {
+				if ($menu->type == $tipo->id ) {
+					$menu->type = $tipo->name;
+				}
+			}
+		}
+
+		$section = Section::where('id', '=', $section_id)->first();
+		$section->coupon();
+
+		return view('menus.plates',
+					[
+						'menus' => $menus,
+						'type_plates' => $type_plates,
+						'section_id' => $section_id,
+						'coupon' => $section->coupon
+					]);
+	}
+
+	//************************************* Plato Cliente **************************************************//
+	// /**
+	//  * Display a listing of the resource.
+	//  *
+	//  * @return \Illuminate\Http\Response
+	//  */
+	// public function show_menu($section_id)
+	// {
+	// 	$plates = Menu::where([
+	// 					['user_id', '=', Auth::user()->id],
+	// 					['section_id', '=', $section_id]
+	// 				])->get();
+	// 	$sections = Section::all(Auth::user()->id);
+
+	// 	return view('movil.plates', ['plates' => $plates, 'sections' => $sections]);
+	// }
+
     /**
-     * Store a newly created resource in storage.
+     * Show view to edit a stored resource
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -172,8 +182,51 @@ class MenuController extends Controller
     	$menu_translation->save();
 
 
-    	return redirect()->route('show_sectionMenus', $menu->section_id)->with(['status' => 'Se creo el plato', 'type' => 'success']);
+    	return redirect()->route('all_menu', $menu->section_id)->with(['status' => 'Se creo el plato', 'type' => 'success']);
+    }
 
+    /**
+     * Show view to edit a stored resource
+     *
+     * @param  Integer $menu_id
+     * @return \Illuminate\Http\Response
+     */
+	public function edit_menu($menu_id)
+    {
+	    $menu = Menu::where([
+		   ['id', '=', $menu_id],
+	    ])->first();
+
+		$type_plates = TypesPlates::where([
+				['language_id', '=', 1],
+		])->get();
+
+        return view('menus.plate_edit', ['type_plates' => $type_plates, 'menu' => $menu]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update_menu(Request $request, $id)
+    {
+
+    	$menu = Menu::find($id);
+    	$menu->type = $request->type;
+    	$menu->price = $request->price;
+    	$menu->save();
+
+    	$menu_translation = MenuTranslation::where([
+						    			['menu_id', '=', $menu->id],
+						    			['language_id', '=', 1]
+						    		])->first();
+    	$menu_translation->name = $request->name;
+    	$menu_translation->save();
+
+
+    	return redirect()->route('all_menu', $menu->section_id)->with(['status' => 'Se ha actualizado el plato', 'type' => 'success']);
     }
 
     /**
@@ -185,24 +238,22 @@ class MenuController extends Controller
     public function destroy_menu($id)
     {
 
-    	$menu =  Menu::find($id);
-    	$section_id = $menu->section_id;
-    	$menu->delete();
+		$menu =  Menu::find($id);
+		$section_id = $menu->section_id;
+		$menu->delete();
 
-	    if($menu):
+		if($menu):
 
-	    	return redirect()->route('show_sectionMenus', $section_id )
-                        ->with(['status' => 'Plato eliminado con éxito', 'type' => 'success']);
+			return redirect()->route('all_menu', $section_id )
+						->with(['status' => 'Plato eliminado con éxito', 'type' => 'success']);
 
-    	else:
+		else:
 
-			return redirect()->route('show_sectionMenus', $section_id )
-                        ->with(['status' => 'Error al eliminar plato', 'type' => 'error']);
+			return redirect()->route('all_menu', $section_id )
+						->with(['status' => 'Error al eliminar plato', 'type' => 'error']);
 
 
-    	endif;
-
-    }
-
+		endif;
+	}
 
 }

@@ -62,17 +62,17 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-    	$locatiom = Location::where('user_id', '=', Auth::user()->id)->first();
-    	 
-    	if ($locatiom):
-	    	$user = User::findOrFail($id);
-	    	
-	    	$restaurant = User::findOrFail($id)->location;
-	    	
-	    	return view('users.edit', ['user' => $user, 'location' => $restaurant ]);
-    	else:
-    		return view('beacons.location_add');
-    	endif;
+        $locatiom = Location::where('user_id', '=', Auth::user()->id)->first();
+         
+        if ($locatiom):
+            $user = User::findOrFail($id);
+            
+            $restaurant = User::findOrFail($id)->location;
+            
+            return view('users.edit', ['user' => $user, 'location' => $restaurant ]);
+        else:
+            return view('beacons.location_add');
+        endif;
 
     }
 

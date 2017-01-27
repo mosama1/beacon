@@ -14,4 +14,10 @@ class Timeframe extends Model
 	protected $fillable = [
 			'timeframe_id', 'user_id', 'name', 'description', 'start_time', 'end_time', 'days',
 	];
+
+	public function content()
+	{
+	    return $this->belongsTo('Beacon\Content', 'timeframe_id', 'timeframe_id');
+	}
+
 }

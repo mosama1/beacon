@@ -106,16 +106,11 @@
             @endif
           </div>
  --}}
-
-
-
         </div>
         <div class="links">
           <a href="#cambiarPassword">Cambiar Contraseña</a> | 
           <a href="{{ route('list_beacons') }}">Informacion de Beacons</a>
         </div>
-
-
         <div class="button">
           <center>
             <button type="submit" name="button">
@@ -232,11 +227,6 @@
         </div>
       </div>
     </form>
-
-
-
-
-
   </div>
 </div>
 
@@ -278,8 +268,6 @@
             </span>
             @endif
           </div>
-
-
           <div class="input {{ $errors->has('password_confirmation') ? 'error' : '' }}">
             <input type="password" name="password_confirmation" required="">
             <label for="">
@@ -292,10 +280,6 @@
             </span>
             @endif
           </div>      
-
-
-
-
       <div class="button">
         <center>
           <button type="submit" name="button">

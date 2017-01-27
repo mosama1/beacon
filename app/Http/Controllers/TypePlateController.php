@@ -11,91 +11,88 @@ use Beacon\TypesPlates;
 use Illuminate\Support\Facades\Input;
 
 class TypePlateController extends Controller
-{
+{	
+	
+	//************************************* Tipo Plato **************************************************//
 
-    //************************************* Plato Menu **************************************************//
+	public function index()
+	{
+		$tiposplatos = TypesPlates::get();
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-    	$plate = TypePlate::whereRaw('user_id = ? and menu_id = ?', array(Auth::user()->id, $id))->first();
+		return view('type_plates.types_plates', ['tiposplatos' => $tiposplatos] );
+	}
 
-        $menu = Menu::where('id', '=', $menu_id)->first();
+	/**
+	 * Create a new resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function create_type_plate( Request $request )
+	{
 
-    	if ($plate):
-    		return view('menus.detailPlato',['plate' => $plate ,'section_id' => $menu->section_id,  'menu_id' => $id]);
-    	else:
-    		return view('menus.addPlato',['section_id' => $menu->section_id, 'menu_id' => $id]);
-    	endif;
-
-    }
-
-    /**
-     * Create a new resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function create( Request $request )
-    {
-
-        $menu = new TypePlate();
-        $menu->name = $request->name;
-        $menu->description = $request->description;
-        $menu->save();
+		$tipo_plato = new TypesPlates();
+		$tipo_plato->name = $request->name;
+		$tipo_plato->description = $request->description;
+		$tipo_plato->language_id = 1;
+		$tipo_plato->save();
 
 
-        return redirect()->route( 'show_menu', $request->menu_id )
-                        ->with( [ 'status' => 'Se creo el tipo de plato', 'type' => 'success' ] );
+		return redirect()->route( 'all_type_plate' )
+						->with( [ 'status' => 'Se creo el tipo de plato', 'type' => 'success' ] );
+	}
 
-    }
+	/**
+	 * Edit a new resource in storage.
+	 *
+	 * @param  Integer $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function edit_type_plate( $id )
+	{
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store( Request $request )
-    {
+		$tipo_plato = TypesPlates::where('id', '=', $id)->first();
 
-        $menu = new TypesPlates();
-        $menu->name = $request->name;
-        $menu->description = $request->description;
-        $menu->language_id = 1;
-        $menu->save();
+		return view('type_plates.types_plates_edit', ['tipo_plato' => $tipo_plato]);
+	}
 
 
-        return redirect()->route( 'show_tipoPlato' )
-                        ->with( [ 'status' => 'Se creo el tipo de plato', 'type' => 'success' ] );
+	/**
+	 * Store an updated resource in storage.
+	 *
+	 * @param  Integer $type_plate_id
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update_type_plate(Request $request, $type_plate_id)
+	{
 
-    }
+		$type_plate = TypesPlates::find($type_plate_id);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
+		$type_plate->name = $request->name;
+		$type_plate->description = $request->description;
+		//$type_plate->language_id = $request->language_id;
+		$type_plate->language_id = 1;
+		$type_plate->save();
 
+		return redirect()->route('all_type_plate')
+			->with(['status' => 'Se ha actualizado el tipo de plato satisfactoriamente', 'type' => 'success']);
+	}
 
-    	$plate = TypePlate::whereRaw(' id= ?', array( $id ) )
-				    	->update(array(
-                            'name' => $request->name,
-                            'description' => $request->description,
-				    	));
+	/**
+	 * Delete a resource in storage.
+	 *
+	 * @param  $id integer
+	 * @return \Illuminate\Http\Response
+	 */
+	public function delete_type_plate( $id )
+	{
 
+		$tipo_plato = TypesPlates::where('id', '=', $id)
+						->first()->delete();
 
-    	return redirect()->route( 'show_menu', $id )
-                        ->with( [ 'status' => 'Se edito el tipo de plato', 'type' => 'success' ] );
-
-    }
-
+		return redirect()->route('all_type_plate')
+						->with(['status' => 'Tipo de plato eliminado con éxito', 'type' => 'success']);
+	}
 
 }

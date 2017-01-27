@@ -3,23 +3,23 @@
 namespace Beacon\Http\Controllers;
 
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
-//use Beacon\Location;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use GuzzleHttp\Client;
+//use Beacon\Location;
 //use Beacon\Tag;
 //use Beacon\Coupon;
 //use Beacon\Timeframe;
 //use Beacon\Campana;
 //use Beacon\Content;
 //use Beacon\Beacon;
+//use Beacon\Plate;
+//use Beacon\TypesPlates;
+//use Beacon\User;
 use Beacon\Section;
 use Beacon\SectionTranslation;
 use Beacon\Menu;
-//use Beacon\Plate;
-//use Beacon\TypesPlates;
-use Illuminate\Support\Facades\Input;
-//use Beacon\User;
 
 class SectionController extends Controller
 {
@@ -72,130 +72,114 @@ class SectionController extends Controller
 		return $token_analytics->access_token;
 	}
 
-    //************************************* Section Menu **************************************************//
+	//************************************* Section Menu **************************************************//
 
-    public function show_section($coupon_id)
-    {
-        $section = new Section;
+	public function index($coupon_id)
+	{
+		$section = new Section;
 
-        $sections = $section->where([
-            ['user_id', '=', Auth::user()->id],
-            ['coupon_id', '=', $coupon_id],
-        ])->get();
+		$sections = $section->where([
+			['user_id', '=', Auth::user()->id],
+			['coupon_id', '=', $coupon_id]
+		])->get();
 
-        foreach ($sections as $key => $section) {
-            $section->section_translation;
-        }
+		foreach ($sections as $key => $section) {
+			$section->section_translation;
+		}
 
-        return view('menus.home', ['sections' => $sections, 'coupon_id' => $coupon_id]);
-    }
+		return view('sections.sections', ['sections' => $sections, 'coupon_id' => $coupon_id]);
+	}
 
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function store_section(Request $request)
+	{
 
-    /**
-     * get set of resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function show_sectionMenus($section_id)
-    {
-        $menu = new Menu;
+		$section = new Section();
+		$section->user_id = Auth::user()->id;
+		$section->coupon_id = $request->coupon_id;
+		$section->save();
 
-        $menus = $menu->where([
-            ['user_id', '=', Auth::user()->id],
-            ['section_id', '=', $section_id],
-        ])->get();
+		$section_translation = new SectionTranslation();
+		$section_translation->section_id = $section->id;
+		$section_translation->language_id = 1;
+		$section_translation->name = $request->name;
+		$section_translation->save();
 
-        foreach ($menus as $key => $menu) {
-            $menu->menu_translation;
-        }
+		return redirect()->route('all_section', $request->coupon_id)->with(['status' => 'Se ingreso Section de Menu con exito', 'type' => 'success']);
 
-        return view('menus.plato', ['menus' => $menus, 'section_id' => $section_id]);
-    }
+	}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store_section(Request $request)
-    {
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function edit_section($id)
+	{
+		//consulta
 
-        $section = new Section();
-        $section->user_id = Auth::user()->id;
-        $section->coupon_id = $request->coupon_id;
-        $section->save();
+		$section = Section::find($id);
+		$section->section_translation;
+		 // echo "<pre>";  var_dump($section); echo "</pre>";
+		 // return;
 
-        $section_translation = new SectionTranslation();
-        $section_translation->section_id = $section->id;
-        $section_translation->language_id = 1;
-        $section_translation->name = $request->name;
-        $section_translation->save();
+		return view('sections.section_edit', ['section' => $section, 'coupon_id' => $section->coupon_id]);
+	}
 
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update_section(Request $request, $section_id)
+	{
 
-    	return redirect()->route('show_section', $request->coupon_id)->with(['status' => 'Se ingreso Section de Menu con exito', 'type' => 'success']);
-
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit_section($id)
-    {
-        //consulta
-
-        $section = Section::find($id);
-        echo "<pre>";  var_dump($section); echo "</pre>";
+		$section_translation = SectionTranslation::where( [
+													['section_id', '=', $section_id],
+													['language_id', '=', $request->language_id]
+												])->first();
 
 
-        //return view('sections.section_edit', ['section' => $section]);
-    }
+		 // echo "<pre>";  var_dump($section_translation); echo "</pre>";
+		 // return;
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function update_section(Request $request, $id)
-    {
+		$section_translation->name = $request->name;
+		$section_translation->language_id = $request->language_id;
+		$section_translation->save();
 
-        $section = Section::find( $id);
-        $section->coupon_id = $request->coupon_id;
-        $section->save();
+		return redirect()->route('all_section', $request->coupon_id )
+				->with(['status' => 'Se actualizó la seccion con exito', 'type' => 'success']);
 
-        $section->section_translation->name = $request->name;
-        $section->section_translation->language_id = $request->language_id;
-        $section->section_translation->section_id = $section->section_id;
-        $section->section_translation->save();
+	}
 
-        return redirect()->route('show', Auth::user()->id)
-                ->with(['status' => 'Se actualizó la seccion con exito', 'type' => 'success']);
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy_section($id)
+	{
 
-    }
+		$section =  Section::find($id);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy_section($id)
-    {
+		$coupon = $section->coupon;
 
-    	$section =  Section::find($id);
+		// echo "<pre>"; var_dump($section->coupon); echo "</pre>";
+		// return;
 
-        $coupon = $section->coupon;
+		$section->delete();
 
-    	$section->delete();
+		return redirect()->route('all_section', ['coupon_id' => $coupon->coupon_id])
+				->with(['status' => 'Se ha eliminado la sección con éxito', 'type' => 'success']);
 
-        return redirect()->route('show_section', ['coupon_id' => $coupon->id])
-                ->with(['status' => 'Se ha Eliminado la sección con éxito', 'type' => 'success']);
-
-    }
+	}
 
 }

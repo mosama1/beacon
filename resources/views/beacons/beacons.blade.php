@@ -1,4 +1,4 @@
-<?php $nivel = '../' ?>
+<?php $nivel = '' ?>
 @extends('layouts.app')
 
 @section('content')
@@ -35,7 +35,14 @@
                   <tr>
                     <td>{{$b->major}}</td>
                     <td>{{$b->minor}}</td>
-                    <td><a href="#eliminarBeacon"><i class="material-icons">clear</i></a></td>
+                <?php
+
+                  echo "<td onclick= \"modal_activate('".
+                     route( "destroy_beacon", $b->beacon_id ).
+                    "' , '#eliminarBeacon')\" >";
+
+                ?>
+                  <a href="#eliminarBeacon"><i class="material-icons">clear</i></a></td>
                   </tr>
                 @endforeach
               </tbody>
@@ -55,7 +62,7 @@
     </div>
 
     <div class="form">
-      <form class="form-horizontal" role="form" method="POST" action="{{ route('beacon_store_beacon') }}">
+      <form class="form-horizontal" role="form" method="POST" action="{{ route('store_beacon') }}">
         {{ csrf_field() }}
 
         <div class="input no_icon {{ $errors->has('major') ? 'error' : '' }}">
@@ -105,8 +112,9 @@
     </div>
 
     <div class="form">
-      <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
+      <form class="form-horizontal" role="form" method="POST">
         {{ csrf_field() }}
+        {{ method_field('DELETE') }}
         <div class="button">
           <center>
             <button type="submit" name="button">
