@@ -15,15 +15,26 @@
 
 //movil
 
-Route::group(['prefix' => 'movil'], function(){
+Route::group(['prefix' => 'movil/campanas/{campana_id}'], function(){
 
-	Route::get('/campanas/{campanas_id}', 'MovilController@index')
+	Route::get('/', 'MovilController@index')
 			->name('inicio')->where('id', '[0-9]+');
 
-	Route::get('/campanas/{campanas_id}/secciones/{section_id}/platos', 'MovilController@all_plate')
-			->name('movil_all_plate')->where('campanas_id', '[0-9]+')->where('section_id', '[0-9]+');
+	Route::get('/secciones/{section_id}/platos', 'MovilController@all_plate')
+			->name('movil_all_plate')->where('campana_id', '[0-9]+')->where('section_id', '[0-9]+');
 
-	Route::get('/campanas/{campanas_id}/platos/{id}/descripcion', 'MovilController@show_desc_plate')
-			->name('show_desc_plate')->where('id', '[0-9]+')->where('id', '[0-9]+');
+	Route::get('/platos/{menu_id}/descripcion', 'MovilController@show_desc_plate')
+			->name('show_desc_plate')->where('campana_id', '[0-9]+')->where('menu_id', '[0-9]+');
+
+
+	// rutas para el filtro por tipo de platos
+
+	Route::get('/tipos_platos/{type_plate_id}/platos/{menu_id}/descripcion', 'MovilController@show_desc_plate_by_type')
+			->name('show_desc_plate_by_type')->where('campana_id', '[0-9]+')->where('type_plate_id', '[0-9]+')->where('menu_id', '[0-9]+');
+
+	Route::get('/tipos_platos/{type_plate_id}/platos', 'MovilController@all_types_plates')
+			->name('movil_all_types_plates')->where('campana_id', '[0-9]+')->where('type_plate_id', '[0-9]+');
 
 });
+
+Route::get('get_type_plates_movil/{id}/{id1}', 'MovilController@get_type_plates_movil')->name('get_type_plates_movil');

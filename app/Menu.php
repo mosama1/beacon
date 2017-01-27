@@ -25,13 +25,14 @@ class Menu extends Model
 		return $this->hasOne('Beacon\Section', 'id', 'section_id');
 	}
 
+	public function type_plate()
+	{
+		return $this->hasOne('Beacon\TypesPlates', 'id', 'type');
+	}
+
 	public function plate()
 	{
 		return $this->hasOne('Beacon\Plate', 'menu_id', 'id');
 	}
 
-	public function type_plate()
-	{
-		return $this->belongsTo('Baecon\Plate', 'type', 'id');
-	}
 }

@@ -20,16 +20,16 @@ class TypesPlates extends Model
     
     public function language()
     {
-        return $this->hasOne('Baecon\Language', 'language_id', 'id');
+        return $this->hasOne('Beacon\Language', 'language_id', 'id');
     }
     
     public function plates()
     {
-        return $this->hasMany('Baecon\Plate', 'type_plate_id', 'id');
+        return $this->hasMany('Beacon\Plate', 'type_plate_id', 'id');
     }
 
 	public function menus()
 	{
-		return $this->hasMany('Baecon\TypesPlates', 'type', 'id');
+		return $this->belongsTo('Beacon\TypesPlates', 'type', 'id');
 	}
 }
