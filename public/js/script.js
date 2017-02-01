@@ -402,22 +402,21 @@ $('.MenuResponsive').click(function(){
 /**************************************************************/
 /******************* Validaciones *****************************/
 /**************************************************************/
-
 /* Validacion si el beacon esta registrado */
-$('#guardar_beacons').click(function(){
+$('#add_beacon').submit(function(evt){
+  evt.preventDefault();
   $.ajax({
       type: "POST",
       url: '/beacons/check',
       data: $('#add_beacon').serialize(),
       success: function(respuesta) {
         if (respuesta === '0') {
-          $('#add_beacon').submit();
+          $('#add_beacon')[0].submit();
         }else {
           Materialize.toast('El beacon ya se encuentra registrado', 5000, 'error');
         }
       }
   });
-  return false;
 });
 
 
@@ -432,9 +431,8 @@ $('#change_password').submit(function(){
       data: $('#change_password').serialize(),
       success: function(respuesta) {
         if (respuesta === '1') {
-          console.log(respuesta, password, password_confirmation);
           if (password == password_confirmation) {
-            $('#change_password').submit();
+            $('#change_password')[0].submit();
           }else {
             Materialize.toast('La Contraseña nueva y su confirmacion no coinciden', 5000, 'error');
           }
