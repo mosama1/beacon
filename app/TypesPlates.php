@@ -8,7 +8,7 @@ class TypesPlates extends Model
 {
 
 	public $timestamps = false;
-	
+
 	/**
 	 * The attributes that are mass assignable.
 	 *
@@ -17,12 +17,12 @@ class TypesPlates extends Model
 	protected $fillable = [
 			'name', 'description', 'language_id', 'user_id',
 	];
-    
+
     public function language()
     {
         return $this->hasOne('Beacon\Language', 'language_id', 'id');
     }
-    
+
     public function plates()
     {
         return $this->hasMany('Beacon\Plate', 'type_plate_id', 'id');
@@ -32,7 +32,7 @@ class TypesPlates extends Model
 	{
 		return $this->belongsTo('Beacon\TypesPlates', 'type', 'id');
 	}
-	
+
 	public function user()
 	{
 		return $this->belongsTo('Beacon\User', 'user_id', 'id');

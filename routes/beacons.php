@@ -27,7 +27,7 @@ Route::group(['prefix' => 'beacons'], function () {
 
 	Route::put('/', 'BeaconController@update_beacon')->name('update_beacon');
 
-	Route::delete('/{beacon_id}', 'BeaconController@destroy_beacon')->name('destroy_beacon')->where('id', '[0-9]+');
+	Route::delete('/{beacon_id}', 'BeaconController@destroy_beacon')->name('destroy_beacon')->where('beacon_id', '[0-9]+');
 
 	Route::post('/check', 'BeaconController@check_beacon')->name('check_beacon');
 

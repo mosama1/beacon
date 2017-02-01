@@ -33,13 +33,13 @@ class User extends Authenticatable
 
     public function location()
     {
-    	return $this->hasOne('Beacon\Location', 'user_id', 'id');
+    	return $this->hasOne('Beacon\Location', 'user_id', 'user_id');
     }
 
 
     public function beacons()
     {
-    	return $this->hasMany('Beacon\Beacon', 'user_id', 'id');
+    	return $this->hasMany('Beacon\Beacon', 'user_id', 'user_id');
     }
 
     public function sections()

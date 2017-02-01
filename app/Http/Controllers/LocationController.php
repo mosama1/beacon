@@ -83,10 +83,27 @@ class LocationController extends Controller
      */
     public function index()
     {
-    	$locations = Location::where('user_id', '=', Auth::user()->id)->get();
+
+			$user = User::where([
+									['id', '=', Auth::user()->id],
+								])->first();
+
+    	$locations = Location::where('user_id', '=', $user->user_id)->get();
 
     	return view('locations.locations',['locations' => $locations]);
     }
+
+
+		function uniqidReal($lenght = 20) {
+		    if (function_exists("random_bytes")) {
+		        $bytes = random_bytes(ceil($lenght / 2));
+		    } elseif (function_exists("openssl_random_pseudo_bytes")) {
+		        $bytes = openssl_random_pseudo_bytes(ceil($lenght / 2));
+		    } else {
+		        throw new Exception("el sistema no dispone de funciones segura para critografia");
+		    }
+		    return substr(bin2hex($bytes), 0, $lenght);
+		}
 
     /**
      * Store a newly created resource in storage.
@@ -103,10 +120,14 @@ class LocationController extends Controller
 										['id', '=', Auth::user()->id],
 									])->first();
 
-									echo "<pre>"; var_dump($user); echo "</pre>";
-									return;
+									// echo "<pre>"; var_dump($user); echo "</pre>";
+									// return;
 
-			if ( !isset($user->user_id) ) {
+			if ( empty($user->user_id) ) {
+
+				//Token Crud
+				$crud = LocationController::crud();
+
 				$user_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/uuids', [
 						// un array con la data de los headers como tipo de peticion, etc.
 						'headers' => ['Authorization' => 'Bearer '.$crud ],
@@ -114,7 +135,7 @@ class LocationController extends Controller
 						'form_params' => [
 								'name' => $user->name,
 								//implementar clase Uuid oara generar el codigo del usuario
-								'identifier' => $user->id,
+								'identifier' => $this->uniqidReal(32),
 						]
 				]);
 
@@ -195,6 +216,7 @@ class LocationController extends Controller
 
     	$locations = json_decode($json_l);
 
+
     	if ($locations->status_code === 200):
 
 	    	//tag
@@ -215,7 +237,7 @@ class LocationController extends Controller
 
 	    	$loca = new Location;
 	    	$loca->location_id = $locations->location->id;
-	    	$loca->user_id = Auth::user()->id;
+	    	$loca->user_id = $user->user_id;
 	    	$loca->name = $locations->location->name;
 	    	$loca->country = $locations->location->country;
 	    	$loca->city = $locations->location->city;
@@ -235,7 +257,7 @@ class LocationController extends Controller
 	    	// $tag_->name = $tag->tag->name;
 	    	// $tag_->save();
 
-	    	return redirect()->route('user_edit_path', Auth::user()->id);
+	    	return redirect()->route('user_edit_path', Auth::user()->id)->with(['status' => 'Se ha almacenado la localidad exitosamente', 'type' => 'success']);
 
     	else:
 

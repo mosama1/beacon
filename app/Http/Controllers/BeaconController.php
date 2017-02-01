@@ -83,7 +83,11 @@ class BeaconController extends Controller
 	 */
 	public function show()
 	{
-		$beacons = Beacon::where('user_id', '=', Auth::user()->id)->get();
+		$user = User::where([
+									['id', '=', Auth::user()->id],
+								])->first();
+
+		$beacons = Beacon::where('user_id', '=', $user->user_id)->get();
 
 		return view('beacons.beacons', ['beacons' => $beacons]);
 	}
@@ -108,48 +112,113 @@ class BeaconController extends Controller
 	 */
 	public function store_beacon(Request $request)
 	{
-		// Nuevo cliente con un url base
-		$client = new Client();
+		if ($this->check_beacon($request) == 0) {
 
-		//Token Crud
-		$crud = BeaconController::crud();
+			// Nuevo cliente con un url base
+			$client = new Client();
 
-		$user = User::where([
-									['id', '=', Auth::user()->id],
-								])->first();
+			//Token Crud
+			$crud = BeaconController::crud();
 
-				$locations_id = Location::where('user_id', '=', Auth::user()->id)->first();
 
-				//Location
-				$beacons_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/beacons', [
+			$beacon_api = $client->get('https://connect.onyxbeacon.com/api/v2.5/beacons?filter[major]='.$request->major.'&filter[minor]='.$request->minor.'', [
+					// un array con la data de los headers como tipo de peticion, etc.
+					'headers' => ['Authorization' => 'Bearer '.$crud ],
+			]);
+
+			//echo "<pre>";		var_dump($crud); "</pre>";
+
+			//Json parse
+			$json_b = $beacon_api->getBody();
+
+			$beacons_response = json_decode($json_b);
+
+			// echo "<pre>";			var_dump($beacons_response); echo "</pre>";
+			// return;
+			$user = User::where([
+				['id', '=', Auth::user()->id],
+				])->first();
+
+			$location = Location::where('user_id', '=', $user->user_id)->first();
+
+			if ( $beacons_response->status_code == 200 ) {
+
+				// echo "<pre>";			var_dump($beacons_response); echo "</pre>";
+				// return;
+				if ( empty($beacons_response->beacons) ) {
+
+					//si no retorno beacon se inserta en el api
+					$beacons_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/beacons', [
 						// un array con la data de los headers como tipo de peticion, etc.
 						'headers' => ['Authorization' => 'Bearer '.$crud ],
 						// array de datos del formulario
 						'form_params' => [
-								'name' => $request->name,
-								'uuid' => $user->user_id,
-								'major' => $request->major,
-								'minor' => $request->minor,
+							'name' => $request->name,
+							'uuid' => $user->user_id,
+							'major' => $request->major,
+							'minor' => $request->minor,
+							'minor' => $request->minor,
+							'location' => $location->location_id,
+							'message_frequency' => 300,
 						]
-				]);
-				//Json parse
-				$json_c = $beacons_api->getBody();
+					]);
+				}
+				else {
 
-				$beacon_response = json_decode($json_c);
+					// si hay beacon se valida que posea localidad asignada
+					if ( empty($beacons_response->beacons[0]->location) ) {
 
-				echo "<pre>"; var_dump($beacon_response); echo "</pre>";
-				return;
+						//si no tiene el valor loaction id el beacon del api se le actualiza con la del usuario actual
+							$beacons_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/beacons/'.$beacons_response->beacons[0]->id.'/update', [
+									// un array con la data de los headers como tipo de peticion, etc.
+									'headers' => ['Authorization' => 'Bearer '.$crud ],
+									// array de datos del formulario
+									'form_params' => [
+											'location' => $location->location_id,
+									]
+							]);
+					}
+					else {
 
+						// si esta asignado a location se retorna a la vista con el error
+						return redirect()->route('all_beacons')->with(['status' => 'El beacons ya se encuantra asignado', 'type' => 'error']);
+					}
+				}
+			}
+			else {
 
+				//si no retorna un 200 == 'ok'
+				return redirect()->route('all_beacons')->with(['status' => 'Error al registrar el beacon', 'type' => 'error']);
+			}
+
+			//Json parse
+			$json_c = $beacons_api->getBody();
+
+			//decodificamos la respuesta en JSON
+			$beacon_response = json_decode($json_c);
+			if ($beacon_response->status_code === 200) {
+				//se inserta en la BD local en caso de actualizar o insertar en la api
 				$beac = new Beacon;
 				$beac->user_id = $user->user_id;
-				$beac->beacon_id = $beacon_response->beacons[0]->id;
+				$beac->beacon_id = $beacon_response->beacon->id;
 				$beac->name = $request->name;
 				$beac->major = $request->major;
 				$beac->minor = $request->minor;
+				$beac->location_id = $location->location_id;
 				$beac->save();
 
 				return redirect()->route('all_beacons')->with(['status' => 'El beacons ha sido registrado exitosamente', 'type' => 'success']);
+
+			}
+			else{
+				return redirect()->route('all_beacons')->with(['status' => 'Error al registrar el beacon', 'type' => 'error']);
+			}
+
+		  // echo "<pre>"; var_dump($location); echo "</pre>";
+		  // return;
+		} else {
+			return redirect()->route('all_beacons')->with(['status' => 'El beacons ya se encuentra registrado', 'type' => 'error']);
+		}
 
 	}
 
@@ -183,63 +252,109 @@ class BeaconController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy_beacon(Request $request)
+	public function destroy_beacon(Request $request, $beacon_id)
 	{
+
 		// Nuevo cliente con un url base
 		$client = new Client();
 
 		//Token Crud
 		$crud = BeaconController::crud();
 
-		//Beacons
-		$beacon_update = $client->get('https://connect.onyxbeacon.com/api/v2.5/beacons?filter[major]='.$request->major.'&filter[minor]='.$request->minor.'', [
+		$beacon_update = $client->post('https://connect.onyxbeacon.com/api/v2.5/beacons/'.$beacon_id.'/update', [
 				// un array con la data de los headers como tipo de peticion, etc.
 				'headers' => ['Authorization' => 'Bearer '.$crud ],
+						'form_params' => [
+								'location' => ''
+						]
 		]);
 
 		//Json parse
-		$json_b = $beacon_update->getBody();
+		$json_c = $beacon_update->getBody();
 
-		$beacon_ = json_decode($json_b);
+		$beacon_response = json_decode($json_c);
 
+		// echo "<pre>"; var_dump($beacon_response); echo "</pre>";
+		// return;
 
-		if ($beacon_->beacons):
+		if ($beacon_response->status_code === 200 ):
 
-			$beacons = Beacon::where(
-								['user_id', '=', Auth::user()->id],
-								['beacon_id', '=', $beacon_->beacons[0]->id]
-							)->first();
+			$user = User::where([
+									['id', '=', Auth::user()->id],
+								])->first();
 
-			if (!$beacons):
+			$beacons = Beacon::where([
+								['user_id', '=', $user->user_id],
+								['beacon_id', '=', $beacon_id]
+							])->first();
 
-				$locations_id = Location::where('user_id', '=', Auth::user()->id)->first();
+			$beacons->delete();
+			return redirect()->route('all_beacons')->with(['status' => 'Beacon eliminado exitosamente', 'type' => 'success']);
 
-				//Location
-				$beacons_location = $client->post('https://connect.onyxbeacon.com/api/v2.5/beacons/'.$beacon_->beacons[0]->id.'/update', [
-						// un array con la data de los headers como tipo de peticion, etc.
-						'headers' => ['Authorization' => 'Bearer '.$crud ],
-						// array de datos del formulario
-						'form_params' => [
-		//						'location' => '3987'
-								'location' => ''
-						]
-				]);
-
-				$beacons->delete();
-
-				return redirect()->route('all_beacons');
-
-			else:
-
-				return redirect()->route('all_beacons')->with(['status' => 'El beacons ya esta registrado', 'type' => 'error']);
-
-			endif;
 
 		else:
-
-			return redirect()->route('all_beacons')->with(['status' => 'El beacons no existe', 'type' => 'error']);
-
+			return redirect()->route('all_beacons')->with(['status' => 'Error al eliminar el beacons', 'type' => 'error']);
 		endif;
+
+
+			// // Nuevo cliente con un url base
+			// $client = new Client();
+			//
+			// //Token Crud
+			// $crud = BeaconController::crud();
+			//
+			// //Beacons
+			// $beacon_update = $client->get('https://connect.onyxbeacon.com/api/v2.5/beacons?filter[major]='.$request->major.'&filter[minor]='.$request->minor.'', [
+			// 		// un array con la data de los headers como tipo de peticion, etc.
+			// 		'headers' => ['Authorization' => 'Bearer '.$crud ],
+			// ]);
+			//
+			// //Json parse
+			// $json_b = $beacon_update->getBody();
+			//
+			// $beacon_ = json_decode($json_b);
+			//
+			//
+			// if ($beacon_->beacons):
+			// 	$user = User::where([
+			// 							['id', '=', Auth::user()->id],
+			// 						])->first();
+			//
+			// 	$beacons = Beacon::where(
+			// 						['user_id', '=', $user->user_id],
+			// 						['beacon_id', '=', $beacon_->beacons[0]->id]
+			// 					)->first();
+			//
+			// 	if (!$beacons):
+			//
+			// 		$locations_id = Location::where('user_id', '=', $user->user_id)->first();
+			//
+			// 		//Location
+			// 		$beacons_location = $client->post('https://connect.onyxbeacon.com/api/v2.5/beacons/'.$beacon_->beacons[0]->id.'/update', [
+			// 				// un array con la data de los headers como tipo de peticion, etc.
+			// 				'headers' => ['Authorization' => 'Bearer '.$crud ],
+			// 				// array de datos del formulario
+			// 				'form_params' => [
+			// //						'location' => '3987'
+			// 						'location' => ''
+			// 				]
+			// 		]);
+			//
+			// 		$beacons->delete();
+			//
+			// 		return redirect()->route('all_beacons');
+			//
+			// 	else:
+			//
+			// 		return redirect()->route('all_beacons')->with(['status' => 'El beacons ya esta registrado', 'type' => 'error']);
+			//
+			// 	endif;
+			//
+			// else:
+			//
+			// 	return redirect()->route('all_beacons')->with(['status' => 'El beacons no existe', 'type' => 'error']);
+			//
+			// endif;
 	}
 
 
