@@ -44,7 +44,7 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
-    
+
 
     /**
      * Get a validator for an incoming registration request.
@@ -71,8 +71,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-    	
-	    	
 	    	//Insert Perfil
 	    	$user =  User::create([
 	    			'name' => $data['email'], // $data['name'],
@@ -81,12 +79,7 @@ class RegisterController extends Controller
 	    			'phone' => $data['phone'],
 	    			'language' => $data['language'],
 	    	]);
-	    	
-	    	
+
 	    	return $user;
-    	 
-
-
-
     }
 }

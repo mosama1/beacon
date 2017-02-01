@@ -4,7 +4,6 @@ namespace Beacon\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
-//use Beacon\Location;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Beacon\Tag;
@@ -13,13 +12,7 @@ use Beacon\CouponTranslation;
 use Beacon\Timeframe;
 use Beacon\Campana;
 use Beacon\Content;
-//use Beacon\Beacon;
-//use Beacon\Section;
-//use Beacon\Menu;
-//use Beacon\Plate;
-//use Beacon\TypesPlates;
 use Illuminate\Support\Facades\Input;
-//use Beacon\User;
 use Log;
 
 class CampanaController extends Controller
@@ -82,7 +75,7 @@ class CampanaController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show_campana()
+	public function index()
 	{
 		$campana = Campana::where('user_id', '=', Auth::user()->id)->get();
 
@@ -91,7 +84,7 @@ class CampanaController extends Controller
 									->where('user_id', '=', Auth::user()->id)
 									->get();
 
-		return view('beacons.campana',['campana' => $campana, 'locations' => $locations]);
+		return view('campanas.campana',['campana' => $campana, 'locations' => $locations]);
 	}
 
 	/**
@@ -107,7 +100,7 @@ class CampanaController extends Controller
 									->where('user_id', '=', Auth::user()->id)
 									->get();
 
-		return view('beacons.campana_add', ['locations' => $locations]);
+		return view('campanas.campana_add', ['locations' => $locations]);
 	}
 
 	/**
@@ -151,21 +144,25 @@ class CampanaController extends Controller
 			$cam->campana_id = $campana->campaign->id;
 			$cam->user_id = Auth::user()->id;
 			$cam->name = $campana->campaign->name;
-			$cam->description = $campana->campaign->description;
+			(isset($campana->campaign->description)) ?
+				$cam->description = $campana->campaign->description :
+				$cam->description = "";
 			$cam->start_time = $campana->campaign->start_time;
 			$cam->end_time = $campana->campaign->end_time;
 			$cam->location_id = $request->location_id;
 			$cam->enabled = $campana->campaign->enabled;
 			$cam->save();
 
-			return redirect()->route('show_campana');
+			return redirect()->route('all_campana');
 
 		else:
 
-			return redirect()->route('show_campana')->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
+			var_dump($campana);
+		return;
+
+			return redirect()->route('all_campana')->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
 
 		endif;
-
 	}
 
 	/**
@@ -178,10 +175,13 @@ class CampanaController extends Controller
 	{
 		//consulta
 
-		$campana = Campana::where('campana_id', '=', $id)->first();
+		$campana = Campana::where([
+								['user_id', '=', Auth::user()->id],
+								['campana_id', '=', $id]
+							])->first();
 
 
-		return view('beacons.campana_edit', ['campana' => $campana]);
+		return view('campanas.campana_edit', ['campana' => $campana]);
 	}
 
 	/**
@@ -218,152 +218,24 @@ class CampanaController extends Controller
 
 		if ($campana->status_code === 200 ):
 
-			$campana = Campana::where('campana_id', '=', $id)
+			$campana = Campana::where([
+									['user_id', '=', Auth::user()->id],
+									['campana_id', '=', $id]
+								])
 								->update(array(
 									'name' => $campana->campaign->name,
-									'description' => $campana->campaign->description,
+									'description' => (isset($campana->campaign->description)) ? $campana->campaign->description : '',
 									'start_time' => $campana->campaign->start_time,
 									'end_time' => $campana->campaign->end_time,
 								));
 
-			return redirect()->route('show_campana');
+			return redirect()->route('all_campana');
 
 		else:
 
 			return redirect()->route('add_campana')->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
 
 		endif;
-
-	}
-
-	//************************************* Campaña Contenido **************************************************//
-
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function show_campana_content($id)
-	{
-		$coupon = new Coupon;
-
-		$coupons = $coupon->where([
-			['user_id', '=', Auth::user()->id],
-		])->get();
-
-		foreach ($coupons as $key => $coupon) {
-			$coupon->coupon_translation;
-		}
-		//$coupon->coupon_translation;
-		//echo "<pre>";var_dump($coupon);echo "</pre>";
-
-		$tags = Tag::where('user_id', '=', Auth::user()->id)->get();
-
-		$timeframes = Timeframe::where('user_id', '=', Auth::user()->id)->get();
-
-		return view('beacons.campana_contenido',[
-					'coupons' => $coupons,
-					'tags' => $tags,
-					'timeframes' => $timeframes,
-					'campana_id' => $id
-				]);
-	}
-
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function store_campana_content(Request $request, $id)
-	{
-		// Nuevo cliente con un url base
-		$client = new Client();
-
-		//Token Crud
-		$crud = CampanaController::crud();
-
-		//Location
-		// $campana_content = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$id.'/contents', [
-		// 		// un array con la data de los headers como tipo de peticion, etc.
-		// 		'headers' => ['Authorization' => 'Bearer '.$crud ],
-		// 		// array de datos del formulario
-		// 		'form_params' => [
-		// 				 'coupon' => 12937,
-		// 				 'timeframes' => '4 , 31',
-		// 				 'trigger_name' => "DWELL_TIME",
-		// 				 'trigger_entiry'=>"TAG"
-		// 				// 'coupon' => $request->coupon_id,
-		// 				// 'tag' => 'ALL',
-		// 				// 'timeframes' => $request->timeframe_id,
-		// 				// 'trigger_name' => $request->tigger_name_id,
-		// 				// 'trigger_entity' => 'tag'
-		// 		]
-		// ]);
-
-		// //Json parse
-		// $json_c = $campana_content->getBody();
-
-		// $campana_c = json_decode($json_c);
-
-		// $content_id = substr($campana_content->getBody(),168, 5);
-
-		// if ($campana_c->status_code === 200 ):
-
-			$coupons = Coupon::where([
-				['coupon_id', '=', $request->coupon_id],
-			])->get();
-
-			foreach ($coupons as $key => $coupon) {
-				$coupon->coupon_translation;
-			}
-			$cam_c = new Content();
-		//	$cam_c->content_id = $content_id;
-			$cam_c->content_id = rand(9999, 99999);
-			$cam_c->user_id = Auth::user()->id;
-			//coupon_translation[0] posicion [0] es en español idioma por defecto
-			$cam_c->coupon = $coupons[0]->coupon_translation[0]->name;
-			$cam_c->coupon_id = $coupons[0]->coupon_id;
-		//	$cam_c->tag = $request->tag_id;
-			$cam_c->tag = 1;
-			$cam_c->campana_id = $id;
-			$cam_c->timeframe_id = $request->timeframe_id;
-			$cam_c->trigger_name = $request->tigger_name_id;
-			$cam_c->save();
-
-			return redirect()->route('show_campana');
-
-		// else:
-
-		// 	echo "<pre>";var_dump($campana_c);echo "</pre>";
-		// return;
-
-		// 	return redirect()->route('show_campana_content', $id)->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
-
-		// endif;
-
-	}
-
-	//************************************* Section Menu **************************************************//
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function store_section(Request $request)
-	{
-
-		$section = new Section();
-		$section->user_id = Auth::user()->id;
-		$section->coupon_id = $request->coupon_id;
-		$section->name = $request->name;
-		$section->save();
-
-
-		return redirect()->route('show_section', $request->coupon_id)->with(['status' => 'Se ingreso Section de Menu con exito', 'type' => 'success']);
-
 	}
 
 	/**
@@ -372,24 +244,43 @@ class CampanaController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy_section(Request $request)
+	public function destroy_campana($campana_id)
 	{
+		// Nuevo cliente con un url base
+		$client = new Client();
 
+		//Token Crud
+		$crud = CampanaController::crud();
 
-		$section =  Section::find($request->id);
+		$campana_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/delete', [
+				// un array con la data de los headers como tipo de peticion, etc.
+				'headers' => ['Authorization' => 'Bearer '.$crud ]
+		]);
 
-		$section->delete();
+		//Json parse
+		$json_c = $campana_->getBody();
 
-		if($section):
+		$campana = json_decode($json_c);
 
-			return 1;
+		if ($campana->status_code === 200 ):
+
+			$campana =  Campana::where([
+									['user_id', '=', Auth::user()->id],
+									['campana_id', '=', $campana_id]
+								])->first();
+
+			$campana->delete();
+
+			return redirect()->route('all_campana')
+					->with(['status' => 'Se ha Eliminado la Campaña con éxito', 'type' => 'success']);
 
 		else:
 
-			return 0;
+			//echo "<pre>"; var_dump($campaña); echo "</pre>";
+
+			return redirect()->route('all_campana')->with(['status' => 'Error al eliminar la Campaña', 'type' => 'error']);
 
 		endif;
-
 	}
 
 }

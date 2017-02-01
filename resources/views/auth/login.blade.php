@@ -66,7 +66,7 @@
         <center>
           <div class="new_user_head">
             <div class="icon">
-              <a href="#">
+              <a href="{{ url('/register') }}">
                 <i class="material-icons">view_headline</i>
               </a>
             </div>
@@ -79,7 +79,7 @@
           <div class="new_user_cont">
             <ul>
               <li>
-                <a href="#">
+                <a href="{{ url('/register') }}">
                   <div class="icon">
                     <img src="img/icons/adquiere_kit.png" alt="">
 
@@ -90,7 +90,7 @@
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a href="{{ url('/register') }}">
                   <div class="icon">
                     <img src="img/icons/crea_usuario.png" alt="">
 
@@ -101,7 +101,7 @@
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a href="{{ url('/register') }}">
                   <div class="icon">
                     <img src="img/icons/configura_planilla.png" alt="">
 
@@ -112,7 +112,7 @@
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a href="{{ url('/register') }}">
                   <div class="icon">
                     <img src="img/icons/planifica_envios.png" alt="">
 
@@ -123,7 +123,7 @@
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a href="{{ url('/register') }}">
                   <div class="icon">
                     <img src="img/icons/ingrementa_clientes.png" alt="">
 
@@ -137,7 +137,7 @@
             </ul>
 
             <div class="new_user_cont_footer">
-              <a href="#">
+              <a href="{{ url('/register') }}">
                 Date de alta como cliente
               </a>
             </div>

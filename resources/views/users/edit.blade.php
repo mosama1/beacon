@@ -17,12 +17,12 @@
           <div class="input select {{ $errors->has('language') ? 'error' : '' }}">
             <img src="img/icons/idioma.png" alt="" class="icon">
             <select id="language" class="form-control icons" name="language" required>
-              @if($user->language == 'es')
-                <option value="{{ $user->language }}" data-icon="img/icons/{{ $user->language }}.png" class="left circle">{{ $user->language }}</option>
-                <option value="en" data-icon="img/icons/en.png" class="left circle">en</option>
+              @if($user->language == 'Español')
+                <option value="{{ $user->language }}" data-icon="img/icons/es.png" class="left circle">{{ $user->language }}</option>
+                <option value="English" data-icon="img/icons/en.png" class="left circle">English</option>
               @else
-                <option value="{{ $user->language }}" data-icon="img/icons/{{ $user->language }}.png" class="left circle">{{ $user->language }}</option>
-                <option value="es" data-icon="img/icons/es.png" class="left circle">es</option>
+                <option value="{{ $user->language }}" data-icon="img/icons/en.png" class="left circle">{{ $user->language }}</option>
+                <option value="Español" data-icon="img/icons/es.png" class="left circle">Español</option>
               @endif
             </select>
 
@@ -32,18 +32,7 @@
             </span>
             @endif
           </div>
-          <!-- <div class="input {{ $errors->has('name') ? 'error' : '' }}">
-            <input type="text" name="name" value="{{ $user->name }}" required="">
-            <label for="">
-              <span class="icon"><img src="img/icons/usuario.png" alt=""></span>
-              <span class="text">Usuario</span>
-            </label>
-            @if ($errors->has('name'))
-            <span class="error_input">
-              <strong>{{ $errors->first('name') }}</strong>
-            </span>
-            @endif
-          </div> -->
+
           <div class="input {{ $errors->has('email') ? 'error' : '' }}">
             <input type="email" name="email" value="{{ $user->email }}" required="">
             <label for="">
@@ -57,7 +46,7 @@
             @endif
           </div>
           <div class="input {{ $errors->has('phone') ? 'error' : '' }}">
-            <input type="text" name="phone" value="{{ $user->phone }}" required="">
+            <input type="text" name="phone" value="{{ $user->phone }}" required="" class="val_phone">
             <label for="">
               <span class="icon"><img src="img/icons/telefono.png" alt=""></span>
               <span class="text">Teléfono de contacto</span>
@@ -94,8 +83,8 @@
             @endif
           </div> -->
         </div>
-        <div class="links">
-          <a href="#cambiarContrasena">Cambiar Contraseña</a> || <a href="{{ route('list_beacons') }}">Información de Beacons</a>
+        <div class="links_">
+          <a href="#cambiarContrasena">Cambiar Contraseña</a> || <a href="{{ route('all_beacons') }}">Información de Beacons</a>
         </div>
         <div class="button">
           <center>
@@ -107,7 +96,7 @@
       </div>
     </form>
 
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('location_update', $location->location_id) }}"  enctype="multipart/form-data">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('update_location', $location->location_id) }}"  enctype="multipart/form-data">
       {{ csrf_field() }}
 
       <div class="divide dat_ris">
@@ -132,7 +121,7 @@
 <!-- <textarea name="city" rows="8" cols="80">{{ old('city') }}</textarea> -->
 
             <label for="">
-              <span class="text">City</span>
+              <span class="text">Ciudad</span>
             </label>
             @if ($errors->has('city'))
             <span class="error_input">
@@ -144,7 +133,7 @@
             <div class="input {{ $errors->has('street') ? 'error' : '' }}">
               <input type="text" name="street" value="{{$location->street}}" required="">
               <label for="">
-                <span class="text">Street</span>
+                <span class="text">Calle</span>
               </label>
               @if ($errors->has('street'))
               <span class="error_input">
@@ -155,7 +144,7 @@
             <div class="input {{ $errors->has('street_number') ? 'error' : '' }}">
               <input type="text" name="street_number" value="{{$location->street_number}}" required="">
               <label for="">
-                <span class="text">Street Number</span>
+                <span class="text">Número de calle</span>
               </label>
               @if ($errors->has('street_number'))
               <span class="error_input">
@@ -166,9 +155,9 @@
           <!-- </div> -->
 
           <div class="input {{ $errors->has('zip') ? 'error' : '' }}">
-            <input type="text" name="zip" value="{{$location->zip}}" required="">
+            <input type="text" name="zip" value="{{$location->zip}}" required="" class="val_zip">
             <label for="">
-              <span class="text">Zip</span>
+              <span class="text">Código postal</span>
             </label>
             @if ($errors->has('zip'))
             <span class="error_input">
@@ -237,13 +226,13 @@
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="#">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('change_password', array( 'user_id' => $user->id ) ) }}" id="change_password" userid="{{$user->id}}">
       {{ csrf_field() }}
 
 
 
       <div class="input no_icon {{ $errors->has('old_password') ? 'error' : '' }}">
-        <input type="text" name="old_password" value="" required="">
+        <input type="password" name="old_password" value="" required="">
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Contraseña Actual</span>
@@ -255,29 +244,29 @@
       </div>
       @endif
 
-      <div class="input no_icon {{ $errors->has('new_password') ? 'error' : '' }}">
-        <input type="text" name="new_password" value="" required="">
+      <div class="input no_icon {{ $errors->has('password') ? 'error' : '' }}">
+        <input type="password" name="password" value="" required="" id="password">
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Nueva Contraseña</span>
         </label>
       </div>
-      @if ($errors->has('new_password'))
+      @if ($errors->has('password'))
       <div class="input_error">
-        <span>{{ $errors->first('new_password') }}</span>
+        <span>{{ $errors->first('password') }}</span>
       </div>
       @endif
 
-      <div class="input no_icon {{ $errors->has('confirm_password') ? 'error' : '' }}">
-        <input type="text" name="confirm_password" value="" required="">
+      <div class="input no_icon {{ $errors->has('password_confirmation') ? 'error' : '' }}">
+        <input type="password" name="password_confirmation" value="" required="" id="password_confirmation">
         <label for="">
           <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Confirmar Contraseña</span>
         </label>
       </div>
-      @if ($errors->has('confirm_password'))
+      @if ($errors->has('password_confirmation'))
       <div class="input_error">
-        <span>{{ $errors->first('confirm_password') }}</span>
+        <span>{{ $errors->first('password_confirmation') }}</span>
       </div>
       @endif
       <div class="button">

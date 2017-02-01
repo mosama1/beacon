@@ -1,0 +1,7 @@
+[27-Jan-2017 18:01:22 America/Caracas] PHP Fatal error:  Class 'Composer\Autoload\ComposerStaticInitb046382b93671d527c024c1eee900b4f' not found in /home/demente/laravel_entrega/vendor/composer/autoload_real.php on line 30
+[27-Jan-2017 18:02:21 America/Caracas] PHP Fatal error:  Class 'Composer\Autoload\ComposerStaticInitb046382b93671d527c024c1eee900b4f' not found in /home/demente/laravel_entrega/vendor/composer/autoload_real.php on line 30
+[27-Jan-2017 22:27:09 UTC] PHP Fatal error:  Cannot redeclare Beacon\Beacon::user() in /home/demente/laravel_entrega/app/Beacon.php on line 23
+[27-Jan-2017 22:31:59 UTC] PHP Fatal error:  Cannot redeclare Beacon\Beacon::user() in /home/demente/laravel_entrega/app/Beacon.php on line 23
+[27-Jan-2017 22:32:11 UTC] PHP Fatal error:  Cannot redeclare Beacon\Beacon::user() in /home/demente/laravel_entrega/app/Beacon.php on line 23
+[27-Jan-2017 22:33:16 UTC] PHP Fatal error:  Cannot redeclare Beacon\Beacon::user() in /home/demente/laravel_entrega/app/Beacon.php on line 23
+[27-Jan-2017 22:52:46 UTC] PHP Fatal error:  Class 'Illuminate\Auth\Notifications\ResetPassword' not found in /home/demente/laravel_entrega/vendor/laravel/framework/src/Illuminate/Auth/Passwords/CanResetPassword.php on line 27

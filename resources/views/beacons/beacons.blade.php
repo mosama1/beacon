@@ -1,4 +1,4 @@
-<?php $nivel = '../' ?>
+<?php $nivel = '' ?>
 @extends('layouts.app')
 
 @section('content')
@@ -35,7 +35,14 @@
                   <tr>
                     <td>{{$b->major}}</td>
                     <td>{{$b->minor}}</td>
-                    <td><a href="#eliminarBeacon"><i class="material-icons">clear</i></a></td>
+                <?php
+
+                  echo "<td onclick= \"modal_activate('".
+                     route( "destroy_beacon", $b->beacon_id ).
+                    "' , '#eliminarBeacon')\" >";
+
+                ?>
+                  <a href="#eliminarBeacon"><i class="material-icons">clear</i></a></td>
                   </tr>
                 @endforeach
               </tbody>
@@ -55,8 +62,21 @@
     </div>
 
     <div class="form">
-      <form class="form-horizontal" role="form" method="POST" action="{{ route('beacon_store_beacon') }}">
+      <form class="form-horizontal" role="form" method="POST" action="{{ route('store_beacon') }}" id="add_beacon">
         {{ csrf_field() }}
+
+        <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
+          <input type="text" name="name" value="" required="">
+          <label for="">
+            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
+            <span class="text">Nombre</span>
+          </label>
+        </div>
+        @if ($errors->has('name'))
+          <div class="input_error">
+              <span>{{ $errors->first('name') }}</span>
+          </div>
+        @endif
 
         <div class="input no_icon {{ $errors->has('major') ? 'error' : '' }}">
           <input type="text" name="major" value="" required="">
@@ -84,7 +104,7 @@
         @endif
         <div class="button">
           <center>
-            <button type="submit" name="button">
+            <button type="submit" name="button" id="guardar_beacons">
               <span>Guardar</span>
             </button>
             <a href="#" class="" onclick="$('#agregarBeacon').modal('close'); return false;">
@@ -105,8 +125,9 @@
     </div>
 
     <div class="form">
-      <form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
+      <form class="form-horizontal" role="form" method="POST">
         {{ csrf_field() }}
+        {{ method_field('DELETE') }}
         <div class="button">
           <center>
             <button type="submit" name="button">

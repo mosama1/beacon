@@ -1,19 +1,94 @@
+<?php $nivel = '../../' ?>
+
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+
+<div class="contenedor">
+  <div class="section_ authenticate" id="recuperar">
+    <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/reset') }}">
+      {{ csrf_field() }}
+      <input type="hidden" name="token" value="{{ $token }}">
+      <div class="divide">
+        <div class="titulo">
+          <h5>Resetar Contraseña</h5>
+        </div>
+
+        <div class="divide_cont">
+          <div class="input {{ $errors->has('email') ? 'error' : '' }}">
+            <input type="email" name="email" value="{{ $email or old('email') }}" required="">
+            <label for="">
+              <span class="icon"><img src="img/icons/correo.png" alt=""></span>
+              <span class="text">Correo</span>
+            </label>
+          </div>
+          @if ($errors->has('email'))
+          <div class="input_error">
+            <span>{{ $errors->first('email') }}</span>
+          </div>
+          @endif
+
+
+          <div class="input {{ $errors->has('password_confirmation') ? 'error' : '' }}">
+            <input type="password" name="password_confirmation" value="" required="">
+            <label for="">
+              <span class="icon"><img src="img/icons/correo.png" alt=""></span>
+              <span class="text">Contraseña</span>
+            </label>
+          </div>
+          @if ($errors->has('password_confirmation'))
+          <div class="input_error">
+            <span>{{ $errors->first('password_confirmation') }}</span>
+          </div>
+          @endif
+
+
+          <div class="input {{ $errors->has('password') ? 'error' : '' }}">
+            <input type="password" name="password" value="{{ $password or old('password') }}" required="">
+            <label for="">
+              <span class="icon"><img src="img/icons/correo.png" alt=""></span>
+              <span class="text">Confirmar Contraseña</span>
+            </label>
+          </div>
+          @if ($errors->has('password'))
+          <div class="input_error">
+            <span>{{ $errors->first('password') }}</span>
+          </div>
+          @endif
+        </div>
+
+        <div class="button">
+          <center>
+            <button type="submit" name="button">
+              <span>Enviar</span>
+            </button>
+            <a href="{{ url('/login') }}" class="">
+              <span>Cancelar</span>
+            </a>
+          </center>
+        </div>
+
+
+      </div>
+
+
+
+
+    </form>
+
+
+
+  </div>
+
+</div>
+
+<!-- <div class="container">
   <div class="section">
 
-    <!--   Icon Section   -->
     <div class="row">
       <div class="col s12 m12">
 
         <div class="panel-body">
-            @if (session('status'))
-                <div class="alert alert-success">
-                    {{ session('status') }}
-                </div>
-            @endif
 
             <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/reset') }}">
                 {{ csrf_field() }}
@@ -73,5 +148,5 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 @endsection

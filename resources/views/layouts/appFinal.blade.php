@@ -1,3 +1,9 @@
+@php
+  use Beacon\Location;
+  use Beacon\User;
+  use Beacon\Campana;
+
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +15,7 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>{{ config('app.name', 'Laravel') }}</title>
+  <title>Nombre de la Aplicación</title>
 
   <!-- Styles -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -18,43 +24,35 @@
   {{--<link href="css/app.css" rel="stylesheet">--}}
   <!-- Scripts -->
   <script>
-      window.Laravel = <?php echo json_encode(['csrfToken' => csrf_token(), ]); ?>
+      window.Laravel = "<?php echo json_encode(['csrfToken' => csrf_token(), ]); ?>"
   </script>
 
 </head>
-<body style="background-image: url(../img/fondos/completo.jpg);" class="clienteFinal {{ isset($menu2) ? 'meu2' : '' }}">
+<body style="" class="clienteFinal {{ isset($menu2) ? 'meu2' : '' }}">
   <div class="preload">
     <div class="img">
-      <!-- <img src="img/logo/logo1.png" alt=""> -->
-      <h2 style="color: #fff;">LOGO</h2>
+      @php
+        $campana = Campana::where([
+          ['campana_id', '=', array( $campana_id ) ],
+        ])->first();
+
+        $location = Location::where([
+          ['location_id', '=', array( $campana->location_id ) ],
+        ])->first();
+      @endphp
+      <img src="{{ $location->logo }}" alt="">
+
     </div>
   </div>
     <nav class="menu_cliente" role="navigation">
-      @if(isset($menu2))
-      <!-- <div class="menu_head">
-      <div class="logo">
-      <img src="img/logo/logo.png" alt="">
-    </div>
-    <div class="name">
-
-    </div>
-    </div> -->
-
-    @endif
         <div class="nav-wrapper">
           <ul>
             <li class="opciones">
-              <ul class="sub_menu">
-              	@php
-                  use Beacon\Section;
-                  use Beacon\SectionTranslation;
-
-              		$sections = Section::all();
-              	@endphp
+              <ul class="sub_menu none">
               	@foreach($sections as $s)
                   <?php  $s->section_translation; ?>
 	                <li>
-	                  <a href="{{ route('showPlate', $s->id) }}">
+	                  <a href="{{ route('movil_all_plate', array('campana_id' => $campana_id, 'section_id' => $s->id) ) }}">
 	                    <span>
                         @if( ! empty($s->section_translation[0]) )
                           {{$s->section_translation[0]->name}}
@@ -70,12 +68,27 @@
             </li>
             @if(isset($menu2))
             <li class="logo">
-              <img src="img/logo/logo1.png" alt="">
+              <img src="{{ $location->logo }}" alt="">
             </li>
             @endif
-            <!-- <li class="idioma">
-              <ul class="sub_menu">
-                <li>
+            <li class="idioma">
+              <ul class="sub_menu none">
+
+
+                @if( !empty($type_plates) )
+                  @foreach ($type_plates as $type_plate)
+                    <li>
+                      <a href="{{ route('movil_all_types_plates', array( 'campana_id' => $campana_id, 'type_plate_id' => $type_plate->id ) ) }}">
+                        <span>
+                          {{$type_plate->name}}
+                        </span>
+                      </a>
+                    </li>
+                  @endforeach
+
+                @endif
+
+                <!-- <li>
                   <a href="#">
                     <span>
                       ejemplo
@@ -102,34 +115,43 @@
                       ejemplo
                     </span>
                   </a>
-                </li>
+                </li> -->
               </ul>
 
               <a href="#" class="sb_mn">
-                <img src="img/icons/idioma_cliente.png" alt="">
+                <img src="img/icons/filtro.png" alt="">
               </a>
-            </li> -->
+            </li>
           </ul>
 
 
         </div>
+        @if(isset($menu2))
+        <div class="nombreEmpresa">
+          <h4>
+            {{ $location->name }}
+          </h4>
+        </div>
+        @endif
     </nav>
 
 
     @yield('content')
 
     <footer>
-      <!-- <div class="footer">
+      <div class="footer">
         <p>
-          Xxxxxxx © {{date('Y')}} - Todos los derechos reservados. Diseñado por <a href="#"><img src="img/demente.png" alt=""></a>
+          © {{date('Y')}} - Todos los derechos reservados. Diseñado por <a href="http://dementecreativo.com/" target="_blank"><img src="img/demente.png" alt=""></a>
         </p>
-      </div> -->
+      </div>
     </footer>
 
     <!--  Scripts-->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
+    <script src="js/jquery.mask.min.js"></script>
+
     <script src="js/script.js"></script>
 
     @if (session('status'))
@@ -139,5 +161,13 @@
       Materialize.toast(status, 5000, type);
     </script>
     @endif
+
+    <script type="text/javascript">
+      $('.menu_cliente .logo').click(function(){
+        window.location.href = '/movil/campanas/{{ $campana_id }}';
+      });
+    </script>
+
+
 </body>
 </html>

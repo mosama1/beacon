@@ -15,16 +15,26 @@ class TypesPlates extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-			'name', 'description', 'language_id',
+			'name', 'description', 'language_id', 'user_id',
 	];
     
     public function language()
     {
-        return $this->hasOne('Baecon\Language', 'language_id', 'id');
+        return $this->hasOne('Beacon\Language', 'language_id', 'id');
     }
     
     public function plates()
     {
-        return $this->hasMany('Baecon\Plate', 'type_plate_id', 'id');
+        return $this->hasMany('Beacon\Plate', 'type_plate_id', 'id');
     }
+
+	public function menus()
+	{
+		return $this->belongsTo('Beacon\TypesPlates', 'type', 'id');
+	}
+	
+	public function user()
+	{
+		return $this->belongsTo('Beacon\User', 'user_id', 'id');
+	}
 }

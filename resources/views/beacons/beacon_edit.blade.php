@@ -11,8 +11,9 @@
     </div>
 
     <div class="form">
-      <form class="form-horizontal" role="form" method="POST" action="{{ route('beacon_store_beacon') }}">
+      <form class="form-horizontal" role="form" method="POST" action="{{ route('store_beacon') }}">
         {{ csrf_field() }}
+        {{ method_field('PUT') }}
 
         <div class="input no_icon {{ $errors->has('major') ? 'error' : '' }}">
           <input type="text" name="major" value="" required="">
@@ -43,7 +44,7 @@
             <button type="submit" name="button">
               <span>Guardar</span>
             </button>
-            <a href="{{ route('list_beacons') }}" class="">
+            <a href="{{ route('all_beacons') }}" class="">
               <span>Cancelar</span>
             </a>
           </center>

@@ -44,7 +44,7 @@ class LocationController extends Controller
 
 		$token_crud = json_decode($json_c);
 
-        Log::info('This is some useful information.');        
+        Log::info('This is some useful information.');
 
 		return $token_crud->access_token;
 	}
@@ -85,23 +85,7 @@ class LocationController extends Controller
     {
     	$locations = Location::where('user_id', '=', Auth::user()->id)->get();
 
-    	return view('beacons.locations',['locations' => $locations]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create_location()
-    {
-    	$locatiom = Location::where('user_id', '=', Auth::user()->id)->first();
-
-    	if ($locatiom):
-    		return redirect()->route('user_edit_path', Auth::user()->id);
-    	else:
-    		return view('beacons.location_add');
-    	endif;
+    	return view('locations.locations',['locations' => $locations]);
     }
 
     /**
@@ -115,31 +99,74 @@ class LocationController extends Controller
     	// Nuevo cliente con un url base
     	$client = new Client();
 
+			$user = User::where([
+										['id', '=', Auth::user()->id],
+									])->first();
+
+									echo "<pre>"; var_dump($user); echo "</pre>";
+									return;
+
+			if ( !isset($user->user_id) ) {
+				$user_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/uuids', [
+						// un array con la data de los headers como tipo de peticion, etc.
+						'headers' => ['Authorization' => 'Bearer '.$crud ],
+						// array de datos del formulario
+						'form_params' => [
+								'name' => $user->name,
+								//implementar clase Uuid oara generar el codigo del usuario
+								'identifier' => $user->id,
+						]
+				]);
+
+				//Json parse
+				$json_c = $user_api->getBody();
+
+				$user_response = json_decode($json_c);
+
+				// echo "<pre>"; var_dump($user_response); echo "</pre>";
+				// return;
+
+				if ($user_response->status_code === 200 ):
+						$user->user_id = $user_response->uuid->id;
+						$user->save();
+				endif;
+				//$user
+			}
+
         //se obtiene el logo
         $imagen = $request->file('logo');
 
-        //mime del logo
-        $logo_mime = $imagen->getMimeType();
+				if ( !is_null( $imagen ) ) {
 
-        //path donde se almacenara el logo
-        $path = public_path().'\assets\images\\';
+	        //mime del logo
+	        $logo_mime = $imagen->getMimeType();
 
-        switch ($logo_mime)
-        {
-            case "image/jpeg":
-            case "image/png":
-                if ($imagen->isValid())
-                {
+	        //path donde se almacenara el logo
+	        $path = public_path().'/assets/images/logos/';
+					// $path = '/home/demente/public_html/prueba/final/assets/images/logos/';
 
-                    $nombre = $imagen->getClientOriginalName();
 
-                    $imagen->move($path, $nombre);
+	        switch ($logo_mime)
+	        {
+	            case "image/jpeg":
+	            case "image/png":
+	                if ($imagen->isValid())
+	                {
 
-                    $logo = 'assets\images\\'.$nombre;
-                    
-                }
-            break;
-        }
+	                    $nombre = $imagen->getClientOriginalName();
+											$nombre = date('dmyhis').'-'.$nombre;
+
+	                    $imagen->move($path, $nombre);
+
+	                    $logo = 'assets/images/logos/'.$nombre;
+
+	                }
+	            break;
+	        }
+				}
+				else {
+				 $logo = "";
+				}
 
     	//Token Crud
     	$crud = LocationController::crud();
@@ -201,20 +228,18 @@ class LocationController extends Controller
             $loca->lng =  0;
 	    	$loca->save();
 
-/*	    	$tag_ = new Tag;
-	    	$tag_->tag_id = $tag->tag->id;
-	    	$tag_->location_id = $locations->location->id;
-	    	$tag_->user_id = Auth::user()->id;
-	    	$tag_->name = $tag->tag->name;
-	    	$tag_->save();
-*/
+	    	$tag_ = new Tag;
+	    	// $tag_->tag_id = $tag->tag->id;
+	    	// $tag_->location_id = $locations->location->id;
+	    	// $tag_->user_id = Auth::user()->id;
+	    	// $tag_->name = $tag->tag->name;
+	    	// $tag_->save();
+
 	    	return redirect()->route('user_edit_path', Auth::user()->id);
 
     	else:
-            var_dump($locations);
-        return;
 
-	    	return redirect()->route('location_add')->with(['status' => 'Error al ingresar la localidad', 'type' => 'error']);
+	    	return redirect()->route('user_edit_path', Auth::user()->id)->with(['status' => 'Error al ingresar la localidad', 'type' => 'error']);
 
     	endif;
 
@@ -233,7 +258,7 @@ class LocationController extends Controller
     	$location = Location::where('location_id', '=', $id)->first();
 
 
-    	return view('beacons.location_edit', ['location' => $location]);
+    	return view('locations.location_edit', ['location' => $location]);
     }
 
     /**
@@ -254,7 +279,9 @@ class LocationController extends Controller
         $logo_mime = $imagen->getMimeType();
 
         //path donde se almacenara el logo
-        $path = public_path().'\assets\images\\';
+        $path = public_path().'/assets/images/logos/';
+				// $path = '/home/demente/public_html/prueba/final/assets/images/logos/';
+
 
         switch ($logo_mime)
         {
@@ -263,12 +290,13 @@ class LocationController extends Controller
                 if ($imagen->isValid())
                 {
 
-                    $nombre = $id.$imagen->getClientOriginalName();
+									$nombre = $id.$imagen->getClientOriginalName();
+									$nombre = date('dmyhis').'-'.$nombre;
 
                     $imagen->move($path, $nombre);
 
-                    $logo = 'assets\images\\'.$nombre;
-                    
+                    $logo = 'assets/images/logos/'.$nombre;
+
                 }
             break;
         }
@@ -329,7 +357,7 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($location_id)
     {
     	// Nuevo cliente con un url base
     	$client = new Client();
@@ -338,7 +366,7 @@ class LocationController extends Controller
     	$crud = LocationController::crud();
 
     	//Location delete
-    	$location_delete = $client->post('https://connect.onyxbeacon.com/api/v2.5/locations/'.$request->id.'/delete', [
+    	$location_delete = $client->post('https://connect.onyxbeacon.com/api/v2.5/locations/'.$location_id.'/delete', [
     			// un array con la data de los headers como tipo de peticion, etc.
     			'headers' => ['Authorization' => 'Bearer '.$crud ],
     	]);
@@ -350,15 +378,17 @@ class LocationController extends Controller
 
     	if ($location_delete->status_code === 200):
 
-	    	$location =  Location::where('location_id', '=', $request->id);
+	    	$location =  Location::where('location_id', '=', $location_id);
 
 	    	$location->delete();
 
-	    	return 1;
+	    	return redirect()->route('user_edit_path')
+                             ->with(['status' => 'Se ha Eliminado la Locación con éxito', 'type' => 'success']);
 
     	else:
 
-    		return 0;
+    		return redirect()->route('user_edit_path')
+                            ->with(['status' => 'Error al eliminar la Locación', 'type' => 'error']);
 
     	endif;
 

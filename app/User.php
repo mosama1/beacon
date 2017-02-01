@@ -5,11 +5,13 @@ namespace Beacon;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Auth\Authenticatable as AuthenticableTrait;
 
 class User extends Authenticatable
 {
 	use HasApiTokens, Notifiable;
     use Notifiable;
+		use AuthenticableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -28,27 +30,32 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    
+
     public function location()
     {
     	return $this->hasOne('Beacon\Location', 'user_id', 'id');
     }
-    
-    
-    public function beacon()
+
+
+    public function beacons()
     {
-    	return $this->hasOne('Beacon\Beacon', 'user_id', 'id');
+    	return $this->hasMany('Beacon\Beacon', 'user_id', 'id');
     }
-    
-    public function section()
+
+    public function sections()
     {
-        return $this->hasOne('Beacon\Section', 'user_id', 'id');
+        return $this->hasMany('Beacon\Section', 'user_id', 'id');
     }
-    
-    public function plate()
+
+    public function plates()
     {
-        return $this->hasOne('Beacon\Plate', 'user_id', 'id');
+        return $this->hasMany('Beacon\Plate', 'user_id', 'id');
     }
-    
+
+    public function types_plates()
+    {
+        return $this->hasMany('Beacon\TypePlate', 'user_id', 'id');
+    }
+
 
 }

@@ -17,6 +17,27 @@ class Menu extends Model
 
 	public function menu_translation()
 	{
-	    return $this->hasMany('Beacon\MenuTranslation', 'menu_id', 'id');
+		return $this->hasMany('Beacon\MenuTranslation', 'menu_id', 'id');
 	}
+
+	public function section()
+	{
+		return $this->hasOne('Beacon\Section', 'id', 'section_id');
+	}
+
+	public function type_plate()
+	{
+		return $this->hasOne('Beacon\TypesPlates', 'id', 'type');
+	}
+
+	public function plate()
+	{
+		return $this->hasOne('Beacon\Plate', 'menu_id', 'id');
+	}
+	
+	public function user()
+	{
+		return $this->belongsTo('Beacon\User', 'user_id', 'id');
+	}
+
 }

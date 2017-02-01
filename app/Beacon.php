@@ -14,9 +14,11 @@ class Beacon extends Model
 	protected $fillable = [
 			'beacon_id', 'user_id', 'name', 'major', 'minor',
 	];
-	
+
 	public function user()
 	{
 		return $this->belongsTo('Beacon\User', 'user_id', 'id');
 	}
+	
+
 }

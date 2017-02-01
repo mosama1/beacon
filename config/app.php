@@ -164,7 +164,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
     	Laravel\Passport\PassportServiceProvider::class,
     	Laravel\Socialite\SocialiteServiceProvider::class,
-    		
+
         /*
          * Package Service Providers...
          */
@@ -179,8 +179,9 @@ return [
         // Beacon\Providers\BroadcastServiceProvider::class,
         Beacon\Providers\EventServiceProvider::class,
         Beacon\Providers\RouteServiceProvider::class,
-   
-    		
+        Beacon\Providers\ValidatorServiceProvider::class,
+
+
     ],
 
     /*
