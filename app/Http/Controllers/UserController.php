@@ -63,8 +63,6 @@ class UserController extends Controller
 		// 	echo "<pre>"; var_dump( $validator->messages() );    echo "</pre>";
 		// return;
 
-
-
 		return (int)$validator->passes();
 	}
 
