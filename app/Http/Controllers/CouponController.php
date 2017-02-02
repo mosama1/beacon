@@ -157,7 +157,7 @@ class CouponController extends Controller
 			$coupon_translation->message = $coupon_response->coupon->message;
 
 			$coupon_translation->language_id = 1;
-			$coupon_translation->coupon_id = $coupon->id;
+			$coupon_translation->coupon_id = $coupon->coupon_id;
 			$coupon_translation->save();
 
 			return redirect()->route('all_coupon', $request->section_id)->with(['status' => 'El menu se registro con exito', 'type' => 'success']);
@@ -246,7 +246,7 @@ class CouponController extends Controller
 			$coupon->url = $url;
 			$coupon->save();
 
-			$coupon_translation = CouponTranslation::where([['coupon_id', '=', $coupon->id]])->first();
+			$coupon_translation = CouponTranslation::where([['coupon_id', '=', $coupon->coupon_id]])->first();
 
 			(isset($coupon_response->coupon->name)) ?
 				$coupon_translation->name = $coupon_response->coupon->name :
@@ -304,6 +304,10 @@ class CouponController extends Controller
 								['user_id', '=', $user->user_id],
 								['coupon_id', '=', $coupon_id]
 							]);
+			
+			// foreach ($coupon->coupon_translation as $key => $value) {
+			// 	$value->delete();
+			// }
 
 			$coupon->delete();
 
