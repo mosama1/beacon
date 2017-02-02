@@ -47,7 +47,7 @@ use Beacon\Plate;
                       {{$p->menu_translation[0]->name}}
                     @endif
                   </td>
-                  <td>{{$p->price}}</td>
+                  <td>{{$p->price}} €</td>
                   <td>
                     @if ($plate != NULL)
                     <a href="{{ route('show_desc_plate_by_type', array('campana_id' => $campana_id, 'type_plate' => $type_plate->id, 'menu_id' => $p->id ) ) }}"><i class="material-icons">remove_red_eye</i></a>
