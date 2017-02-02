@@ -24,5 +24,5 @@ class Tag extends Model
 	{
 		return $this->belongsTo('Beacon\User', 'user_id', 'user_id');
 	}
-
+	
 }

@@ -86,7 +86,9 @@ class CouponController extends Controller
 	public function index()
 	{
 
-		$coupon = Coupon::where('user_id', '=', Auth::user()->id)->get();
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+		$coupon = Coupon::where('user_id', '=', $user->user_id)->get();
 
 		return view('coupons.coupon', ['coupon' => $coupon]);
 	}
@@ -106,6 +108,8 @@ class CouponController extends Controller
 		//Token Crud
 		$crud = CouponController::crud();
 
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
 		//Location
 		$coupon_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons', [
 				// un array con la data de los headers como tipo de peticion, etc.
@@ -114,7 +118,7 @@ class CouponController extends Controller
 				'form_params' => [
 						'name' => $request->name,
 						'description' => $request->description,
-						'message' => 'newMessage',
+						'message' => $request->name,
 						'type' => 'url',
 						'url' => 'http://dementecreativo.com/prueba/final/',
 				]
@@ -123,37 +127,37 @@ class CouponController extends Controller
 		//Json parse
 		$json_c = $coupon_->getBody();
 
-		$coupon = json_decode($json_c);
+		$coupon_response = json_decode($json_c);
 
 
 
-		if ($coupon->status_code === 200 ):
+		if ($coupon_response->status_code === 200 ):
 
-			$cou = new Coupon();
-			$cou->coupon_id = $coupon->coupon->id;
-			$cou->user_id = Auth::user()->id;
-			$cou->type = $coupon->coupon->type;
+			$coupon = new Coupon();
+			$coupon->coupon_id = $coupon_response->coupon->id;
+			$coupon->user_id = $user->user_id;
+			$coupon->type = $coupon_response->coupon->type;
 			(empty($request->price)) ?
-				$cou->price = 0.0 :
-				$cou->price = $request->price;
-			$cou->url = $coupon->coupon->url;
+				$coupon->price = 0.0 :
+				$coupon->price = $request->price;
+			$coupon->url = $coupon_response->coupon->url;
 
 			  // echo "<pre>"; var_dump($cou); echo "</pre>";
 			  // return;
 
-			$cou->save();
+			$coupon->save();
 
 
 			$coupon_translation = new CouponTranslation();
-			$coupon_translation->name = $coupon->coupon->name;
-			(isset($coupon->coupon->description)) ?
-				$coupon_translation->description = $coupon->coupon->description :
+			$coupon_translation->name = $coupon_response->coupon->name;
+			(isset($coupon_response->coupon->description)) ?
+				$coupon_translation->description = $coupon_response->coupon->description :
 				$coupon_translation->description = "";
 
-			$coupon_translation->message = $coupon->coupon->message;
+			$coupon_translation->message = $coupon_response->coupon->message;
 
 			$coupon_translation->language_id = 1;
-			$coupon_translation->coupon_id = $cou->id;
+			$coupon_translation->coupon_id = $coupon->id;
 			$coupon_translation->save();
 
 			return redirect()->route('all_coupon', $request->section_id)->with(['status' => 'El menu se registro con exito', 'type' => 'success']);
@@ -173,8 +177,11 @@ class CouponController extends Controller
 	 */
 	public function edit_coupon($coupon_id)
 	{
+
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
 		$coupon = Coupon::where([
-							['user_id', '=', Auth::user()->id],
+							['user_id', '=', $user->user_id],
 							['coupon_id', '=', $coupon_id]
 						])->first();
 
@@ -200,6 +207,14 @@ class CouponController extends Controller
 		//Token Crud
 		$crud = CouponController::crud();
 
+		$coupon = Coupon::where([
+							['coupon_id', '=', $coupon_id]
+						])->first();
+
+		(empty($request->url)) ? 
+		$url =  $coupon->url: 
+		$url =  $coupon->url.$request->url;
+
 		//Location
 		$coupon_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons/'.$coupon_id.'/update', [
 				// un array con la data de los headers como tipo de peticion, etc.
@@ -208,45 +223,42 @@ class CouponController extends Controller
 				'form_params' => [
 						'name' => $request->name,
 						'description' => $request->description,
+						'url' => $url,
 				]
 		]);
 
 		//Json parse
 		$json_c = $coupon_->getBody();
 
-		$coupon = json_decode($json_c);
-
-		if ($coupon->status_code === 200 ):
+		$coupon_response = json_decode($json_c);
 
 
-			$cou = Coupon::where([
-								['coupon_id', '=', $coupon->coupon->id]
-							])->first();
+		// echo "<pre>"; var_dump($coupon_response); echo "</pre>";
+		// return;
 
 
-			$cou->type = $coupon->coupon->type;
+		if ($coupon_response->status_code === 200 ):
+
+			$coupon->type = $coupon_response->coupon->type;
 			(isset($request->price)) ?
-				$coupon->price = $request->price :
-				$coupon->price = 0.0;
-			$cou->url = $coupon->coupon->url;
-			$cou->save();
+				$coupon_response->price = $request->price :
+				$coupon_response->price = 0.0;
+			$coupon->url = $url;
+			$coupon->save();
 
-			$coupon_translation = CouponTranslation::where([['coupon_id', '=', $cou->id]])->first();
+			$coupon_translation = CouponTranslation::where([['coupon_id', '=', $coupon->id]])->first();
 
-			(isset($coupon->coupon->name)) ?
-				$coupon_translation->name = $coupon->coupon->name :
+			(isset($coupon_response->coupon->name)) ?
+				$coupon_translation->name = $coupon_response->coupon->name :
 				$coupon_translation->name = "";
 
-			$coupon_translation->name = $coupon->coupon->name;
-			(isset($coupon->coupon->description)) ?
-				$coupon_translation->description = $coupon->coupon->description :
+			$coupon_translation->name = $coupon_response->coupon->name;
+			(isset($coupon_response->coupon->description)) ?
+				$coupon_translation->description = $coupon_response->coupon->description :
 				$coupon_translation->description = "";
 
-			$coupon_translation->message = $coupon->coupon->message;
+			$coupon_translation->message = $coupon_response->coupon->message;
 			$coupon_translation->save();
-
-			 // echo "<pre>"; var_dump($coupon_translation); echo "</pre>";
-			 // return;
 
 			return redirect()->route('all_coupon')
 							->with(['status' => 'El menu se ha actualizado con éxito', 'type' => 'success']);
@@ -286,8 +298,10 @@ class CouponController extends Controller
 
 		if ($coupon_delete->status_code === 200):
 
+			$user = User::where( 'id', '=', Auth::user()->id )->first();
+
 			$coupon =  Coupon::where([
-								['user_id', '=', Auth::user()->id],
+								['user_id', '=', $user->user_id],
 								['coupon_id', '=', $coupon_id]
 							]);
 

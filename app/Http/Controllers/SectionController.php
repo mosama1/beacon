@@ -7,19 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use GuzzleHttp\Client;
-//use Beacon\Location;
-//use Beacon\Tag;
-//use Beacon\Coupon;
-//use Beacon\Timeframe;
-//use Beacon\Campana;
-//use Beacon\Content;
-//use Beacon\Beacon;
-//use Beacon\Plate;
-//use Beacon\TypesPlates;
-//use Beacon\User;
+use Beacon\Menu;
 use Beacon\Section;
 use Beacon\SectionTranslation;
-use Beacon\Menu;
+use Beacon\User;
 
 class SectionController extends Controller
 {
@@ -76,10 +67,11 @@ class SectionController extends Controller
 
 	public function index($coupon_id)
 	{
-		$section = new Section;
 
-		$sections = $section->where([
-			['user_id', '=', Auth::user()->id],
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+		$sections = Section::where([
+			['user_id', '=', $user->user_id],
 			['coupon_id', '=', $coupon_id]
 		])->get();
 
@@ -99,8 +91,10 @@ class SectionController extends Controller
 	public function store_section(Request $request)
 	{
 
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
 		$section = new Section();
-		$section->user_id = Auth::user()->id;
+		$section->user_id = $user->user_id;
 		$section->coupon_id = $request->coupon_id;
 		$section->save();
 

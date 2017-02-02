@@ -111,15 +111,17 @@ class PlateController extends Controller
 
 		//Obtengo el nombre del documento
 
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
 		$menu = Menu::where([
-						['user_id', '=', Auth::user()->id],
+						['user_id', '=', $user->user_id],
 						['id', '=', $menu_id ]
 					])->first()->get();
 
 		$plate = new Plate();
 		$plate->menu_id = $menu_id;
 		$plate->type_plate_id = $menu[0]->type;
-		$plate->user_id = Auth::user()->id;
+		$plate->user_id = $user->user_id;
 
 		// se valida si esta seteada la variable de la imagen para ser actualizada
 		$file_logo = Input::file('plato');
@@ -135,9 +137,6 @@ class PlateController extends Controller
 			$file_logo = $file_logo->move($storage_logo, $name_logo);
 			$plate->img = $storage_logo.'/'.$name_logo;
 		}
-		else{
-			$plate->img = '';
-		}
 
 		$plate->save();
 
@@ -149,7 +148,7 @@ class PlateController extends Controller
 		$plate_translation->save();
 
 		$menu = Menu::where([
-						['user_id', '=', Auth::user()->id],
+						['user_id', '=', $user->user_id],
 						['id', '=', $menu_id]
 					])->first();
 
@@ -167,8 +166,10 @@ class PlateController extends Controller
 	public function update_plate(Request $request, $menu_id)
 	{
 
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
 		$plate = Plate::where([
-							['user_id', '=', Auth::user()->id],
+							['user_id', '=', $user->user_id],
 							['menu_id', '=', $menu_id]
 						])->first();
 
@@ -186,9 +187,6 @@ class PlateController extends Controller
 			$file_logo = $file_logo->move($storage_logo, $name_logo);
 			$plate->img = $storage_logo.'/'.$name_logo;
 		}
-		else{
-			$plate->img = '';
-		}
 
 		$tipo_platos = TypesPlates::where([
 							['language_id', '=', 1]
@@ -202,7 +200,7 @@ class PlateController extends Controller
 		$plate->save();
 
 		$menu = Menu::where([
-						['user_id', '=', Auth::user()->id],
+						['user_id', '=', $user->user_id],
 						['id', '=', $menu_id]
 					])->first();
 

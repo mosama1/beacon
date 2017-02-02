@@ -83,9 +83,7 @@ class BeaconController extends Controller
 	 */
 	public function show()
 	{
-		$user = User::where([
-									['id', '=', Auth::user()->id],
-								])->first();
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 		$beacons = Beacon::where('user_id', '=', $user->user_id)->get();
 
@@ -135,11 +133,9 @@ class BeaconController extends Controller
 
 			// echo "<pre>";			var_dump($beacons_response); echo "</pre>";
 			// return;
-			$user = User::where([
-				['id', '=', Auth::user()->id],
-				])->first();
+			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-			$location = Location::where('user_id', '=', $user->user_id)->first();
+			$location = Location::where( 'user_id', '=', $user->user_id )->first();
 
 			if ( $beacons_response->status_code == 200 ) {
 
@@ -147,21 +143,8 @@ class BeaconController extends Controller
 				// return;
 				if ( empty($beacons_response->beacons) ) {
 
-					//si no retorno beacon se inserta en el api
-					$beacons_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/beacons', [
-						// un array con la data de los headers como tipo de peticion, etc.
-						'headers' => ['Authorization' => 'Bearer '.$crud ],
-						// array de datos del formulario
-						'form_params' => [
-							'name' => $request->name,
-							'uuid' => $user->user_id,
-							'major' => $request->major,
-							'minor' => $request->minor,
-							'minor' => $request->minor,
-							'location' => $location->location_id,
-							'message_frequency' => 300,
-						]
-					]);
+					// si esta asignado a location se retorna a la vista con el error
+					return redirect()->route('all_beacons')->with(['status' => 'El beacons no exitosamente', 'type' => 'error']);
 				}
 				else {
 
@@ -279,9 +262,7 @@ class BeaconController extends Controller
 
 		if ($beacon_response->status_code === 200 ):
 
-			$user = User::where([
-									['id', '=', Auth::user()->id],
-								])->first();
+			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 			$beacons = Beacon::where([
 								['user_id', '=', $user->user_id],
@@ -316,9 +297,7 @@ class BeaconController extends Controller
 			//
 			//
 			// if ($beacon_->beacons):
-			// 	$user = User::where([
-			// 							['id', '=', Auth::user()->id],
-			// 						])->first();
+			// 	$user = User::where( 'id', '=', Auth::user()->id )->first();
 			//
 			// 	$beacons = Beacon::where(
 			// 						['user_id', '=', $user->user_id],

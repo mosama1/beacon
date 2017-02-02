@@ -11,6 +11,7 @@ use Beacon\Content;
 use Beacon\Coupon;
 use Beacon\Tag;
 use Beacon\Timeframe;
+use Beacon\User;
 use Illuminate\Support\Facades\Input;
 use Log;
 
@@ -29,7 +30,7 @@ class ContentController extends Controller
 				'form_params' => [
 						'client_id' => 'af1cd006576dc09b7cf7660d4e010fbf434ad4bf',
 						'client_secret' => '335c77e0ff4a4d36b97e8464ef880cdef30fb795',
-						'scope' => 'crud'
+						'scope' => 'crud'	
 				]
 		]);
 
@@ -74,10 +75,13 @@ class ContentController extends Controller
 	 */
 	public function index($id)
 	{
+
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
 		$content = new Content;
 
 		$contents = $content->where([
-			['user_id', '=', Auth::user()->id],
+			['user_id', '=', $user->user_id],
 			['campana_id', '=', $id],
 		])->get();
 
@@ -88,7 +92,7 @@ class ContentController extends Controller
 		$coupon = new Coupon;
 
 		$coupons = $coupon->where([
-			['user_id', '=', Auth::user()->id],
+			['user_id', '=', $user->user_id],
 		])->get();
 
 		foreach ($coupons as $key => $coupon) {
@@ -97,9 +101,9 @@ class ContentController extends Controller
 		//$coupon->coupon_translation;
 		//echo "<pre>";var_dump($coupon);echo "</pre>";
 
-		$tags = Tag::where('user_id', '=', Auth::user()->id)->get();
+		$tags = Tag::where('user_id', '=', $user->user_id)->get();
 
-		$timeframes = Timeframe::where('user_id', '=', Auth::user()->id)->get();
+		$timeframes = Timeframe::where('user_id', '=', $user->user_id)->get();
 
 		return view('contents.content',
 					[
@@ -120,180 +124,145 @@ class ContentController extends Controller
 	public function store(Request $request, $campana_id)
 	{
 
-        // Nuevo cliente con un url base
-        $client = new Client();
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-        //Token Crud
-        $crud = ContentController::crud();
-
-        $parameters = array(
-                    'headers' => ['Authorization' => 'Bearer '.$crud ],
-                    'form_params' => [
-                            'coupon' => intval($request->coupon_id),
-                            'timeframes' => $request->timeframe_id,
-                            'trigger_name' => 'DWELL_TIME',
-                            'trigger_entity' => 'tag',
-                            'dwell_time' => intval($request->dwell_time)
-                        ]
-                     );
-
-        //Location
-        $campana_content = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/contents', $parameters);
-
-        //Json parse
-        $json_c = $campana_content->getBody();
-
-        $campana_c = json_decode($json_c);
+		$location = $user->location;
 
 
-        if( $campana_c->status_code === 200 ):
+		// var_dump($location);
 
-            $coupons = Coupon::where([
-                ['coupon_id', '=', $request->coupon_id],
-                ['user_id', '=', Auth::user()->id]
-            ])->get();
+		// Nuevo cliente con un url base
+		$client = new Client();
 
-            foreach ($coupons as $key => $coupon) {
-                $coupon->coupon_translation;
-            }
-						foreach ($campana_c as $key => $value) {
+		//Token Crud
+		$crud = ContentController::crud();
+
+
+		// validar si el $request->timeframe no esta vacio
+		// si esta vacio se iguala a null la variable $timeframes
+		// si no esta vacio se recorre el arreglo de timeframes
+		// si es la primera posicion asignarlo sin comas $timeframe =. $request->timeframes[i];
+		// si no es la primera posicion agregar coma y el valor del id ej.: $timeframe =. ','.$request->timeframes[i];
+		//
+
+		// foreach ($request->timeframes as $key => $value) {
+		// 	$value
+		// }
+
+		$parameters = array(
+					'headers' => ['Authorization' => 'Bearer '.$crud ],
+					'form_params' => [
+							'coupon' => intval($request->coupon_id),
+							'timeframes' => $request->timeframe_id,
+							'trigger_name' => 'ENTRY',
+							'trigger_entity' => 'tag'
+						]
+					);
+
+		//Location
+		$content_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/contents', $parameters);
+
+		//Json parse
+		$json_c = $content_api->getBody();
+
+		$content_response = json_decode($json_c);
+
+
+		if( $content_response->status_code === 200 ):
+
+			$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+			$coupons = Coupon::where([
+				['coupon_id', '=', $request->coupon_id],
+				['user_id', '=', $user->user_id]
+			])->get();
+
+			foreach ($coupons as $key => $coupon) {
+				$coupon->coupon_translation;
+			}
+						foreach ($content_response as $key => $value) {
 							if ($key == "campaign-content") {
 								$content_api = $value;
 							}
 						}
 
-						// echo "<pre>";	var_dump($content_api);	echo "</pre>";
-						// return;
+			// echo "<pre>";	var_dump($content_api);	echo "</pre>";
+			// return;
 
-            $cam_c = new Content();
-            $cam_c->content_id = $content_api->id;
-            $cam_c->user_id = Auth::user()->id;
-            //coupon_translation[0] posicion [0] es en español idioma por defecto
+			$cam_c = new Content();
+			$cam_c->content_id = $content_api->id;
+			$cam_c->user_id = $user->user_id;
+			//	coupon_translation[0] posicion [0] es en español idioma por defecto
 
-                $cam_c->coupon = $coupons[0]->coupon_translation[0]->name;
-                $cam_c->coupon_id = $coupons[0]->coupon_id;
-
-
-        //    $cam_c->tag = $request->tag_id;
-            $cam_c->tag = 1;
-            $cam_c->campana_id = $campana_id;
-            $cam_c->timeframe_id = $content_api->timeframes[0]->id;
-            $cam_c->trigger_name = $content_api->trigger_name;
-            $cam_c->dwell_time = $content_api->dwell_time;
-            $cam_c->save();
+				$cam_c->coupon = $coupons[0]->coupon_translation[0]->name;
+				$cam_c->coupon_id = $coupons[0]->coupon_id;
 
 
+			//	$cam_c->tag = $request->tag_id;
+			$cam_c->tag = 1;
+			$cam_c->campana_id = $campana_id;
+			$cam_c->timeframe_id = $content_api->timeframes[0]->id;
+			$cam_c->trigger_name = $content_api->trigger_name;
+			$cam_c->save();
 
-            //Carga el coupon en el beacon
-            $coupon_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons/'.$request->coupon_id.'/update', [
-                    // un array con la data de los headers como tipo de peticion, etc.
-                    'headers' => ['Authorization' => 'Bearer '.$crud ],
-                    // array de datos del formulario
-                    'form_params' => [
-                            'name' => $request->name,
-                            'description' => $request->description,
-                            'message' => 'newMessage',
-                            'type' => 'url',
-                            'url' =>  'http://dementecreativo.com/prueba/final/movil/campanas/'.$campana_id,
-                    ]
-            ]);
+			//Location
+			$campana_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/update', [
+					// un array con la data de los headers como tipo de peticion, etc.
+					'headers' => ['Authorization' => 'Bearer '.$crud ],
+					// array de datos del formulario
+					'form_params' => [
+							'name' => $request->name,
+							'description' => $request->description,
+							'start_time' => date("Y-m-d H:i", strtotime($request->start_time)),
+							'end_time' => date("Y-m-d H:i", strtotime($request->end_time)),
+					]
+			]);
 
-            //Json parse
-            $json_c = $coupon_->getBody();
+			//Json parse
+			$json_campana = $campana_api->getBody();
 
-            $coupon = json_decode($json_c);
+			$campana_response = json_decode($json_campana);
 
-            if ($coupon->status_code != 200 )
-            {
-                echo "<pre>"; print_r( $coupon ); echo "</pre>";
-                return;
-            }
+			if ($campana_response->status_code != 200 )
+			{
+				echo "<pre>"; print_r( $campana_response ); echo "</pre>";
+				return;
+			}
 
-            return redirect()->route('all_content', array('campana_id' => $campana_id ) )->with(['status' => 'Se ha creado el contenido exitosamente', 'type' => 'success']);
+			//Carga el coupon en el beacon
+			$coupon_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons/'.$request->coupon_id.'/update', [
+					// un array con la data de los headers como tipo de peticion, etc.
+					'headers' => ['Authorization' => 'Bearer '.$crud ],
+					// array de datos del formulario
+					'form_params' => [
+							'name' => $request->name,
+							'description' => $request->description,
+							'message' => $request->name,
+							'type' => 'url',
+							'url' =>  'http://dementecreativo.com/prueba/final/movil/campanas/'.$campana_id,
+					]
+			]);
+
+			//Json parse
+			$json_c = $coupon_api->getBody();
+
+			$coupon_response = json_decode($json_c);
+
+			if ($coupon_response->status_code != 200 )
+			{
+				echo "<pre>"; print_r( $coupon_response ); echo "</pre>";
+				return;
+			}
+
+			return redirect()->route('all_content', array('campana_id' => $campana_id ) )->with(['status' => 'Se ha creado el contenido exitosamente', 'type' => 'success']);
 
 
 
-			else:
+		else:
 
-            return redirect()->route('all_content', $campana_id)->with(['status' => 'Error al ingresar la el contenido de la campana', 'type' => 'error']);
+			return redirect()->route('all_content', array('campana_id' => $campana_id ) )->with(['status' => 'Error al ingresar el contenido', 'type' => 'error']);
 
-        endif;
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function storejose(Request $request, $campana_id)
-	{
-		// Nuevo cliente con un url base
-        $client = new Client();
-
-        //Token Crud
-        $crud = ContentController::crud();
-
-        $parameters = array(
-                    'headers' => ['Authorization' => 'Bearer '.$crud ],
-                    'form_params' => [
-                            'coupon' => intval($request->coupon_id),
-                            'timeframes' => $request->timeframe_id,
-                            'trigger_name' => 'DWELL_TIME',
-                            'trigger_entity' => 'tag',
-                            'dwell_time' => intval($request->dwell_time)
-                        ]
-                     );
-
-        //Location
-        $campana_content = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/contents', $parameters);
-
-        //Json parse
-        $json_c = $campana_content->getBody();
-
-        $campana_c = json_decode($json_c);
-
-        foreach ($campana_c as $key => $value) {
-        	if ($key == "campaign-content") {
-        		$content_api = $value;
-        	}
-        }
-
-		 // echo "<pre>";  var_dump($content_api); echo "</pre>";
-
-		 // return;
-
-        if( $campana_c->status_code === 200 ):
-
-            $coupons = Coupon::where([
-                ['coupon_id', '=', $request->coupon_id],
-                ['user_id', '=', Auth::user()->id]
-            ])->get();
-
-            foreach ($coupons as $key => $coupon) {
-                $coupon->coupon_translation;
-            }
-            $cam_c = new Content();
-        	$cam_c->content_id = $content_api->id;
-            $cam_c->user_id = Auth::user()->id;
-            //coupon_translation[0] posicion [0] es en español idioma por defecto
-            $cam_c->coupon = $coupons[0]->coupon_translation[0]->name;
-            $cam_c->coupon_id = $coupons[0]->coupon_id;
-        //    $cam_c->tag = $request->tag_id;
-            $cam_c->tag = 1;
-            $cam_c->campana_id = $campana_id;
-            $cam_c->timeframe_id = $content_api->timeframes[0]->id;
-            $cam_c->trigger_name = $content_api->trigger_name;
-            $cam_c->dwell_time = $content_api->dwell_time;
-            $cam_c->save();
-
-            return redirect()->route('all_content', array('campana_id' => $campana_id ) );
-
-        else:
-
-             return redirect()->route('show_content', $campana_id)->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
-
-        endif;
+		endif;
 	}
 
 	/**
@@ -306,18 +275,18 @@ class ContentController extends Controller
 	{
 		//consulta
 
-		$coupon = new Coupon;
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-		$coupons = $coupon->where([
-			['user_id', '=', Auth::user()->id],
+		$coupons = Coupon::where([
+			['user_id', '=', $user->user_id],
 		])->get();
 
-		$tags = Tag::where('user_id', '=', Auth::user()->id)->get();
+		$tags = Tag::where('user_id', '=', $user->user_id)->get();
 
-		$timeframes = Timeframe::where('user_id', '=', Auth::user()->id)->get();
+		$timeframes = Timeframe::where('user_id', '=', $user->user_id)->get();
 
 		$content = Content::where([
-								['user_id', '=', Auth::user()->id],
+								['user_id', '=', $user->user_id],
 								['content_id', '=', $content_id]
 							])->first();
 
@@ -336,74 +305,75 @@ class ContentController extends Controller
 	public function update(Request $request, $campana_id, $content_id)
 	{
 		// Nuevo cliente con un url base
-        $client = new Client();
+		$client = new Client();
 
-        //Token Crud
-        $crud = ContentController::crud();
+		//Token Crud
+		$crud = ContentController::crud();
 
-        $parameters = array(
-                    'headers' => ['Authorization' => 'Bearer '.$crud ],
-                    'form_params' => [
-                            'coupon' => $request->coupon_id,
-                            'timeframes' => $request->timeframe_id,
-                            'trigger_name' => 'DWELL_TIME',
-                            'trigger_entity' => 'tag',
-                            'dwell_time' => $request->dwell_time
-                        ]
-                     );
+		$parameters = array(
+					'headers' => ['Authorization' => 'Bearer '.$crud ],
+					'form_params' => [
+							'coupon' => $request->coupon_id,
+							'timeframes' => $request->timeframe_id,
+							'trigger_name' => 'ENTRY',
+							'trigger_entity' => 'tag',
+						]
+					 );
 
-        //Location
-        $campana_content = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/contents/'.$content_id.'/update', $parameters);
+		//Location
+		$campana_content = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/contents/'.$content_id.'/update', $parameters);
 
-        //Json parse
-        $json_c = $campana_content->getBody();
+		//Json parse
+		$json_c = $campana_content->getBody();
 
-        $campana_c = json_decode($json_c);
+		$campana_c = json_decode($json_c);
 
-        foreach ($campana_c as $key => $value) {
-        	if ($key == "campaign-content") {
-        		$content_api = $value;
-        	}
-        }
+		foreach ($campana_c as $key => $value) {
+			if ($key == "campaign-content") {
+				$content_api = $value;
+			}
+		}
 
 		 // echo "<pre>";  var_dump($content_api); echo "</pre>";
 
 		 // return;
 
-        if( $campana_c->status_code === 200 ):
+		if( $campana_c->status_code === 200 ):
 
-            $coupons = Coupon::where([
-                ['coupon_id', '=', $request->coupon_id],
-                ['user_id', '=', Auth::user()->id]
-            ])->get();
+			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-            foreach ($coupons as $key => $coupon) {
-                $coupon->coupon_translation;
-            }
-            $cam_c = Content::where([
-			            		['content_id', '=', $content_id ]
-			            	])->first();
-        	$cam_c->content_id = $content_api->id;
-            $cam_c->user_id = Auth::user()->id;
-            //coupon_translation[0] posicion [0] es en español idioma por defecto
-            $cam_c->coupon = $coupons[0]->coupon_translation[0]->name;
-            $cam_c->coupon_id = $coupons[0]->coupon_id;
-        //    $cam_c->tag = $request->tag_id;
-            $cam_c->tag = 1;
-            $cam_c->campana_id = $campana_id;
-            $cam_c->timeframe_id = $content_api->timeframes[0]->id;
-            $cam_c->trigger_name = $content_api->trigger_name;
-            $cam_c->dwell_time = $content_api->dwell_time;
-            $cam_c->save();
+			$coupons = Coupon::where([
+								['coupon_id', '=', $request->coupon_id],
+								['user_id', '=', $user->user_id]
+							])->get();
 
-            return redirect()->route('all_content', array('campana_id' => $campana_id ) );
+			foreach ($coupons as $key => $coupon) {
+				$coupon->coupon_translation;
+			}
+			$cam_c = Content::where([
+								['content_id', '=', $content_id ]
+							])->first();
+			$cam_c->content_id = $content_api->id;
+			$cam_c->user_id = $user->user_id;
+			//coupon_translation[0] posicion [0] es en español idioma por defecto
+			$cam_c->coupon = $coupons[0]->coupon_translation[0]->name;
+			$cam_c->coupon_id = $coupons[0]->coupon_id;
+		//    $cam_c->tag = $request->tag_id;
+			$cam_c->tag = 1;
+			$cam_c->campana_id = $campana_id;
+			$cam_c->timeframe_id = $content_api->timeframes[0]->id;
+			$cam_c->trigger_name = $content_api->trigger_name;
+			$cam_c->dwell_time = $content_api->dwell_time;
+			$cam_c->save();
 
-        else:
+			return redirect()->route('all_content', array('campana_id' => $campana_id ) );
 
-             return redirect()->route('show_content', $campana_id)->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
+		else:
 
-        endif;
-    }
+			 return redirect()->route('show_content', $campana_id)->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
+
+		endif;
+	}
 
 	/**
 	 * Remove the specified resource from storage.
@@ -431,8 +401,10 @@ class ContentController extends Controller
 
 		// if ($content->status_code === 200 ):
 
+			$user = User::where( 'id', '=', Auth::user()->id )->first();
+
 			$content =  Content::where([
-									['user_id', '=', Auth::user()->id],
+									['user_id', '=', $user->user_id],
 									['content_id', '=', $content_id]
 								])->first();
 
