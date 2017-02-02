@@ -25,9 +25,18 @@
         <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
           <input type="text" name="name" value="" required="" id="nombreEmpresa">
           <label for="">
-            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Nombre del local</span>
           </label>
+          <div class="help">
+            <a href="#">
+              <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              </p>
+            </div>
+          </div>
         </div>
         @if ($errors->has('name'))
           <div class="input_error">
@@ -38,9 +47,18 @@
         <div class="input no_icon {{ $errors->has('city') ? 'error' : '' }}">
           <input type="text" name="city" value="" required="">
           <label for="">
-            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Ciudad</span>
           </label>
+          <div class="help">
+            <a href="#">
+              <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              </p>
+            </div>
+          </div>
         </div>
         @if ($errors->has('city'))
           <div class="input_error">
@@ -51,9 +69,18 @@
         <div class="input no_icon {{ $errors->has('street') ? 'error' : '' }}">
           <input type="text" name="street" value="" required="">
           <label for="">
-            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Calle</span>
           </label>
+          <div class="help">
+            <a href="#">
+              <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              </p>
+            </div>
+          </div>
         </div>
         @if ($errors->has('street'))
           <div class="input_error">
@@ -64,9 +91,18 @@
         <div class="input no_icon {{ $errors->has('street_number') ? 'error' : '' }}">
           <input type="text" name="street_number" value="" required="">
           <label for="">
-            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Número de calle</span>
           </label>
+          <div class="help">
+            <a href="#">
+              <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              </p>
+            </div>
+          </div>
         </div>
         @if ($errors->has('street_number'))
           <div class="input_error">
@@ -77,9 +113,18 @@
         <div class="input no_icon {{ $errors->has('zip') ? 'error' : '' }}">
           <input type="number" name="zip" value="" required="" class="val_zip">
           <label for="">
-            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Código Postal</span>
           </label>
+          <div class="help">
+            <a href="#">
+              <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              </p>
+            </div>
+          </div>
         </div>
         @if ($errors->has('zip'))
           <div class="input_error">
@@ -96,12 +141,22 @@
             <div class="file-path-wrapper">
               <input class="file-path validate" type="text">
             </div>
-            @if ($errors->has('logo'))
-            <span class="error_input">
-              <strong>{{ $errors->first('logo') }}</strong>
-            </span>
-            @endif
+            <div class="help">
+              <a href="#">
+                <i class="material-icons">help_outline</i>
+              </a>
+              <div class="inf none hidden">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                </p>
+              </div>
+            </div>
           </div>
+          @if ($errors->has('logo'))
+          <div class="error_input">
+            <span>{{ $errors->first('logo') }}</span>
+          </div>
+          @endif
           <div class="vista_previa">
             <center  id="vista_previa">
               <a href="#" class="vistaPreviaImg">
