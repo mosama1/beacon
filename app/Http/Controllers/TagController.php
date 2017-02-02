@@ -8,7 +8,7 @@ use Beacon\Location;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Beacon\Location;
-use Beacon\Tag;
+use Beacon\Tags;
 use Beacon\User;
 use Illuminate\Support\Facades\Input;
 
@@ -78,7 +78,7 @@ class TagController extends Controller
 							[ 'user_id', '=', Auth::user()->id ],
 						])->get();
 
-		$tags = Tag::where([
+		$tags = Tags::where([
 							[ 'user_id', '=', $user->user_id ],
 						])->get();
 
@@ -126,7 +126,7 @@ class TagController extends Controller
 								[ 'id', '=', Auth::user()->id ],
 							])->first();
 
-				$tag = new Tag();
+				$tag = new Tags();
 				$tag->user_id = $user->user_id;
 				$tag->name = $request->name;
 				$tag->location_id = $request->location_id;
@@ -159,14 +159,14 @@ class TagController extends Controller
 							[ 'id', '=', Auth::user()->id ],
 						])->first();
 
-		$tag = Tag::where([
+		$tag = Tags::where([
 							[ 'user_id', '=', $user->user_id ],
 							[ 'id', '=', tag_id ]
 						])->first();
 
-		$location = Location::where([
+		$locatio = Tags::where([
 							[ 'user_id', '=', $user->user_id ],
-							[ 'id', '=', location_id ]
+							[ 'id', '=', locatio_id ]
 						])->first();
 
 		return view('tags.types_plates_edit', ['tag' => $tag]);
@@ -187,12 +187,15 @@ class TagController extends Controller
 							[ 'id', '=', Auth::user()->id ],
 						])->first();
 
-		$tag = Tag::where([
+		$tag = Tags::where([
 							[ 'user_id', '=', $user->user_id ],
 							[ 'id', '=', tag_id ]
 						])->first();
 
 		$tag->name = $request->name;
+		$tag->description = $request->description;
+		//tag->language_id = $request->language_id;
+		$tag->language_id = 1;
 		$tag->save();
 
 		return redirect()->route('all_tag')
@@ -212,7 +215,7 @@ class TagController extends Controller
 							[ 'id', '=', Auth::user()->id ],
 						])->first();
 
-		$tag = Tag::where([
+		$tag = Tags::where([
 							[ 'user_id', '=', $user->user_id ],
 							[ 'id', '=', tag_id ]
 						])->first()->delete();

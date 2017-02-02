@@ -783,6 +783,7 @@ body.menu2 .menu_cliente{
   width: 100%;
   /*max-width: 365px;*/
   max-width: 400px;
+  z-index: 10;
 }
 #recuperar.authenticate .divide .divide_cont{
   top: 0;
