@@ -8,6 +8,7 @@ use Beacon\Location;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Beacon\TypesPlates;
+use Beacon\User;
 use Illuminate\Support\Facades\Input;
 
 class TypePlateController extends Controller
@@ -17,8 +18,11 @@ class TypePlateController extends Controller
 
 	public function index()
 	{
+
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
 		$tiposplatos = TypesPlates::where([
-							['user_id', '=', Auth::user()->id],
+							['user_id', '=', $user->user_id],
 						])->get();
 
 
@@ -34,20 +38,22 @@ class TypePlateController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	 public function create_type_plate( Request $request )
-	     {
+	public function create_type_plate( Request $request )
+	{
 
-	         $tipo_plato = new TypesPlates();
-	         $tipo_plato->user_id = Auth::user()->id;
-	         $tipo_plato->name = $request->name;
-	         $tipo_plato->description = $request->description;
-	         $tipo_plato->language_id = 1;
-	         $tipo_plato->save();
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+		$tipo_plato = new TypesPlates();
+		$tipo_plato->user_id = $user->user_id;
+		$tipo_plato->name = $request->name;
+		$tipo_plato->description = $request->description;
+		$tipo_plato->language_id = 1;
+		$tipo_plato->save();
 
 
-	         return redirect()->route( 'all_type_plate' )
-	                         ->with( [ 'status' => 'Se creo el tipo de plato', 'type' => 'success' ] );
-	     }
+		return redirect()->route( 'all_type_plate' )
+					 ->with( [ 'status' => 'Se creo el tipo de plato', 'type' => 'success' ] );
+	}
 
 	/**
 	 * Edit a new resource in storage.
@@ -58,8 +64,10 @@ class TypePlateController extends Controller
 	public function edit_type_plate( $type_plate_id )
 	{
 
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
 		$tipo_plato = TypesPlates::where([
-							[ 'user_id', '=', Auth::user()->id ],
+							[ 'user_id', '=', $user->user_id ],
 							[ 'id', '=', $type_plate_id ]
 						])->first();
 
@@ -77,8 +85,10 @@ class TypePlateController extends Controller
 	public function update_type_plate(Request $request, $type_plate_id)
 	{
 
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
 		$type_plate = TypesPlates::where([
-							[ 'user_id', '=', Auth::user()->id ],
+							[ 'user_id', '=', $user->user_id ],
 							[ 'id', '=', $type_plate_id ]
 						])->first();
 
@@ -101,8 +111,10 @@ class TypePlateController extends Controller
 	public function delete_type_plate( $type_plate_id )
 	{
 
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
 		$tipo_plato = TypesPlates::where([
-							[ 'user_id', '=', Auth::user()->id ],
+							[ 'user_id', '=', $user->user_id ],
 							[ 'id', '=', $type_plate_id ]
 						])->first()->delete();
 

@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Beacon\Tag;
-use Beacon\Coupon;
-use Beacon\CouponTranslation;
-use Beacon\Timeframe;
 use Beacon\Campana;
 use Beacon\Content;
+use Beacon\Coupon;
+use Beacon\CouponTranslation;
+use Beacon\Tag;
+use Beacon\Timeframe;
+use Beacon\User;
 use Illuminate\Support\Facades\Input;
 use Log;
 
@@ -77,14 +78,16 @@ class CampanaController extends Controller
 	 */
 	public function index()
 	{
-		$campana = Campana::where('user_id', '=', Auth::user()->id)->get();
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+		$campana = Campana::where( 'user_id', '=', $user->user_id )->get();
 
 		$locations = DB::table('locations')
-									->select('location_id', 'name')
-									->where('user_id', '=', Auth::user()->id)
+									->select( 'location_id', 'name' )
+									->where( 'user_id', '=', $user->user_id )
 									->get();
 
-		return view('campanas.campana',['campana' => $campana, 'locations' => $locations]);
+		return view( 'campanas.campana', ['campana' => $campana, 'locations' => $locations] );
 	}
 
 	/**
@@ -94,10 +97,11 @@ class CampanaController extends Controller
 	 */
 	public function create_campana()
 	{
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 		$locations = DB::table('locations')
 									->select('location_id', 'name')
-									->where('user_id', '=', Auth::user()->id)
+									->where('user_id', '=', $user->user_id )
 									->get();
 
 		return view('campanas.campana_add', ['locations' => $locations]);
@@ -140,9 +144,11 @@ class CampanaController extends Controller
 
 		if ($campana->status_code === 200 ):
 
+			$user = User::where( 'id', '=', Auth::user()->id )->first();
+
 			$cam = new Campana();
 			$cam->campana_id = $campana->campaign->id;
-			$cam->user_id = Auth::user()->id;
+			$cam->user_id = $user->user_id;
 			$cam->name = $campana->campaign->name;
 			(isset($campana->campaign->description)) ?
 				$cam->description = $campana->campaign->description :
@@ -157,8 +163,8 @@ class CampanaController extends Controller
 
 		else:
 
-			var_dump($campana);
-		return;
+			// var_dump($campana);
+			// return;
 
 			return redirect()->route('all_campana')->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
 
@@ -173,10 +179,12 @@ class CampanaController extends Controller
 	 */
 	public function edit_campana($id)
 	{
+
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
 		//consulta
 
 		$campana = Campana::where([
-								['user_id', '=', Auth::user()->id],
+								['user_id', '=', $user->user_id ],
 								['campana_id', '=', $id]
 							])->first();
 
@@ -216,10 +224,12 @@ class CampanaController extends Controller
 
 		$campana = json_decode($json_c);
 
-		if ($campana->status_code === 200 ):
+		if ( $campana->status_code === 200 ):
+
+			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 			$campana = Campana::where([
-									['user_id', '=', Auth::user()->id],
+									['user_id', '=', $user->user_id ],
 									['campana_id', '=', $id]
 								])
 								->update(array(
@@ -264,8 +274,10 @@ class CampanaController extends Controller
 
 		if ($campana->status_code === 200 ):
 
+			$user = User::where( 'id', '=', Auth::user()->id )->first();
+
 			$campana =  Campana::where([
-									['user_id', '=', Auth::user()->id],
+									['user_id', '=', $user->user_id ],
 									['campana_id', '=', $campana_id]
 								])->first();
 

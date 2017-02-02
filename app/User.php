@@ -44,17 +44,17 @@ class User extends Authenticatable
 
     public function sections()
     {
-        return $this->hasMany('Beacon\Section', 'user_id', 'id');
+        return $this->hasMany('Beacon\Section', 'user_id', 'user_id');
     }
 
     public function plates()
     {
-        return $this->hasMany('Beacon\Plate', 'user_id', 'id');
+        return $this->hasMany('Beacon\Plate', 'user_id', 'user_id');
     }
 
     public function types_plates()
     {
-        return $this->hasMany('Beacon\TypePlate', 'user_id', 'id');
+        return $this->hasMany('Beacon\TypePlate', 'user_id', 'user_id');
     }
 
 

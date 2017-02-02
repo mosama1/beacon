@@ -21,9 +21,9 @@ class Location extends Model
 		return $this->belongsTo('Beacon\User', 'user_id', 'user_id');
 	}
 
-  public function beacons()
-  {
-  	return $this->hasMany('Beacon\Beacon', 'location_id', 'location_id');
-  }
+	public function beacons()
+	{
+		return $this->hasMany('Beacon\Beacon', 'location_id', 'location_id');
+	}
 
 }

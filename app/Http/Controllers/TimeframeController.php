@@ -77,7 +77,10 @@ class TimeframeController extends Controller
 	 */
 	public function index()
 	{
-		$timeframes = Timeframe::where('user_id', '=', Auth::user()->id)->get();
+
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+		$timeframes = Timeframe::where('user_id', '=', $user->user_id)->get();
 
 		return view('timeframes.timeframe',['timeframes' => $timeframes]);
 	}
@@ -117,9 +120,11 @@ class TimeframeController extends Controller
 
 		if ($timeframe->status_code === 200 ):
 
+			$user = User::where( 'id', '=', Auth::user()->id )->first();
+
 			$time = new Timeframe();
 			$time->timeframe_id = $timeframe->timeframe->id;
-			$time->user_id = Auth::user()->id;
+			$time->user_id = $user->user_id;
 			$time->name = $timeframe->timeframe->name;
 			if ( isset($timeframe->timeframe->description) ) {
 				$time->description = $timeframe->timeframe->description;
@@ -148,9 +153,10 @@ class TimeframeController extends Controller
 	public function edit_timeframe($id)
 	{
 		//consulta
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 		$timeframe = Timeframe::where([
-						['user_id', '=', Auth::user()->id],
+						['user_id', '=', $user->user_id],
 						['timeframe_id', '=', $id]
 					])->first();
 
@@ -192,8 +198,10 @@ class TimeframeController extends Controller
 
 		if ($timeframe_api->status_code === 200):
 
+			$user = User::where( 'id', '=', Auth::user()->id )->first();
+
 			$timeframe = Timeframe::where([
-										['user_id', '=', Auth::user()->id],
+										['user_id', '=', $user->user_id],
 										['timeframe_id', '=', $timeframe_id]
 									])->first();
 
@@ -254,9 +262,11 @@ class TimeframeController extends Controller
 		$timeframe_delete = json_decode($json_ld);
 
 		if ($timeframe_delete->status_code === 200):
+			
+			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 			$timeframe =  Timeframe::where([
-										['user_id', '=', Auth::user()->id],
+										['user_id', '=', $user->user_id],
 										['timeframe_id', '=', $timeframe_id]
 									]);
 
