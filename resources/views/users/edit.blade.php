@@ -6,7 +6,7 @@
   <div class="section_ authenticate edit" id="register">
     <div class="fondo_mitad fondo_reg_user"></div>
     <div class="fondo_mitad fondo_dat_ris"></div>
-    <form action="{{route('user_patch_path', $user->id)}}" method="post">
+    <form action="{{route('user_patch_path', $user->user_id)}}" method="post">
       {{ csrf_field() }}
 
 
