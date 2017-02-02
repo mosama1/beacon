@@ -172,19 +172,18 @@ class ContentController extends Controller
 
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-			$coupons = Coupon::where([
+			$coupon = Coupon::where([
 				['coupon_id', '=', $request->coupon_id],
 				['user_id', '=', $user->user_id]
-			])->get();
+			])->first();
 
-			foreach ($coupons as $key => $coupon) {
-				$coupon->coupon_translation;
+			$coupon->coupon_translation;
+
+			foreach ($content_response as $key => $value) {
+				if ($key == "campaign-content") {
+					$content_api = $value;
+				}
 			}
-						foreach ($content_response as $key => $value) {
-							if ($key == "campaign-content") {
-								$content_api = $value;
-							}
-						}
 
 			// echo "<pre>";	var_dump($content_api);	echo "</pre>";
 			// return;
@@ -194,8 +193,8 @@ class ContentController extends Controller
 			$cam_c->user_id = $user->user_id;
 			//	coupon_translation[0] posicion [0] es en español idioma por defecto
 
-				$cam_c->coupon = $coupons[0]->coupon_translation[0]->name;
-				$cam_c->coupon_id = $coupons[0]->coupon_id;
+				$cam_c->coupon = $coupon->coupon_translation[0]->name;
+				$cam_c->coupon_id = $coupon->coupon_id;
 
 
 			//	$cam_c->tag = $request->tag_id;
@@ -205,6 +204,8 @@ class ContentController extends Controller
 			$cam_c->trigger_name = $content_api->trigger_name;
 			$cam_c->save();
 
+			$coupon = Coupon::where('coupon_id', '=', $request->coupon_id)->first();
+
 			//Location
 			$campana_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/update', [
 					// un array con la data de los headers como tipo de peticion, etc.
@@ -212,7 +213,7 @@ class ContentController extends Controller
 					// array de datos del formulario
 					'form_params' => [
 							'name' => $request->name,
-							'description' => $request->description,
+							'description' => $coupon->description,
 							'start_time' => date("Y-m-d H:i", strtotime($request->start_time)),
 							'end_time' => date("Y-m-d H:i", strtotime($request->end_time)),
 					]
@@ -223,7 +224,15 @@ class ContentController extends Controller
 
 			$campana_response = json_decode($json_campana);
 
-			if ($campana_response->status_code != 200 )
+			//echo "<pre>";	var_dump($campana_response);	echo "</pre>";
+
+			if ($campana_response->status_code == 200 )
+			{
+				$campana = Campana::where('campana_id', '=', $campana_id)->first();
+				$campana->description = $coupon->coupon_translation[0]->description;
+				$campana->update();
+			}
+			else
 			{
 				echo "<pre>"; print_r( $campana_response ); echo "</pre>";
 				return;
@@ -236,7 +245,7 @@ class ContentController extends Controller
 					// array de datos del formulario
 					'form_params' => [
 							'name' => $request->name,
-							'description' => $request->description,
+							'description' => $coupon->description,
 							'message' => $request->name,
 							'type' => 'url',
 							'url' =>  'http://dementecreativo.com/prueba/final/movil/campanas/'.$campana_id,
@@ -248,8 +257,17 @@ class ContentController extends Controller
 
 			$coupon_response = json_decode($json_c);
 
-			if ($coupon_response->status_code != 200 )
+			if ($coupon_response->status_code == 200 )
 			{
+
+					$coupon = Coupon::where('coupon_id', '=', $request->coupon_id)->first();
+
+					// echo "<pre>";	var_dump($coupon);	echo "</pre>";
+					// return;
+					$coupon->url = $coupon_response->coupon->url;
+					$coupon->update();
+
+			} else {
 				echo "<pre>"; print_r( $coupon_response ); echo "</pre>";
 				return;
 			}
@@ -342,22 +360,21 @@ class ContentController extends Controller
 
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-			$coupons = Coupon::where([
+			$coupon = Coupon::where([
 								['coupon_id', '=', $request->coupon_id],
 								['user_id', '=', $user->user_id]
-							])->get();
+							])->first();
 
-			foreach ($coupons as $key => $coupon) {
-				$coupon->coupon_translation;
-			}
+			$coupon->coupon_translation;
+
 			$cam_c = Content::where([
 								['content_id', '=', $content_id ]
 							])->first();
 			$cam_c->content_id = $content_api->id;
 			$cam_c->user_id = $user->user_id;
 			//coupon_translation[0] posicion [0] es en español idioma por defecto
-			$cam_c->coupon = $coupons[0]->coupon_translation[0]->name;
-			$cam_c->coupon_id = $coupons[0]->coupon_id;
+			$cam_c->coupon = $coupon->coupon_translation[0]->name;
+			$cam_c->coupon_id = $coupon->coupon_id;
 		//    $cam_c->tag = $request->tag_id;
 			$cam_c->tag = 1;
 			$cam_c->campana_id = $campana_id;

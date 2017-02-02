@@ -25,6 +25,6 @@ class CouponTranslation extends Model
     
     public function Coupon()
     {
-        return $this->belongsTo('Beacon\Coupon', 'coupon_id', 'id');
+        return $this->belongsTo('Beacon\Coupon', 'coupon_id', 'coupon_id');
     }
 }

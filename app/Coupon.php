@@ -17,7 +17,7 @@ class Coupon extends Model
 
 	public function coupon_translation()
 	{
-	    return $this->hasMany('Beacon\CouponTranslation', 'coupon_id', 'id');
+	    return $this->hasMany('Beacon\CouponTranslation', 'coupon_id', 'coupon_id');
 	}
 
 	public function content()
