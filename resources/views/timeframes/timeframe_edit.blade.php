@@ -24,6 +24,16 @@
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Name</span>
           </label>
+          <div class="help">
+            <a href="#">
+              <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              </p>
+            </div>
+          </div>
         </div>
         @if ($errors->has('name'))
           <div class="input_error">
@@ -36,6 +46,16 @@
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Descripción (Opcional)</span>
           </label>
+          <div class="help">
+            <a href="#">
+              <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              </p>
+            </div>
+          </div>
         </div>
         @if ($errors->has('description'))
           <div class="input_error">
@@ -49,6 +69,16 @@
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Hora de inicio</span>
           </label>
+          <div class="help">
+            <a href="#">
+              <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              </p>
+            </div>
+          </div>
         </div>
         @if ($errors->has('start_time'))
           <div class="input_error">
@@ -62,6 +92,16 @@
             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Hora de finalización</span>
           </label>
+          <div class="help">
+            <a href="#">
+              <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              </p>
+            </div>
+          </div>
         </div>
         @if ($errors->has('end_time'))
           <div class="input_error">

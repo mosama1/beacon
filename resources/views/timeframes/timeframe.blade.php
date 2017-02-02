@@ -77,9 +77,18 @@
 			<div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
 				<input type="text" name="name" value="" required="">
 				<label for="">
-					<!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
 					<span class="text">Nombre</span>
 				</label>
+				<div class="help">
+					<a href="#">
+						<i class="material-icons">help_outline</i>
+					</a>
+					<div class="inf none hidden">
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+						</p>
+					</div>
+				</div>
 			</div>
 			@if ($errors->has('name'))
 				<div class="input_error">
@@ -89,9 +98,18 @@
 			<div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
 				<input type="text" name="description" value="">
 				<label for="">
-					<!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
 					<span class="text">Descripción (Opcional)</span>
 				</label>
+				<div class="help">
+					<a href="#">
+						<i class="material-icons">help_outline</i>
+					</a>
+					<div class="inf none hidden">
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+						</p>
+					</div>
+				</div>
 			</div>
 			@if ($errors->has('description'))
 				<div class="input_error">
@@ -101,9 +119,18 @@
 			<div class="input no_icon {{ $errors->has('start_time') ? 'error' : '' }} time">
 				<input type="time" name="start_time" value="" required="" class="input_time">
 				<label for="">
-					<!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
 					<span class="text">Hora de inicio (hh:mm am/pm)</span>
 				</label>
+				<div class="help">
+					<a href="#">
+						<i class="material-icons">help_outline</i>
+					</a>
+					<div class="inf none hidden">
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+						</p>
+					</div>
+				</div>
 			</div>
 			@if ($errors->has('start_time'))
 				<div class="input_error">
@@ -113,9 +140,18 @@
 			<div class="input no_icon {{ $errors->has('end_time') ? 'error' : '' }} time">
 				<input type="time" name="end_time" value="" required="" class="input_time">
 				<label for="">
-					<!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
 					<span class="text">Hora de finalización (hh:mm am/pm)</span>
 				</label>
+				<div class="help">
+					<a href="#">
+						<i class="material-icons">help_outline</i>
+					</a>
+					<div class="inf none hidden">
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+						</p>
+					</div>
+				</div>
 			</div>
 			@if ($errors->has('end_time'))
 				<div class="input_error">

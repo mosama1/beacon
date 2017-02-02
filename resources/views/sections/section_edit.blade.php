@@ -31,6 +31,16 @@
           <label for="">
             <span class="text">Nombre</span>
           </label>
+          <div class="help">
+            <a href="#">
+              <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              </p>
+            </div>
+          </div>
         </div>
         @if ($errors->has('name'))
         <div class="input_error">
@@ -38,18 +48,28 @@
         </div>
         @endif
 
-        <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioCarta" style="{{($coupon->price != 0) ? 'display: block' : ''}}">
-          <input type="number" name="price" step="0.01" min="0" value="{{($coupon->price != 0) ? $coupon->price : ''}}"  id="price" min="1.00">
+        <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioCarta" style="">
+
+          <input type="number" name="price" step="0.01" min="0" value=""  id="price" min="1.00">
           <label for="">
-            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-            <span class="text">Ingresar Precio: 0,00</span>
+            <span class="text">Ingresar Precio: 0,00 €</span>
           </label>
+          <div class="help">
+            <a href="#">
+              <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              </p>
+            </div>
+          </div>
         </div>
         <div class="input_error" id="errorPrecioCarta" style="display: none;">
             <span>El monto debe ser mayor a cero</span>
         </div>
           <p>
-        <input type="checkbox" class="filled-in" id="filled-in-box" {{($coupon->price != 0) ? 'checked' : ''}}/>
+        <input type="checkbox" class="filled-in" id="filled-in-box" />
         <label for="filled-in-box">Manejar Precio</label>
           </p>
 

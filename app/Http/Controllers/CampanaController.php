@@ -178,6 +178,13 @@ class CampanaController extends Controller
 	public function edit_campana($id)
 	{
 		//consulta
+		$user = User::where('id', '=', Auth::user()->id)->get();
+
+
+		$locations = DB::table('locations')
+									->select('location_id', 'name')
+									->where('user_id', '=', $user[0]->user_id)
+									->get();
 
 		$campana = Campana::where([
 								['user_id', '=', Auth::user()->id],
@@ -185,7 +192,7 @@ class CampanaController extends Controller
 							])->first();
 
 
-		return view('campanas.campana_edit', ['campana' => $campana]);
+		return view('campanas.campana_edit', ['campana' => $campana, 'locations' => $locations]);
 	}
 
 	/**

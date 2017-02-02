@@ -183,6 +183,10 @@ select:not(.multiple_) {
 .none{
   display: none !important;
 }
+.hidden{
+  overflow: hidden !important;
+}
+
 .success{
   background: rgb(94, 194, 95);
 }
@@ -829,6 +833,7 @@ body.menu2 .menu_cliente{
   transform: translate(-50%, 0%);
   border: solid 1px #fff;
   padding: 15px 30px;
+  padding: 15px 60px 15px 30px;
   border-radius: 40px;
   margin-top: 30px;
   position: relative;
@@ -1790,8 +1795,9 @@ body.menu2 .menu_cliente{
 }
 
 
-.contenedor .principal .form .input .help,
-.modal_ .form .input .help{
+.input-field .help,
+.file-field .help,
+.input .help{
   position: absolute;
   top: 7.5px;
   right: -40px;
@@ -1799,47 +1805,114 @@ body.menu2 .menu_cliente{
   height: 30px;
   transform: translate();
 }
-.contenedor .principal .form .input .help i,
-.modal_ .form .input .help i{
+
+.input-field .help,
+.input.select .help{
+  top: -2.5px;
+}
+.input-field .help i,
+.file-field .help i,
+.input .help i{
   font-size: 30px;
   color: #999999;
+
+  -webkit-transition: all .35s ease-in-out;
+  -moz-transition: all .35s ease-in-out;
+  -o-transition: all .35s ease-in-out;
+  transition: all .35s ease-in-out;
+}
+.input-field .help.active i,
+.file-field .help.active i,
+.input .help.active i{
+  color: #ffffff;
 }
 
-.contenedor .principal .form .input .help .inf,
-.modal_ .form .input .help .inf{
+
+.input-field .help .inf,
+.file-field .help .inf,
+.input .help .inf{
   position: absolute;
-  width: 200px;
   height: auto;
-  min-height: 100px;
   background: #000;
   top: -7.5px;
   left: -25px;
   transform: translate(-100%);
   z-index: 10;
-  padding: 5px;
-  border-radius: 7.5px;
-  display: none;
+  border-radius: 5px;
+  /*overflow: hidden;*/
+
+  max-height: 0px;
+  width: 100px;
+  padding: 0px;
+  opacity: 0;
+
+  -webkit-transition: all .35s ease-in-out;
+  -moz-transition: all .35s ease-in-out;
+  -o-transition: all .35s ease-in-out;
+  transition: all .35s ease-in-out;
 }
-.contenedor .principal .form .input .help .inf:before,
-.modal_ .form .input .help .inf:before{
+.input-field .help .inf.active,
+.file-field .help .inf.active,
+.input .help .inf.active{
+  opacity: 1;
+
+  max-height: 200px;
+  width: 200px;
+  padding: 15px;
+}
+
+.input-field .help .inf:before,
+.file-field .help .inf:before,
+.input .help .inf:before{
   content: '';
   position: absolute;
-  top: 7.5px;
-  right: -20px;
+  top: 4px;
   width: 0;
   height: 0;
   border-style: solid;
   border-width: 15px 0 15px 20px;
   border-color: transparent transparent transparent #000;
+
+  right: 0px;
+
+  -webkit-transition: all .35s ease-in-out;
+  -moz-transition: all .35s ease-in-out;
+  -o-transition: all .35s ease-in-out;
+  transition: all .35s ease-in-out;
 }
-.contenedor .principal .form .input .help .inf p,
-.modal_ .form .input .help .inf p{
+
+.input-field .help .inf.active:before,
+.file-field .help .inf.active:before,
+.input .help .inf.active:before{
+  right: -20px;
+  transition-delay: .3s;
+
+}
+
+.form .input-field .help .inf p,
+.form .file-field .help .inf p,
+.input .help .inf p{
   margin: 0;
   font-size: 12px;
   color: #fff;
   text-align: justify;
-}
+  opacity: 0;
 
+  transition-delay: .2s;
+
+  -webkit-transition: all .35s ease-in-out;
+  -moz-transition: all .35s ease-in-out;
+  -o-transition: all .35s ease-in-out;
+  transition: all .35s ease-in-out;
+}
+.input-field .help .inf.active p,
+.file-field .help .inf.active p,
+.input .help .inf.active p{
+  opacity: 1;
+
+
+
+}
 
 
 .contenedor .principal .form .checkbox,
@@ -1917,14 +1990,24 @@ body.menu2 .menu_cliente{
   width: 50px;
   height: 100%;
   background: #999999;
+
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+.contenedor .principal .form .input.focus input.input_time::before,
+.modal_ .form .input.focus input.input_time::before{
+  background: #ffffff;
+
 }
 .contenedor .principal .form .input.time,
 .modal_ .form .input.time{
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 .contenedor .principal .form .input input.input_time,
 .modal_ .form .input input.input_time{
-  width: calc(100% + 50px)
+  /*width: calc(100% + 50px)*/
 }
 .contenedor .principal .form .input input.input_time.number,
 .modal_ .form .input input.input_time.number{

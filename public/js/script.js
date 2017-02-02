@@ -448,4 +448,41 @@ $('#changepassword').submit(function(evt){
 /****************** Mostrar ayudas ****************************/
 /**************************************************************/
 
-// $('.help ')
+$('.help a').click(function(){
+  var help = $(this).parent();
+  var input = help.parent();
+
+  console.log($('.help').length);
+
+  function mostrar(param) {
+    param.addClass('active');
+    $('.inf', param).removeClass('none');
+    setTimeout(function(){
+      $('.inf', param).addClass('active');
+      setTimeout(function(){
+        $('.inf', param).removeClass('hidden');
+      },300);
+    },10);
+  }
+  function quitar(param) {
+    param.removeClass('active');
+    $('.inf', param).addClass('hidden');
+    $('.inf', param).removeClass('active');
+    setTimeout(function(){
+      setTimeout(function(){
+        $('.inf', param).addClass('none');
+      },150);
+    },200);
+  }
+
+  if ($('.help.active', input).length <= 0) {
+    quitar($('.help.active'));
+    mostrar(help);
+  }else {
+    quitar(help);
+  }
+
+
+
+  return false;
+});

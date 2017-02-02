@@ -74,7 +74,7 @@
           <span class="text">Nombre</span>
         </label>
         @if ($errors->has('name'))
-        <span class="error_input">
+        <span class="input_error">
           <strong>{{ $errors->first('name') }}</strong>
         </span>
         @endif
@@ -84,24 +84,44 @@
         <label for="">
           <span class="text">Idioma</span>
         </label>
-        @if ($errors->has('name'))
-        <span class="error_input">
-          <strong>{{ $errors->first('name') }}</strong>
-        </span>
-        @endif
+        <div class="help">
+          <a href="#">
+            <i class="material-icons">help_outline</i>
+          </a>
+          <div class="inf none hidden">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            </p>
+          </div>
+        </div>
       </div>
+      @if ($errors->has('name'))
+      <div class="input_error">
+        <span>{{ $errors->first('name') }}</span>
+      </div>
+      @endif
 
       <div class="input no_icon {{ $errors->has('abreb') ? 'error' : '' }}">
         <input type="text" name="abreb" value="" required="">
         <label for="">
           <span class="text">Abreviatura</span>
         </label>
-        @if ($errors->has('abreb'))
-          <span class="error_input">
-              <strong>{{ $errors->first('abreb') }}</strong>
-          </span>
-        @endif
+        <div class="help">
+          <a href="#">
+            <i class="material-icons">help_outline</i>
+          </a>
+          <div class="inf none hidden">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            </p>
+          </div>
+        </div>
       </div>
+      @if ($errors->has('abreb'))
+      <div class="input_error">
+        <span>{{ $errors->first('abreb') }}</span>
+      </div>
+      @endif
       <div class="checkbox">
         <input type="checkbox" class="filled-in" id="filled-in-box" />
         <label for="filled-in-box">Habilitar</label>

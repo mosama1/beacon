@@ -101,9 +101,18 @@
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
         <input type="text" name="name" value="" required="" autofocus="">
         <label for="">
-          <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Nombre</span>
         </label>
+        <div class="help">
+          <a href="#">
+            <i class="material-icons">help_outline</i>
+          </a>
+          <div class="inf none hidden">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            </p>
+          </div>
+        </div>
 
       </div>
       @if ($errors->has('name'))
@@ -115,9 +124,18 @@
       <div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}" id="divPrecioCarta">
         <input type="number" name="price" step="0.01" value=""  id="price" min="1.00" max="99999" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)">
         <label for="">
-          <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-          <span class="text">Ingresar Precio: 0,00</span>
+          <span class="text">Ingresar Precio: 0,00 €</span>
         </label>
+        <div class="help">
+          <a href="#">
+            <i class="material-icons">help_outline</i>
+          </a>
+          <div class="inf none hidden">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            </p>
+          </div>
+        </div>
       </div>
       <div class="input_error" id="errorPrecioCarta" style="display: none;">
           <span>El monto debe ser mayor a cero</span>
@@ -169,7 +187,6 @@
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
         <input type="text" name="language" value="" required="">
         <label for="">
-          <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Traduccion Sección</span>
         </label>
         @if ($errors->has('name'))

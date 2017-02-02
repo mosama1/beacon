@@ -68,9 +68,18 @@
         <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
           <input type="text" name="name" value="" required="">
           <label for="">
-            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Nombre</span>
           </label>
+          <div class="help">
+            <a href="#">
+              <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              </p>
+            </div>
+          </div>
         </div>
         @if ($errors->has('name'))
           <div class="input_error">
@@ -81,9 +90,18 @@
         <div class="input no_icon {{ $errors->has('major') ? 'error' : '' }}">
           <input type="text" name="major" value="" required="">
           <label for="">
-            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Major</span>
           </label>
+          <div class="help">
+            <a href="#">
+              <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              </p>
+            </div>
+          </div>
         </div>
         @if ($errors->has('major'))
           <div class="input_error">
@@ -93,9 +111,18 @@
         <div class="input no_icon {{ $errors->has('minor') ? 'error' : '' }}">
           <input type="text" name="minor" value="" required="">
           <label for="">
-            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Minor</span>
           </label>
+          <div class="help">
+            <a href="#">
+              <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              </p>
+            </div>
+          </div>
         </div>
         @if ($errors->has('minor'))
           <div class="input_error">
