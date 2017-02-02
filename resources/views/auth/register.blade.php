@@ -17,7 +17,7 @@
             <img src="img/icons/idioma.png" alt="" class="icon">
             <select id="language" class="form-control icons" name="language" required="required">
               <option value="" disabled selected>Idioma</option>
-              <option value="Castellano" data-icon="img/icons/es.png" class="left circle">Castellano</option>
+              <option value="Castellano" selected data-icon="img/icons/es.png" class="left circle">Castellano</option>
               <option value="Catalám" data-icon="img/icons/en.png" class="left circle">Catalám</option>
             </select>
           </div>
