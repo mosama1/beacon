@@ -9,6 +9,7 @@
     <form action="{{route('user_patch_path', $user->id)}}" method="post">
       {{ csrf_field() }}
 
+
       <div class="divide reg_user">
         <div class="titulo">
           <h5>Registro de usuario</h5>
@@ -17,12 +18,12 @@
           <div class="input select {{ $errors->has('language') ? 'error' : '' }}">
             <img src="img/icons/idioma.png" alt="" class="icon">
             <select id="language" class="form-control icons" name="language" required>
-              @if($user->language == 'Español')
+              @if($user->language == 'Castellano')
                 <option value="{{ $user->language }}" data-icon="img/icons/es.png" class="left circle">{{ $user->language }}</option>
-                <option value="English" data-icon="img/icons/en.png" class="left circle">English</option>
+                <option value="Catalám" data-icon="img/icons/en.png" class="left circle">Catalám</option>
               @else
                 <option value="{{ $user->language }}" data-icon="img/icons/en.png" class="left circle">{{ $user->language }}</option>
-                <option value="Español" data-icon="img/icons/es.png" class="left circle">Español</option>
+                <option value="Castellano" data-icon="img/icons/es.png" class="left circle">Español</option>
               @endif
             </select>
             <div class="help">

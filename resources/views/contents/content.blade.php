@@ -146,7 +146,7 @@
 					<button type="submit" name="button">
 						<span>Guardar</span>
 					</button>
-					<a href="{{ route('all_campana') }}" class="">
+					<a href="#" onclick="$('#agregarContenido').modal('close'); return false;" class="">
 						<span>Cancelar</span>
 					</a>
 				</center>
