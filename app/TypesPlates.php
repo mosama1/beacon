@@ -33,6 +33,6 @@ class TypesPlates extends Model
 
 	public function user()
 	{
-		return $this->belongsTo('Beacon\User', 'user_id', 'id');
+		return $this->belongsTo('Beacon\User', 'user_id', 'user_id');
 	}
 }

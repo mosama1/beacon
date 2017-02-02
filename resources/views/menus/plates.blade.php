@@ -15,7 +15,7 @@
 			<center>
 				<a href="#platosMenu" class="waves-effect">
 					<div class="">
-						<span class="text">Agregar <br><strong>Platos de<br>la Menú</strong></span>
+						<span class="text">Agregar <br><strong>Platos de<br>la Carta</strong></span>
 						<span class="icon"><i class="material-icons">add</i></span>
 					</div>
 				</a>
@@ -115,7 +115,6 @@
 			<div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
 				<input type="text" name="name" value="" required="">
 				<label for="">
-					<!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
 					<span class="text">Nombre</span>
 				</label>
 				<div class="help">
@@ -166,10 +165,9 @@
 			@endif
 
 			<div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}">
-				<input type="number" name="price" value="" required=""  max="99999" step="any">
+				<input type="number" name="price" value="" required="" min="1" max="99999" step="any">
 				<label for="">
-					<!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-					<span class="text">Precio</span>
+					<span class="text">Precio 0,00 €</span>
 				</label>
 
 				<div class="help">
@@ -235,7 +233,6 @@
 			<div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
 				<input type="text" name="name" value="" required="" >
 				<label for="">
-					<!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
 					<span class="text">Traduccion Plato</span>
 				</label>
 				@if ($errors->has('name'))

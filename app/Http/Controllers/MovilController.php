@@ -85,11 +85,11 @@ class MovilController extends Controller
 	public function get_type_plates_movil( $campana_id )
 	{
 		$type_plates = DB::table('campaing_types_plates')
-                    ->where([
-                    	['campana_id', '=', $campana_id],
-                    	['language_id', '=', 1],
-                    	])
-                    ->get();
+					->where([
+						['campana_id', '=', $campana_id],
+						['language_id', '=', 1],
+						])
+					->get();
 
 
 		//	echo "<pre>"; var_dump($type_plates);	echo "</pre>";
@@ -139,49 +139,49 @@ class MovilController extends Controller
 	 */
 	 public function all_plate( $campana_id, $section_id )
    {
-       $menus = Menu::where([
-           ['section_id', '=', array( $section_id ) ],
-       ])->get();
-       foreach ($menus as $key => $menu) {
-           $menu->plate;
-           $menu->menu_translation;
-           if ($menu->plate) {
-               $menu->plate->plate_translation;
-           }
-       }
-       $menu_ = Menu::where([
-           ['id', '=', array( $menu->id )]
-       ])->first();
-       $menu_->plate;
+	   $menus = Menu::where([
+		   ['section_id', '=', array( $section_id ) ],
+	   ])->get();
+	   foreach ($menus as $key => $menu) {
+		   $menu->plate;
+		   $menu->menu_translation;
+		   if ($menu->plate) {
+			   $menu->plate->plate_translation;
+		   }
+	   }
+	   $menu_ = Menu::where([
+		   ['id', '=', array( $menu->id )]
+	   ])->first();
+	   $menu_->plate;
 
-       //echo "<pre>"; var_dump($menus);    echo "</pre>";
+	   //echo "<pre>"; var_dump($menus);    echo "</pre>";
 
-       $sections = Section::all();
-
-
-       $sections_trans = SectionTranslation::where([
-           ['section_id', '=', array( $section_id )]
-       ])->first();
-
-       $coupon = Section::where([
-           ['id', '=', array( $section_id ) ],
-       ])->first()->coupon;
+	   $sections = Section::all();
 
 
-       // echo "<pre>"; var_dump($coupon);    echo "</pre>";
-       // return;
+	   $sections_trans = SectionTranslation::where([
+		   ['section_id', '=', array( $section_id )]
+	   ])->first();
 
-       return view('movil.plates',
-                   [
-                       'sections' => $this->get_sections_movil($campana_id),
-                       'type_plates' => $this->get_type_plates_movil( $campana_id ),
-                       'menus' => $menus,
-                       'campana_id' => $campana_id,
-                       'section_id' => $section_id,
-                       'coupon' => $coupon,
-                       'menu' => $menu_,
-                       'section_name' => $sections_trans->name
-                   ]);
+	   $coupon = Section::where([
+		   ['id', '=', array( $section_id ) ],
+	   ])->first()->coupon;
+
+
+	   // echo "<pre>"; var_dump($coupon);    echo "</pre>";
+	   // return;
+
+	   return view('movil.plates',
+				   [
+					   'sections' => $this->get_sections_movil($campana_id),
+					   'type_plates' => $this->get_type_plates_movil( $campana_id ),
+					   'menus' => $menus,
+					   'campana_id' => $campana_id,
+					   'section_id' => $section_id,
+					   'coupon' => $coupon,
+					   'menu' => $menu_,
+					   'section_name' => $sections_trans->name
+				   ]);
    }
 
 	/**
@@ -228,8 +228,8 @@ class MovilController extends Controller
 	{
 
 		$menu = Menu::where([
-	 		['id', '=', array( $menu_id )]
-	 	])->first();
+			['id', '=', array( $menu_id )]
+		])->first();
 
 		$menu->menu_translation;
 
@@ -277,8 +277,8 @@ class MovilController extends Controller
 		// 	return view('movil.detail_plato', ['plate' => $plate, 'section_id' => $plate->section->id]);
 
 		$menu = Menu::where([
-	 		['id', '=', array( $menu_id )]
-	 	])->first();
+			['id', '=', array( $menu_id )]
+		])->first();
 
 		$menu->menu_translation;
 

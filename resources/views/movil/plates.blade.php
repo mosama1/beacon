@@ -49,9 +49,9 @@ use Beacon\Plate;
                   </td>
                   <td>
                     @if( empty($coupon->price) )
-                      {{$p->price}}
+                      {{$p->price}} €
                     @else
-                      {{$coupon->price}}
+                      {{$coupon->price}} €
                     @endif
                   </td>
                   <td>

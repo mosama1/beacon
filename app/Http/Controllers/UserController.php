@@ -42,7 +42,7 @@ class UserController extends Controller
 	{
 		//
 	}
-  	/**
+	/**
 	 * Validate if the password matches the password of the resource specified in the store.
 	 *
 	 * @return \Illuminate\Http\Response
@@ -74,11 +74,11 @@ class UserController extends Controller
 	public function change_password(Request $request, $id)
 	{
 
-		$user = User::findOrFail($id);
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-			$messages = [
-				'password_confirmation'    => 'Las contraseña :attribute no coincide con :other.',
-			];
+		$messages = [
+			'password_confirmation'    => 'Las contraseña :attribute no coincide con :other.',
+		];
 
 
 		$validator = Validator::make($request->all(), [
@@ -89,9 +89,9 @@ class UserController extends Controller
 
 		$user->password = bcrypt($request->get('password'));
 		if ($user->save()) {
-			return redirect()->route('user_edit_path', $id)->with(['status' => 'Cambio de contraseña exitoso.', 'type' => 'success']);
+			return redirect()->route('user_edit_path', $user->user_id)->with(['status' => 'Cambio de contraseña exitoso.', 'type' => 'success']);
 		} else {
-			return redirect()->route('user_edit_path', $id)->with(['status' => 'Cambio de contraseña fallido.', 'type' => 'error']);
+			return redirect()->route('user_edit_path', $user->user_id)->with(['status' => 'Cambio de contraseña fallido.', 'type' => 'error']);
 		}
 
 	}
@@ -115,15 +115,16 @@ class UserController extends Controller
 	 */
 	public function edit($id)
 	{
-		$user = User::findOrFail($id);
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-		$locatiom = Location::where('user_id', '=', $user->user_id)->first();
+		$location = $user->location;
 
-		if ($locatiom):
+		// echo("<pre>");	var_dump($user->location);	echo("</pre>");
+		// return;
 
-			$restaurant = $user->location;
+		if ($user->location):
 
-			return view('users.edit', ['user' => $user, 'location' => $restaurant ]);
+			return view('users.edit', ['user' => $user, 'location' => $location ]);
 		else:
 			return view('locations.location_add');
 		endif;
@@ -139,13 +140,13 @@ class UserController extends Controller
 	 */
 	 public function update(Request $request, $id)
 	 {
-		$user = User::findOrFail($id);
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
 		$user->language =  $request->get('language');
 		$user->email = $request->get('email');
 		$user->phone = $request->get('phone');
 		$user->save();
 
-		return redirect()->route('user_edit_path', $id)->with(['status' => 'Se edito el perfil con exito', 'type' => 'success']);
+		return redirect()->route('user_edit_path', $user->user_id)->with(['status' => 'Se edito el perfil con exito', 'type' => 'success']);
 	 }
 
 

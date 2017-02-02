@@ -15,14 +15,14 @@
 
 //Users
 
-Route::group(['prefix' => 'user'], function () {
+Route::group(['prefix' => 'user/{user_id}'], function () {
 
-	Route::get('{id}', 'UserController@edit')->name('user_edit_path')->where('id', '[0-9]+');
+	Route::get('/', 'UserController@edit')->name('user_edit_path')->where('user_id', '[0-9]+');
 
-	Route::post('{id}/edit', 'UserController@update')->name('user_patch_path')->where('id', '[0-9]+');
+	Route::post('edit', 'UserController@update')->name('user_patch_path')->where('user_id', '[0-9]+');
 
-	Route::post('{id}/validate_password', 'UserController@validate_password')->name('validate_password')->where('id', '[0-9]+');
+	Route::post('validate_password', 'UserController@validate_password')->name('validate_password')->where('user_id', '[0-9]+');
 
- 	Route::post('{id}/change_password', 'UserController@change_password')->name('change_password')->where('id', '[0-9]+');
+ 	Route::post('change_password', 'UserController@change_password')->name('change_password')->where('user_id', '[0-9]+');
 
 });

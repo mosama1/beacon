@@ -12,7 +12,7 @@ class Campana extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-			'campana_id', 'user_id', 'name', 'description', 'start_time', 'end_time', 'location', 'enabled',
+			'name', 'description', 'start_time', 'end_time', 'enabled', 'campana_id', 'location_id', 'user_id',
 	];
 
 	public function content()
@@ -22,7 +22,7 @@ class Campana extends Model
 	
 	public function user()
 	{
-		return $this->belongsTo('Beacon\User', 'user_id', 'id');
+		return $this->belongsTo('Beacon\User', 'user_id', 'user_id');
 	}
 
 	//************************************* Plato Cliente **************************************************//
