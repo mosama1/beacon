@@ -12,8 +12,8 @@ $('.sb_mn2').click(function(){
 /* Validacion de Inputs */
 $('.val_phone').mask('000 00-00-00');
 $('.val_zip').mask('00000');
-
-
+// $('.picker_time').mask('00:00 AA');
+$('.picker_time').mask("00:00 AA", {placeholder: "__:__: am/pm"});
 
 
 
@@ -192,16 +192,28 @@ inputVerificar.focusin(function(){
   var input = $(this).parent();
   input.removeClass('error');
   input.addClass('focus');
-  $(this).keyup(function(){
-    verificarInputVacios($(this));
-  });
+  // $(this).keyup(function(){
+  //   verificarInputVacios($(this));
+  // });
+  // $(this).change(function(){
+  //   verificarInputVacios($(this));
+  // });
+});
+inputVerificar.keyup(function(){
+  verificarInputVacios($(this));
+});
+inputVerificar.change(function(){
+  verificarInputVacios($(this));
 });
 inputVerificar.focusout(function(){
   var input = $(this).parent();
   input.removeClass('focus');
-  $(this).keyup(function(){
-    verificarInputVacios($(this));
-  });
+  // $(this).keyup(function(){
+  //   verificarInputVacios($(this));
+  // });
+  // $(this).change(function(){
+  //   verificarInputVacios($(this));
+  // });
 });
 
 
@@ -403,11 +415,11 @@ $('.MenuResponsive').click(function(){
 /******************* Validaciones *****************************/
 /**************************************************************/
 /* Validacion si el beacon esta registrado */
-$('#addbeacon').submit(function(evet){
-  evt.preventDefault();
+$('#add_beacon').submit(function(event){
+  event.preventDefault();
   $.ajax({
       type: "POST",
-      url: '/beacons/check',
+      url: 'beacons/check',
       data: $('#add_beacon').serialize(),
       success: function(respuesta) {
         if (respuesta === '0') {
@@ -417,18 +429,19 @@ $('#addbeacon').submit(function(evet){
         }
       }
   });
+
 });
 
 
 
-$('#changepassword').submit(function(evt){
+$('#change_password').submit(function(evt){
   evt.preventDefault();
   var id = $(this).attr('userid');
   var password = $('#password').val();
   var password_confirmation = $('#password_confirmation').val();
   $.ajax({
       type: "POST",
-      url: '/user/'+id+'/validate_password',
+      url: 'user/'+id+'/validate_password',
       data: $('#change_password').serialize(),
       success: function(respuesta) {
         if (respuesta === '1') {

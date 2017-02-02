@@ -117,7 +117,7 @@
 				</div>
 			@endif
 			<div class="input no_icon {{ $errors->has('start_time') ? 'error' : '' }} time">
-				<input type="time" name="start_time" value="" required="" class="input_time">
+				<input type="time" name="start_time" value="" required="" class="input_time picker_time">
 				<label for="">
 					<span class="text">Hora de inicio (hh:mm am/pm)</span>
 				</label>
