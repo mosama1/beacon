@@ -15,7 +15,7 @@ use Beacon\Plate;
   <div class="principal" style="padding: 0;">
     <div class="titulo _1">
       <h3>
-        MENÚ
+        Carta
       </h3>
     </div>
 

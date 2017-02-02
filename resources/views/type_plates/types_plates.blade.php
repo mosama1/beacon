@@ -31,9 +31,9 @@
               <tr>
                 <th data-field="id">Nombre</th>
                 <th data-field="tipo">Tipo</th>
-                <th data-field="id">Editar</th>
+                <th data-field="id" width="100px">Editar</th>
                 <!-- <th data-field="name">Idioma</th> -->
-                <th data-field="name">Eliminar</th>
+                <th data-field="name" width="100px">Eliminar</th>
               </tr>
             </thead>
 

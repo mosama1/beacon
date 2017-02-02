@@ -27,7 +27,7 @@
                 <tr>
                     <th data-field="country">Mayor</th>
                     <th data-field="city">Minior</th>
-                    <th data-field="id">Eliminar</th>
+                    <th data-field="id" width="100px">Eliminar</th>
                 </tr>
               </thead>
               <tbody>

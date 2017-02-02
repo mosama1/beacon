@@ -30,9 +30,10 @@
                   <th data-field="id">id</th>
                   <th data-field="id">Nombre</th>
                   <th data-field="country">Descripción</th>
-                  <th>Editar</th>
-                  <th>Contenido</th>
-                  <th>Eliminar</th>
+                  <th width="100px">Contenido</th>
+                  <th width="100px">Editar</th>
+                  <th width="100px">Eliminar</th>
+                  <th width="130px">Habilitado</th>
             </thead>
 
             <tbody>
@@ -42,8 +43,8 @@
                   <td>{{$c->name}}</td>
                   <td>{{$c->description}}</td>
 
-                  <td><a href="{{ route('edit_campana', $c->campana_id) }}"><i class="material-icons">edit</i></a></td>
                   <td><a href="{{ route('all_content', $c->campana_id) }}"><i class="material-icons">add</i></a></td>
+                  <td><a href="{{ route('edit_campana', $c->campana_id) }}"><i class="material-icons">edit</i></a></td>
 
                   <!-- <td><a href="{{ route('all_content', $c->campana_id) }}"><i class="material-icons">add</i></a></td> -->
                 <?php
@@ -54,6 +55,16 @@
 
                 ?>
                   <a href="#eliminarPlan"><i class="material-icons">clear</i></a></td>
+                  <td>
+                    <div class="switch">
+                      <label>
+                        Si
+                        <input type="checkbox">
+                        <span class="lever"></span>
+                        No
+                      </label>
+                    </div>
+                  </td>
                 </tr>
               @endforeach
             </tbody>

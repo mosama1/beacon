@@ -320,10 +320,10 @@ $('#guardar').click(function(){
   if ($("#filled-in-box").prop('checked') === true) {
     var numero = $('#precioMenu').val();
     if (numero <= 0) {
-      $('#errorPrecioMenu').fadeIn();
-      $('#divPrecioMenu').addClass('error');
+      $('#errorPrecioCarta').fadeIn();
+      $('#divPrecioCarta').addClass('error');
       setTimeout(function(){
-        $('#errorPrecioMenu').fadeOut();
+        $('#errorPrecioCarta').fadeOut();
       },5000);
       return false;
     }
@@ -332,11 +332,11 @@ $('#guardar').click(function(){
 //agregarprecio
 $( "#filled-in-box" ).click(function() {
   if ($(this).prop('checked') === true) {
-    $('#divPrecioMenu').fadeIn();
+    $('#divPrecioCarta').fadeIn();
     $( "#precioMenu" ).prop( "required", true );
     $('#precioMenu').mask('000,000,000,000,0000000.00', {reverse: true});
   }else{
-    $('#divPrecioMenu').fadeOut();
+    $('#divPrecioCarta').fadeOut();
   }
 });
 
@@ -403,7 +403,7 @@ $('.MenuResponsive').click(function(){
 /******************* Validaciones *****************************/
 /**************************************************************/
 /* Validacion si el beacon esta registrado */
-$('#add_beacon').submit(function(evt){
+$('#addbeacon').submit(function(evet){
   evt.preventDefault();
   $.ajax({
       type: "POST",
@@ -421,7 +421,8 @@ $('#add_beacon').submit(function(evt){
 
 
 
-$('#change_password').submit(function(){
+$('#changepassword').submit(function(evt){
+  evt.preventDefault();
   var id = $(this).attr('userid');
   var password = $('#password').val();
   var password_confirmation = $('#password_confirmation').val();
@@ -441,5 +442,10 @@ $('#change_password').submit(function(){
         }
       }
   });
-  return false;
 });
+
+/**************************************************************/
+/****************** Mostrar ayudas ****************************/
+/**************************************************************/
+
+// $('.help ')

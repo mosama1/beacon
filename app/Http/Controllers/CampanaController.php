@@ -12,6 +12,7 @@ use Beacon\CouponTranslation;
 use Beacon\Timeframe;
 use Beacon\Campana;
 use Beacon\Content;
+use Beacon\User;
 use Illuminate\Support\Facades\Input;
 use Log;
 
@@ -79,9 +80,12 @@ class CampanaController extends Controller
 	{
 		$campana = Campana::where('user_id', '=', Auth::user()->id)->get();
 
+		$user = User::where('id', '=', Auth::user()->id)->get();
+
+
 		$locations = DB::table('locations')
 									->select('location_id', 'name')
-									->where('user_id', '=', Auth::user()->id)
+									->where('user_id', '=', $user[0]->user_id)
 									->get();
 
 		return view('campanas.campana',['campana' => $campana, 'locations' => $locations]);

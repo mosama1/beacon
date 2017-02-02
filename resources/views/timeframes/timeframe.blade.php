@@ -29,10 +29,10 @@
 							<tr>
 									<th data-field="id">Nombre</th>
 									<th data-field="description">Descripción</th>
-									<th data-field="city">Hora de inicio</th>
-									<th data-field="street">Hora de Finalización</th>
-									<th>Editar</th>
-									<th>Eliminar</th>
+									<th data-field="city" width="120px">Hora de inicio</th>
+									<th data-field="street" width="160px">Hora de Finalización</th>
+									<th width="100px">Editar</th>
+									<th width="100px">Eliminar</th>
 							</tr>
 						</thead>
 

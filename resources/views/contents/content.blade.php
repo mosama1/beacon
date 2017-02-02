@@ -27,7 +27,7 @@
 					<table>
 						<thead>
 							<tr>
-							<th data-field="country">Cupon</th>
+							<th data-field="country">Carta</th>
 							<th data-field="country">Horario</th>
 							<th>Editar</th>
 							<th>Eliminar</th>

@@ -31,7 +31,7 @@ use Beacon\User;
 
   <!-- Scripts -->
   <script>
-      window.Laravel = "<?php echo json_encode(['csrfToken' => csrf_token(), ]); ?>";
+      window.Laravel = "{{ json_encode(['csrfToken' => csrf_token() ]) }}";
   </script>
 
 </head>
@@ -43,7 +43,9 @@ use Beacon\User;
             <a id="logo-container" class="brand-logo logo-patrocinante logo" href="{{ Auth::guest() ? url('/login') : url('home') }}">
               <?php if (Auth::user()): ?>
                 @php
-                $locatiom = Location::where('user_id', '=', Auth::user()->id)->first();
+                $user = User::where('id', '=', Auth::user()->id)->first();
+
+                $locatiom = Location::where('user_id', '=', $user->user_id)->first();
                 @endphp
                 <?php if (!empty($locatiom)): ?>
                   <img src="{{$locatiom->logo}}" alt="">
@@ -73,7 +75,7 @@ use Beacon\User;
                       <ul class="sub_menu none">
                         <li>
                           <a href="{{ route('all_coupon') }}">
-                            <span>Menú</span>
+                            <span>La Carta</span>
                           </a>
                         </li>
                         <li>

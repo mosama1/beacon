@@ -7,7 +7,7 @@
 	<div class="principal">
 		<div class="titulo">
 			<h3>
-				Platos del menú
+				Platos de la carta
 			</h3>
 		</div>
 
@@ -15,7 +15,7 @@
 			<center>
 				<a href="#platosMenu" class="waves-effect">
 					<div class="">
-						<span class="text">Agregar <br><strong>Platos<br>Menú</strong></span>
+						<span class="text">Agregar <br><strong>Platos de<br>la Menú</strong></span>
 						<span class="icon"><i class="material-icons">add</i></span>
 					</div>
 				</a>
@@ -31,10 +31,11 @@
 								<th data-field="name">Nombre</th>
 								<th data-field="type">Tipo</th>
 								<th data-field="price">Precio</th>
-								<th data-field="name">Detalles</th>
-								<!-- <th data-field="price">Idioma</th> -->
-								<th data-field="price">Editar</th>
-								<th data-field="price">Eliminar</th>
+								<th data-field="name" width="100px">Detalles</th>
+								<th data-field="price" width="100px">Editar</th>
+								<th data-field="price" width="100px">Eliminar</th>
+								<th data-field="id" width="130px">Habilitado</th>
+
 							</tr>
 						</thead>
 						<tbody>
@@ -65,6 +66,16 @@
 
 									?>
 									<a href="#eliminarPlato"><i class="material-icons">clear</i></a>
+								</td>
+								<td>
+									<div class="switch">
+										<label>
+											Si
+											<input type="checkbox">
+											<span class="lever"></span>
+											No
+										</label>
+									</div>
 								</td>
 								</tr>
 							@endforeach

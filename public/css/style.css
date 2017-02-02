@@ -253,7 +253,7 @@ select:not(.multiple_) {
 }
 .menu ul li ul.sub_menu{
   width: auto;
-  min-width: 710px;
+  min-width: 740px;
   height: 0px;
   background: rgb(242, 242, 242);
   position: absolute;
@@ -525,6 +525,7 @@ select:not(.multiple_) {
   position: relative;
   left: calc(50% - 75px);
   transform: translate(-50%);
+  cursor: pointer;
 }
 .menu_cliente ul li.logo img{
   height: 100%;
@@ -1725,6 +1726,24 @@ body.menu2 .menu_cliente{
   padding: 10px 5px;
   /*border: solid 1px #000;*/
 
+
+}
+
+
+.switch label input[type=checkbox]:checked + .lever {
+  background-color: #818181;
+}
+
+.switch label input[type=checkbox]:checked + .lever:after {
+  background-color: #F1F1F1;
+}
+
+.switch label .lever {
+  background-color: #84c7c1;
+}
+
+.switch label .lever:after {
+  background-color: #26a69a;
 }
 
 
@@ -1743,7 +1762,7 @@ body.menu2 .menu_cliente{
   /*padding-bottom: 50px;*/
 }
 
-#divPrecioMenu{
+#divPrecioCarta{
   display: none;
 }
 #divIdiomaMenu{
@@ -1769,6 +1788,60 @@ body.menu2 .menu_cliente{
   -o-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out;
 }
+
+
+.contenedor .principal .form .input .help,
+.modal_ .form .input .help{
+  position: absolute;
+  top: 7.5px;
+  right: -40px;
+  width: 30px;
+  height: 30px;
+  transform: translate();
+}
+.contenedor .principal .form .input .help i,
+.modal_ .form .input .help i{
+  font-size: 30px;
+  color: #999999;
+}
+
+.contenedor .principal .form .input .help .inf,
+.modal_ .form .input .help .inf{
+  position: absolute;
+  width: 200px;
+  height: auto;
+  min-height: 100px;
+  background: #000;
+  top: -7.5px;
+  left: -25px;
+  transform: translate(-100%);
+  z-index: 10;
+  padding: 5px;
+  border-radius: 7.5px;
+  display: none;
+}
+.contenedor .principal .form .input .help .inf:before,
+.modal_ .form .input .help .inf:before{
+  content: '';
+  position: absolute;
+  top: 7.5px;
+  right: -20px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 15px 0 15px 20px;
+  border-color: transparent transparent transparent #000;
+}
+.contenedor .principal .form .input .help .inf p,
+.modal_ .form .input .help .inf p{
+  margin: 0;
+  font-size: 12px;
+  color: #fff;
+  text-align: justify;
+}
+
+
+
 .contenedor .principal .form .checkbox,
 .modal_ .form .checkbox{
   margin-top: 10px;
@@ -2271,7 +2344,7 @@ body.menu2 .menu_cliente{
 .modal_{
   width: 80%;
   height: auto;
-  max-width: 700px;
+  max-width: 860px;
   padding: 25px 0;
   /*background: transparent*/
   background-size: cover;
