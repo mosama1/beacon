@@ -32,6 +32,7 @@
                 <th data-field="id">Nombre</th>
                 <th data-field="id" width="100px">Editar</th>
                 <th data-field="name" width="100px">Eliminar</th>
+                <th data-field="id" width="130px">Habilitado</th>
               </tr>
             </thead>
 
@@ -40,16 +41,49 @@
                 <td>Idioma</td>
                 <td><a href="{{ route('edit_language', 1)}}"><i class="material-icons">edit</i></a></td>
                 <td><a href="#eliminarIdioma"><i class="material-icons">clear</i></a></td>
+                <td>
+                  <div class="switch">
+                    <label>
+                      Si
+                      <input type="checkbox">
+                      <span class="lever"></span>
+                      No
+                    </label>
+                  </div>
+                </td>
+
               </tr>
               <tr>
                 <td>Idioma</td>
                 <td><a href="{{ route('edit_language', 1)}}"><i class="material-icons">edit</i></a></td>
                 <td><a href="#eliminarIdioma"><i class="material-icons">clear</i></a></td>
+                <td>
+                  <div class="switch">
+                    <label>
+                      Si
+                      <input type="checkbox">
+                      <span class="lever"></span>
+                      No
+                    </label>
+                  </div>
+                </td>
+
               </tr>
               <tr>
                 <td>Idioma</td>
                 <td><a href="{{ route('edit_language', 1)}}"><i class="material-icons">edit</i></a></td>
                 <td><a href="#eliminarIdioma"><i class="material-icons">clear</i></a></td>
+                <td>
+                  <div class="switch">
+                    <label>
+                      Si
+                      <input type="checkbox">
+                      <span class="lever"></span>
+                      No
+                    </label>
+                  </div>
+                </td>
+
               </tr>
             </tbody>
           </table>

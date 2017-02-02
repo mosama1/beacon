@@ -215,7 +215,7 @@ class ContentController extends Controller
 
 			else:
 
-            return redirect()->route('show_content', $campana_id)->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
+            return redirect()->route('all_content', $campana_id)->with(['status' => 'Error al ingresar la el contenido de la campana', 'type' => 'error']);
 
         endif;
 	}

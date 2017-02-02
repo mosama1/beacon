@@ -1821,11 +1821,16 @@ body.menu2 .menu_cliente{
   -o-transition: all .35s ease-in-out;
   transition: all .35s ease-in-out;
 }
+
 .input-field .help.active i,
 .file-field .help.active i,
 .input .help.active i{
   color: #ffffff;
 }
+.dat_ris .input .help.active i{
+  color: #000;
+}
+
 
 
 .input-field .help .inf,
