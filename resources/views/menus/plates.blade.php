@@ -7,7 +7,7 @@
 	<div class="principal">
 		<div class="titulo">
 			<h3>
-				Platos del menú
+				Platos de la carta
 			</h3>
 		</div>
 
@@ -15,7 +15,7 @@
 			<center>
 				<a href="#platosMenu" class="waves-effect">
 					<div class="">
-						<span class="text">Agregar <br><strong>Platos<br>Menú</strong></span>
+						<span class="text">Agregar <br><strong>Platos de<br>la Menú</strong></span>
 						<span class="icon"><i class="material-icons">add</i></span>
 					</div>
 				</a>
@@ -31,10 +31,11 @@
 								<th data-field="name">Nombre</th>
 								<th data-field="type">Tipo</th>
 								<th data-field="price">Precio</th>
-								<th data-field="name">Detalles</th>
-								<!-- <th data-field="price">Idioma</th> -->
-								<th data-field="price">Editar</th>
-								<th data-field="price">Eliminar</th>
+								<th data-field="name" width="100px">Detalles</th>
+								<th data-field="price" width="100px">Editar</th>
+								<th data-field="price" width="100px">Eliminar</th>
+								<th data-field="id" width="130px">Habilitado</th>
+
 							</tr>
 						</thead>
 						<tbody>
@@ -48,9 +49,9 @@
 									<td>{{$m->type}}</td>
 									<td>
 										@if( empty($coupon->price) )
-											{{$m->price}}
+											{{$m->price}} €
 										@else
-											{{$coupon->price}}
+											{{$coupon->price}} €
 										@endif
 									</td>
 									<td><a href="{{ route('show_plate', $m->id) }}"><i class="material-icons">input</i></a></td>
@@ -65,6 +66,16 @@
 
 									?>
 									<a href="#eliminarPlato"><i class="material-icons">clear</i></a>
+								</td>
+								<td>
+									<div class="switch">
+										<label>
+											Si
+											<input type="checkbox">
+											<span class="lever"></span>
+											No
+										</label>
+									</div>
 								</td>
 								</tr>
 							@endforeach
@@ -107,12 +118,22 @@
 					<!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
 					<span class="text">Nombre</span>
 				</label>
-				@if ($errors->has('name'))
-					<span class="error_input">
-							<strong>{{ $errors->first('name') }}</strong>
-					</span>
-				@endif
+				<div class="help">
+					<a href="#">
+						<i class="material-icons">help_outline</i>
+					</a>
+					<div class="inf none hidden">
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+						</p>
+					</div>
+				</div>
 			</div>
+			@if ($errors->has('name'))
+			<div class="input_error">
+				<span>{{ $errors->first('name') }}</span>
+			</div>
+			@endif
 
 			<div class="input select no_icon {{ $errors->has('type') ? 'error' : '' }}">
 				<!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
@@ -127,13 +148,22 @@
 					<option value="" disabled selected>No hay tipos de platos registrados</option>
 				@endif
 				</select>
-
-				@if ($errors->has('type'))
-				<span class="error_input">
-					<strong>{{ $errors->first('type') }}</strong>
-				</span>
-				@endif
+				<div class="help">
+          <a href="#">
+            <i class="material-icons">help_outline</i>
+          </a>
+          <div class="inf none hidden">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            </p>
+          </div>
+        </div>
 			</div>
+			@if ($errors->has('type'))
+			<div class="error_input">
+				<span>{{ $errors->first('type') }}</span>
+			</div>
+			@endif
 
 			<div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}">
 				<input type="number" name="price" value="" required=""  max="99999" step="any">
@@ -141,12 +171,23 @@
 					<!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
 					<span class="text">Precio</span>
 				</label>
-				@if ($errors->has('price'))
-					<span class="error_input">
-							<strong>{{ $errors->first('price') }}</strong>
-					</span>
-				@endif
+
+				<div class="help">
+					<a href="#">
+						<i class="material-icons">help_outline</i>
+					</a>
+					<div class="inf none hidden">
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+						</p>
+					</div>
+				</div>
 			</div>
+			@if ($errors->has('price'))
+				<div class="input_error">
+						<span>{{ $errors->first('price') }}</span>
+				</div>
+			@endif
 			<div class="button">
 				<center>
 					<button type="submit" name="button">

@@ -82,6 +82,9 @@ class CampanaController extends Controller
 
 		$campana = Campana::where( 'user_id', '=', $user->user_id )->get();
 
+		$user = User::where('id', '=', Auth::user()->id)->get();
+
+
 		$locations = DB::table('locations')
 									->select( 'location_id', 'name' )
 									->where( 'user_id', '=', $user->user_id )
@@ -132,7 +135,8 @@ class CampanaController extends Controller
 						'start_time' => '2017-01-01 00:00',
 						'end_time' => '2022-01-01 00:00',
 						'locations' => $request->location_id,
-						'enabled' => '1',
+						'tag' =>
+						'enabled' => 1,
 				]
 		]);
 
@@ -182,6 +186,13 @@ class CampanaController extends Controller
 
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 		//consulta
+		$user = User::where('id', '=', Auth::user()->id)->get();
+
+
+		$locations = DB::table('locations')
+									->select('location_id', 'name')
+									->where('user_id', '=', $user[0]->user_id)
+									->get();
 
 		$campana = Campana::where([
 								['user_id', '=', $user->user_id ],
@@ -189,7 +200,7 @@ class CampanaController extends Controller
 							])->first();
 
 
-		return view('campanas.campana_edit', ['campana' => $campana]);
+		return view('campanas.campana_edit', ['campana' => $campana, 'locations' => $locations]);
 	}
 
 	/**

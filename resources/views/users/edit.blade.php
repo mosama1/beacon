@@ -9,6 +9,7 @@
     <form action="{{route('user_patch_path', $user->id)}}" method="post">
       {{ csrf_field() }}
 
+
       <div class="divide reg_user">
         <div class="titulo">
           <h5>Registro de usuario</h5>
@@ -17,21 +18,30 @@
           <div class="input select {{ $errors->has('language') ? 'error' : '' }}">
             <img src="img/icons/idioma.png" alt="" class="icon">
             <select id="language" class="form-control icons" name="language" required>
-              @if($user->language == 'Español')
+              @if($user->language == 'Castellano')
                 <option value="{{ $user->language }}" data-icon="img/icons/es.png" class="left circle">{{ $user->language }}</option>
-                <option value="English" data-icon="img/icons/en.png" class="left circle">English</option>
+                <option value="Catalám" data-icon="img/icons/en.png" class="left circle">Catalám</option>
               @else
                 <option value="{{ $user->language }}" data-icon="img/icons/en.png" class="left circle">{{ $user->language }}</option>
-                <option value="Español" data-icon="img/icons/es.png" class="left circle">Español</option>
+                <option value="Castellano" data-icon="img/icons/es.png" class="left circle">Español</option>
               @endif
             </select>
-
-            @if ($errors->has('language'))
-            <span class="error_input">
-              <strong>{{ $errors->first('language') }}</strong>
-            </span>
-            @endif
+            <div class="help">
+              <a href="#">
+                <i class="material-icons">help_outline</i>
+              </a>
+              <div class="inf none hidden">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                </p>
+              </div>
+            </div>
           </div>
+          @if ($errors->has('language'))
+          <div class="input_error">
+            <span>{{ $errors->first('language') }}</span>
+          </div>
+          @endif
 
           <div class="input {{ $errors->has('email') ? 'error' : '' }}">
             <input type="email" name="email" value="{{ $user->email }}" required="">
@@ -39,49 +49,45 @@
               <span class="icon"><img src="img/icons/correo.png" alt=""></span>
               <span class="text">Correo</span>
             </label>
-            @if ($errors->has('email'))
-            <span class="error_input">
-              <strong>{{ $errors->first('email') }}</strong>
-            </span>
-            @endif
+            <div class="help">
+              <a href="#">
+                <i class="material-icons">help_outline</i>
+              </a>
+              <div class="inf none hidden">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                </p>
+              </div>
+            </div>
           </div>
+          @if ($errors->has('email'))
+          <div class="input_error">
+            <span>{{ $errors->first('email') }}</span>
+          </div>
+          @endif
           <div class="input {{ $errors->has('phone') ? 'error' : '' }}">
             <input type="text" name="phone" value="{{ $user->phone }}" required="" class="val_phone">
             <label for="">
               <span class="icon"><img src="img/icons/telefono.png" alt=""></span>
               <span class="text">Teléfono de contacto</span>
             </label>
-            @if ($errors->has('phone'))
-            <span class="error_input">
-              <strong>{{ $errors->first('phone') }}</strong>
-            </span>
-            @endif
+            <div class="help">
+              <a href="#">
+                <i class="material-icons">help_outline</i>
+              </a>
+              <div class="inf none hidden">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                </p>
+              </div>
+            </div>
           </div>
-          <!-- <div class="input {{ $errors->has('password') ? 'error' : '' }}">
-            <input type="hidden" name="password" value="{{ $user->password }}" required="">
-            <label for="">
-              <span class="icon"><img src="img/icons/contrasena.png" alt=""></span>
-              <span class="text">Contraseña</span>
-            </label>
-            @if ($errors->has('password'))
-            <span class="error_input">
-              <strong>{{ $errors->first('password') }}</strong>
-            </span>
-            @endif
+          @if ($errors->has('phone'))
+          <div class="input_error">
+            <span>{{ $errors->first('phone') }}</span>
           </div>
+          @endif
 
-          <div class="input {{ $errors->has('password_update') ? 'error' : '' }}">
-            <input type="password" name="password_update" value="" >
-            <label for="">
-              <span class="icon"><img src="img/icons/3_puntos.png" alt=""></span>
-              <span class="text">Cambiar Contraseña</span>
-            </label>
-            @if ($errors->has('password_update'))
-            <span class="error_input">
-              <strong>{{ $errors->first('password_update') }}</strong>
-            </span>
-            @endif
-          </div> -->
         </div>
         <div class="links_">
           <a href="#cambiarContrasena">Cambiar Contraseña</a> || <a href="{{ route('all_beacons') }}">Información de Beacons</a>
@@ -109,49 +115,88 @@
             <label for="">
               <span class="text">Nombre del local</span>
             </label>
-            @if ($errors->has('name'))
-            <span class="error_input">
-              <strong>{{ $errors->first('name') }}</strong>
-            </span>
-            @endif
+            <div class="help">
+              <a href="#">
+                <i class="material-icons">help_outline</i>
+              </a>
+              <div class="inf none hidden">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                </p>
+              </div>
+            </div>
           </div>
+          @if ($errors->has('name'))
+          <div class="input_error">
+            <span>{{ $errors->first('name') }}</span>
+          </div>
+          @endif
           <div class="input {{ $errors->has('city') ? 'error' : '' }}">
 
             <input type="text" name="city" value="{{$location->city}}" required="">
-<!-- <textarea name="city" rows="8" cols="80">{{ old('city') }}</textarea> -->
 
             <label for="">
               <span class="text">Ciudad</span>
             </label>
-            @if ($errors->has('city'))
-            <span class="error_input">
-              <strong>{{ $errors->first('city') }}</strong>
-            </span>
-            @endif
+            <div class="help">
+              <a href="#">
+                <i class="material-icons">help_outline</i>
+              </a>
+              <div class="inf none hidden">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                </p>
+              </div>
+            </div>
           </div>
+          @if ($errors->has('city'))
+          <div class="input_error">
+            <span>{{ $errors->first('city') }}</span>
+          </div>
+          @endif
           <!-- <div class="inputs"> -->
             <div class="input {{ $errors->has('street') ? 'error' : '' }}">
               <input type="text" name="street" value="{{$location->street}}" required="">
               <label for="">
                 <span class="text">Calle</span>
               </label>
-              @if ($errors->has('street'))
-              <span class="error_input">
-                <strong>{{ $errors->first('street') }}</strong>
-              </span>
-              @endif
+              <div class="help">
+                <a href="#">
+                  <i class="material-icons">help_outline</i>
+                </a>
+                <div class="inf none hidden">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                  </p>
+                </div>
+              </div>
             </div>
+            @if ($errors->has('street'))
+            <div class="input_error">
+              <span>{{ $errors->first('street') }}</span>
+            </div>
+            @endif
             <div class="input {{ $errors->has('street_number') ? 'error' : '' }}">
               <input type="text" name="street_number" value="{{$location->street_number}}" required="">
               <label for="">
                 <span class="text">Número de calle</span>
               </label>
-              @if ($errors->has('street_number'))
-              <span class="error_input">
-                <strong>{{ $errors->first('street_number') }}</strong>
-              </span>
-              @endif
+              <div class="help">
+                <a href="#">
+                  <i class="material-icons">help_outline</i>
+                </a>
+                <div class="inf none hidden">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                  </p>
+                </div>
+              </div>
             </div>
+            @if ($errors->has('street_number'))
+            <div class="input_error">
+              <span>{{ $errors->first('street_number') }}</span>
+            </div>
+            @endif
           <!-- </div> -->
 
           <div class="input {{ $errors->has('zip') ? 'error' : '' }}">
@@ -159,12 +204,22 @@
             <label for="">
               <span class="text">Código postal</span>
             </label>
-            @if ($errors->has('zip'))
-            <span class="error_input">
-              <strong>{{ $errors->first('zip') }}</strong>
-            </span>
-            @endif
+            <div class="help">
+              <a href="#">
+                <i class="material-icons">help_outline</i>
+              </a>
+              <div class="inf none hidden">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                </p>
+              </div>
+            </div>
           </div>
+          @if ($errors->has('zip'))
+          <div class="input_error">
+            <span>{{ $errors->first('zip') }}</span>
+          </div>
+          @endif
           <div class="divide_cont files">
             <div class="file-field input-field input_file {{ $errors->has('logo') ? 'has-error' : '' }}">
               <div class="btn">
@@ -176,7 +231,7 @@
                 <input class="file-path validate" type="text" >
               </div>
               @if ($errors->has('logo'))
-              <span class="error_input">
+              <span class="input_error">
                 <strong>{{ $errors->first('logo') }}</strong>
               </span>
               @endif
@@ -234,9 +289,18 @@
       <div class="input no_icon {{ $errors->has('old_password') ? 'error' : '' }}">
         <input type="password" name="old_password" value="" required="">
         <label for="">
-          <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Contraseña Actual</span>
         </label>
+        <div class="help">
+          <a href="#">
+            <i class="material-icons">help_outline</i>
+          </a>
+          <div class="inf none hidden">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            </p>
+          </div>
+        </div>
       </div>
       @if ($errors->has('old_password'))
       <div class="input_error">
@@ -247,9 +311,18 @@
       <div class="input no_icon {{ $errors->has('password') ? 'error' : '' }}">
         <input type="password" name="password" value="" required="" id="password">
         <label for="">
-          <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Nueva Contraseña</span>
         </label>
+        <div class="help">
+          <a href="#">
+            <i class="material-icons">help_outline</i>
+          </a>
+          <div class="inf none hidden">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            </p>
+          </div>
+        </div>
       </div>
       @if ($errors->has('password'))
       <div class="input_error">
@@ -260,9 +333,18 @@
       <div class="input no_icon {{ $errors->has('password_confirmation') ? 'error' : '' }}">
         <input type="password" name="password_confirmation" value="" required="" id="password_confirmation">
         <label for="">
-          <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Confirmar Contraseña</span>
         </label>
+        <div class="help">
+          <a href="#">
+            <i class="material-icons">help_outline</i>
+          </a>
+          <div class="inf none hidden">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            </p>
+          </div>
+        </div>
       </div>
       @if ($errors->has('password_confirmation'))
       <div class="input_error">

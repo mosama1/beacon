@@ -155,8 +155,7 @@ class ContentController extends Controller
 							'coupon' => intval($request->coupon_id),
 							'timeframes' => $request->timeframe_id,
 							'trigger_name' => 'ENTRY',
-							'trigger_entity' => 'tag',
-							'tag' => $location->name
+							'trigger_entity' => 'tag'
 						]
 					);
 
@@ -209,33 +208,6 @@ class ContentController extends Controller
 			$cam_c->trigger_name = $content_api->trigger_name;
 			$cam_c->dwell_time = $content_api->dwell_time;
 			$cam_c->save();
-
-
-
-			//Carga el coupon en el beacon
-			$coupon_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons/'.$request->coupon_id.'/update', [
-					// un array con la data de los headers como tipo de peticion, etc.
-					'headers' => ['Authorization' => 'Bearer '.$crud ],
-					// array de datos del formulario
-					'form_params' => [
-							'name' => $request->name,
-							'description' => $request->description,
-							'message' => $request->description,
-							'type' => 'url',
-							'url' =>  'http://dementecreativo.com/prueba/final/movil/campanas/'.$campana_id,
-					]
-			]);
-
-			//Json parse
-			$json_c = $coupon_->getBody();
-
-			$coupon = json_decode($json_c);
-
-			if ($coupon->status_code != 200 )
-			{
-				echo "<pre>"; print_r( $coupon ); echo "</pre>";
-				return;
-			}
 
 			return redirect()->route('all_content', array('campana_id' => $campana_id ) )->with(['status' => 'Se ha creado el contenido exitosamente', 'type' => 'success']);
 

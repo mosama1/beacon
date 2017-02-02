@@ -183,6 +183,10 @@ select:not(.multiple_) {
 .none{
   display: none !important;
 }
+.hidden{
+  overflow: hidden !important;
+}
+
 .success{
   background: rgb(94, 194, 95);
 }
@@ -253,7 +257,7 @@ select:not(.multiple_) {
 }
 .menu ul li ul.sub_menu{
   width: auto;
-  min-width: 710px;
+  min-width: 740px;
   height: 0px;
   background: rgb(242, 242, 242);
   position: absolute;
@@ -525,6 +529,7 @@ select:not(.multiple_) {
   position: relative;
   left: calc(50% - 75px);
   transform: translate(-50%);
+  cursor: pointer;
 }
 .menu_cliente ul li.logo img{
   height: 100%;
@@ -778,6 +783,7 @@ body.menu2 .menu_cliente{
   width: 100%;
   /*max-width: 365px;*/
   max-width: 400px;
+  z-index: 10;
 }
 #recuperar.authenticate .divide .divide_cont{
   top: 0;
@@ -828,6 +834,7 @@ body.menu2 .menu_cliente{
   transform: translate(-50%, 0%);
   border: solid 1px #fff;
   padding: 15px 30px;
+  padding: 15px 60px 15px 30px;
   border-radius: 40px;
   margin-top: 30px;
   position: relative;
@@ -1725,6 +1732,24 @@ body.menu2 .menu_cliente{
   padding: 10px 5px;
   /*border: solid 1px #000;*/
 
+
+}
+
+
+.switch label input[type=checkbox]:checked + .lever {
+  background-color: #818181;
+}
+
+.switch label input[type=checkbox]:checked + .lever:after {
+  background-color: #F1F1F1;
+}
+
+.switch label .lever {
+  background-color: #84c7c1;
+}
+
+.switch label .lever:after {
+  background-color: #26a69a;
 }
 
 
@@ -1743,7 +1768,7 @@ body.menu2 .menu_cliente{
   /*padding-bottom: 50px;*/
 }
 
-#divPrecioMenu{
+#divPrecioCarta{
   display: none;
 }
 #divIdiomaMenu{
@@ -1769,6 +1794,133 @@ body.menu2 .menu_cliente{
   -o-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out;
 }
+
+
+.input-field .help,
+.file-field .help,
+.input .help{
+  position: absolute;
+  top: 7.5px;
+  right: -40px;
+  width: 30px;
+  height: 30px;
+  transform: translate();
+}
+
+.input-field .help,
+.input.select .help{
+  top: -2.5px;
+}
+.input-field .help i,
+.file-field .help i,
+.input .help i{
+  font-size: 30px;
+  color: #999999;
+
+  -webkit-transition: all .35s ease-in-out;
+  -moz-transition: all .35s ease-in-out;
+  -o-transition: all .35s ease-in-out;
+  transition: all .35s ease-in-out;
+}
+
+.input-field .help.active i,
+.file-field .help.active i,
+.input .help.active i{
+  color: #ffffff;
+}
+.dat_ris .input .help.active i{
+  color: #000;
+}
+
+
+
+.input-field .help .inf,
+.file-field .help .inf,
+.input .help .inf{
+  position: absolute;
+  height: auto;
+  background: #000;
+  top: -7.5px;
+  left: -25px;
+  transform: translate(-100%);
+  z-index: 10;
+  border-radius: 5px;
+  /*overflow: hidden;*/
+
+  max-height: 0px;
+  width: 100px;
+  padding: 0px;
+  opacity: 0;
+
+  -webkit-transition: all .35s ease-in-out;
+  -moz-transition: all .35s ease-in-out;
+  -o-transition: all .35s ease-in-out;
+  transition: all .35s ease-in-out;
+}
+.input-field .help .inf.active,
+.file-field .help .inf.active,
+.input .help .inf.active{
+  opacity: 1;
+
+  max-height: 200px;
+  width: 200px;
+  padding: 15px;
+}
+
+.input-field .help .inf:before,
+.file-field .help .inf:before,
+.input .help .inf:before{
+  content: '';
+  position: absolute;
+  top: 4px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 15px 0 15px 20px;
+  border-color: transparent transparent transparent #000;
+
+  right: 0px;
+
+  -webkit-transition: all .35s ease-in-out;
+  -moz-transition: all .35s ease-in-out;
+  -o-transition: all .35s ease-in-out;
+  transition: all .35s ease-in-out;
+}
+
+.input-field .help .inf.active:before,
+.file-field .help .inf.active:before,
+.input .help .inf.active:before{
+  right: -20px;
+  transition-delay: .3s;
+
+}
+
+.form .input-field .help .inf p,
+.form .file-field .help .inf p,
+.input .help .inf p{
+  margin: 0;
+  font-size: 12px;
+  color: #fff;
+  text-align: justify;
+  opacity: 0;
+
+  transition-delay: .2s;
+
+  -webkit-transition: all .35s ease-in-out;
+  -moz-transition: all .35s ease-in-out;
+  -o-transition: all .35s ease-in-out;
+  transition: all .35s ease-in-out;
+}
+.input-field .help .inf.active p,
+.file-field .help .inf.active p,
+.input .help .inf.active p{
+  opacity: 1;
+
+
+
+}
+
+
 .contenedor .principal .form .checkbox,
 .modal_ .form .checkbox{
   margin-top: 10px;
@@ -1844,14 +1996,24 @@ body.menu2 .menu_cliente{
   width: 50px;
   height: 100%;
   background: #999999;
+
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+.contenedor .principal .form .input.focus input.input_time::before,
+.modal_ .form .input.focus input.input_time::before{
+  background: #ffffff;
+
 }
 .contenedor .principal .form .input.time,
 .modal_ .form .input.time{
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 .contenedor .principal .form .input input.input_time,
 .modal_ .form .input input.input_time{
-  width: calc(100% + 50px)
+  /*width: calc(100% + 50px)*/
 }
 .contenedor .principal .form .input input.input_time.number,
 .modal_ .form .input input.input_time.number{
@@ -2271,7 +2433,7 @@ body.menu2 .menu_cliente{
 .modal_{
   width: 80%;
   height: auto;
-  max-width: 700px;
+  max-width: 860px;
   padding: 25px 0;
   /*background: transparent*/
   background-size: cover;

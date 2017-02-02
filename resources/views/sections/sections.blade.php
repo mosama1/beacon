@@ -27,12 +27,12 @@
           <table class="bordered centered">
             <thead>
               <tr>
-                <!-- <th data-field="id"></th> -->
                   <th data-field="id">Nombre</th>
-                  <th data-field="name">Visualizar</th>
-                  <th data-field="price">Editar</th>
+                  <th data-field="name" width="100px">Detalles</th>
+                  <th data-field="price" width="100px">Editar</th>
                   <!-- <th data-field="price">Idioma</th> -->
-                  <th data-field="price">Eliminar</th>
+                  <th data-field="price" width="100px">Eliminar</th>
+                  <th data-field="id" width="130px" width="130px">Habilitado</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,6 +55,16 @@
 
                 ?>
                 <a href="#eliminarSection"><i class="material-icons">clear</i></a></td>
+                <td>
+                  <div class="switch">
+                    <label>
+                      Si
+                      <input type="checkbox">
+                      <span class="lever"></span>
+                      No
+                    </label>
+                  </div>
+                </td>
               </tr>
               @endforeach
             </tbody>
@@ -91,15 +101,49 @@
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
         <input type="text" name="name" value="" required="" autofocus="">
         <label for="">
-          <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Nombre</span>
         </label>
-        @if ($errors->has('name'))
-          <span class="error_input">
-              <strong>{{ $errors->first('name') }}</strong>
-          </span>
-        @endif
+        <div class="help">
+          <a href="#">
+            <i class="material-icons">help_outline</i>
+          </a>
+          <div class="inf none hidden">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            </p>
+          </div>
+        </div>
+
       </div>
+      @if ($errors->has('name'))
+      <span class="error_input">
+        <strong>{{ $errors->first('name') }}</strong>
+      </span>
+      @endif
+
+      <div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}" id="divPrecioCarta">
+        <input type="number" name="price" step="0.01" value=""  id="price" min="1.00" max="99999" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)">
+        <label for="">
+          <span class="text">Ingresar Precio: 0,00 €</span>
+        </label>
+        <div class="help">
+          <a href="#">
+            <i class="material-icons">help_outline</i>
+          </a>
+          <div class="inf none hidden">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="input_error" id="errorPrecioCarta" style="display: none;">
+          <span>El monto debe ser mayor a cero</span>
+      </div>
+        <p>
+      <input type="checkbox" class="filled-in" id="filled-in-box" />
+      <label for="filled-in-box">Manejar Precio</label>
+        </p>
       <div class="button">
         <center>
           <button type="submit" name="button">
@@ -143,7 +187,6 @@
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
         <input type="text" name="language" value="" required="">
         <label for="">
-          <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
           <span class="text">Traduccion Sección</span>
         </label>
         @if ($errors->has('name'))

@@ -8,7 +8,7 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Editar Menu
+        Editar Carta
       </h3>
     </div>
 
@@ -28,6 +28,16 @@
              <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
              <span class="text">Nombre</span>
            </label>
+           <div class="help">
+             <a href="#">
+               <i class="material-icons">help_outline</i>
+             </a>
+             <div class="inf none hidden">
+               <p>
+                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+               </p>
+             </div>
+           </div>
          </div>
          @if ($errors->has('name'))
            <div class="input_error">
@@ -42,6 +52,16 @@
              <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
              <span class="text">Descripción (Opcional)</span>
            </label>
+           <div class="help">
+             <a href="#">
+               <i class="material-icons">help_outline</i>
+             </a>
+             <div class="inf none hidden">
+               <p>
+                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+               </p>
+             </div>
+           </div>
          </div>
          @if ($errors->has('description'))
            <div class="input_error">
@@ -49,20 +69,7 @@
            </div>
          @endif
 
-         <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioMenu" style="{{($coupon->price != 0) ? 'display: block' : ''}}">
-           <input type="number" name="price" step="0.01" min="0" value="{{($coupon->price != 0) ? $coupon->price : ''}}"  id="price" min="1.00">
-           <label for="">
-             <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-             <span class="text">Ingresar Precio: 0,00</span>
-           </label>
-         </div>
-         <div class="input_error" id="errorPrecioMenu" style="display: none;">
-             <span>El monto debe ser mayor a cero</span>
-         </div>
-           <p>
-         <input type="checkbox" class="filled-in" id="filled-in-box" {{($coupon->price != 0) ? 'checked' : ''}}/>
-         <label for="filled-in-box">Manejar Precio</label>
-           </p>
+
          <!-- <label><input type="checkbox" id="cbox1" value="first_checkbox"> Este es mi primer checkbox</label><br> -->
 
          <div class="button">

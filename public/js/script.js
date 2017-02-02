@@ -68,7 +68,7 @@ function modal_activate(ruta, div) {
 function vistaLogo(evt) {
     var files = evt.target.files; // FileList object
     // Obtenemos la imagen del campo "file".
-    for (var i = 0, f; f = files[i]; i++) {
+    for (var i = 0, f; f = files[i];i++) {
       //Solo admitimos imágenes.
       if (!f.type.match('image.*')) {
           continue;
@@ -320,10 +320,10 @@ $('#guardar').click(function(){
   if ($("#filled-in-box").prop('checked') === true) {
     var numero = $('#precioMenu').val();
     if (numero <= 0) {
-      $('#errorPrecioMenu').fadeIn();
-      $('#divPrecioMenu').addClass('error');
+      $('#errorPrecioCarta').fadeIn();
+      $('#divPrecioCarta').addClass('error');
       setTimeout(function(){
-        $('#errorPrecioMenu').fadeOut();
+        $('#errorPrecioCarta').fadeOut();
       },5000);
       return false;
     }
@@ -332,11 +332,11 @@ $('#guardar').click(function(){
 //agregarprecio
 $( "#filled-in-box" ).click(function() {
   if ($(this).prop('checked') === true) {
-    $('#divPrecioMenu').fadeIn();
+    $('#divPrecioCarta').fadeIn();
     $( "#precioMenu" ).prop( "required", true );
     $('#precioMenu').mask('000,000,000,000,0000000.00', {reverse: true});
   }else{
-    $('#divPrecioMenu').fadeOut();
+    $('#divPrecioCarta').fadeOut();
   }
 });
 
@@ -403,7 +403,7 @@ $('.MenuResponsive').click(function(){
 /******************* Validaciones *****************************/
 /**************************************************************/
 /* Validacion si el beacon esta registrado */
-$('#add_beacon').submit(function(evt){
+$('#addbeacon').submit(function(evet){
   evt.preventDefault();
   $.ajax({
       type: "POST",
@@ -421,7 +421,8 @@ $('#add_beacon').submit(function(evt){
 
 
 
-$('#change_password').submit(function(){
+$('#changepassword').submit(function(evt){
+  evt.preventDefault();
   var id = $(this).attr('userid');
   var password = $('#password').val();
   var password_confirmation = $('#password_confirmation').val();
@@ -441,5 +442,47 @@ $('#change_password').submit(function(){
         }
       }
   });
+});
+
+/**************************************************************/
+/****************** Mostrar ayudas ****************************/
+/**************************************************************/
+
+$('.help a').click(function(){
+  var help = $(this).parent();
+  var input = help.parent();
+
+  console.log($('.help').length);
+
+  function mostrar(param) {
+    param.addClass('active');
+    $('.inf', param).removeClass('none');
+    setTimeout(function(){
+      $('.inf', param).addClass('active');
+      setTimeout(function(){
+        $('.inf', param).removeClass('hidden');
+      },300);
+    },10);
+  }
+  function quitar(param) {
+    param.removeClass('active');
+    $('.inf', param).addClass('hidden');
+    $('.inf', param).removeClass('active');
+    setTimeout(function(){
+      setTimeout(function(){
+        $('.inf', param).addClass('none');
+      },150);
+    },200);
+  }
+
+  if ($('.help.active', input).length <= 0) {
+    quitar($('.help.active'));
+    mostrar(help);
+  }else {
+    quitar(help);
+  }
+
+
+
   return false;
 });

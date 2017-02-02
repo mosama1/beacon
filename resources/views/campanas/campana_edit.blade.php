@@ -28,9 +28,18 @@
         <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
           <input type="text" name="name" value="{{$campana->name}}" required="">
           <label for="">
-            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Name</span>
           </label>
+          <div class="help">
+            <a href="#">
+              <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              </p>
+            </div>
+          </div>
         </div>
         @if ($errors->has('name'))
           <div class="input_error">
@@ -40,21 +49,51 @@
         <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
           <input type="text" name="description" value="{{$campana->description}}">
           <label for="">
-            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Descripción (Opcional)</span>
           </label>
+          <div class="help">
+            <a href="#">
+              <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              </p>
+            </div>
+          </div>
         </div>
         @if ($errors->has('description'))
           <div class="input_error">
               <span>{{ $errors->first('description') }}</span>
           </div>
         @endif
-        <div class="checkbox">
-          <p style="padding-left: 30px;">
-            <input type="checkbox" id="enabled" name="enabled" />
-            <label for="enabled">Habilitado</label>
-          </p>
+
+        <div class="input select no_icon {{ $errors->has('location_id') ? 'error' : '' }}">
+          <!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
+          <select id="location_id" class="form-control icons" name="location_id" required>
+            <option value="" selected>Seleccione una ubicación</option>
+            @foreach($locations as $location)
+                <!-- <option value="fhfgh">{{$campana->location_id}} {{$location->location_id}}</option> -->
+                <option value="{{$location->location_id}}" {{ ($location->location_id === $campana->location_id) ? 'selected' : ''}}>{{$location->name}}</option>
+            @endforeach
+          </select>
+
+          <div class="help">
+            <a href="#">
+              <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              </p>
+            </div>
+          </div>
         </div>
+        @if ($errors->has('location_id'))
+        <div class="input_error">
+          <span>{{ $errors->first('location_id') }}</span>
+        </div>
+        @endif
 
         <!-- <div class="input no_icon time {{ $errors->has('start_time') ? 'error' : '' }}">
           <input type="time" name="start_time" value="{{date('H:i', strtotime($campana->start_time))}}" required="" class="input_time">

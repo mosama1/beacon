@@ -31,12 +31,47 @@
           <label for="">
             <span class="text">Nombre</span>
           </label>
-          @if ($errors->has('name'))
-            <span class="error_input">
-                <strong>{{ $errors->first('name') }}</strong>
-            </span>
-          @endif
+          <div class="help">
+            <a href="#">
+              <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              </p>
+            </div>
+          </div>
         </div>
+        @if ($errors->has('name'))
+        <div class="input_error">
+          <span>{{ $errors->first('name') }}</span>
+        </div>
+        @endif
+
+        <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioCarta" style="">
+
+          <input type="number" name="price" step="0.01" min="0" value=""  id="price" min="1.00">
+          <label for="">
+            <span class="text">Ingresar Precio: 0,00 €</span>
+          </label>
+          <div class="help">
+            <a href="#">
+              <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="input_error" id="errorPrecioCarta" style="display: none;">
+            <span>El monto debe ser mayor a cero</span>
+        </div>
+          <p>
+        <input type="checkbox" class="filled-in" id="filled-in-box" />
+        <label for="filled-in-box">Manejar Precio</label>
+          </p>
 
 
 

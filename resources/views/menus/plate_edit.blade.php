@@ -28,12 +28,22 @@
   					<!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
   					<span class="text">Nombre</span>
   				</label>
-  				@if ($errors->has('name'))
-  					<span class="error_input">
-  							<strong>{{ $errors->first('name') }}</strong>
-  					</span>
-  				@endif
+          <div class="help">
+            <a href="#">
+              <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              </p>
+            </div>
+          </div>
   			</div>
+        @if ($errors->has('name'))
+        <div class="input_error">
+          <span>{{ $errors->first('name') }}</span>
+        </div>
+        @endif
         <div class="input select no_icon {{ $errors->has('type') ? 'error' : '' }}">
           <!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
           <select id="type" class="form-control icons" name="type" @if(!isset($menu->type)) echo("selected") @endif >
@@ -47,13 +57,22 @@
   					<option value="" disabled selected>No hay tipos de platos registrados</option>
   				@endif
   				</select>
-
-  				@if ($errors->has('type'))
-  				<span class="error_input">
-  					<strong>{{ $errors->first('type') }}</strong>
-  				</span>
-  				@endif
+          <div class="help">
+  					<a href="#">
+  						<i class="material-icons">help_outline</i>
+  					</a>
+  					<div class="inf none hidden">
+  						<p>
+  							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+  						</p>
+  					</div>
+  				</div>
   			</div>
+        @if ($errors->has('type'))
+        <div class="input_error">
+          <span>{{ $errors->first('type') }}</span>
+        </div>
+        @endif
 
   			<div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}">
   				<input type="number" name="price" value="{{$menu->price}}" required=""  max="99999" step="any">
@@ -61,12 +80,22 @@
   					<!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
   					<span class="text">Precio</span>
   				</label>
-  				@if ($errors->has('price'))
-  					<span class="error_input">
-  							<strong>{{ $errors->first('price') }}</strong>
-  					</span>
-  				@endif
+          <div class="help">
+            <a href="#">
+              <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              </p>
+            </div>
+          </div>
   			</div>
+        @if ($errors->has('price'))
+        <div class="input_error">
+          <span>{{ $errors->first('price') }}</span>
+        </div>
+        @endif
 
 
         <div class="button">

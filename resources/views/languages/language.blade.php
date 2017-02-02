@@ -30,8 +30,9 @@
             <thead>
               <tr>
                 <th data-field="id">Nombre</th>
-                <th data-field="id">Editar</th>
-                <th data-field="name">Eliminar</th>
+                <th data-field="id" width="100px">Editar</th>
+                <th data-field="name" width="100px">Eliminar</th>
+                <th data-field="id" width="130px">Habilitado</th>
               </tr>
             </thead>
 
@@ -40,16 +41,49 @@
                 <td>Idioma</td>
                 <td><a href="{{ route('edit_language', 1)}}"><i class="material-icons">edit</i></a></td>
                 <td><a href="#eliminarIdioma"><i class="material-icons">clear</i></a></td>
+                <td>
+                  <div class="switch">
+                    <label>
+                      Si
+                      <input type="checkbox">
+                      <span class="lever"></span>
+                      No
+                    </label>
+                  </div>
+                </td>
+
               </tr>
               <tr>
                 <td>Idioma</td>
                 <td><a href="{{ route('edit_language', 1)}}"><i class="material-icons">edit</i></a></td>
                 <td><a href="#eliminarIdioma"><i class="material-icons">clear</i></a></td>
+                <td>
+                  <div class="switch">
+                    <label>
+                      Si
+                      <input type="checkbox">
+                      <span class="lever"></span>
+                      No
+                    </label>
+                  </div>
+                </td>
+
               </tr>
               <tr>
                 <td>Idioma</td>
                 <td><a href="{{ route('edit_language', 1)}}"><i class="material-icons">edit</i></a></td>
                 <td><a href="#eliminarIdioma"><i class="material-icons">clear</i></a></td>
+                <td>
+                  <div class="switch">
+                    <label>
+                      Si
+                      <input type="checkbox">
+                      <span class="lever"></span>
+                      No
+                    </label>
+                  </div>
+                </td>
+
               </tr>
             </tbody>
           </table>
@@ -74,7 +108,7 @@
           <span class="text">Nombre</span>
         </label>
         @if ($errors->has('name'))
-        <span class="error_input">
+        <span class="input_error">
           <strong>{{ $errors->first('name') }}</strong>
         </span>
         @endif
@@ -84,24 +118,44 @@
         <label for="">
           <span class="text">Idioma</span>
         </label>
-        @if ($errors->has('name'))
-        <span class="error_input">
-          <strong>{{ $errors->first('name') }}</strong>
-        </span>
-        @endif
+        <div class="help">
+          <a href="#">
+            <i class="material-icons">help_outline</i>
+          </a>
+          <div class="inf none hidden">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            </p>
+          </div>
+        </div>
       </div>
+      @if ($errors->has('name'))
+      <div class="input_error">
+        <span>{{ $errors->first('name') }}</span>
+      </div>
+      @endif
 
       <div class="input no_icon {{ $errors->has('abreb') ? 'error' : '' }}">
         <input type="text" name="abreb" value="" required="">
         <label for="">
           <span class="text">Abreviatura</span>
         </label>
-        @if ($errors->has('abreb'))
-          <span class="error_input">
-              <strong>{{ $errors->first('abreb') }}</strong>
-          </span>
-        @endif
+        <div class="help">
+          <a href="#">
+            <i class="material-icons">help_outline</i>
+          </a>
+          <div class="inf none hidden">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            </p>
+          </div>
+        </div>
       </div>
+      @if ($errors->has('abreb'))
+      <div class="input_error">
+        <span>{{ $errors->first('abreb') }}</span>
+      </div>
+      @endif
       <div class="checkbox">
         <input type="checkbox" class="filled-in" id="filled-in-box" />
         <label for="filled-in-box">Habilitar</label>

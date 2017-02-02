@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class TypesPlates extends Model
 {
 
-	public $timestamps = false;
-
 	/**
 	 * The attributes that are mass assignable.
 	 *

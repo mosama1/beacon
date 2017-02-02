@@ -6,7 +6,7 @@
       <ul class="links">
         <li>
           <a href="{{ route('all_coupon') }}">
-            <img src="img/icons/menu.png" title="Menú">
+            <img src="img/icons/menu.png" title="Carta">
           </a>
         </li>
         <li>

@@ -29,6 +29,16 @@
 							<option value="{{$c->coupon_id}}" {{ ($c->coupon_id == $content->coupon_id) ? 'selected' : '' }}>{{ (!empty($c->coupon_translation[0])) ? $c->coupon_translation[0]->name : '' }}</option>
 						@endforeach
 					</select>
+					<div class="help">
+						<a href="#">
+							<i class="material-icons">help_outline</i>
+						</a>
+						<div class="inf none hidden">
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+							</p>
+						</div>
+					</div>
 				</div>
 				@if ($errors->has('coupon_id'))
 				<div class="input_error">
@@ -43,6 +53,16 @@
 							<option value="{{$t->timeframe_id}}" {{ ($t->timeframe_id == $content->timeframe_id) ? 'selected' : '' }}>{{$t->name}}</option>
 						@endforeach
 					</select>
+					<div class="help">
+						<a href="#">
+							<i class="material-icons">help_outline</i>
+						</a>
+						<div class="inf none hidden">
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+							</p>
+						</div>
+					</div>
 				</div>
 				@if ($errors->has('timeframe_id'))
 				<div class="input_error">
@@ -52,18 +72,7 @@
 
 
 
-				<div class="input no_icon {{ $errors->has('dwell_time') ? 'error' : '' }}">
-					<input type="number" name="dwell_time" min="0" value="{{ $content->dwell_time }}" class="input_time number" required="true">
-					<label for="">
-						<!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-						<span class="text">Minutos de espera</span>
-					</label>
-				</div>
-				@if ($errors->has('dwell_time'))
-				<div class="input_error">
-					<span>{{ $errors->first('dwell_time') }}</span>
-				</div>
-				@endif
+
 				 <!-- <label><input type="checkbox" id="cbox1" value="first_checkbox"> Este es mi primer checkbox</label><br> -->
 
 				 <div class="button">

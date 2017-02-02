@@ -27,10 +27,10 @@
 					<table>
 						<thead>
 							<tr>
-							<th data-field="country">Cupon</th>
+							<th data-field="country">Carta</th>
 							<th data-field="country">Horario</th>
-							<th>Editar</th>
-							<th>Eliminar</th>
+							<th width="100px">Editar</th>
+							<th width="100px">Eliminar</th>
 						</thead>
 
 						<tbody>
@@ -96,6 +96,16 @@
 						<option value="{{$c->coupon_id}}">{{ (!empty($c->coupon_translation[0])) ? $c->coupon_translation[0]->name : '' }}</option>
 					@endforeach
 				</select>
+				<div class="help">
+					<a href="#">
+						<i class="material-icons">help_outline</i>
+					</a>
+					<div class="inf none hidden">
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+						</p>
+					</div>
+				</div>
 			</div>
 			@if ($errors->has('coupon_id'))
 			<div class="input_error">
@@ -110,14 +120,22 @@
 						<option value="{{$t->timeframe_id}}">{{$t->name}}</option>
 					@endforeach
 				</select>
+				<div class="help">
+					<a href="#">
+						<i class="material-icons">help_outline</i>
+					</a>
+					<div class="inf none hidden">
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+						</p>
+					</div>
+				</div>
 			</div>
 			@if ($errors->has('timeframe_id'))
 			<div class="input_error">
 				<span>{{ $errors->first('timeframe_id') }}</span>
 			</div>
 			@endif
-
-
 
 			<div class="input no_icon {{ $errors->has('dwell_time') ? 'error' : '' }}">
 				<input type="number" name="dwell_time" min="0" value="" class="input_time number" required="true">
@@ -132,12 +150,14 @@
 			</div>
 			@endif
 
+
+
 			<div class="button">
 				<center>
 					<button type="submit" name="button">
 						<span>Guardar</span>
 					</button>
-					<a href="{{ route('all_campana') }}" class="">
+					<a href="#" onclick="$('#agregarContenido').modal('close'); return false;" class="">
 						<span>Cancelar</span>
 					</a>
 				</center>

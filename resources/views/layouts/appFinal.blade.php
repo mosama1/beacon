@@ -164,7 +164,7 @@
 
     <script type="text/javascript">
       $('.menu_cliente .logo').click(function(){
-        window.location.href = '/movil/campanas/{{ $campana_id }}';
+        window.location.href = '/prueba/final/movil/campanas/{{ $campana_id }}';
       });
     </script>
 
