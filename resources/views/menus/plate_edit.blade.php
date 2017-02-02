@@ -25,7 +25,6 @@
         <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
   				<input type="text" name="name" value="{{$menu->menu_translation[0]->name}}" required="">
   				<label for="">
-  					<!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
   					<span class="text">Nombre</span>
   				</label>
           <div class="help">
@@ -45,7 +44,6 @@
         </div>
         @endif
         <div class="input select no_icon {{ $errors->has('type') ? 'error' : '' }}">
-          <!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
           <select id="type" class="form-control icons" name="type" @if(!isset($menu->type)) echo("selected") @endif >
 
   				@if( !empty($type_plates) )
@@ -75,10 +73,9 @@
         @endif
 
   			<div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}">
-  				<input type="number" name="price" value="{{$menu->price}}" required=""  max="99999" step="any">
+  				<input type="number" name="price" value="{{$menu->price}}" required=""  min="1" max="99999" step="any">
   				<label for="">
-  					<!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-  					<span class="text">Precio</span>
+  					<span class="text">Precio 0,00 €</span>
   				</label>
           <div class="help">
             <a href="#">
