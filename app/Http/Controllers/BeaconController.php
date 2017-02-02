@@ -144,7 +144,7 @@ class BeaconController extends Controller
 				if ( empty($beacons_response->beacons) ) {
 
 					// si esta asignado a location se retorna a la vista con el error
-					return redirect()->route('all_beacons')->with(['status' => 'El beacons no exitosamente', 'type' => 'error']);
+					return redirect()->route('all_beacons')->with(['status' => 'El beacons no registrado en nuetra plataforma', 'type' => 'error']);
 				}
 				else {
 
