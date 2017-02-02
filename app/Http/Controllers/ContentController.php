@@ -167,9 +167,6 @@ class ContentController extends Controller
 
 		$content_response = json_decode($json_c);
 
-		echo "<pre>";var_dump($content_response);echo "</pre>";
-		return;
-
 
 		if( $content_response->status_code === 200 ):
 
@@ -189,8 +186,8 @@ class ContentController extends Controller
 							}
 						}
 
-						// echo "<pre>";	var_dump($content_api);	echo "</pre>";
-						// return;
+			// echo "<pre>";	var_dump($content_api);	echo "</pre>";
+			// return;
 
 			$cam_c = new Content();
 			$cam_c->content_id = $content_api->id;
@@ -206,8 +203,56 @@ class ContentController extends Controller
 			$cam_c->campana_id = $campana_id;
 			$cam_c->timeframe_id = $content_api->timeframes[0]->id;
 			$cam_c->trigger_name = $content_api->trigger_name;
-			$cam_c->dwell_time = $content_api->dwell_time;
 			$cam_c->save();
+
+			//Location
+			$campana_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/update', [
+					// un array con la data de los headers como tipo de peticion, etc.
+					'headers' => ['Authorization' => 'Bearer '.$crud ],
+					// array de datos del formulario
+					'form_params' => [
+							'name' => $request->name,
+							'description' => $request->description,
+							'start_time' => date("Y-m-d H:i", strtotime($request->start_time)),
+							'end_time' => date("Y-m-d H:i", strtotime($request->end_time)),
+					]
+			]);
+
+			//Json parse
+			$json_campana = $campana_api->getBody();
+
+			$campana_response = json_decode($json_campana);
+
+			if ($campana_response->status_code != 200 )
+			{
+				echo "<pre>"; print_r( $campana_response ); echo "</pre>";
+				return;
+			}
+
+			//Carga el coupon en el beacon
+			$coupon_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons/'.$request->coupon_id.'/update', [
+					// un array con la data de los headers como tipo de peticion, etc.
+					'headers' => ['Authorization' => 'Bearer '.$crud ],
+					// array de datos del formulario
+					'form_params' => [
+							'name' => $request->name,
+							'description' => $request->description,
+							'message' => $request->name,
+							'type' => 'url',
+							'url' =>  'http://dementecreativo.com/prueba/final/movil/campanas/'.$campana_id,
+					]
+			]);
+
+			//Json parse
+			$json_c = $coupon_api->getBody();
+
+			$coupon_response = json_decode($json_c);
+
+			if ($coupon_response->status_code != 200 )
+			{
+				echo "<pre>"; print_r( $coupon_response ); echo "</pre>";
+				return;
+			}
 
 			return redirect()->route('all_content', array('campana_id' => $campana_id ) )->with(['status' => 'Se ha creado el contenido exitosamente', 'type' => 'success']);
 
@@ -215,7 +260,7 @@ class ContentController extends Controller
 
 		else:
 
-			return redirect()->route('all_content', array('campana_id' => $campana_id ) )->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
+			return redirect()->route('all_content', array('campana_id' => $campana_id ) )->with(['status' => 'Error al ingresar el contenido', 'type' => 'error']);
 
 		endif;
 	}
@@ -272,7 +317,6 @@ class ContentController extends Controller
 							'timeframes' => $request->timeframe_id,
 							'trigger_name' => 'ENTRY',
 							'trigger_entity' => 'tag',
-							'tag' => $location->name,
 						]
 					 );
 

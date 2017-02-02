@@ -82,7 +82,7 @@ class CampanaController extends Controller
 
 		$campana = Campana::where( 'user_id', '=', $user->user_id )->get();
 
-		$user = User::where('id', '=', Auth::user()->id)->get();
+		$user = User::where('id', '=', Auth::user()->id)->first();
 
 
 		$locations = DB::table('locations')
@@ -135,7 +135,6 @@ class CampanaController extends Controller
 						'start_time' => '2017-01-01 00:00',
 						'end_time' => '2022-01-01 00:00',
 						'locations' => $request->location_id,
-						'tag' =>
 						'enabled' => 1,
 				]
 		]);

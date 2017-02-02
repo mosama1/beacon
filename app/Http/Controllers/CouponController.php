@@ -118,7 +118,7 @@ class CouponController extends Controller
 				'form_params' => [
 						'name' => $request->name,
 						'description' => $request->description,
-						'message' => 'newMessage',
+						'message' => $request->name,
 						'type' => 'url',
 						'url' => 'http://dementecreativo.com/prueba/final/',
 				]
