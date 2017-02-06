@@ -86,7 +86,7 @@
   <div class="form">
     <form class="form-horizontal" role="form" method="POST" action="{{ route('store_campana') }}">
       {{ csrf_field() }}
-      <input type="hidden" name="location_id" value="{{$location_id}}" required="">
+      <input type="hidden" name="location_id" value="{{$location->location_id}}" required="">
 
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
         <input type="text" name="name" value="" required="">

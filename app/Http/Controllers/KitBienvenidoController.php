@@ -16,7 +16,7 @@ use Beacon\User;
 use Illuminate\Support\Facades\Input;
 use Log;
 
-class CampanaController extends Controller
+class KitBienvenidoController extends Controller
 {
 	/**
 	 * @return token crud
