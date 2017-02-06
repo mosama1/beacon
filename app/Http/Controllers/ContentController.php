@@ -43,7 +43,6 @@ class ContentController extends Controller
 		return $token_crud->access_token;
 	}
 
-
 	/**
 	 * @return token analytics
 	 */
@@ -162,13 +161,28 @@ class ContentController extends Controller
 			}
 		}
 
+		// leo el id del tag para asignarlo al beacon
+		//
+		$tag_api = $client->get('https://connect.onyxbeacon.com/api/v2.5/tags/'.$location->name, [
+			// un array con la data de los headers como tipo de peticion, etc.
+			'headers' => ['Authorization' => 'Bearer '.$crud ],
+		]);
+
+		//Json parse
+		$json_b = $tag_api->getBody();
+
+		$tag_response = json_decode($json_b);
+
+		$tag_id = strval($tag_response->tags[0]->id);
+
 		$parameters = array(
 					'headers' => ['Authorization' => 'Bearer '.$crud ],
 					'form_params' => [
 							'coupon' => intval($request->coupon_id),
 							'timeframes' => $timeframes,
 							'trigger_name' => 'ENTRY',
-							'trigger_entity' => 'tag'
+							'trigger_entity' => 'tag',
+							'tag' => $tag_id
 						]
 					);
 
@@ -201,7 +215,8 @@ class ContentController extends Controller
 			// echo "<pre>";	var_dump($content_api);	echo "</pre>";
 			// return;
 
-			$cam_c = new Content();
+			//$cam_c = new Content();
+			$cam_c = Content::find(38);
 			$cam_c->content_id = $content_api->id;
 			$cam_c->user_id = $user->user_id;
 			//	coupon_translation[0] posicion [0] es en español idioma por defecto
@@ -211,14 +226,14 @@ class ContentController extends Controller
 
 
 			//	$cam_c->tag = $request->tag_id;
-			$cam_c->tag = 1;
+			$cam_c->tag = $tag_id;
 			$cam_c->campana_id = $campana_id;
 			$cam_c->trigger_name = $content_api->trigger_name;
 			$cam_c->save();
 
 			$content = Content::find($cam_c->id);
 
-			$content->timeframes()->attach($request->timeframe_id);
+			$content->timeframes()->sync($request->timeframe_id);
 
 			$coupon = Coupon::where('coupon_id', '=', $request->coupon_id)->first();
 
@@ -344,7 +359,7 @@ class ContentController extends Controller
 			->select('timeframes.*')
 			->get();
 
-		echo "<pre>";var_dump($content_timeframes);echo "</pre>";
+		//	echo "<pre>";var_dump($content_timeframes);echo "</pre>";
 		// return;
 
 		return view('contents.content_edit', ['campana_id' => $campana_id, 'content' => $content, 'coupons' => $coupons, 'timeframes' => $timeframes, 'content_timeframes' => $content_timeframes]);
@@ -363,6 +378,24 @@ class ContentController extends Controller
 
 		//Token Crud
 		$crud = ContentController::crud();
+
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+		$location = $user->location;
+
+		// leo el id del tag para asignarlo al beacon
+		//
+		$tag_api = $client->get('https://connect.onyxbeacon.com/api/v2.5/tags/'.$location->name, [
+			// un array con la data de los headers como tipo de peticion, etc.
+			'headers' => ['Authorization' => 'Bearer '.$crud ],
+		]);
+
+		//Json parse
+		$json_b = $tag_api->getBody();
+
+		$tag_response = json_decode($json_b);
+
+		$tag_id = strval($tag_response->tags[0]->id);
 
 
 		// formate el $timeframe al formato de la api: "1,2,3,..."
@@ -383,6 +416,7 @@ class ContentController extends Controller
 							'timeframes' => $timeframes,
 							'trigger_name' => 'ENTRY',
 							'trigger_entity' => 'tag',
+							'tag' => $tag_id
 						]
 					 );
 
@@ -418,16 +452,23 @@ class ContentController extends Controller
 			$cam_c = Content::where([
 								['content_id', '=', $content_id ]
 							])->first();
+
+			.
+
 			$cam_c->content_id = $content_api->id;
 			$cam_c->user_id = $user->user_id;
 			//coupon_translation[0] posicion [0] es en español idioma por defecto
 			$cam_c->coupon = $coupon->coupon_translation[0]->name;
 			$cam_c->coupon_id = $coupon->coupon_id;
 		//    $cam_c->tag = $request->tag_id;
-			$cam_c->tag = 1;
+			$cam_c->tag = $tag_id;
 			$cam_c->campana_id = $campana_id;
 			$cam_c->trigger_name = $content_api->trigger_name;
 			$cam_c->save();
+
+			$content = Content::find($cam_c->id);
+
+			$content->timeframes()->sync($request->timeframe_id);
 
 			return redirect()->route('all_content', array('campana_id' => $campana_id ) );
 
