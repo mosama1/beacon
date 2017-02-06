@@ -210,6 +210,7 @@ class WelcomeKitController extends Controller
 								['type', '=', 1]
 							])->first();
 
+		var_dump($promotion);
 
 		return view('welcome_kits.welcome_kit_edit', ['welcome_kit' => $promotion, 'location' => $user->location]);
 	}
