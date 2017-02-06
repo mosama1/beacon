@@ -95,13 +95,16 @@ class SectionController extends Controller
 
 		$section = new Section();
 		$section->user_id = $user->user_id;
-		$section->coupon_id = $request->coupon_id;
+		$section->coupon_id = $request->coupon_id; 
+		$section->price = $request->price;
 		$section->save();
 
 		$section_translation = new SectionTranslation();
 		$section_translation->section_id = $section->id;
 		$section_translation->language_id = 1;
 		$section_translation->name = $request->name;
+		
+
 		$section_translation->save();
 
 		return redirect()->route('all_section', $request->coupon_id)->with(['status' => 'Se ingreso Section de Menu con exito', 'type' => 'success']);
@@ -120,8 +123,8 @@ class SectionController extends Controller
 
 		$section = Section::find($id);
 		$section->section_translation;
-		 // echo "<pre>";  var_dump($section); echo "</pre>";
-		 // return;
+		// echo "<pre>";  var_dump($section->price); echo "</pre>";
+		// return;
 
 		return view('sections.section_edit', ['section' => $section, 'coupon_id' => $section->coupon_id]);
 	}

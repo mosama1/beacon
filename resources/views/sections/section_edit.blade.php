@@ -50,9 +50,9 @@
 
         <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioCarta" style="">
 
-          <input type="number" name="price" step="0.01" min="0" value=""  id="price" min="1.00">
+          <input type="number" name="price" step="0.01" min="0" value="{{ $section->price }}"  id="price" min="0.00">
           <label for="">
-            <span class="text">Ingresar Precio: 0,00 €</span>
+            <span class="text"></span>
           </label>
           <div class="help">
             <a href="#">
@@ -60,7 +60,7 @@
             </a>
             <div class="inf none hidden">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
               </p>
             </div>
           </div>
@@ -68,11 +68,15 @@
         <div class="input_error" id="errorPrecioCarta" style="display: none;">
             <span>El monto debe ser mayor a cero</span>
         </div>
+
+        
           <p>
         <input type="checkbox" class="filled-in" id="filled-in-box" />
         <label for="filled-in-box">Manejar Precio</label>
           </p>
-
+          
+          
+          
 
 
         <div class="button">
