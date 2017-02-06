@@ -56,7 +56,7 @@ class TypePlateController extends Controller
 		}else {
 			if ($request->mod == 'add_menu') {
 				return redirect()->route( 'all_menu',  $request->section_id)
-				->with( [ 'status' => 'Se creo el tipo de plato', 'type' => 'success', 'mod' => 'add_menu' ] );
+				->with( [ 'status' => 'Se creo el tipo de plato', 'type' => 'success', 'mod' => 'add_menu', 'name' => $request->old_name, 'type' => $request->old_type, 'price' => $request->old_price ] );
 			}
 		}
 

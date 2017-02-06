@@ -47,7 +47,7 @@
               <?php
 
                 echo "<td onclick= \"modal_activate('".
-                   route( "destroy_promotion",'#' ).
+                   route( "destroy_welcome_kit",'#' ).
                   "' , '#eliminarkitBienvenida')\" >";
 
               ?>
@@ -80,7 +80,7 @@
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_campana') }}">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_welcome_kit') }}">
       {{ csrf_field() }}
 
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
