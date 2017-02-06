@@ -87,7 +87,7 @@
 		</div>
 <!--TABLA MOSTRAR PLATOS -->
 
-		
+
 <!--BOTON REGRESAR -->
 		<div class="agregar regresar">
 			<center>
@@ -145,7 +145,7 @@
 			<div class="input select no_icon {{ $errors->has('type') ? 'error' : '' }}">
 				<select id="type" class="form-control icons" name="type">
 
-				
+
 				@if( !empty($type_plates) )
           <option value="" disabled selected>Seleccion un tipo de plato</option>
 					@foreach ($type_plates as $type_plate)
@@ -167,7 +167,7 @@
         </div>
 				<div class="mas">
 					<a href="#tipoPlato">
-						<i class="material-icons">add</i>
+						<i class="material-icons">add_circle_outline</i>
 					</a>
 				</div>
 			</div>
@@ -178,7 +178,7 @@
 			@endif
 
 			<div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}">
-			
+
 				<input type="number" name="price" value="" required="" min="1" max="99999" step="any">
 
 				<label for="">
