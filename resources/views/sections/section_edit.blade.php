@@ -49,7 +49,7 @@
         </div>
         @endif
 
-        <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioCarta" style="">
+        <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioCarta" style="display: {{ (isset($section->price)  ?  'block;' : '') }}" >
 
 
           <input type="number" name="price" step="0.01" min="0" value="{{ $section->price }}"  id="price" min="0.00">
@@ -71,17 +71,11 @@
         <div class="input_error" id="errorPrecioCarta" style="display: none;">
             <span>El monto debe ser mayor a cero</span>
         </div>
-
         
-          <p>
-        <input type="checkbox" class="filled-in" id="filled-in-box" />
-        <label for="filled-in-box">Manejar Precio</label>
-          </p>
-          
-          
-          
-
-
+        <p>
+          <input type="checkbox"  {{ ($section->price > 0  ? 'checked' : '') }} class="filled-in" id="filled-in-box" />
+          <label for="filled-in-box">Manejar Precio</label>
+        </p>
         <div class="button">
           <center>
             <button type="submit" name="button">
