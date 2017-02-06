@@ -243,7 +243,7 @@ class FidelityKitController extends Controller
 
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-			$promotion = Promotion::where([
+			$fidelity_kit = Promotion::where([
 									['user_id', '=', $user->user_id ],
 									['promotion_id', '=', $id],
 									['type', '=', 1]
@@ -276,7 +276,7 @@ class FidelityKitController extends Controller
 				}
 			}
 			else {
-			 $img = $promotion->img;
+			 $img = $fidelity_kit->img;
 			}
 
 								
