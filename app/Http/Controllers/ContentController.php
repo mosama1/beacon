@@ -120,7 +120,8 @@ class ContentController extends Controller
 						'contents' => $contents,
 						'tags' => $tags,
 						'timeframes' => $timeframes,
-						'campana_id' => $id
+						'campana_id' => $id,
+						'location' => $user->location,
 					]);
 	}
 
@@ -365,7 +366,14 @@ class ContentController extends Controller
 		//	echo "<pre>";var_dump($content_timeframes);echo "</pre>";
 		// return;
 
-		return view('contents.content_edit', ['campana_id' => $campana_id, 'content' => $content, 'coupons' => $coupons, 'timeframes' => $timeframes, 'content_timeframes' => $content_timeframes]);
+		return view('contents.content_edit', [
+					'campana_id' => $campana_id,
+					'content' => $content,
+					'coupons' => $coupons,
+					'timeframes' => $timeframes,
+					'content_timeframes' => $content_timeframes,
+					'location' => $user->location,
+				]);
 	}
 
 	/**

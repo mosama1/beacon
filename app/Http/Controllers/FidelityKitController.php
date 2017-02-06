@@ -16,7 +16,7 @@ use Beacon\User;
 use Illuminate\Support\Facades\Input;
 use Log;
 
-class KitBienvenidoController extends Controller
+class FidelityKitController extends Controller
 {
 	/**
 	 * @return token crud
@@ -35,9 +35,9 @@ class KitBienvenidoController extends Controller
 				]
 		]);
 
-		$json_c = $response_crud->getBody();
+		$json_promotion = $response_crud->getBody();
 
-		$token_crud = json_decode($json_c);
+		$token_crud = json_decode($json_promotion);
 
 		Log::info('This is some useful information.');
 
@@ -82,10 +82,8 @@ class KitBienvenidoController extends Controller
 
 		$promotion = Promotion::where([
 						['user_id', '=', $user->user_id],
-						['type', '=', 1]
+						['type', '=', 2]
 					])->get();
-
-		$user->location;
 
 		return view( 'promotions.promotion', ['promotion' => $promotion, 'location' => $user->location] );
 	}
@@ -103,39 +101,6 @@ class KitBienvenidoController extends Controller
 
 		//Token Crud
 		$crud = PromotionController::crud();
-
-		//se obtiene la imagen
-		$file_img = $request->file('img');
-
-		if ( !is_null( $file_img ) ) {
-
-			//mime de la imagen kit
-			$kit_mime = $file_img->getMimeType();
-
-			//path donde se almacenara la imagen
-			$path = 'assets/images/kit_welcome/';
-
-			switch ($kit_mime)
-			{
-				case "image/jpeg":
-				case "image/png":
-					if ($file_img->isValid())
-					{
-
-						$nombre = $file_img->getClientOriginalName();
-											$nombre = date('dmyhis').'-'.$nombre;
-
-						$file_img->move($path, $nombre);
-
-						$img = 'assets/images/kit_welcome/'.$nombre;
-
-					}
-				break;
-			}
-		}
-		else {
-		 $img = "";
-		}
 		//Location
 		$promotion_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns', [
 				// un array con la data de los headers como tipo de peticion, etc.
@@ -152,9 +117,9 @@ class KitBienvenidoController extends Controller
 		]);
 
 		//Json parse
-		$json_c = $promotion_api->getBody();
+		$json_promotion = $promotion_api->getBody();
 
-		$promotion_response = json_decode($json_c);
+		$promotion_response = json_decode($json_promotion);
 
 
 		if ($promotion_response->status_code === 200 ):
@@ -165,11 +130,9 @@ class KitBienvenidoController extends Controller
 			$cam->promotion_id = $promotion_response->campaign->id;
 			$cam->user_id = $user->user_id;
 			$cam->name = $promotion_response->campaign->name;
-			(isset($promotion_response->campaign->description)) ?
+			(isset($promotion->campaign->description)) ?
 				$cam->description = $promotion_response->campaign->description :
 				$cam->description = "";
-			$cam->type = $request->type;
-			$cam->count_visits = $request->count_visits;
 			$cam->start_time = $promotion_response->campaign->start_time;
 			$cam->end_time = $promotion_response->campaign->end_time;
 			$cam->location_id = $request->location_id;
@@ -183,7 +146,7 @@ class KitBienvenidoController extends Controller
 			// var_dump($promotion);
 			// return;
 
-			return redirect()->route('all_promotion')->with(['status' => 'Error al ingresar la Promotion', 'type' => 'error']);
+			return redirect()->route('all_promotion')->with(['status' => 'Error al ingresar el kit de bienvenida', 'type' => 'error']);
 
 		endif;
 	}
@@ -204,7 +167,7 @@ class KitBienvenidoController extends Controller
 		$promotion = Promotion::where([
 								['user_id', '=', $user->user_id ],
 								['promotion_id', '=', $id],
-								['type', '=', 1]
+								['type', '=', 2]
 							])->first();
 
 
@@ -226,7 +189,7 @@ class KitBienvenidoController extends Controller
 		$crud = PromotionController::crud();
 
 		//Location
-		$promotion_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$id.'/update', [
+		$promotion_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$id.'/update', [
 				// un array con la data de los headers como tipo de peticion, etc.
 				'headers' => ['Authorization' => 'Bearer '.$crud ],
 				// array de datos del formulario
@@ -239,34 +202,31 @@ class KitBienvenidoController extends Controller
 		]);
 
 		//Json parse
-		$json_c = $promotion_->getBody();
+		$json_promotion = $promotion_api->getBody();
 
-		$promotion = json_decode($json_c);
+		$promotion_response = json_decode($json_promotion);
 
-		if ( $promotion->status_code === 200 ):
+		if ( $promotion_response->status_code === 200 ):
 
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 			$promotion = Promotion::where([
 									['user_id', '=', $user->user_id ],
 									['promotion_id', '=', $id],
-									['type', '=', 1]
-								])->first();
-
-								
-			$promotion->type = $request->type;
-			$promotion->count_visits = $request->count_visits;	
-			$promotion->name = $promotion->campaign->name;
-			$promotion->description = (isset($promotion->campaign->description)) ? $promotion->campaign->description : $promotion->description;
-			$promotion->start_time = $promotion->campaign->start_time;
-			$promotion->end_time = $promotion->campaign->end_time;
+									['type', '=', 2]
+								])
+								->update(array(
+									'name' => $promotion_response->campaign->name,
+									'description' => (isset($promotion_response->campaign->description)) ? $promotion_response->campaign->description : '',
+									'start_time' => $promotion_response->campaign->start_time,
+									'end_time' => $promotion_response->campaign->end_time,
 								));
 
 			return redirect()->route('all_promotion');
 
 		else:
 
-			return redirect()->route('add_promotion')->with(['status' => 'Error al ingresar la Promotion', 'type' => 'error']);
+			return redirect()->route('add_promotion')->with(['status' => 'Error al ingresar el kit de bienvenida', 'type' => 'error']);
 
 		endif;
 	}
@@ -291,30 +251,30 @@ class KitBienvenidoController extends Controller
 		]);
 
 		//Json parse
-		$json_c = $promotion_->getBody();
+		$json_promotion = $promotion_->getBody();
 
-		$promotion = json_decode($json_c);
+		$promotion_response = json_decode($json_promotion);
 
-		if ($promotion->status_code === 200 ):
+		if ($promotion_response->status_code === 200 ):
 
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 			$promotion =  Promotion::where([
 									['user_id', '=', $user->user_id ],
 									['promotion_id', '=', $promotion_id],
-									['type', '=', 1]
+									['type', '=', 2]
 								])->first();
 
 			$promotion->delete();
 
 			return redirect()->route('all_promotion')
-					->with(['status' => 'Se ha Eliminado la Campaña con éxito', 'type' => 'success']);
+					->with(['status' => 'Se ha Eliminado el kit de bienvenida con éxito', 'type' => 'success']);
 
 		else:
 
 			//echo "<pre>"; var_dump($campaña); echo "</pre>";
 
-			return redirect()->route('all_promotion')->with(['status' => 'Error al eliminar la Campaña', 'type' => 'error']);
+			return redirect()->route('all_promotion')->with(['status' => 'Error al eliminar el kit de bienvenida', 'type' => 'error']);
 
 		endif;
 	}
