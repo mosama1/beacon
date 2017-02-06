@@ -137,6 +137,9 @@ class ContentController extends Controller
 		//Token Crud
 		$crud = ContentController::crud();
 
+		var_dump($request->timeframe_id);
+		return;
+
 
 		// validar si el $request->timeframe no esta vacio
 		// si esta vacio se iguala a null la variable $timeframes
@@ -234,8 +237,9 @@ class ContentController extends Controller
 			}
 			else
 			{
-				echo "<pre>"; print_r( $campana_response ); echo "</pre>";
-				return;
+				$campana = false;
+				// echo "<pre>"; print_r( $campana_response ); echo "</pre>";
+				// return;
 			}
 
 			//Carga el coupon en el beacon
@@ -261,18 +265,21 @@ class ContentController extends Controller
 			{
 
 					$coupon = Coupon::where('coupon_id', '=', $request->coupon_id)->first();
-
-					// echo "<pre>";	var_dump($coupon);	echo "</pre>";
-					// return;
 					$coupon->url = $coupon_response->coupon->url;
 					$coupon->update();
-
-			} else {
-				echo "<pre>"; print_r( $coupon_response ); echo "</pre>";
-				return;
+			}
+			else
+			{
+				$coupon = false;
+				// echo "<pre>"; print_r( $coupon_response ); echo "</pre>";
+				// return;
 			}
 
-			return redirect()->route('all_content', array('campana_id' => $campana_id ) )->with(['status' => 'Se ha creado el contenido exitosamente', 'type' => 'success']);
+			if ( $campana && $coupon ) {
+				return redirect()->route('all_content', array('campana_id' => $campana_id ) )->with(['status' => 'Se ha creado el contenido exitosamente', 'type' => 'success']);
+			} else {
+				return redirect()->route('all_content', array('campana_id' => $campana_id ) )->with(['status' => 'Error al ingresar el contenido', 'type' => 'error']);
+			}
 
 
 
