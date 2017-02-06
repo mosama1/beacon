@@ -222,7 +222,7 @@ class FidelityKitController extends Controller
 		$crud = PromotionController::crud();
 
 		//Location
-		$fidelity_kit_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$id.'/update', [
+		$fidelity_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$id.'/update', [
 				// un array con la data de los headers como tipo de peticion, etc.
 				'headers' => ['Authorization' => 'Bearer '.$crud ],
 				// array de datos del formulario
@@ -235,31 +235,66 @@ class FidelityKitController extends Controller
 		]);
 
 		//Json parse
-		$json_fidelity_kit = $fidelity_kit_api->getBody();
+		$json_c = $fidelity_api->getBody();
 
-		$fidelity_kit_response = json_decode($json_fidelity_kit);
+		$fidelity_response = json_decode($json_c);
 
-		if ( $fidelity_kit_response->status_code === 200 ):
+		if ( $fidelity_response->status_code === 200 ):
 
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 			$promotion = Promotion::where([
 									['user_id', '=', $user->user_id ],
 									['promotion_id', '=', $id],
-									['type', '=', 2]
-								])
-								->update(array(
-									'name' => $fidelity_kit_response->campaign->name,
-									'description' => (isset($fidelity_kit_response->campaign->description)) ? $fidelity_kit_response->campaign->description : '',
-									'start_time' => $fidelity_kit_response->campaign->start_time,
-									'end_time' => $fidelity_kit_response->campaign->end_time,
-								));
+									['type', '=', 1]
+								])->first();
+
+			if ( !is_null( $file_img ) ) {
+
+				//mime de la imagen kit
+				$kit_mime = $file_img->getMimeType();
+
+				//path donde se almacenara la imagen
+				$path = 'assets/images/fidelity_kit/';
+
+				switch ($kit_mime)
+				{
+					case "image/jpeg":
+					case "image/png":
+						if ($file_img->isValid())
+						{
+
+							$nombre = $file_img->getClientOriginalName();
+												$nombre = date('dmyhis').'-'.$nombre;
+
+							$file_img->move($path, $nombre);
+
+							$img = 'assets/images/fidelity_kit/'.$nombre;
+
+						}
+					break;
+				}
+			}
+			else {
+			 $img = $promotion->img;
+			}
+
+								
+			$fidelity->type = $request->type;
+			$fidelity->number_visits = $request->number_visits;
+			$fidelity->img= $img;
+			$fidelity->name = $fidelity_response->campaign->name;
+			$fidelity->description = (isset($fidelity_response->campaign->description)) ?
+					$fidelity_response->campaign->description :
+					$fidelity->description;
+			$fidelity->start_time = $fidelity_response->campaign->start_time;
+			$fidelity->end_time = $fidelity_response->campaign->end_time;	
 
 			return redirect()->route('all_fidelity_kit');
 
 		else:
 
-			return redirect()->route('add_fidelity_kit')->with(['status' => 'Error al ingresar el kit de bienvenida', 'type' => 'error']);
+			return redirect()->route('add_promotion')->with(['status' => 'Error al ingresar la Promotion', 'type' => 'error']);
 
 		endif;
 	}
