@@ -131,11 +131,11 @@ class BeaconController extends Controller
 
 			$beacons_response = json_decode($json_b);
 
-			// echo "<pre>";			var_dump($beacons_response); echo "</pre>";
-			// return;
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 			$location = Location::where( 'user_id', '=', $user->user_id )->first();
+			// echo "<pre>"; var_dump($location->name); echo "</pre>";
+			// return;
 
 			if ( $beacons_response->status_code == 200 ) {
 
@@ -158,6 +158,7 @@ class BeaconController extends Controller
 									// array de datos del formulario
 									'form_params' => [
 											'location' => $location->location_id,
+											'tag' => $location->name
 									]
 							]);
 					}
