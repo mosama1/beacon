@@ -85,7 +85,7 @@ class FidelityKitController extends Controller
 						['type', '=', 2]
 					])->get();
 
-		return view( 'promotions.promotion', ['promotion' => $promotion, 'location' => $user->location] );
+		return view( 'fidelity_kits.fidelity_kit', ['promotion' => $promotion, 'location' => $user->location] );
 	}
 
 	/**

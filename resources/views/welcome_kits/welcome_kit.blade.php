@@ -13,7 +13,7 @@
     </div>
     <div class="agregar">
       <center>
-        <a href="#kitFidelidad" class="waves-effect">
+        <a href="#kitBienvenida" class="waves-effect">
           <div class="">
             <span class="text">Agregar <br>Kit</span>
             <span class="icon"><i class="material-icons">add</i></span>

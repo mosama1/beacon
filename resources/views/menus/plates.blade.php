@@ -310,6 +310,8 @@
     <form class="form-horizontal" role="form" method="POST" action="{{ route('create_tipoPlato') }}">
       {{ csrf_field() }}
 			<input type="hidden" name="section_id" value="{{ $section_id }}">
+			<input type="hidden" name="mod" value="add_menu" required>
+
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
         <input type="text" name="name" value="" required="">
         <label for="">
