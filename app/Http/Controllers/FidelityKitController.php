@@ -156,24 +156,29 @@ class FidelityKitController extends Controller
 		//Json parse
 		$json_fidelity_kit = $fidelity_kit_api->getBody();
 
-		$fidelity_kit_response = json_decode($json_fidelity_kit);
+		$fidelity_response = json_decode($json_fidelity_kit);
 
 
-		if ($fidelity_kit_response->status_code === 200 ):
+		if ($fidelity_response->status_code === 200 ):
 
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 			$fidelity_kit = new Promotion();
-			$fidelity_kit->promotion_id = $fidelity_kit_response->campaign->id;
+			$fidelity_kit->promotion_id = $fidelity_response->campaign->id;
 			$fidelity_kit->user_id = $user->user_id;
-			$fidelity_kit->name = $fidelity_kit_response->campaign->name;
-			(isset($promotion->campaign->description)) ?
-				$fidelity_kit->description = $fidelity_kit_response->campaign->description :
+			$fidelity_kit->name = $fidelity_response->campaign->name;
+			(isset($fidelity_response->campaign->description)) ?
+				$fidelity_kit->description = $fidelity_response->campaign->description :
 				$fidelity_kit->description = "";
-			$fidelity_kit->start_time = $fidelity_kit_response->campaign->start_time;
-			$fidelity_kit->end_time = $fidelity_kit_response->campaign->end_time;
+			(isset($fidelity_response->type)) ?
+				$fidelity_kit->type = $fidelity_response->type :
+				$fidelity_kit->type = 2;
+			$welcome->number_visits = $request->number_visits;
+			$welcome->img = $img;
+			$fidelity_kit->start_time = $fidelity_response->campaign->start_time;
+			$fidelity_kit->end_time = $fidelity_response->campaign->end_time;
 			$fidelity_kit->location_id = $location->location_id;
-			$fidelity_kit->enabled = $fidelity_kit_response->campaign->enabled;
+			$fidelity_kit->enabled = $fidelity_response->campaign->enabled;
 			$fidelity_kit->save();
 
 			return redirect()->route('all_fidelity_kit');
@@ -325,9 +330,9 @@ class FidelityKitController extends Controller
 		//Json parse
 		$json_fidelity_kit = $fidelity_kit_api->getBody();
 
-		$fidelity_kit_response = json_decode($json_fidelity_kit);
+		$fidelity_response = json_decode($json_fidelity_kit);
 
-		if ($fidelity_kit_response->status_code === 200 ):
+		if ($fidelity_response->status_code === 200 ):
 
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 

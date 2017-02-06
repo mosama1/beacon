@@ -170,7 +170,9 @@ class WelcomeKitController extends Controller
 			(isset($welcome_response->campaign->description)) ?
 				$welcome->description = $welcome_response->campaign->description :
 				$welcome->description = "";
-			$welcome->type = $request->type;
+			(isset($welcome_response->campaign->type)) ?
+				$fidelity_kit->type = $request->type :
+				$fidelity_kit->type = 1;
 			$welcome->number_visits = $request->number_visits;
 			$welcome->img = $img;
 			$welcome->start_time = $welcome_response->campaign->start_time;
@@ -208,8 +210,9 @@ class WelcomeKitController extends Controller
 								['type', '=', 1]
 							])->first();
 
+		var_dump($promotion);
 
-		return view('welcome_kits.welcome_kit_edit', ['welcome_kit' => $promotion, 'location' => $location]);
+		return view('welcome_kits.welcome_kit_edit', ['welcome_kit' => $promotion, 'location' => $user->location]);
 	}
 
 	/**
