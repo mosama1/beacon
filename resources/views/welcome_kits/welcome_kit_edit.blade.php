@@ -21,7 +21,7 @@
          </span>
        @endif
 
-       <form class="form-horizontal" role="form" method="POST" action="{{ route('update_welcome_kit') }}">
+       <form class="form-horizontal" role="form" method="POST" action="{{ route('update_welcome_kit', $promotion->id) }}">
          {{ csrf_field() }}
          {{ method_field('PUT') }}
 
