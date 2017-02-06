@@ -167,7 +167,8 @@ class WelcomeKitController extends Controller
 				$welcome->description = $welcome_response->campaign->description :
 				$welcome->description = "";
 			$welcome->type = $request->type;
-			$welcome->count_visits = $request->count_visits;
+			$welcome->number_visits = $request->number_visits;
+			$welcome->img = $img;
 			$welcome->start_time = $welcome_response->campaign->start_time;
 			$welcome->end_time = $welcome_response->campaign->end_time;
 			$welcome->location_id = $request->location_id;
@@ -249,11 +250,44 @@ class WelcomeKitController extends Controller
 									['type', '=', 1]
 								])->first();
 
+			if ( !is_null( $file_img ) ) {
+
+				//mime de la imagen kit
+				$kit_mime = $file_img->getMimeType();
+
+				//path donde se almacenara la imagen
+				$path = 'assets/images/kit_welcome/';
+
+				switch ($kit_mime)
+				{
+					case "image/jpeg":
+					case "image/png":
+						if ($file_img->isValid())
+						{
+
+							$nombre = $file_img->getClientOriginalName();
+												$nombre = date('dmyhis').'-'.$nombre;
+
+							$file_img->move($path, $nombre);
+
+							$img = 'assets/images/kit_welcome/'.$nombre;
+
+						}
+					break;
+				}
+			}
+			else {
+			 $img = $promotion->img;
+			}
+
 								
 			$welcome->type = $request->type;
-			$welcome->count_visits = $request->count_visits;	
+			$welcome->number_visits = $request->number_visits;
+			$welcome->img= $img;
 			$welcome->name = $welcome_response->campaign->name;
-			$welcome->description = (isset($welcome_response->campaign->description)) ? $welcome_response->campaign->description : $welcome->description;
+			$welcome->description = (isset($welcome_response->campaign->description)) ?
+					$welcome_response->campaign->description :
+					$welcome->description;
 			$welcome->start_time = $welcome_response->campaign->start_time;
 			$welcome->end_time = $welcome_response->campaign->end_time;	
 
