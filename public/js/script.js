@@ -19,6 +19,13 @@ $('.price_mask').mask("00,000.00", {reverse: true});
 $('.date_mask').mask('0000-00-00 00:00');
 
 
+$('#menu_name, #menu_type, #menu_price').change(function(){
+  $('#old_name').val($('#menu_name').val());
+  $('#old_type').val($('#menu_type').val());
+  $('#old_price').val($('#menu_price').val());
+});
+
+
 
 
 // $(document).ready(function (){

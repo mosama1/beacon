@@ -118,10 +118,8 @@
 			{{ csrf_field() }}
 			<input type="hidden" name="section_id" value="{{$section_id}}" required>
 
-
-
 			<div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-				<input type="text" name="name" value="{{ old('email') }}" required="">
+				<input type="text" name="name" value="{{session('name')}}" required="" id="menu_name">
 				<label for="">
 					<span class="text">Nombre</span>
 				</label>
@@ -143,13 +141,13 @@
 			@endif
 
 			<div class="input select no_icon {{ $errors->has('type') ? 'error' : '' }}">
-				<select id="type" class="form-control icons" name="type">
+				<select id="menu_type" class="form-control icons" name="type">
 
 
 				@if( !empty($type_plates) )
           <option value="" disabled selected>Seleccion un tipo de plato</option>
 					@foreach ($type_plates as $type_plate)
-						<option value="{{$type_plate->id}}">{{$type_plate->name}}</option>
+						<option value="{{$type_plate->id}}" {{ (session('type') == $type_plate->id) ? 'selected' : '' }}>{{$type_plate->name}}</option>
 					@endforeach
 				@else
 					<option value="" disabled selected>No hay tipos de platos registrados</option>
@@ -179,7 +177,7 @@
 
 			<div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}">
 
-				<input type="number" name="price" value="" required="" min="1" max="99999" step="any">
+				<input type="number" name="price" value="{{session('price')}}" required="" min="1" max="99999" step="any" id="menu_price">
 
 				<label for="">
 					<span class="text">Precio 0,00 €</span>
@@ -311,6 +309,10 @@
       {{ csrf_field() }}
 			<input type="hidden" name="section_id" value="{{ $section_id }}">
 			<input type="hidden" name="mod" value="add_menu" required>
+			<input type="hidden" name="old_name" value="" required id="old_name">
+			<input type="hidden" name="old_type" value="" required id="old_type">
+			<input type="hidden" name="old_price" value="" required id="old_price">
+
 
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
         <input type="text" name="name" value="" required="">
