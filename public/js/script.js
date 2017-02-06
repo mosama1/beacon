@@ -506,7 +506,7 @@ $('.help a').click(function(){
 
 // $('.datetimepicker').datetimepicker();
 
-$.datetimepicker.setLocale('de');
+$.datetimepicker.setLocale('es');
 $('.datetimepicker').datetimepicker({
  i18n:{
   de:{
@@ -523,4 +523,8 @@ $('.datetimepicker').datetimepicker({
  },
  timepicker:true,
  format:'d-m-Y h:m'
+});
+$('.timepicker').datetimepicker({
+  datepicker:false,
+  format:'H:i'
 });

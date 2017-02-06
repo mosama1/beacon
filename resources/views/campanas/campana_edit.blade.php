@@ -1,9 +1,5 @@
 
 
-<?php
-$date = new DateTime($campana->start_time);
-echo $date->format('Y-m-d h:i');
-?>
 
 <?php $nivel = '../../' ?>
 
@@ -78,7 +74,7 @@ echo $date->format('Y-m-d h:i');
           </div>
         @endif
         <div class="input no_icon {{ $errors->has('start_time') ? 'error' : '' }}">
-          <input type="text" name="start_time" value="{{$campana->start_time}}" required="" class="datetimepicker date_mask">
+          <input type="text" name="start_time" value="{{date('d-m-Y H:i', strtotime($campana->start_time))}}" required="" class="datetimepicker">
           <label for="">
             <span class="text">Inicio (dd/mm/yy hh:mm)</span>
           </label>
@@ -100,7 +96,7 @@ echo $date->format('Y-m-d h:i');
         @endif
 
         <div class="input no_icon {{ $errors->has('end_time') ? 'error' : '' }}">
-          <input type="text" name="end_time" value="" required="" class="datetimepicker date_mask">
+          <input type="text" name="end_time" value="{{date('d-m-Y H:i', strtotime($campana->end_time))}}" required="" class="datetimepicker">
           <label for="">
             <span class="text">Final (dd/mm/yy hh:mm)</span>
           </label>
@@ -121,11 +117,6 @@ echo $date->format('Y-m-d h:i');
           </div>
         @endif
 
-        @if ($errors->has('location_id'))
-        <div class="input_error">
-          <span>{{ $errors->first('location_id') }}</span>
-        </div>
-        @endif
 
         <!-- <div class="input no_icon time {{ $errors->has('start_time') ? 'error' : '' }}">
           <input type="time" name="start_time" value="{{date('H:i', strtotime($campana->start_time))}}" required="" class="input_time">
