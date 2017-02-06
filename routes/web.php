@@ -15,17 +15,19 @@ Route::group(['middleware' => 'auth'], function () {
 	require (__DIR__ . '/campanas.php');
 	require (__DIR__ . '/contents.php');
 	require (__DIR__ . '/coupons.php');
+	require (__DIR__ . '/fidelity_kit.php');
 	require (__DIR__ . '/guest.php');
 	require (__DIR__ . '/home.php');
 	require (__DIR__ . '/languages.php');
 	require (__DIR__ . '/locations.php');
 	require (__DIR__ . '/menus.php');
+	require (__DIR__ . '/promotions.php');
 	require (__DIR__ . '/plates.php');
 	require (__DIR__ . '/sections.php');
 	require (__DIR__ . '/timeframes.php');
 	require (__DIR__ . '/type_plates.php');
 	require (__DIR__ . '/users.php');
-	require (__DIR__ . '/promotions.php');
+	require (__DIR__ . '/welcome_kit.php');
 	Route::get('home', 'HomeController@index');
 });
 

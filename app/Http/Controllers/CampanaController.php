@@ -81,8 +81,7 @@ class CampanaController extends Controller
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 		$campana = Campana::where([
-						['user_id', '=', $user->user_id],
-						['type', '=', 1]
+						['user_id', '=', $user->user_id]
 					])->get();
 
 		$user->location;
@@ -168,8 +167,7 @@ class CampanaController extends Controller
 
 		$campana = Campana::where([
 								['user_id', '=', $user->user_id ],
-								['campana_id', '=', $id],
-								['type', '=', 1]
+								['campana_id', '=', $id]
 							])->first();
 
 
@@ -214,8 +212,7 @@ class CampanaController extends Controller
 
 			$campana = Campana::where([
 									['user_id', '=', $user->user_id ],
-									['campana_id', '=', $id],
-									['type', '=', 1]
+									['campana_id', '=', $id]
 								])
 								->update(array(
 									'name' => $campana->campaign->name,
@@ -263,8 +260,7 @@ class CampanaController extends Controller
 
 			$campana =  Campana::where([
 									['user_id', '=', $user->user_id ],
-									['campana_id', '=', $campana_id],
-									['type', '=', 1]
+									['campana_id', '=', $campana_id]
 								])->first();
 
 			$campana->delete();
