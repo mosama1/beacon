@@ -21,7 +21,7 @@
          </span>
        @endif
 
-       <form class="form-horizontal" role="form" method="POST" action="{{ route('store_campana') }}">
+       <form class="form-horizontal" role="form" method="POST" action="{{ route('update_fidelity_kit') }}">
          {{ csrf_field() }}
         {{ method_field('PUT') }}
 
@@ -178,7 +178,7 @@
              <button type="submit" name="button" id="guardar">
                <span>Guardar</span>
              </button>
-             <a href="#" class="" onclick="$('#kitFidelidad').modal('close'); return false;">
+             <a href="{{ route('all_fidelity_kit') }}" class="">
                <span>Cancelar</span>
              </a>
            </center>
