@@ -359,6 +359,7 @@ class ContentController extends Controller
 			->join('content_timeframes', 'timeframes.timeframe_id', '=', 'content_timeframes.timeframe_id')
 			->join('contents', 'contents.id', '=', 'content_timeframes.content_id')
 			->select('timeframes.*')
+			->where('content_timeframes.content_id', '=', $content->id)
 			->get();
 
 		//	echo "<pre>";var_dump($content_timeframes);echo "</pre>";
