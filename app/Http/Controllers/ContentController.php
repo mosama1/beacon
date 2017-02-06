@@ -30,7 +30,7 @@ class ContentController extends Controller
 				'form_params' => [
 						'client_id' => 'af1cd006576dc09b7cf7660d4e010fbf434ad4bf',
 						'client_secret' => '335c77e0ff4a4d36b97e8464ef880cdef30fb795',
-						'scope' => 'crud'	
+						'scope' => 'crud'
 				]
 		]);
 
