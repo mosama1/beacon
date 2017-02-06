@@ -210,7 +210,6 @@ class WelcomeKitController extends Controller
 								['type', '=', 1]
 							])->first();
 
-		var_dump($promotion);
 
 		return view('welcome_kits.welcome_kit_edit', ['welcome_kit' => $promotion, 'location' => $user->location]);
 	}
@@ -287,7 +286,7 @@ class WelcomeKitController extends Controller
 			 $img = $welcome->img;
 			}
 
-								
+
 			$welcome->type = $request->type;
 			//no se envia
 			$welcome->number_visits = $request->number_visits;
@@ -297,7 +296,7 @@ class WelcomeKitController extends Controller
 					$welcome_response->campaign->description :
 					$welcome->description;
 			$welcome->start_time = $welcome_response->campaign->start_time;
-			$welcome->end_time = $welcome_response->campaign->end_time;	
+			$welcome->end_time = $welcome_response->campaign->end_time;
 
 			return redirect()->route('all_welcome_kit');
 
