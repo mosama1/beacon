@@ -113,7 +113,7 @@
 
 
 			<div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-				<input type="text" name="name" value="" required="">
+				<input type="text" name="name" value="{{ old('email') }}" required="">
 				<label for="">
 					<span class="text">Nombre</span>
 				</label>
@@ -135,7 +135,6 @@
 			@endif
 
 			<div class="input select no_icon {{ $errors->has('type') ? 'error' : '' }}">
-				<!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
 				<select id="type" class="form-control icons" name="type">
 
 				@if( !empty($type_plates) )
@@ -157,6 +156,11 @@
             </p>
           </div>
         </div>
+				<div class="mas">
+					<a href="#tipoPlato">
+						<i class="material-icons">add</i>
+					</a>
+				</div>
 			</div>
 			@if ($errors->has('type'))
 			<div class="error_input">
@@ -165,7 +169,7 @@
 			@endif
 
 			<div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}">
-				<input type="text" name="price" value="" required="" class="price_mask">
+				<input type="text" name="price" value="{{ old('email') }}" required="" class="price_mask">
 				<label for="">
 					<span class="text">Precio 0,00 €</span>
 				</label>
@@ -242,18 +246,6 @@
 				@endif
 			</div>
 
-
-			<!-- <div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}">
-				<input type="text" name="price" value="" required="">
-				<label for="">
-					<span class="text">Precio</span>
-				</label>
-				@if ($errors->has('price'))
-					<span class="error_input">
-							<strong>{{ $errors->first('price') }}</strong>
-					</span>
-				@endif
-			</div> -->
 			<div class="button">
 				<center>
 					<button type="submit" name="button">
@@ -289,6 +281,72 @@
 			</div>
 		</form>
 	</div>
+</div>
+
+<div id="tipoPlato" class="modal modal_">
+  <div class="titulo">
+    <h3>
+      Agregar Tipo de Plato
+    </h3>
+  </div>
+  <div class="form">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('create_tipoPlato') }}">
+      {{ csrf_field() }}
+			<input type="hidden" name="section_id" value="{{ $section_id }}">
+      <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
+        <input type="text" name="name" value="" required="">
+        <label for="">
+          <span class="text">Nombre</span>
+        </label>
+        <div class="help">
+          <a href="#">
+            <i class="material-icons">help_outline</i>
+          </a>
+          <div class="inf none hidden">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            </p>
+          </div>
+        </div>
+      </div>
+      @if ($errors->has('name'))
+      <div class="input_error">
+        <span>{{ $errors->first('name') }}</span>
+      </div>
+      @endif
+      <div class="input textarea no_icon {{ $errors->has('description') ? 'error' : '' }}">
+        <textarea name="description" rows="8" cols="80" ></textarea>
+        <label for="">
+          <span class="text">Descripción (Opcional)</span>
+        </label>
+        <div class="help">
+          <a href="#">
+            <i class="material-icons">help_outline</i>
+          </a>
+          <div class="inf none hidden">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            </p>
+          </div>
+        </div>
+      </div>
+      @if ($errors->has('description'))
+      <div class="input_error">
+        <span>{{ $errors->first('description') }}</span>
+      </div>
+      @endif
+      <div class="button">
+        <center>
+          <button type="submit" name="button">
+            <span>Guardar</span>
+          </button>
+          <a href="#" class="" onclick="$('#tipoPlato').modal('close'); return false;">
+            <span>Cancelar</span>
+          </a>
+        </center>
+      </div>
+    </form>
+  </div>
 </div>
 
 

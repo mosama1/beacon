@@ -15,6 +15,7 @@ $('.val_zip').mask('00000');
 // $('.picker_time').mask('00:00 AA');
 $('.picker_time').mask("00:00 AA", {placeholder: "__:__: am/pm"});
 $('.price_mask').mask("00,000.00", {reverse: true});
+$('.date_mask').mask('0000-00-00 00:00');
 
 
 
@@ -496,8 +497,30 @@ $('.help a').click(function(){
   }else {
     quitar(help);
   }
-
-
-
   return false;
+});
+
+/**************************************************************/
+/******************* Date Pickers *****************************/
+/**************************************************************/
+
+// $('.datetimepicker').datetimepicker();
+
+$.datetimepicker.setLocale('de');
+$('.datetimepicker').datetimepicker({
+ i18n:{
+  de:{
+   months:[
+    'Enero','Febrero','Marzo','Abril',
+    'Mayo','Junio','Julio','Agosto',
+    'Septiembre','Octubre','Noviembre','Diciembre',
+   ],
+   dayOfWeek:[
+    "Dom.", "Lun", "Mar", "Mie",
+    "Jue", "Vie", "Sab.",
+   ]
+  }
+ },
+ timepicker:true,
+ format:'d-m-Y h:m'
 });

@@ -21,7 +21,6 @@
         <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
           <input type="text" name="name" value="{{$timeframe->name}}" required="">
           <label for="">
-            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Name</span>
           </label>
           <div class="help">
@@ -40,10 +39,9 @@
               <span>{{ $errors->first('name') }}</span>
           </div>
         @endif
-        <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
-          <input type="text" name="description" value="{{$timeframe->description}}">
+        <div class="input textarea no_icon {{ $errors->has('description') ? 'error' : '' }}">
+          <textarea name="description" rows="8" cols="80" >{{$timeframe->description}}</textarea>
           <label for="">
-            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Descripción (Opcional)</span>
           </label>
           <div class="help">
@@ -66,7 +64,6 @@
         <div class="input no_icon {{ $errors->has('start_time') ? 'error' : '' }}">
           <input type="time" name="start_time" value="{{$timeframe->start_time}}" required="">
           <label for="">
-            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Hora de inicio</span>
           </label>
           <div class="help">
@@ -89,7 +86,6 @@
         <div class="input no_icon {{ $errors->has('end_time') ? 'error' : '' }}">
           <input type="time" name="end_time" value="{{$timeframe->end_time}}" required="">
           <label for="">
-            <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
             <span class="text">Hora de finalización</span>
           </label>
           <div class="help">

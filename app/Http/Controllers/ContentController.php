@@ -1,4 +1,4 @@
-<?php
+Fhe<?php
 
 namespace Beacon\Http\Controllers;
 
@@ -173,7 +173,10 @@ class ContentController extends Controller
 
 		$tag_response = json_decode($json_b);
 
+		// echo "<pre>";	var_dump($tag_response);	echo "</pre>";
+		// return;
 		$tag_id = strval($tag_response->tags[0]->id);
+
 
 		$parameters = array(
 					'headers' => ['Authorization' => 'Bearer '.$crud ],

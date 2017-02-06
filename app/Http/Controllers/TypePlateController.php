@@ -50,8 +50,18 @@ class TypePlateController extends Controller
 		$tipo_plato->save();
 
 
-		return redirect()->route( 'all_type_plate' )
-					 ->with( [ 'status' => 'Se creo el tipo de plato', 'type' => 'success' ] );
+
+
+		if (empty($request->section_id)) {
+			return redirect()->route( 'all_type_plate' )
+						 ->with( [ 'status' => 'Se creo el tipo de plato', 'type' => 'success' ] );
+		}else {
+			return redirect()->route( 'all_menu',  $request->section_id)
+						 ->with( [ 'status' => 'Se creo el tipo de plato', 'type' => 'success' ] );
+		}
+
+
+
 	}
 
 	/**
