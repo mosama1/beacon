@@ -126,13 +126,6 @@ class CampanaController extends Controller
 		$crud = CampanaController::crud();
 
 
-		/* Se recibe este formato de fecha dd/mm/yy hh/ss y se cambia aa/mm/dd hh/ss*/
-		$fecha_inicio = explode(" ", $request->start_time)[0];
-		$fecha_inicio = explode("-", $fecha_inicio)[2].'-'.explode("-", $fecha_inicio)[1].'-'.explode("-", $fecha_inicio)[0].' '.explode(" ", $request->start_time)[1];
-		$fecha_fin = explode(" ", $request->end_time)[0];
-		$fecha_fin = explode("-", $fecha_fin)[2].'-'.explode("-", $fecha_fin)[1].'-'.explode("-", $fecha_fin)[0].' '.explode(" ", $request->start_time)[1];
-
-
 		//Location
 		$campana_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns', [
 				// un array con la data de los headers como tipo de peticion, etc.
@@ -141,8 +134,8 @@ class CampanaController extends Controller
 				'form_params' => [
 						'name' => $request->name,
 						'description' => $request->description,
-						'start_time' => $fecha_inicio,
-						'end_time' => $fecha_fin,
+						'start_time' => date('Y-m-d H:i', strtotime($request->start_time)),
+						'end_time' => date('Y-m-d H:i', strtotime($request->end_time)),
 						'locations' => $request->location_id,
 						'enabled' => 1,
 				]

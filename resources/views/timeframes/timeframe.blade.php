@@ -117,7 +117,7 @@
 				</div>
 			@endif
 			<div class="input no_icon {{ $errors->has('start_time') ? 'error' : '' }} time">
-				<input type="time" name="start_time" value="" required="" class="input_time picker_time">
+				<input type="text" name="start_time" value="" required="" class="input_time timepicker">
 				<label for="">
 					<span class="text">Hora de inicio (hh:mm am/pm)</span>
 				</label>
@@ -138,7 +138,7 @@
 				</div>
 			@endif
 			<div class="input no_icon {{ $errors->has('end_time') ? 'error' : '' }} time">
-				<input type="time" name="end_time" value="" required="" class="input_time">
+				<input type="text" name="end_time" value="" required="" class="input_time timepicker">
 				<label for="">
 					<span class="text">Hora de finalización (hh:mm am/pm)</span>
 				</label>

@@ -61,8 +61,8 @@
           </div>
         @endif
 
-        <div class="input no_icon {{ $errors->has('start_time') ? 'error' : '' }}">
-          <input type="time" name="start_time" value="{{$timeframe->start_time}}" required="">
+        <div class="input no_icon {{ $errors->has('start_time') ? 'error' : '' }}" time>
+          <input type="text" name="start_time" value="{{$timeframe->start_time}}" required="" class="input_time timepicker">
           <label for="">
             <span class="text">Hora de inicio</span>
           </label>
@@ -83,8 +83,8 @@
           </div>
         @endif
 
-        <div class="input no_icon {{ $errors->has('end_time') ? 'error' : '' }}">
-          <input type="time" name="end_time" value="{{$timeframe->end_time}}" required="">
+        <div class="input no_icon {{ $errors->has('end_time') ? 'error' : '' }}" time>
+          <input type="text" name="end_time" value="{{$timeframe->end_time}}" required="" class="input_time timepicker">
           <label for="">
             <span class="text">Hora de finalización</span>
           </label>
