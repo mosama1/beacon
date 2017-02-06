@@ -21,7 +21,7 @@
               @if($user->language == 'Castellano')
                 <option value="{{ $user->language }}" data-icon="img/icons/es.png" class="left circle">{{ $user->language }}</option>
 
-                <option value="Catalám" data-icon="img/icons/en.png" class="left circle">Catalám</option>
+                <option value="Catalán" data-icon="img/icons/en.png" class="left circle">Catalán</option>
 
               @else
                 <option value="{{ $user->language }}" data-icon="img/icons/en.png" class="left circle">{{ $user->language }}</option>
