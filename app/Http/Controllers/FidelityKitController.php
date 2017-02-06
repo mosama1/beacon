@@ -96,6 +96,9 @@ class FidelityKitController extends Controller
 	 */
 	public function store_fidelity_kit(Request $request)
 	{
+
+		// echo "<pre>"; var_dump($request); echo "</pre>";
+		// return;
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 		$location = $user->location;
@@ -288,7 +291,7 @@ class FidelityKitController extends Controller
 			 $img = $fidelity_kit->img;
 			}
 
-								
+
 			$fidelity->type = $request->type;
 			//no se envia
 			$fidelity->number_visits = $request->number_visits;
@@ -298,7 +301,7 @@ class FidelityKitController extends Controller
 					$fidelity_response->campaign->description :
 					$fidelity->description;
 			$fidelity->start_time = $fidelity_response->campaign->start_time;
-			$fidelity->end_time = $fidelity_response->campaign->end_time;	
+			$fidelity->end_time = $fidelity_response->campaign->end_time;
 
 			return redirect()->route('all_fidelity_kit');
 

@@ -112,7 +112,7 @@
          @endif
 
          <div class="input no_icon {{ $errors->has('num_visit') ? 'error' : '' }}">
-           <input type="text" name="num_visit" value="" required="" class="num_mask">
+           <input type="text" name="number_visits" value="" required="" class="num_mask">
            <label for="">
              <span class="text">Numero de Visitas</span>
            </label>
