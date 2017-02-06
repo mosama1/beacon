@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Beacon\Campana;
+use Beacon\Promotion;
 use Beacon\Content;
 use Beacon\Coupon;
 use Beacon\CouponTranslation;
@@ -16,7 +16,7 @@ use Beacon\User;
 use Illuminate\Support\Facades\Input;
 use Log;
 
-class KitFidelidadController extends Controller
+class KitBienvenidoController extends Controller
 {
 	/**
 	 * @return token crud
@@ -35,9 +35,9 @@ class KitFidelidadController extends Controller
 				]
 		]);
 
-		$json_c = $response_crud->getBody();
+		$json_promotion = $response_crud->getBody();
 
-		$token_crud = json_decode($json_c);
+		$token_crud = json_decode($json_promotion);
 
 		Log::info('This is some useful information.');
 
@@ -80,14 +80,12 @@ class KitFidelidadController extends Controller
 	{
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-		$campana = Campana::where([
+		$promotion = Promotion::where([
 						['user_id', '=', $user->user_id],
-						['type', '=', 1]
+						['type', '=', 2]
 					])->get();
 
-		$user->location;
-
-		return view( 'campanas.campana', ['campana' => $campana, 'location' => $user->location] );
+		return view( 'promotions.promotion', ['promotion' => $promotion, 'location' => $user->location] );
 	}
 
 	/**
@@ -96,15 +94,15 @@ class KitFidelidadController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store_campana(Request $request)
+	public function store_promotion(Request $request)
 	{
 		// Nuevo cliente con un url base
 		$client = new Client();
 
 		//Token Crud
-		$crud = CampanaController::crud();
+		$crud = PromotionController::crud();
 		//Location
-		$campana_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns', [
+		$promotion_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns', [
 				// un array con la data de los headers como tipo de peticion, etc.
 				'headers' => ['Authorization' => 'Bearer '.$crud ],
 				// array de datos del formulario
@@ -119,36 +117,36 @@ class KitFidelidadController extends Controller
 		]);
 
 		//Json parse
-		$json_c = $campana_->getBody();
+		$json_promotion = $promotion_api->getBody();
 
-		$campana = json_decode($json_c);
+		$promotion_response = json_decode($json_promotion);
 
 
-		if ($campana->status_code === 200 ):
+		if ($promotion_response->status_code === 200 ):
 
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-			$cam = new Campana();
-			$cam->campana_id = $campana->campaign->id;
+			$cam = new Promotion();
+			$cam->promotion_id = $promotion_response->campaign->id;
 			$cam->user_id = $user->user_id;
-			$cam->name = $campana->campaign->name;
-			(isset($campana->campaign->description)) ?
-				$cam->description = $campana->campaign->description :
+			$cam->name = $promotion_response->campaign->name;
+			(isset($promotion->campaign->description)) ?
+				$cam->description = $promotion_response->campaign->description :
 				$cam->description = "";
-			$cam->start_time = $campana->campaign->start_time;
-			$cam->end_time = $campana->campaign->end_time;
+			$cam->start_time = $promotion_response->campaign->start_time;
+			$cam->end_time = $promotion_response->campaign->end_time;
 			$cam->location_id = $request->location_id;
-			$cam->enabled = $campana->campaign->enabled;
+			$cam->enabled = $promotion_response->campaign->enabled;
 			$cam->save();
 
-			return redirect()->route('all_campana');
+			return redirect()->route('all_promotion');
 
 		else:
 
-			// var_dump($campana);
+			// var_dump($promotion);
 			// return;
 
-			return redirect()->route('all_campana')->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
+			return redirect()->route('all_promotion')->with(['status' => 'Error al ingresar el kit de bienvenida', 'type' => 'error']);
 
 		endif;
 	}
@@ -159,21 +157,21 @@ class KitFidelidadController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit_campana($id)
+	public function edit_promotion($id)
 	{
 
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 		$location = $user->location;
 
-		$campana = Campana::where([
+		$promotion = Promotion::where([
 								['user_id', '=', $user->user_id ],
-								['campana_id', '=', $id],
-								['type', '=', 1]
+								['promotion_id', '=', $id],
+								['type', '=', 2]
 							])->first();
 
 
-		return view('campanas.campana_edit', ['campana' => $campana, 'locations' => $location]);
+		return view('promotions.promotion_edit', ['promotion' => $promotion, 'locations' => $location]);
 	}
 
 	/**
@@ -182,16 +180,16 @@ class KitFidelidadController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update_campana(Request $request, $id)
+	public function update_promotion(Request $request, $id)
 	{
 		// Nuevo cliente con un url base
 		$client = new Client();
 
 		//Token Crud
-		$crud = CampanaController::crud();
+		$crud = PromotionController::crud();
 
 		//Location
-		$campana_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$id.'/update', [
+		$promotion_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$id.'/update', [
 				// un array con la data de los headers como tipo de peticion, etc.
 				'headers' => ['Authorization' => 'Bearer '.$crud ],
 				// array de datos del formulario
@@ -204,31 +202,31 @@ class KitFidelidadController extends Controller
 		]);
 
 		//Json parse
-		$json_c = $campana_->getBody();
+		$json_promotion = $promotion_api->getBody();
 
-		$campana = json_decode($json_c);
+		$promotion_response = json_decode($json_promotion);
 
-		if ( $campana->status_code === 200 ):
+		if ( $promotion_response->status_code === 200 ):
 
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-			$campana = Campana::where([
+			$promotion = Promotion::where([
 									['user_id', '=', $user->user_id ],
-									['campana_id', '=', $id],
-									['type', '=', 1]
+									['promotion_id', '=', $id],
+									['type', '=', 2]
 								])
 								->update(array(
-									'name' => $campana->campaign->name,
-									'description' => (isset($campana->campaign->description)) ? $campana->campaign->description : '',
-									'start_time' => $campana->campaign->start_time,
-									'end_time' => $campana->campaign->end_time,
+									'name' => $promotion_response->campaign->name,
+									'description' => (isset($promotion_response->campaign->description)) ? $promotion_response->campaign->description : '',
+									'start_time' => $promotion_response->campaign->start_time,
+									'end_time' => $promotion_response->campaign->end_time,
 								));
 
-			return redirect()->route('all_campana');
+			return redirect()->route('all_promotion');
 
 		else:
 
-			return redirect()->route('add_campana')->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
+			return redirect()->route('add_promotion')->with(['status' => 'Error al ingresar el kit de bienvenida', 'type' => 'error']);
 
 		endif;
 	}
@@ -239,44 +237,44 @@ class KitFidelidadController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy_campana($campana_id)
+	public function destroy_promotion($promotion_id)
 	{
 		// Nuevo cliente con un url base
 		$client = new Client();
 
 		//Token Crud
-		$crud = CampanaController::crud();
+		$crud = PromotionController::crud();
 
-		$campana_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/delete', [
+		$promotion_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/delete', [
 				// un array con la data de los headers como tipo de peticion, etc.
 				'headers' => ['Authorization' => 'Bearer '.$crud ]
 		]);
 
 		//Json parse
-		$json_c = $campana_->getBody();
+		$json_promotion = $promotion_->getBody();
 
-		$campana = json_decode($json_c);
+		$promotion_response = json_decode($json_promotion);
 
-		if ($campana->status_code === 200 ):
+		if ($promotion_response->status_code === 200 ):
 
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-			$campana =  Campana::where([
+			$promotion =  Promotion::where([
 									['user_id', '=', $user->user_id ],
-									['campana_id', '=', $campana_id],
-									['type', '=', 1]
+									['promotion_id', '=', $promotion_id],
+									['type', '=', 2]
 								])->first();
 
-			$campana->delete();
+			$promotion->delete();
 
-			return redirect()->route('all_campana')
-					->with(['status' => 'Se ha Eliminado la Campaña con éxito', 'type' => 'success']);
+			return redirect()->route('all_promotion')
+					->with(['status' => 'Se ha Eliminado el kit de bienvenida con éxito', 'type' => 'success']);
 
 		else:
 
 			//echo "<pre>"; var_dump($campaña); echo "</pre>";
 
-			return redirect()->route('all_campana')->with(['status' => 'Error al eliminar la Campaña', 'type' => 'error']);
+			return redirect()->route('all_promotion')->with(['status' => 'Error al eliminar el kit de bienvenida', 'type' => 'error']);
 
 		endif;
 	}

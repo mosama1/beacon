@@ -17,12 +17,17 @@ class Content extends Model
 
 	public function campana()
 	{
-	    return $this->belongsTo( 'Beacon\Campana', 'campana_id', 'campana_id');
+		return $this->belongsTo( 'Beacon\Campana', 'campana_id', 'campana_id');
 	}
 
 	public function coupons()
 	{
-	    return $this->belongsTo('Beacon\Coupon', 'coupon_id', 'coupon_id');
+		return $this->belongsTo('Beacon\Coupon', 'coupon_id', 'coupon_id');
+	}
+
+	public function promotion()
+	{
+		return $this->belongsTo( 'Beacon\Promotion', 'promotion_id', 'promotion_id');
 	}
 
 	public function timeframes()
