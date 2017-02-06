@@ -25,6 +25,7 @@ use Beacon\User;
   <!-- Styles -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/datetimepicker.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   {{--<link href="css/app.css" rel="stylesheet">--}}
   <link rel="shortcut icon" type="image/png" href="img/icons/ingrementa_clientes.png"/>
@@ -350,6 +351,7 @@ use Beacon\User;
     <script src="js/jquery.js"></script>
     <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
+    <script src="js/datetimepicker.min.js"></script>
     <script src="js/jquery.mask.min.js"></script>
     <script src="js/script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.13.4/jquery.mask.min.js"></script>

@@ -1928,9 +1928,23 @@ body.menu2 .menu_cliente{
 .file-field .help .inf.active p,
 .input .help .inf.active p{
   opacity: 1;
+}
 
-
-
+.input .mas{
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 0;
+  left: -35px;
+  line-height: 1;
+}
+.input .mas a{
+  line-height: 1;
+}
+.input .mas a i{
+  font-size: 30px;
+  line-height: 1;
+  color: #999999;
 }
 
 

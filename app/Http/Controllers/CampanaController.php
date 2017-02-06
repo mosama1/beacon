@@ -13,6 +13,7 @@ use Beacon\CouponTranslation;
 use Beacon\Tag;
 use Beacon\Timeframe;
 use Beacon\User;
+use Beacon\Location;
 use Illuminate\Support\Facades\Input;
 use Log;
 
@@ -88,9 +89,9 @@ class CampanaController extends Controller
 		$locations = DB::table('locations')
 									->select( 'location_id', 'name' )
 									->where( 'user_id', '=', $user->user_id )
-									->get();
+									->first();
 
-		return view( 'campanas.campana', ['campana' => $campana, 'locations' => $locations] );
+		return view( 'campanas.campana', ['campana' => $campana, 'location_id' => $locations->location_id] );
 	}
 
 	/**
@@ -124,6 +125,14 @@ class CampanaController extends Controller
 		//Token Crud
 		$crud = CampanaController::crud();
 
+
+		/* Se recibe este formato de fecha dd/mm/yy hh/ss y se cambia aa/mm/dd hh/ss*/
+		$fecha_inicio = explode(" ", $request->start_time)[0];
+		$fecha_inicio = explode("-", $fecha_inicio)[2].'-'.explode("-", $fecha_inicio)[1].'-'.explode("-", $fecha_inicio)[0].' '.explode(" ", $request->start_time)[1];
+		$fecha_fin = explode(" ", $request->end_time)[0];
+		$fecha_fin = explode("-", $fecha_fin)[2].'-'.explode("-", $fecha_fin)[1].'-'.explode("-", $fecha_fin)[0].' '.explode(" ", $request->start_time)[1];
+
+
 		//Location
 		$campana_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns', [
 				// un array con la data de los headers como tipo de peticion, etc.
@@ -132,8 +141,8 @@ class CampanaController extends Controller
 				'form_params' => [
 						'name' => $request->name,
 						'description' => $request->description,
-						'start_time' => '2017-01-01 00:00',
-						'end_time' => '2022-01-01 00:00',
+						'start_time' => $fecha_inicio,
+						'end_time' => $fecha_fin,
 						'locations' => $request->location_id,
 						'enabled' => 1,
 				]

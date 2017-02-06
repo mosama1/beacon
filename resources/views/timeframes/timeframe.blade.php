@@ -95,8 +95,8 @@
 						<span>{{ $errors->first('name') }}</span>
 				</div>
 			@endif
-			<div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
-				<input type="text" name="description" value="">
+			<div class="input textarea no_icon {{ $errors->has('description') ? 'error' : '' }}">
+				<textarea name="description" rows="8" cols="80" ></textarea>
 				<label for="">
 					<span class="text">Descripción (Opcional)</span>
 				</label>
