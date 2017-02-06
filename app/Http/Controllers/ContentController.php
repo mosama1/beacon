@@ -1,4 +1,4 @@
-Fhe<?php
+<?php
 
 namespace Beacon\Http\Controllers;
 
@@ -96,7 +96,7 @@ class ContentController extends Controller
 			$content->timeframes = $content_timeframes;
 		}
 
-		//echo "<pre>";	var_dump($contents);	echo "</pre>";
+		// echo "<pre>";	var_dump($contents);	echo "</pre>";
 
 		$coupon = new Coupon;
 
