@@ -46,10 +46,10 @@ use Beacon\User;
                 @php
                 $user = User::where('id', '=', Auth::user()->id)->first();
 
-                $locatiom = Location::where('user_id', '=', $user->user_id)->first();
+                $location = Location::where('user_id', '=', $user->user_id)->first();
                 @endphp
-                <?php if (!empty($locatiom)): ?>
-                  <img src="{{$locatiom->logo}}" alt="">
+                <?php if (!empty($location)): ?>
+                  <img src="{{$location->logo}}" alt="">
                 <?php else: ?>
                   <a href="{{ route('user_edit_path', Auth::user()->id) }}" class="titulologo">
                     <h5>Recuerda Colocar tu logo</h5>
@@ -229,8 +229,8 @@ use Beacon\User;
 
       <div class="form">
         <form class="form-horizontal" role="form" method="POST" action="{{ route('store_campana') }}">
-          {{ csrf_field() }}
-          <input type="hidden" name="location_id" value="{{$location->location_id}}" required="">
+          {{ csrf_field() }}          
+          <input type="hidden" name="location_id" value="{{ !empty($location) ? $location->location_id : '' }}" required="">
 
           <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
             <input type="text" name="name" value="" required="">

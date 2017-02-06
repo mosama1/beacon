@@ -15,35 +15,7 @@
           <h5>Registro de usuario</h5>
         </div>
         <div class="divide_cont">
-          <div class="input select {{ $errors->has('language') ? 'error' : '' }}">
-            <img src="img/icons/idioma.png" alt="" class="icon">
-            <select id="language" class="form-control icons" name="language" required>
-              @if($user->language == 'Castellano')
-                <option value="{{ $user->language }}" data-icon="img/icons/es.png" class="left circle">{{ $user->language }}</option>
 
-                <option value="Catalán" data-icon="img/icons/en.png" class="left circle">Catalán</option>
-
-              @else
-                <option value="{{ $user->language }}" data-icon="img/icons/en.png" class="left circle">{{ $user->language }}</option>
-                <option value="Castellano" data-icon="img/icons/es.png" class="left circle">Español</option>
-              @endif
-            </select>
-            <div class="help">
-              <a href="#">
-                <i class="material-icons">help_outline</i>
-              </a>
-              <div class="inf none hidden">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                </p>
-              </div>
-            </div>
-          </div>
-          @if ($errors->has('language'))
-          <div class="input_error">
-            <span>{{ $errors->first('language') }}</span>
-          </div>
-          @endif
 
           <div class="input {{ $errors->has('email') ? 'error' : '' }}">
             <input type="email" name="email" value="{{ $user->email }}" required="">
