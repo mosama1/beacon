@@ -46,10 +46,10 @@ use Beacon\User;
                 @php
                 $user = User::where('id', '=', Auth::user()->id)->first();
 
-                $locatiom = Location::where('user_id', '=', $user->user_id)->first();
+                $location = Location::where('user_id', '=', $user->user_id)->first();
                 @endphp
-                <?php if (!empty($locatiom)): ?>
-                  <img src="{{$locatiom->logo}}" alt="">
+                <?php if (!empty($location)): ?>
+                  <img src="{{$location->logo}}" alt="">
                 <?php else: ?>
                   <a href="{{ route('user_edit_path', Auth::user()->id) }}" class="titulologo">
                     <h5>Recuerda Colocar tu logo</h5>
