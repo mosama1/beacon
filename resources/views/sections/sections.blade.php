@@ -25,6 +25,7 @@
     <div class="beacons seccion">
       <div class="container">
         <div class="tabla">
+          
           <table class="bordered centered">
             <thead>
               <tr>
@@ -83,8 +84,8 @@
       </div>
     </div>
 <!--MOSTRAR TABLA CON DETALLES-->
-    
 
+<!--BOTON REGRESAR-->
     <div class="agregar regresar">
       <center>
         <a href="{{ route('all_coupon') }}" class="waves-effect">
@@ -95,10 +96,15 @@
         </a>
       </center>
     </div>
+<!--BOTON REGRESAR-->
+
 
   </div>
 </div>
+
+
 <div id="agregarSection" class="modal modal_">
+  
   <div class="titulo">
     <h3>
       Agregar Sección
@@ -134,7 +140,7 @@
       @endif
 
       <div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}" id="divPrecioCarta">
-        <input type="number" name="price" value="" id="price" min="1" max="99999" step="any" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)">
+        <input type="number" name="price" class="" value="" id="price" min="1" max="99999" step="any" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)">
         <label for="">
           <span class="text">Ingresar Precio: 0,00 €</span>
         </label>
