@@ -47,10 +47,10 @@
 
          <div class="input textarea no_icon {{ $errors->has('description') ? 'error' : '' }}">
            <!-- <input type="text" name="description" value="" required=""> -->
-           <textarea name="description" rows="8" cols="80"> {{ $coupon->coupon_translation[0]->description }}</textarea>
+           <textarea name="description" rows="8" cols="80" required=""> {{ $coupon->coupon_translation[0]->description }}</textarea>
            <label for="">
              <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-             <span class="text">Descripción (Opcional)</span>
+             <span class="text">Descripción</span>
            </label>
            <div class="help">
              <a href="#">

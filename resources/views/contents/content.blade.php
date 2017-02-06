@@ -114,7 +114,7 @@
 			@endif
 
 			<div class="input-field col s12 {{ $errors->has('timeframe_id') ? 'error' : '' }}">
-				<select multiple id="timeframe_id" name="timeframe_id" required class="multiple_">
+				<select multiple id="timeframe_id" name="timeframe_id[]" required class="multiple_">
 					<option value="" disabled selected>Seleccione un Horario</option>
 					@foreach($timeframes as $t)
 						<option value="{{$t->timeframe_id}}">{{$t->name}}</option>
@@ -137,18 +137,7 @@
 			</div>
 			@endif
 
-			<div class="input no_icon {{ $errors->has('dwell_time') ? 'error' : '' }}">
-				<input type="number" name="dwell_time" min="0" value="" class="input_time number" required="true">
-				<label for="">
-					<!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-					<span class="text">Minutos de espera</span>
-				</label>
-			</div>
-			@if ($errors->has('dwell_time'))
-			<div class="input_error">
-				<span>{{ $errors->first('dwell_time') }}</span>
-			</div>
-			@endif
+
 
 
 

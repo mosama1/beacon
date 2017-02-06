@@ -1795,7 +1795,8 @@ body.menu2 .menu_cliente{
   transition: all .2s ease-in-out;
 }
 
-
+.files .input_file .help,
+.files .help,
 .input-field .help,
 .file-field .help,
 .input .help{
@@ -1811,6 +1812,11 @@ body.menu2 .menu_cliente{
 .input.select .help{
   top: -2.5px;
 }
+.files .help{
+  top: 45px;
+}
+
+.files .help i,
 .input-field .help i,
 .file-field .help i,
 .input .help i{
@@ -1828,12 +1834,14 @@ body.menu2 .menu_cliente{
 .input .help.active i{
   color: #ffffff;
 }
+.files .help.active i,
 .dat_ris .input .help.active i{
   color: #000;
 }
 
 
 
+.files .help .inf,
 .input-field .help .inf,
 .file-field .help .inf,
 .input .help .inf{
@@ -1857,6 +1865,7 @@ body.menu2 .menu_cliente{
   -o-transition: all .35s ease-in-out;
   transition: all .35s ease-in-out;
 }
+.files .help .inf.active,
 .input-field .help .inf.active,
 .file-field .help .inf.active,
 .input .help .inf.active{
@@ -1867,6 +1876,7 @@ body.menu2 .menu_cliente{
   padding: 15px;
 }
 
+.files .help .inf:before,
 .input-field .help .inf:before,
 .file-field .help .inf:before,
 .input .help .inf:before{
@@ -1887,6 +1897,7 @@ body.menu2 .menu_cliente{
   transition: all .35s ease-in-out;
 }
 
+.files .help .inf.active:before,
 .input-field .help .inf.active:before,
 .file-field .help .inf.active:before,
 .input .help .inf.active:before{
@@ -1895,8 +1906,9 @@ body.menu2 .menu_cliente{
 
 }
 
-.form .input-field .help .inf p,
-.form .file-field .help .inf p,
+.files .help .inf p,
+.input-field .help .inf p,
+.file-field .help .inf p,
 .input .help .inf p{
   margin: 0;
   font-size: 12px;
@@ -1911,6 +1923,7 @@ body.menu2 .menu_cliente{
   -o-transition: all .35s ease-in-out;
   transition: all .35s ease-in-out;
 }
+.files .help .inf.active p,
 .input-field .help .inf.active p,
 .file-field .help .inf.active p,
 .input .help .inf.active p{

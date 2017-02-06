@@ -121,9 +121,9 @@
       @endif
 
       <div class="input textarea no_icon {{ $errors->has('description') ? 'error' : '' }}">
-        <textarea name="description" rows="8" cols="80"></textarea>
+        <textarea name="description" rows="8" cols="80" required=""></textarea>
         <label for="">
-          <span class="text">Descripción (Opcional)</span>
+          <span class="text">Descripción</span>
         </label>
         <div class="help">
           <a href="#">

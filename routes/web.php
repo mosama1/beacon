@@ -25,6 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
 	require (__DIR__ . '/timeframes.php');
 	require (__DIR__ . '/type_plates.php');
 	require (__DIR__ . '/users.php');
+	require (__DIR__ . '/promotions.php');
 	Route::get('home', 'HomeController@index');
 });
 

@@ -165,7 +165,7 @@
 			@endif
 
 			<div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}">
-				<input type="number" name="price" value="" required="" min="1" max="99999" step="any">
+				<input type="text" name="price" value="" required="" class="price_mask">
 				<label for="">
 					<span class="text">Precio 0,00 €</span>
 				</label>
