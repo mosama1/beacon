@@ -25,9 +25,9 @@ class Content extends Model
 	    return $this->belongsTo('Beacon\Coupon', 'coupon_id', 'coupon_id');
 	}
 
-	public function timeframe()
+	public function timeframes()
 	{
-	    return $this->hasOne('Beacon\Timeframe', 'timeframe_id', 'timeframe_id');
+		return $this->belongsToMany('Beacon\Timeframe', 'content_timeframes', 'content_id', 'timeframe_id')->withTimestamps();
 	}
 	
 	public function user()

@@ -19,6 +19,7 @@
               <option value="" disabled selected>Idioma</option>
               <option value="Castellano" selected data-icon="img/icons/es.png" class="left circle">Castellano</option>
               <option value="Catalán" data-icon="img/icons/en.png" class="left circle">Catalán</option>
+
             </select>
           </div>
           @if ($errors->has('language'))

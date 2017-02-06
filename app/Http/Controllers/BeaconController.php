@@ -124,29 +124,36 @@ class BeaconController extends Controller
 					'headers' => ['Authorization' => 'Bearer '.$crud ],
 			]);
 
-			//echo "<pre>";		var_dump($crud); "</pre>";
-
 			//Json parse
 			$json_b = $beacon_api->getBody();
-
 			$beacons_response = json_decode($json_b);
 
-			// echo "<pre>";			var_dump($beacons_response); echo "</pre>";
-			// return;
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
-
 			$location = Location::where( 'user_id', '=', $user->user_id )->first();
 
 			if ( $beacons_response->status_code == 200 ) {
 
-				// echo "<pre>";			var_dump($beacons_response); echo "</pre>";
-				// return;
 				if ( empty($beacons_response->beacons) ) {
 
 					// si esta asignado a location se retorna a la vista con el error
 					return redirect()->route('all_beacons')->with(['status' => 'El beacons no registrado en nuetra plataforma', 'type' => 'error']);
 				}
 				else {
+
+					// leo el id del tag para asignarlo al beacon
+					//
+					$tag_api = $client->get('https://connect.onyxbeacon.com/api/v2.5/tags/'.$location->name, [
+						// un array con la data de los headers como tipo de peticion, etc.
+						'headers' => ['Authorization' => 'Bearer '.$crud ],
+					]);
+
+					//Json parse
+					$json_b = $tag_api->getBody();
+
+					$tag_response = json_decode($json_b);
+
+					$tag_id = strval($tag_response->tags[0]->id);
+
 
 					// si hay beacon se valida que posea localidad asignada
 					if ( empty($beacons_response->beacons[0]->location) ) {
@@ -158,7 +165,8 @@ class BeaconController extends Controller
 									// array de datos del formulario
 									'form_params' => [
 											'location' => $location->location_id,
-									]
+											'tags' => $tag_id
+										]
 							]);
 					}
 					else {
@@ -170,6 +178,7 @@ class BeaconController extends Controller
 			}
 			else {
 
+
 				//si no retorna un 200 == 'ok'
 				return redirect()->route('all_beacons')->with(['status' => 'Error al registrar el beacon', 'type' => 'error']);
 			}
@@ -180,6 +189,7 @@ class BeaconController extends Controller
 			//decodificamos la respuesta en JSON
 			$beacon_response = json_decode($json_c);
 			if ($beacon_response->status_code === 200) {
+
 				//se inserta en la BD local en caso de actualizar o insertar en la api
 				$beac = new Beacon;
 				$beac->user_id = $user->user_id;
@@ -194,11 +204,10 @@ class BeaconController extends Controller
 
 			}
 			else{
+
 				return redirect()->route('all_beacons')->with(['status' => 'Error al registrar el beacon', 'type' => 'error']);
 			}
 
-		  // echo "<pre>"; var_dump($location); echo "</pre>";
-		  // return;
 		} else {
 			return redirect()->route('all_beacons')->with(['status' => 'El beacons ya se encuentra registrado', 'type' => 'error']);
 		}
@@ -248,7 +257,8 @@ class BeaconController extends Controller
 				// un array con la data de los headers como tipo de peticion, etc.
 				'headers' => ['Authorization' => 'Bearer '.$crud ],
 						'form_params' => [
-								'location' => ''
+								'location' => '',
+								'tags' => ''
 						]
 		]);
 
