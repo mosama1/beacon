@@ -290,6 +290,7 @@ class FidelityKitController extends Controller
 
 								
 			$fidelity->type = $request->type;
+			//no se envia
 			$fidelity->number_visits = $request->number_visits;
 			$fidelity->img= $img;
 			$fidelity->name = $fidelity_response->campaign->name;

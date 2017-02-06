@@ -289,6 +289,7 @@ class WelcomeKitController extends Controller
 
 								
 			$welcome->type = $request->type;
+			//no se envia
 			$welcome->number_visits = $request->number_visits;
 			$welcome->img= $img;
 			$welcome->name = $welcome_response->campaign->name;
