@@ -38,8 +38,12 @@
 							<tr id="{{$content->content_id}}">
 								<td>{{$content->coupon}}</td>
 								<td>
-									@if(isset($content->timeframe))
-									{{$content->timeframe->name}}
+									@if(isset($content->timeframes))
+										<span title="{{$content->timeframes[0]->name}}: {{$content->timeframes[0]->start_time}} - {{$content->timeframes[0]->end_time}}" class="content_all_time">{{ $content->timeframes[0]->name }}</span>
+										@for ($i = 1; $i < count($content->timeframes); $i++)
+										    , <span title="{{$content->timeframes[$i]->name}}: {{$content->timeframes[$i]->start_time}} - {{$content->timeframes[$i]->end_time}}" class="content_all_time">{{ $content->timeframes[$i]->name }}</span>
+										@endfor
+
 									@endif
 								</td>
 

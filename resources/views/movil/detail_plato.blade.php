@@ -8,7 +8,6 @@ $menu2 = '';
 <div class="contenedor cliente_final">
   <div class="principal">
     <div class="titulo">
-      {{-- <h1>{{ $section_name }}11111</h1> --}}
       <h3>
         @if( ! empty($menu->menu_translation[0]) )
           {{$menu->menu_translation[0]->name}}

@@ -30,11 +30,7 @@ use Beacon\Plate;
                   <th data-field="name"></th>
               </tr>
             </thead>
-
-
             <tbody>
-
-
               @foreach($menus as $p)
                 @php
                   $plate = plate::where([
@@ -61,6 +57,19 @@ use Beacon\Plate;
         </div>
       <!-- </div> -->
     </div>
+
+    <!--BOTON REGRESAR-->
+        <div class="agregar regresar">
+          <center>
+            <a href="{{ route('inicio', $campana_id) }}" class="waves-effect">
+              <div class="">
+                <span class="text">Regresar</span>
+                <span class="icon"><i class="material-icons">reply</i></span>
+              </div>
+            </a>
+          </center>
+        </div>
+    <!--BOTON REGRESAR-->
 
   </div>
 </div>

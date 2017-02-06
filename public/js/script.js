@@ -14,6 +14,7 @@ $('.val_phone').mask('000 00-00-00');
 $('.val_zip').mask('00000');
 // $('.picker_time').mask('00:00 AA');
 $('.picker_time').mask("00:00 AA", {placeholder: "__:__: am/pm"});
+$('.num_mask').mask("00000");
 $('.price_mask').mask("00,000.00", {reverse: true});
 $('.date_mask').mask('0000-00-00 00:00');
 

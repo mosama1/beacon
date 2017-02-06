@@ -193,6 +193,10 @@ select:not(.multiple_) {
 .error{
   background: rgb(201, 64, 64);
 }
+.content_all_time{
+  border-bottom: 1px solid #fff;
+
+}
 
 /**************************************************/
 /*********************  Menu  *********************/
