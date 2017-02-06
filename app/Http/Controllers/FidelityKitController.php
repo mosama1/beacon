@@ -96,6 +96,10 @@ class FidelityKitController extends Controller
 	 */
 	public function store_fidelity_kit(Request $request)
 	{
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+		$location = $user->location;
+
 		// Nuevo cliente con un url base
 		$client = new Client();
 
@@ -144,7 +148,7 @@ class FidelityKitController extends Controller
 						'description' => $request->description,
 						'start_time' => date('Y-m-d H:i', strtotime($request->start_time)),
 						'end_time' => date('Y-m-d H:i', strtotime($request->end_time)),
-						'locations' => $request->location_id,
+						'locations' => $location->location_id,
 						'enabled' => 1,
 				]
 		]);
@@ -168,7 +172,7 @@ class FidelityKitController extends Controller
 				$fidelity_kit->description = "";
 			$fidelity_kit->start_time = $fidelity_kit_response->campaign->start_time;
 			$fidelity_kit->end_time = $fidelity_kit_response->campaign->end_time;
-			$fidelity_kit->location_id = $request->location_id;
+			$fidelity_kit->location_id = $location->location_id;
 			$fidelity_kit->enabled = $fidelity_kit_response->campaign->enabled;
 			$fidelity_kit->save();
 

@@ -96,6 +96,10 @@ class WelcomeKitController extends Controller
 	 */
 	public function store_welcome_kit(Request $request)
 	{
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+		$location = $user->location;
+
 		// Nuevo cliente con un url base
 		$client = new Client();
 
@@ -111,7 +115,7 @@ class WelcomeKitController extends Controller
 			$kit_mime = $file_img->getMimeType();
 
 			//path donde se almacenara la imagen
-			$path = 'assets/images/kit_welcome/';
+			$path = 'assets/images/welcome_kit/';
 
 			switch ($kit_mime)
 			{
@@ -125,7 +129,7 @@ class WelcomeKitController extends Controller
 
 						$file_img->move($path, $nombre);
 
-						$img = 'assets/images/kit_welcome/'.$nombre;
+						$img = 'assets/images/welcome_kit/'.$nombre;
 
 					}
 				break;
@@ -144,7 +148,7 @@ class WelcomeKitController extends Controller
 						'description' => $request->description,
 						'start_time' => date('Y-m-d H:i', strtotime($request->start_time)),
 						'end_time' => date('Y-m-d H:i', strtotime($request->end_time)),
-						'locations' => $request->location_id,
+						'locations' => $location->location_id,
 						'enabled' => 1,
 				]
 		]);
@@ -171,7 +175,7 @@ class WelcomeKitController extends Controller
 			$welcome->img = $img;
 			$welcome->start_time = $welcome_response->campaign->start_time;
 			$welcome->end_time = $welcome_response->campaign->end_time;
-			$welcome->location_id = $request->location_id;
+			$welcome->location_id = $location->location_id;
 			$welcome->enabled = $welcome_response->campaign->enabled;
 			$welcome->save();
 
@@ -256,7 +260,7 @@ class WelcomeKitController extends Controller
 				$kit_mime = $file_img->getMimeType();
 
 				//path donde se almacenara la imagen
-				$path = 'assets/images/kit_welcome/';
+				$path = 'assets/images/welcome_kit/';
 
 				switch ($kit_mime)
 				{
@@ -270,7 +274,7 @@ class WelcomeKitController extends Controller
 
 							$file_img->move($path, $nombre);
 
-							$img = 'assets/images/kit_welcome/'.$nombre;
+							$img = 'assets/images/welcome_kit/'.$nombre;
 
 						}
 					break;
