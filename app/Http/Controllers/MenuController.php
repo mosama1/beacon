@@ -77,7 +77,7 @@ class MenuController extends Controller
 		$type_plates = TypesPlates::where([
 		   [ 'user_id', '=', $user->user_id ],
 		   ['language_id', '=', 1],
-		])->get();
+		])->orderBy('name', 'asc')->get();
 
 		$menu = new Menu;
 
