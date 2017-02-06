@@ -61,9 +61,9 @@
                 <!-- <td><a href="#Idioma"><i class="material-icons">language</i></a></td> -->
                 <?php
 
-                echo "<td onclick= \"modal_activate('".
-                route( "destroy_section", $s->id ).
-                "' , '#eliminarSection')\" >";
+                  echo "<td onclick= \"modal_activate('".
+                  route( "destroy_section", $s->id ).
+                  "' , '#eliminarSection')\" >";
 
                 ?>
                 <a href="#eliminarSection"><i class="material-icons">clear</i></a></td>

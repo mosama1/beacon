@@ -137,19 +137,20 @@ class SectionController extends Controller
 	 */
 	public function update_section(Request $request, $section_id)
 	{
+		$section = Section::find($section_id);
+		$section->price = $request->price;
+		$section->save();
 
 		$section_translation = SectionTranslation::where( [
 													['section_id', '=', $section_id],
 													['language_id', '=', $request->language_id]
 												])->first();
 
-
-		 // echo "<pre>";  var_dump($section_translation); echo "</pre>";
-		 // return;
-
 		$section_translation->name = $request->name;
 		$section_translation->language_id = $request->language_id;
 		$section_translation->save();
+
+
 
 		return redirect()->route('all_section', $request->coupon_id )
 				->with(['status' => 'Se actualizó la seccion con exito', 'type' => 'success']);
