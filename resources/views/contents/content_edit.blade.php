@@ -21,7 +21,6 @@
 			 <form class="form-horizontal" role="form" method="POST" action="{{ route('update_content', array('campana_id' => $campana_id, 'content_id' => $content->content_id) ) }}">
 				 {{ csrf_field() }}
 				 {{ method_field('PUT') }}
-					<!-- <pre> <?php var_dump($coupons); ?> </pre> -->
 				<div class="input select no_icon _100 {{ $errors->has('coupon_id') ? 'error' : '' }}">
 					<select id="coupon_id" class="form-control icons" name="coupon_id" required>
 						<option value="" disabled @if(!isset($coupons)) echo("selected") @endif >Seleccione un Menú</option>
@@ -45,12 +44,11 @@
 					<span>{{ $errors->first('coupon_id') }}</span>
 				</div>
 				@endif
-
 				<div class="input-field col s12 {{ $errors->has('timeframe_id') ? 'error' : '' }}">
 					<select multiple id="timeframe_id" name="timeframe_id[]" required class="multiple_">
 						<option value="" disabled @if(!isset($timeframes)) echo("selected") @endif>Seleccione un Horario</option>
-						@foreach($timeframes as $t)
-							<option value="{{$t->timeframe_id}}" {{ ($t->timeframe_id == $content->timeframe_id) ? 'selected' : '' }}>{{$t->name}}</option>
+						@foreach($timeframes as $timeframe)
+							<option value="{{$timeframe->timeframe_id}}" @foreach($content_timeframes as $content_timeframe) {{ ($timeframe->timeframe_id == $content_timeframe->timeframe_id) ? 'selected' : '' }} @endforeach >{{$timeframe->name}}</option>
 						@endforeach
 					</select>
 					<div class="help">
