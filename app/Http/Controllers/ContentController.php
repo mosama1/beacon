@@ -1,4 +1,4 @@
-<?php
+Fhe<?php
 
 namespace Beacon\Http\Controllers;
 
@@ -219,7 +219,6 @@ class ContentController extends Controller
 			// return;
 
 			$cam_c = new Content();
-			// $cam_c = Content::find(38);
 			$cam_c->content_id = $content_api->id;
 			$cam_c->user_id = $user->user_id;
 			//	coupon_translation[0] posicion [0] es en español idioma por defecto
