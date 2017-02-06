@@ -22,6 +22,7 @@
 			</center>
 		</div>
 
+<!--TABLA MOSTRAR PLATOS -->
 		<div class="beacons seccion">
 			<div class="container">
 				<div class="tabla">
@@ -84,7 +85,10 @@
 				</div>
 			</div>
 		</div>
+<!--TABLA MOSTRAR PLATOS -->
 
+		
+<!--BOTON REGRESAR -->
 		<div class="agregar regresar">
 			<center>
 				<a href="{{ route('all_section', $coupon->coupon_id) }}" class="waves-effect">
@@ -95,9 +99,13 @@
 				</a>
 			</center>
 		</div>
+<!--BOTON REGRESAR -->
 
 	</div>
 </div>
+
+
+<!--AGREGAR PLATO -->
 <div id="platosMenu" class="modal modal_">
 	<div class="titulo">
 		<h3>
@@ -137,6 +145,7 @@
 			<div class="input select no_icon {{ $errors->has('type') ? 'error' : '' }}">
 				<select id="type" class="form-control icons" name="type">
 
+				
 				@if( !empty($type_plates) )
           <option value="" disabled selected>Seleccion un tipo de plato</option>
 					@foreach ($type_plates as $type_plate)
@@ -169,7 +178,9 @@
 			@endif
 
 			<div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}">
-				<input type="text" name="price" value="{{ old('email') }}" required="" class="price_mask">
+			
+				<input type="number" name="price" value="" required="" min="1" max="99999" step="any">
+
 				<label for="">
 					<span class="text">Precio 0,00 €</span>
 				</label>
@@ -203,6 +214,8 @@
 		</form>
 	</div>
 </div>
+
+<!--AGREGAR PLATO-->
 <div id="Idioma" class="modal modal_">
 	<div class="titulo">
 		<h3>
@@ -259,6 +272,9 @@
 		</form>
 	</div>
 </div>
+<!--AGREGAR PLATO-->
+
+<!--ELIMINAR PLATO-->
 <div id="eliminarPlato" class="modal modal_">
 	<div class="titulo">
 		<h3>
@@ -282,6 +298,7 @@
 		</form>
 	</div>
 </div>
+<!--ELIMINAR PLATO-->
 
 <div id="tipoPlato" class="modal modal_">
   <div class="titulo">

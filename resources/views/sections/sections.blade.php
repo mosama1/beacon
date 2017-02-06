@@ -21,13 +21,16 @@
       </center>
     </div>
 
+<!--MOSTRAR TABLA CON DETALLES-->
     <div class="beacons seccion">
       <div class="container">
         <div class="tabla">
+          
           <table class="bordered centered">
             <thead>
               <tr>
                   <th data-field="id">Nombre</th>
+                  <th data-field="id">Precio</th>
                   <th data-field="name" width="100px">Detalles</th>
                   <th data-field="price" width="100px">Editar</th>
                   <!-- <th data-field="price">Idioma</th> -->
@@ -44,6 +47,14 @@
                   {{$s->section_translation[0]->name}}
                 </td>
                 @endif
+
+              
+                <td>@if( empty($coupon->price) )
+                      {{$s->price}} €
+                    @else
+                      {{$coupon->price}} €
+                    @endif</td>
+                
                 <td><a href="{{ route('all_menu', $s->id) }}"><i class="material-icons">input</i></a></td>
                 <td><a href="{{ route('edit_section', $s->id) }}"><i class="material-icons">edit</i></a></td>
                 <!-- <td><a href="#Idioma"><i class="material-icons">language</i></a></td> -->
@@ -72,7 +83,9 @@
         </div>
       </div>
     </div>
+<!--MOSTRAR TABLA CON DETALLES-->
 
+<!--BOTON REGRESAR-->
     <div class="agregar regresar">
       <center>
         <a href="{{ route('all_coupon') }}" class="waves-effect">
@@ -83,10 +96,15 @@
         </a>
       </center>
     </div>
+<!--BOTON REGRESAR-->
+
 
   </div>
 </div>
+
+
 <div id="agregarSection" class="modal modal_">
+  
   <div class="titulo">
     <h3>
       Agregar Sección
@@ -122,7 +140,7 @@
       @endif
 
       <div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}" id="divPrecioCarta">
-        <input type="text" name="price" value="" id="price" class="price_mask" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)">
+        <input type="number" name="price" class="" value="" id="price" min="1" max="99999" step="any" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)">
         <label for="">
           <span class="text">Ingresar Precio: 0,00 €</span>
         </label>
@@ -157,6 +175,8 @@
     </form>
   </div>
 </div>
+
+
 <div id="Idioma" class="modal modal_">
   <div class="titulo">
     <h3>
