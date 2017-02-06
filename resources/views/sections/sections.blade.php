@@ -122,7 +122,7 @@
       @endif
 
       <div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}" id="divPrecioCarta">
-        <input type="number" name="price" step="0.01" value=""  id="price" min="1.00" max="99999" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)">
+        <input type="text" name="price" value="" id="price" class="price_mask" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)">
         <label for="">
           <span class="text">Ingresar Precio: 0,00 €</span>
         </label>
