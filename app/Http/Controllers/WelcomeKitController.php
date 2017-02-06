@@ -170,9 +170,9 @@ class WelcomeKitController extends Controller
 			(isset($welcome_response->campaign->description)) ?
 				$welcome->description = $welcome_response->campaign->description :
 				$welcome->description = "";
-			(isset($welcome_response->campaign->type)) ?
-				$fidelity_kit->type = $request->type :
-				$fidelity_kit->type = 1;
+			(isset($request->type)) ?
+				$welcome->type = $request->type :
+				$welcome->type = 1;
 			$welcome->number_visits = $request->number_visits;
 			$welcome->img = $img;
 			$welcome->start_time = $welcome_response->campaign->start_time;
