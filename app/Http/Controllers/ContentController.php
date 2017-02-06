@@ -30,7 +30,7 @@ class ContentController extends Controller
 				'form_params' => [
 						'client_id' => 'af1cd006576dc09b7cf7660d4e010fbf434ad4bf',
 						'client_secret' => '335c77e0ff4a4d36b97e8464ef880cdef30fb795',
-						'scope' => 'crud'	
+						'scope' => 'crud'
 				]
 		]);
 
@@ -42,7 +42,6 @@ class ContentController extends Controller
 
 		return $token_crud->access_token;
 	}
-
 
 	/**
 	 * @return token analytics
@@ -86,8 +85,18 @@ class ContentController extends Controller
 		])->get();
 
 		foreach ($contents as $key => $content) {
-			$content->timeframe;
+			$content->timeframes();
+
+			$content_timeframes = DB::table('timeframes')
+				->join('content_timeframes', 'timeframes.timeframe_id', '=', 'content_timeframes.timeframe_id')
+				->join('contents', 'contents.id', '=', 'content_timeframes.content_id')
+				->select('timeframes.*')
+				->where('content_timeframes.content_id', '=', $content->id)
+				->get();
+			$content->timeframes = $content_timeframes;
 		}
+
+		//echo "<pre>";	var_dump($contents);	echo "</pre>";
 
 		$coupon = new Coupon;
 
@@ -123,6 +132,9 @@ class ContentController extends Controller
 	 */
 	public function store(Request $request, $campana_id)
 	{
+		$content = new Content();
+
+		//$content->beginTransaction();
 
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
@@ -137,28 +149,40 @@ class ContentController extends Controller
 		//Token Crud
 		$crud = ContentController::crud();
 
-		var_dump($request->timeframe_id);
-		return;
 
+		// formate el $timeframe al formato de la api: "1,2,3,..."
+		if ( empty($request->timeframe_id) ) {
+			$timeframes = null;
+		} else {
+			$count = count($request->timeframe_id);
+			$timeframes = $request->timeframe_id[0];
+			for ($i=1; $i < $count; $i++) {
+				$timeframes .= ",".$request->timeframe_id[$i];
+			}
+		}
 
-		// validar si el $request->timeframe no esta vacio
-		// si esta vacio se iguala a null la variable $timeframes
-		// si no esta vacio se recorre el arreglo de timeframes
-		// si es la primera posicion asignarlo sin comas $timeframe =. $request->timeframes[i];
-		// si no es la primera posicion agregar coma y el valor del id ej.: $timeframe =. ','.$request->timeframes[i];
+		// leo el id del tag para asignarlo al beacon
 		//
+		$tag_api = $client->get('https://connect.onyxbeacon.com/api/v2.5/tags/'.$location->name, [
+			// un array con la data de los headers como tipo de peticion, etc.
+			'headers' => ['Authorization' => 'Bearer '.$crud ],
+		]);
 
-		// foreach ($request->timeframes as $key => $value) {
-		// 	$value
-		// }
+		//Json parse
+		$json_b = $tag_api->getBody();
+
+		$tag_response = json_decode($json_b);
+
+		$tag_id = strval($tag_response->tags[0]->id);
 
 		$parameters = array(
 					'headers' => ['Authorization' => 'Bearer '.$crud ],
 					'form_params' => [
 							'coupon' => intval($request->coupon_id),
-							'timeframes' => $request->timeframe_id,
+							'timeframes' => $timeframes,
 							'trigger_name' => 'ENTRY',
-							'trigger_entity' => 'tag'
+							'trigger_entity' => 'tag',
+							'tag' => $tag_id
 						]
 					);
 
@@ -191,7 +215,8 @@ class ContentController extends Controller
 			// echo "<pre>";	var_dump($content_api);	echo "</pre>";
 			// return;
 
-			$cam_c = new Content();
+			//$cam_c = new Content();
+			$cam_c = Content::find(38);
 			$cam_c->content_id = $content_api->id;
 			$cam_c->user_id = $user->user_id;
 			//	coupon_translation[0] posicion [0] es en español idioma por defecto
@@ -201,13 +226,19 @@ class ContentController extends Controller
 
 
 			//	$cam_c->tag = $request->tag_id;
-			$cam_c->tag = 1;
+			$cam_c->tag = $tag_id;
 			$cam_c->campana_id = $campana_id;
-			$cam_c->timeframe_id = $content_api->timeframes[0]->id;
 			$cam_c->trigger_name = $content_api->trigger_name;
 			$cam_c->save();
 
+			$content = Content::find($cam_c->id);
+
+			$content->timeframes()->sync($request->timeframe_id);
+
 			$coupon = Coupon::where('coupon_id', '=', $request->coupon_id)->first();
+
+			// echo "<pre>";	var_dump($content);	echo "</pre>";
+			// return;
 
 			//Location
 			$campana_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/update', [
@@ -276,15 +307,22 @@ class ContentController extends Controller
 			}
 
 			if ( $campana && $coupon ) {
+				//Content::commit();
 				return redirect()->route('all_content', array('campana_id' => $campana_id ) )->with(['status' => 'Se ha creado el contenido exitosamente', 'type' => 'success']);
 			} else {
+
+				echo "<pre>";	var_dump($campana && $coupon);	echo "</pre>";
+				return;
+				//Content::rollBack();
 				return redirect()->route('all_content', array('campana_id' => $campana_id ) )->with(['status' => 'Error al ingresar el contenido', 'type' => 'error']);
 			}
 
 
 
 		else:
-
+			echo "<pre>";	var_dump($content_response);	echo "</pre>";
+			return;
+			//Content::rollBack();
 			return redirect()->route('all_content', array('campana_id' => $campana_id ) )->with(['status' => 'Error al ingresar el contenido', 'type' => 'error']);
 
 		endif;
@@ -315,10 +353,16 @@ class ContentController extends Controller
 								['content_id', '=', $content_id]
 							])->first();
 
-		// echo "<pre>";var_dump($content->coupons);echo "</pre>";
+		$content_timeframes = DB::table('timeframes')
+			->join('content_timeframes', 'timeframes.timeframe_id', '=', 'content_timeframes.timeframe_id')
+			->join('contents', 'contents.id', '=', 'content_timeframes.content_id')
+			->select('timeframes.*')
+			->get();
+
+		//	echo "<pre>";var_dump($content_timeframes);echo "</pre>";
 		// return;
 
-		return view('contents.content_edit', ['campana_id' => $campana_id, 'content' => $content, 'coupons' => $coupons, 'timeframes' => $timeframes]);
+		return view('contents.content_edit', ['campana_id' => $campana_id, 'content' => $content, 'coupons' => $coupons, 'timeframes' => $timeframes, 'content_timeframes' => $content_timeframes]);
 	}
 
 	/**
@@ -335,13 +379,44 @@ class ContentController extends Controller
 		//Token Crud
 		$crud = ContentController::crud();
 
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+		$location = $user->location;
+
+		// leo el id del tag para asignarlo al beacon
+		//
+		$tag_api = $client->get('https://connect.onyxbeacon.com/api/v2.5/tags/'.$location->name, [
+			// un array con la data de los headers como tipo de peticion, etc.
+			'headers' => ['Authorization' => 'Bearer '.$crud ],
+		]);
+
+		//Json parse
+		$json_b = $tag_api->getBody();
+
+		$tag_response = json_decode($json_b);
+
+		$tag_id = strval($tag_response->tags[0]->id);
+
+
+		// formate el $timeframe al formato de la api: "1,2,3,..."
+		if ( empty($request->timeframe_id) ) {
+			$timeframes = null;
+		} else {
+			$count = count($request->timeframe_id);
+			$timeframes = $request->timeframe_id[0];
+			for ($i=1; $i < $count; $i++) {
+				$timeframes .= ",".$request->timeframe_id[$i];
+			}
+		}
+
 		$parameters = array(
 					'headers' => ['Authorization' => 'Bearer '.$crud ],
 					'form_params' => [
 							'coupon' => $request->coupon_id,
-							'timeframes' => $request->timeframe_id,
+							'timeframes' => $timeframes,
 							'trigger_name' => 'ENTRY',
 							'trigger_entity' => 'tag',
+							'tag' => $tag_id
 						]
 					 );
 
@@ -377,18 +452,23 @@ class ContentController extends Controller
 			$cam_c = Content::where([
 								['content_id', '=', $content_id ]
 							])->first();
+
+			.
+
 			$cam_c->content_id = $content_api->id;
 			$cam_c->user_id = $user->user_id;
 			//coupon_translation[0] posicion [0] es en español idioma por defecto
 			$cam_c->coupon = $coupon->coupon_translation[0]->name;
 			$cam_c->coupon_id = $coupon->coupon_id;
 		//    $cam_c->tag = $request->tag_id;
-			$cam_c->tag = 1;
+			$cam_c->tag = $tag_id;
 			$cam_c->campana_id = $campana_id;
-			$cam_c->timeframe_id = $content_api->timeframes[0]->id;
 			$cam_c->trigger_name = $content_api->trigger_name;
-			$cam_c->dwell_time = $content_api->dwell_time;
 			$cam_c->save();
+
+			$content = Content::find($cam_c->id);
+
+			$content->timeframes()->sync($request->timeframe_id);
 
 			return redirect()->route('all_content', array('campana_id' => $campana_id ) );
 

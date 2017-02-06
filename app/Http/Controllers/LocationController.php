@@ -159,7 +159,9 @@ class LocationController extends Controller
 			$logo_mime = $imagen->getMimeType();
 
 			//path donde se almacenara el logo
-			$path = public_path().'/assets/images/logos/';
+			$path = 'assets/images/logos/';
+			// $path = public_path().'/assets/images/logos/';
+
 					// $path = '/home/demente/public_html/prueba/final/assets/images/logos/';
 
 
@@ -302,7 +304,7 @@ class LocationController extends Controller
 			$logo_mime = $imagen->getMimeType();
 
 			//path donde se almacenara el logo
-			$path = public_path().'/assets/images/logos/';
+			$path = 'assets/images/logos/';
 					// $path = '/home/demente/public_html/prueba/final/assets/images/logos/';
 
 

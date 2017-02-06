@@ -165,15 +165,10 @@
 			@endif
 
 			<div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}">
-				
-				@if (!isset($m->price))
-				<p>No tiene precio</p>	
-				@else 
-				<p>tiene precio</p>
-				@endif
 
 
 				<input type="number" name="price" value="" required="" min="1" max="99999" step="any">
+
 				<label for="">
 					<span class="text">Precio 0,00 €</span>
 				</label>

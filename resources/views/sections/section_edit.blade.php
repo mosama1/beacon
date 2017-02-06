@@ -50,7 +50,9 @@
 
         <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioCarta" style="">
 
+
           <input type="number" name="price" step="0.01" min="0" value="{{ $section->price }}"  id="price" min="0.00">
+
           <label for="">
             <span class="text"></span>
           </label>
