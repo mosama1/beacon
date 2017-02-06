@@ -23,11 +23,10 @@ class TypePlateController extends Controller
 
 		$tiposplatos = TypesPlates::where([
 							['user_id', '=', $user->user_id],
-						])->get();
+						])->orderBy('name', 'asc')->get();
 
-
-		 // echo "<pre>";  var_dump($tiposplatos); echo "</pre>";
-		 // return;
+		// echo "<pre>";  var_dump($tiposplatos); echo "</pre>";
+		// return;
 
 		return view('type_plates.types_plates', ['tiposplatos' => $tiposplatos] );
 	}
