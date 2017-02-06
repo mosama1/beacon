@@ -30,9 +30,8 @@
             <thead>
               <tr>
                 <th data-field="id">Nombre</th>
-                <th data-field="tipo">Tipo</th>
+                <th data-field="tipo">Descripción</th>
                 <th data-field="id" width="100px">Editar</th>
-                <!-- <th data-field="name">Idioma</th> -->
                 <th data-field="name" width="100px">Eliminar</th>
               </tr>
             </thead>
@@ -43,8 +42,6 @@
                 <td>{{$tipoplato->name}}</td>
                 <td>{{$tipoplato->description}}</td>
                 <td><a href="{{ route('edit_tipoPlato', $tipoplato->id) }}"><i class="material-icons">edit</i></a></td>
-
-                <!-- <td><a href="#Idioma"><i class="material-icons">language</i></a></td> -->
                 <?php
 
                   echo "<td onclick= \"modal_activate('".
@@ -93,10 +90,10 @@
         <span>{{ $errors->first('name') }}</span>
       </div>
       @endif
-      <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
-        <input type="text" name="description" value="">
+      <div class="input textarea no_icon {{ $errors->has('description') ? 'error' : '' }}">
+        <textarea name="description" rows="8" cols="80"></textarea>
         <label for="">
-          <span class="text">Descripcion (Opcional)</span>
+          <span class="text">Descripción (Opcional)</span>
         </label>
         <div class="help">
           <a href="#">
