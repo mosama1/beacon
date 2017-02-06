@@ -1,3 +1,6 @@
+
+
+
 <?php $nivel = '../../' ?>
 
 @extends('layouts.app')
@@ -24,6 +27,9 @@
         {{ csrf_field() }}
         {{ method_field('PUT') }}
 
+        <input type="hidden" name="location_id" value="{{ $locations->location_id }}" required="">
+
+
 
         <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
           <input type="text" name="name" value="{{$campana->name}}" required="">
@@ -46,8 +52,8 @@
               <span>{{ $errors->first('name') }}</span>
           </div>
         @endif
-        <div class="input no_icon {{ $errors->has('description') ? 'error' : '' }}">
-          <input type="text" name="description" value="{{$campana->description}}">
+        <div class="input textarea no_icon {{ $errors->has('description') ? 'error' : '' }}">
+          <textarea name="description" rows="8" cols="80" >{{$campana->description}}</textarea>
           <label for="">
             <span class="text">Descripción (Opcional)</span>
           </label>
@@ -67,17 +73,11 @@
               <span>{{ $errors->first('description') }}</span>
           </div>
         @endif
-
-        <div class="input select no_icon {{ $errors->has('location_id') ? 'error' : '' }}">
-          <!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
-          <select id="location_id" class="form-control icons" name="location_id" required>
-            <option value="" selected>Seleccione una ubicación</option>
-            @foreach($locations as $location)
-                <!-- <option value="fhfgh">{{$campana->location_id}} {{$location->location_id}}</option> -->
-                <option value="{{$location->location_id}}" {{ ($location->location_id === $campana->location_id) ? 'selected' : ''}}>{{$location->name}}</option>
-            @endforeach
-          </select>
-
+        <div class="input no_icon {{ $errors->has('start_time') ? 'error' : '' }}">
+          <input type="text" name="start_time" value="{{date('d-m-Y H:i', strtotime($campana->start_time))}}" required="" class="datetimepicker">
+          <label for="">
+            <span class="text">Inicio (dd/mm/yy hh:mm)</span>
+          </label>
           <div class="help">
             <a href="#">
               <i class="material-icons">help_outline</i>
@@ -89,11 +89,34 @@
             </div>
           </div>
         </div>
-        @if ($errors->has('location_id'))
-        <div class="input_error">
-          <span>{{ $errors->first('location_id') }}</span>
-        </div>
+        @if ($errors->has('start_time'))
+          <div class="input_error">
+              <span>{{ $errors->first('start_time') }}</span>
+          </div>
         @endif
+
+        <div class="input no_icon {{ $errors->has('end_time') ? 'error' : '' }}">
+          <input type="text" name="end_time" value="{{date('d-m-Y H:i', strtotime($campana->end_time))}}" required="" class="datetimepicker">
+          <label for="">
+            <span class="text">Final (dd/mm/yy hh:mm)</span>
+          </label>
+          <div class="help">
+            <a href="#">
+              <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              </p>
+            </div>
+          </div>
+        </div>
+        @if ($errors->has('end_time'))
+          <div class="input_error">
+              <span>{{ $errors->first('end_time') }}</span>
+          </div>
+        @endif
+
 
         <!-- <div class="input no_icon time {{ $errors->has('start_time') ? 'error' : '' }}">
           <input type="time" name="start_time" value="{{date('H:i', strtotime($campana->start_time))}}" required="" class="input_time">

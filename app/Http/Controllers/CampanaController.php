@@ -13,6 +13,7 @@ use Beacon\CouponTranslation;
 use Beacon\Tag;
 use Beacon\Timeframe;
 use Beacon\User;
+use Beacon\Location;
 use Illuminate\Support\Facades\Input;
 use Log;
 
@@ -88,9 +89,9 @@ class CampanaController extends Controller
 		$locations = DB::table('locations')
 									->select( 'location_id', 'name' )
 									->where( 'user_id', '=', $user->user_id )
-									->get();
+									->first();
 
-		return view( 'campanas.campana', ['campana' => $campana, 'locations' => $locations] );
+		return view( 'campanas.campana', ['campana' => $campana, 'location_id' => $locations->location_id] );
 	}
 
 	/**
@@ -124,6 +125,7 @@ class CampanaController extends Controller
 		//Token Crud
 		$crud = CampanaController::crud();
 
+
 		//Location
 		$campana_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns', [
 				// un array con la data de los headers como tipo de peticion, etc.
@@ -132,8 +134,8 @@ class CampanaController extends Controller
 				'form_params' => [
 						'name' => $request->name,
 						'description' => $request->description,
-						'start_time' => '2017-01-01 00:00',
-						'end_time' => '2022-01-01 00:00',
+						'start_time' => date('Y-m-d H:i', strtotime($request->start_time)),
+						'end_time' => date('Y-m-d H:i', strtotime($request->end_time)),
 						'locations' => $request->location_id,
 						'enabled' => 1,
 				]

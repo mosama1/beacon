@@ -1,4 +1,4 @@
-<?php
+Fhe<?php
 
 namespace Beacon\Http\Controllers;
 
@@ -173,7 +173,10 @@ class ContentController extends Controller
 
 		$tag_response = json_decode($json_b);
 
+		// echo "<pre>";	var_dump($tag_response);	echo "</pre>";
+		// return;
 		$tag_id = strval($tag_response->tags[0]->id);
+
 
 		$parameters = array(
 					'headers' => ['Authorization' => 'Bearer '.$crud ],
@@ -215,8 +218,7 @@ class ContentController extends Controller
 			// echo "<pre>";	var_dump($content_api);	echo "</pre>";
 			// return;
 
-			//$cam_c = new Content();
-			$cam_c = Content::find(38);
+			$cam_c = new Content();
 			$cam_c->content_id = $content_api->id;
 			$cam_c->user_id = $user->user_id;
 			//	coupon_translation[0] posicion [0] es en español idioma por defecto
@@ -453,7 +455,6 @@ class ContentController extends Controller
 								['content_id', '=', $content_id ]
 							])->first();
 
-			.
 
 			$cam_c->content_id = $content_api->id;
 			$cam_c->user_id = $user->user_id;
