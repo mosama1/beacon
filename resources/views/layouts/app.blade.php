@@ -116,11 +116,6 @@ use Beacon\User;
                                 <span>Kit de Fidelidad</span>
                               </a>
                             </li>
-                            <li>
-                              <a href="{{ route('all_promotion')}}">
-                                <span>Promociones</span>
-                              </a>
-                            </li>
                           </ul>
                         </li>
                       </ul>

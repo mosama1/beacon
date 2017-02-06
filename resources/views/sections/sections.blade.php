@@ -48,13 +48,14 @@
                   {{$s->section_translation[0]->name}}
                 </td>
                 @endif
-
               
-                <td>@if( empty($coupon->price) )
-                      {{$s->price}} €
-                    @else
-                      {{$coupon->price}} €
-                    @endif</td>
+                <td>
+                  @if( $s->price > 0 )
+                    {{$s->price}} €
+                  @else
+                    --
+                  @endif
+                </td>
                 
                 <td><a href="{{ route('all_menu', $s->id) }}"><i class="material-icons">input</i></a></td>
                 <td><a href="{{ route('edit_section', $s->id) }}"><i class="material-icons">edit</i></a></td>

@@ -5,6 +5,7 @@
 ?>
 @php
 use Beacon\Plate;
+use Beacon\Section;
 @endphp
 
 @extends('layouts.appFinal')
@@ -33,6 +34,7 @@ use Beacon\Plate;
 
 
             <tbody>
+            <pre><?php ?>
 
 
               @foreach($menus as $p)
@@ -40,6 +42,11 @@ use Beacon\Plate;
                   $plate = plate::where([
                   ['menu_id', '=', $p->id ],
                   ])->first();
+
+                  $section = Section::where([
+                  ['id', '=', $p->section_id ],
+                  ])->first();
+
                 @endphp
                 <tr id='{{$p->id}}'>
                   <td>
@@ -48,10 +55,10 @@ use Beacon\Plate;
                     @endif
                   </td>
                   <td>
-                    @if( empty($coupon->price) )
+                    @if( empty($section->price) )
                       {{$p->price}} €
                     @else
-                      {{$coupon->price}} €
+                      {{$section->price}} €
                     @endif
                   </td>
                   <td>
