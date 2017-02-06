@@ -95,7 +95,6 @@ class ContentController extends Controller
 				->where('content_timeframes.content_id', '=', $content->id)
 				->get();
 			$content->timeframes = $content_timeframes;
-			echo "<pre>";	var_dump($content->timeframes);	echo "</pre>";
 		}
 
 		//echo "<pre>";	var_dump($contents);	echo "</pre>";
@@ -122,7 +121,6 @@ class ContentController extends Controller
 						'contents' => $contents,
 						'tags' => $tags,
 						'timeframes' => $timeframes,
-						'timeframescontent_timeframes' => $content_timeframes,
 						'campana_id' => $id
 					]);
 	}
