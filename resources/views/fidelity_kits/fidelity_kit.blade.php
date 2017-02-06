@@ -37,18 +37,18 @@
             </thead>
 
             <tbody>
+              @foreach($fidelity_kits as $fk)
               <tr id="id">
-                <td>ejm</td>
-                <td>ejm</td>
-                <td>ejm</td>
-
-                <td><a href="#"><i class="material-icons">add</i></a></td>
-                <td><a href="#"><i class="material-icons">edit</i></a></td>
+                <td>{{ $fk->id }}</td>
+                <td>{{ $fk->name }}</td>
+                <td>{{ $fk->description }}</td>
+                <td><a href="{{ route('all_content', $fk->id) }}"><i class="material-icons">add</i></a></td>
+                <td><a href="{{ route('edit_welcome_kit', $fk->id) }}"><i class="material-icons">edit</i></a></td>
               <?php
 
                 echo "<td onclick= \"modal_activate('".
-                   route( "destroy_fidelity_kit",'#' ).
-                  "' , '#eliminarkitFidelidad')\" >";
+                   route( "destroy_welcome_kit",$fk->id ).
+                  "' , '#eliminarkitBienvenida')\" >";
 
               ?>
                 <a href="#eliminarPlan"><i class="material-icons">clear</i></a></td>
@@ -63,6 +63,7 @@
                   </div>
                 </td>
               </tr>
+              @endforeach
             </tbody>
           </table>
         </div>
