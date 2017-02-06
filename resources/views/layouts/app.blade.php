@@ -118,7 +118,7 @@ use Beacon\User;
                             </li>
                             <li>
                               <a href="{{ route('all_promotion')}}">
-                                <span>Promciones</span>
+                                <span>Promociones</span>
                               </a>
                             </li>
                           </ul>
@@ -239,6 +239,14 @@ use Beacon\User;
       var status = "{{ session('status') }}";
       var type = "{{ session('type') }}"
       Materialize.toast(status, 5000, type);
+    </script>
+    @endif
+
+    @if (session('mod'))
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#platosMenu').modal('open');
+      });
     </script>
     @endif
 </body>
