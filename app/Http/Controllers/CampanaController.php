@@ -132,6 +132,7 @@ class CampanaController extends Controller
 		$fecha_fin = explode(" ", $request->end_time)[0];
 		$fecha_fin = explode("-", $fecha_fin)[2].'-'.explode("-", $fecha_fin)[1].'-'.explode("-", $fecha_fin)[0].' '.explode(" ", $request->start_time)[1];
 
+
 		//Location
 		$campana_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns', [
 				// un array con la data de los headers como tipo de peticion, etc.
@@ -192,14 +193,8 @@ class CampanaController extends Controller
 	{
 
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
-		//consulta
-		$user = User::where('id', '=', Auth::user()->id)->get();
 
-
-		$locations = DB::table('locations')
-									->select('location_id', 'name')
-									->where('user_id', '=', $user[0]->user_id)
-									->first();
+		$location = $user->location;
 
 		$campana = Campana::where([
 								['user_id', '=', $user->user_id ],
@@ -207,7 +202,7 @@ class CampanaController extends Controller
 							])->first();
 
 
-		return view('campanas.campana_edit', ['campana' => $campana, 'location_id' => $locations->location_id]);
+		return view('campanas.campana_edit', ['campana' => $campana, 'locations' => $location]);
 	}
 
 	/**

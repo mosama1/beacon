@@ -27,7 +27,7 @@ class Content extends Model
 
 	public function timeframes()
 	{
-		return $this->belongsToMany('Beacon\Timeframe', 'content_timeframes', 'content_id', 'timeframe_id')->withTimestamps();
+		return $this->belongsToMany('Beacon\Timeframe', 'content_timeframes', 'timeframe_id', 'content_id')->withTimestamps();
 	}
 	
 	public function user()
