@@ -2324,76 +2324,76 @@ body.menu2 .menu_cliente{
 }
 
 
-.contenedor .principal .form .input_file{
+.form .input_file,
+.contenedor .principal .form .input_file
+{
   background: #e6e6e6;
 }
 
-/*.authenticate .divide.dat_ris .divide_cont .input_file{
-  margin-top: 10px;
-}
-.authenticate .divide.dat_ris .divide_cont .input_file:first-child{
-  margin-top: 0px;
-}*/
-
-.contenedor .principal .form .input_file{
+.form .input_file,
+.contenedor .principal .form .input_file
+{
   width: calc(100%);
   background: #b3b3b3;
   border-radius: 15px;
   cursor: pointer;
 }
 
-.contenedor .principal .form .input_file input{
+.form .input_file input,
+.contenedor .principal .form .input_file input
+{
   margin: 0;
 }
-.contenedor .principal .form .input_file input[type="text"]{
+.form .input_file input[type="text"],
+.contenedor .principal .form .input_file input[type="text"]
+{
   width: calc(100% - 20px);
   font-weight: bold;
 }
+.form .input_file input[type="text"],
 .contenedor .principal .form .input_file input[type="text"],
-.contenedor .principal .form .input_file input[type="text"].valid{
+.form .input_file input[type="text"].valid,
+.contenedor .principal .form .input_file input[type="text"].valid
+{
   border: none;
   box-shadow: none;
 }
-.contenedor .principal .form .input_file .btn{
+.form .input_file .btn,
+.contenedor .principal .form .input_file .btn
+{
   background: transparent;
   box-shadow: none;
 }
-.contenedor .principal .form .input_file .btn span:not(.icon) {
+.form .input_file .btn span:not(.icon),
+.contenedor .principal .form .input_file .btn span:not(.icon)
+{
   text-transform: none;
 
   font-size: 15px;
   padding-left: 25px;
   font-weight: bold;
   color: #0e0e0e;
-  /*cursor: pointer;*/
 
 }
 
-.contenedor .principal .form .input_file .btn span.icon{
+.form .input_file .btn span.icon,
+.contenedor .principal .form .input_file .btn span.icon
+{
   position: absolute;
   width: 30px;
   top: 7.5px;
   left: 15px;
 }
-.contenedor .principal .form .input_file .btn span.icon img{
+.form .input_file .btn span.icon img,
+.contenedor .principal .form .input_file .btn span.icon img
+{
   width: 100%;
 }
-/*.contenedor .principal .form .vista_previa{
-  width: 100%;
-  height: auto;
-  margin-top: 15px;
 
-}
-.contenedor .principal .form .vista_previa center{
-      width: 100%;
-}
-.contenedor .principal .form .vista_previa .img{
-  background: #000;
-  width: 200px;
-  height: 100px;
-}*/
 
-.contenedor .principal .form .vista_previa{
+.form .vista_previa,
+.contenedor .principal .form .vista_previa
+{
   position: relative;
   width: 150px;
   height: 100px;
@@ -2413,16 +2413,22 @@ body.menu2 .menu_cliente{
   -o-transform: translate(-50%);
   transform: translate(-50%);
 }
-.contenedor .principal .form .vista_previa.active{
+.form .vista_previa.active,
+.contenedor .principal .form .vista_previa.active
+{
   max-height: 1000px;
   opacity: 1;
 }
 
-.contenedor .principal .form .vista_previa center{
+.form .vista_previa center,
+.contenedor .principal .form .vista_previa center
+{
   width: 100%;
   height: 100%;
 }
-.contenedor .principal .form .vista_previa .img{
+.form .vista_previa .img,
+.contenedor .principal .form .vista_previa .img
+{
   width: 100%;
   height: 100%;
   position: absolute;
@@ -2437,12 +2443,16 @@ body.menu2 .menu_cliente{
   transition: all .5s ease-in-out;
 
 }
-.contenedor .principal .form .vista_previa .img.active{
+.form .vista_previa .img.active,
+.contenedor .principal .form .vista_previa .img.active
+{
   opacity: 1;
   z-index: 1;
 }
 
-.contenedor .principal .form .vista_previa img{
+.form .vista_previa img,
+.contenedor .principal .form .vista_previa img
+{
   width: 100%;
   height: auto;
   position: relative;
@@ -2453,7 +2463,9 @@ body.menu2 .menu_cliente{
   transform: translate(0, -50%);
 }
 
-.contenedor .principal .form .vista_previa .img.alto img{
+.form .vista_previa .img.alto img,
+.contenedor .principal .form .vista_previa .img.alto img
+{
   width: auto;
   height: 100%;
 }
@@ -2466,7 +2478,6 @@ body.menu2 .menu_cliente{
   height: auto;
   max-width: 860px;
   padding: 25px 0;
-  /*background: transparent*/
   background-size: cover;
   background-repeat: no-repeat;
 
@@ -2475,8 +2486,6 @@ body.menu2 .menu_cliente{
 
   border-radius: 30px;
 
-  /*top: 15% !important;*/
-  /*transform: translate(0, -50%) scaleX(1)!important;*/
 }
 .modal_ .titulo{
   padding: 0 40px;

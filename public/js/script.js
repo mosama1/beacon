@@ -69,6 +69,55 @@ function modal_activate(ruta, div) {
 //     })
 // }
 
+function vistaKit_B(evt) {
+    var files = evt.target.files; // FileList object
+    // Obtenemos la imagen del campo "file".
+    for (var i = 0, f; f = files[i];i++) {
+      //Solo admitimos imágenes.
+      if (!f.type.match('image.*')) {
+          continue;
+      }
+      var reader = new FileReader();
+      reader.onload = (function(theFile) {
+        return function(e) {
+          // Insertamos la imagen
+          $('#vista_kit_b').html([' <img class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '"/> '].join(''));
+        };
+      })(f);
+      reader.readAsDataURL(f);
+      setTimeout(function(){
+        tamanoImgVista('#vista_kit_b');
+      },500);
+
+    }
+}
+$('#addKit_b').change(vistaKit_B);
+
+function vistaKit_F(evt) {
+    var files = evt.target.files; // FileList object
+    // Obtenemos la imagen del campo "file".
+    for (var i = 0, f; f = files[i];i++) {
+      //Solo admitimos imágenes.
+      if (!f.type.match('image.*')) {
+          continue;
+      }
+      var reader = new FileReader();
+      reader.onload = (function(theFile) {
+        return function(e) {
+          // Insertamos la imagen
+          $('#vista_kit_f').html([' <img class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '"/> '].join(''));
+        };
+      })(f);
+      reader.readAsDataURL(f);
+      setTimeout(function(){
+        tamanoImgVista('#vista_kit_f');
+      },500);
+
+    }
+}
+$('#addKit_f').change(vistaKit_F);
+
+
 function vistaLogo(evt) {
     var files = evt.target.files; // FileList object
     // Obtenemos la imagen del campo "file".
@@ -88,7 +137,6 @@ function vistaLogo(evt) {
       setTimeout(function(){
         tamanoImgVista('#vista_logo');
       },500);
-
     }
 }
 $('#addLogo').change(vistaLogo);

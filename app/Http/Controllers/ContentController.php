@@ -93,7 +93,15 @@ class ContentController extends Controller
 				->select('timeframes.*')
 				->where('content_timeframes.content_id', '=', $content->id)
 				->get();
-			$content->timeframes = $content_timeframes;
+
+				if ( count($content_timeframes) == 0 ) {
+					$content->timeframes = null;
+				}
+				else
+				{
+					$content->timeframes = $content_timeframes;
+				}
+
 		}
 
 		// echo "<pre>";	var_dump($contents);	echo "</pre>";
@@ -521,6 +529,20 @@ class ContentController extends Controller
 									['user_id', '=', $user->user_id],
 									['content_id', '=', $content_id]
 								])->first();
+
+			$content_timeframes = DB::table('timeframes')
+				->join('content_timeframes', 'timeframes.timeframe_id', '=', 'content_timeframes.timeframe_id')
+				->join('contents', 'contents.id', '=', 'content_timeframes.content_id')
+				->select('timeframes.*')
+				->where('content_timeframes.content_id', '=', $content->id)
+				->get();
+
+			foreach ($content_timeframes as $key => $timeframe) {
+				$content->timeframes()->detach($timeframe->timeframe_id);
+			}
+
+			// var_dump($content);
+			// return;
 
 			$content->delete();
 

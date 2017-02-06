@@ -15,7 +15,7 @@
 
 //WelcomeKits
 
-Route::group(['prefix' => 'welcome_kits'], function () {
+Route::group(['prefix' => 'kit_bienvenida'], function () {
 
 	Route::get('/', 'WelcomeKitController@index')
 			->name('all_welcome_kit');

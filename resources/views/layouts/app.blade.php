@@ -107,15 +107,23 @@ use Beacon\User;
                           </a>
                           <ul class="sub_menu2">
                             <li>
-                              <a href="#kitBienvenida">
+                              <a href="{{ route('all_welcome_kit') }}">
                                 <span>Kit de Bienvenida</span>
                               </a>
                             </li>
                             <li>
-                              <a href="#kitFidelidad">
+                              <a href="{{ route('all_fidelity_kit') }}">
                                 <span>Kit de Fidelidad</span>
                               </a>
                             </li>
+<<<<<<< HEAD
+=======
+                            <li>
+                              <a href="{{ route('all_promotion')}}">
+                                <span>Promociones</span>
+                              </a>
+                            </li>
+>>>>>>> 23e848285bcc6b2a8366eee761df81b214688a81
                           </ul>
                         </li>
                       </ul>
@@ -215,242 +223,9 @@ use Beacon\User;
 
     </div>
 
-    <div id="kitBienvenida" class="modal modal_">
-      <div class="titulo">
-        <h3>
-          Kit de Bienvenida
-        </h3>
-      </div>
-
-      <div class="form">
-        <form class="form-horizontal" role="form" method="POST" action="{{ route('store_campana') }}">
-          {{ csrf_field() }}          
-          <input type="hidden" name="location_id" value="{{ !empty($location) ? $location->location_id : '' }}" required="">
-
-          <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-            <input type="text" name="name" value="" required="">
-            <label for="">
-              <span class="text">Nombre</span>
-            </label>
-            <div class="help">
-              <a href="#">
-                <i class="material-icons">help_outline</i>
-              </a>
-              <div class="inf none hidden">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                </p>
-              </div>
-            </div>
-          </div>
-          @if ($errors->has('name'))
-            <div class="input_error">
-                <span>{{ $errors->first('name') }}</span>
-            </div>
-          @endif
-          <div class="input textarea no_icon {{ $errors->has('description') ? 'error' : '' }}">
-            <textarea name="description" rows="8" cols="80" ></textarea>
-            <label for="">
-              <span class="text">Descripción (Opcional)</span>
-            </label>
-            <div class="help">
-              <a href="#">
-                <i class="material-icons">help_outline</i>
-              </a>
-              <div class="inf none hidden">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                </p>
-              </div>
-            </div>
-          </div>
-          @if ($errors->has('description'))
-            <div class="input_error">
-                <span>{{ $errors->first('description') }}</span>
-            </div>
-          @endif
-          <div class="input no_icon {{ $errors->has('start_time') ? 'error' : '' }}">
-            <input type="text" name="start_time" value="" required="" class="datetimepicker date_mask">
-            <label for="">
-              <span class="text">Inicio (dd/mm/yy hh:mm)</span>
-            </label>
-            <div class="help">
-              <a href="#">
-                <i class="material-icons">help_outline</i>
-              </a>
-              <div class="inf none hidden">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                </p>
-              </div>
-            </div>
-          </div>
-          @if ($errors->has('start_time'))
-            <div class="input_error">
-                <span>{{ $errors->first('start_time') }}</span>
-            </div>
-          @endif
-
-          <div class="input no_icon {{ $errors->has('end_time') ? 'error' : '' }}">
-            <input type="text" name="end_time" value="" required="" class="datetimepicker date_mask">
-            <label for="">
-              <span class="text">Final (dd/mm/yy hh:mm)</span>
-            </label>
-            <div class="help">
-              <a href="#">
-                <i class="material-icons">help_outline</i>
-              </a>
-              <div class="inf none hidden">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                </p>
-              </div>
-            </div>
-          </div>
-          @if ($errors->has('end_time'))
-            <div class="input_error">
-                <span>{{ $errors->first('end_time') }}</span>
-            </div>
-          @endif
-
-          <div class="input no_icon {{ $errors->has('num_visit') ? 'error' : '' }}">
-            <input type="text" name="num_visit" value="" required="" class="num_mask">
-            <label for="">
-              <span class="text">Numero de Visitas</span>
-            </label>
-            <div class="help">
-              <a href="#">
-                <i class="material-icons">help_outline</i>
-              </a>
-              <div class="inf none hidden">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                </p>
-              </div>
-            </div>
-          </div>
-          @if ($errors->has('num_visit'))
-            <div class="input_error">
-                <span>{{ $errors->first('num_visit') }}</span>
-            </div>
-          @endif
-
-          <div class="divide_cont files">
-            <div class="file-field input-field input_file {{ $errors->has('logo') ? 'has-error' : '' }}">
-              <div class="btn">
-                <span class="icon"><img src="img/icons/subir_archivo.png" alt=""></span>
-                <span>Subir Logo</span>
-                <input type="file" name="logo" id="addLogo">
-              </div>
-              <div class="file-path-wrapper">
-                <input class="file-path validate" type="text">
-              </div>
-              <div class="help">
-                <a href="#">
-                  <i class="material-icons">help_outline</i>
-                </a>
-                <div class="inf none hidden">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                  </p>
-                </div>
-              </div>
-            </div>
-            @if ($errors->has('logo'))
-            <div class="error_input">
-              <span>{{ $errors->first('logo') }}</span>
-            </div>
-            @endif
-            <div class="vista_previa">
-              <center  id="vista_previa">
-                <a href="#" class="vistaPreviaImg">
-                  <div class="img" id="vista_logo">
-                  </div>
-                </a>
-
-              </center>
-            </div>
-          </div>
 
 
 
-
-          <div class="button">
-            <center>
-              <button type="submit" name="button" id="guardar">
-                <span>Guardar</span>
-              </button>
-              <a href="#" class="" onclick="$('#kitBienvenida').modal('close'); return false;">
-                <span>Cancelar</span>
-              </a>
-            </center>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <div id="kitFidelidad" class="modal modal_">
-      <div class="titulo">
-        <h3>
-          Kit de Fidelidad
-        </h3>
-      </div>
-
-      <div class="form">
-        <form class="form-horizontal" role="form" method="POST" action="#">
-          {{ csrf_field() }}
-
-          <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-            <input type="text" name="name" value="" required="">
-            <label for="">
-              <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-              <span class="text">Nombre</span>
-            </label>
-          </div>
-          @if ($errors->has('name'))
-          <div class="input_error">
-            <span>{{ $errors->first('name') }}</span>
-          </div>
-          @endif
-
-          <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-            <input type="text" name="name" value="" required="">
-            <label for="">
-              <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-              <span class="text">Nombre</span>
-            </label>
-          </div>
-          @if ($errors->has('name'))
-          <div class="input_error">
-            <span>{{ $errors->first('name') }}</span>
-          </div>
-          @endif
-
-          <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-            <input type="text" name="name" value="" required="">
-            <label for="">
-              <!-- <span class="icon"><img src="img/icons/correo.png" alt=""></span> -->
-              <span class="text">Nombre</span>
-            </label>
-          </div>
-          @if ($errors->has('name'))
-          <div class="input_error">
-            <span>{{ $errors->first('name') }}</span>
-          </div>
-          @endif
-          <div class="button">
-            <center>
-              <button type="submit" name="button" id="guardar">
-                <span>Guardar</span>
-              </button>
-              <a href="#" class="" onclick="$('#kitFidelidad').modal('close'); return false;">
-                <span>Cancelar</span>
-              </a>
-            </center>
-          </div>
-        </form>
-      </div>
-    </div>
 
     <!--  Scripts-->
     <!-- <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
@@ -467,6 +242,14 @@ use Beacon\User;
       var status = "{{ session('status') }}";
       var type = "{{ session('type') }}"
       Materialize.toast(status, 5000, type);
+    </script>
+    @endif
+
+    @if (session('mod'))
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#platosMenu').modal('open');
+      });
     </script>
     @endif
 </body>
