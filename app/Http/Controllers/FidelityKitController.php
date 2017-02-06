@@ -171,10 +171,10 @@ class FidelityKitController extends Controller
 				$fidelity_kit->description = $fidelity_response->campaign->description :
 				$fidelity_kit->description = "";
 			(isset($fidelity_response->type)) ?
-				$fidelity_kit->type = $fidelity_response->type :
+				$fidelity_kit->type = $request->type :
 				$fidelity_kit->type = 2;
-			$welcome->number_visits = $request->number_visits;
-			$welcome->img = $img;
+			$fidelity_kit->number_visits = $request->number_visits;
+			$fidelity_kit->img = $img;
 			$fidelity_kit->start_time = $fidelity_response->campaign->start_time;
 			$fidelity_kit->end_time = $fidelity_response->campaign->end_time;
 			$fidelity_kit->location_id = $location->location_id;
