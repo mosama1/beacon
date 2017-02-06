@@ -80,12 +80,12 @@ class FidelityKitController extends Controller
 	{
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-		$promotion = Promotion::where([
+		$fidelity_kits = Promotion::where([
 						['user_id', '=', $user->user_id],
 						['type', '=', 2]
 					])->get();
 
-		return view( 'fidelity_kits.fidelity_kit', ['promotion' => $promotion, 'location' => $user->location] );
+		return view( 'fidelity_kits.fidelity_kit', ['fidelity_kits' => $fidelity_kits, 'location' => $user->location] );
 	}
 
 	/**
@@ -96,11 +96,15 @@ class FidelityKitController extends Controller
 	 */
 	public function store_fidelity_kit(Request $request)
 	{
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+		$location = $user->location;
+
 		// Nuevo cliente con un url base
 		$client = new Client();
 
 		//Token Crud
-		$crud = PromotionController::crud();
+		$crud = FidelityKitController::crud();
 
 		//se obtiene la imagen
 		$file_img = $request->file('img');
@@ -144,7 +148,7 @@ class FidelityKitController extends Controller
 						'description' => $request->description,
 						'start_time' => date('Y-m-d H:i', strtotime($request->start_time)),
 						'end_time' => date('Y-m-d H:i', strtotime($request->end_time)),
-						'locations' => $request->location_id,
+						'locations' => $location->location_id,
 						'enabled' => 1,
 				]
 		]);
@@ -168,7 +172,7 @@ class FidelityKitController extends Controller
 				$fidelity_kit->description = "";
 			$fidelity_kit->start_time = $fidelity_kit_response->campaign->start_time;
 			$fidelity_kit->end_time = $fidelity_kit_response->campaign->end_time;
-			$fidelity_kit->location_id = $request->location_id;
+			$fidelity_kit->location_id = $location->location_id;
 			$fidelity_kit->enabled = $fidelity_kit_response->campaign->enabled;
 			$fidelity_kit->save();
 
@@ -219,7 +223,7 @@ class FidelityKitController extends Controller
 		$client = new Client();
 
 		//Token Crud
-		$crud = PromotionController::crud();
+		$crud = FidelityKitController::crud();
 
 		//Location
 		$fidelity_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$id.'/update', [
@@ -243,7 +247,7 @@ class FidelityKitController extends Controller
 
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-			$promotion = Promotion::where([
+			$fidelity_kit = Promotion::where([
 									['user_id', '=', $user->user_id ],
 									['promotion_id', '=', $id],
 									['type', '=', 1]
@@ -276,7 +280,7 @@ class FidelityKitController extends Controller
 				}
 			}
 			else {
-			 $img = $promotion->img;
+			 $img = $fidelity_kit->img;
 			}
 
 								
@@ -311,7 +315,7 @@ class FidelityKitController extends Controller
 		$client = new Client();
 
 		//Token Crud
-		$crud = PromotionController::crud();
+		$crud = FidelityKitController::crud();
 
 		$fidelity_kit_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/delete', [
 				// un array con la data de los headers como tipo de peticion, etc.

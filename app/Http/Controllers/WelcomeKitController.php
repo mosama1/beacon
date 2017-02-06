@@ -80,12 +80,12 @@ class WelcomeKitController extends Controller
 	{
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-		$welcome_kit = Promotion::where([
+		$welcome_kits = Promotion::where([
 						['user_id', '=', $user->user_id],
 						['type', '=', 1]
 					])->get();
 
-		return view( 'welcome_kits.welcome_kit', ['welcome_kit' => $welcome_kit, 'location' => $user->location] );
+		return view( 'welcome_kits.welcome_kit', ['welcome_kits' => $welcome_kits, 'location' => $user->location] );
 	}
 
 	/**
@@ -94,13 +94,17 @@ class WelcomeKitController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store_promotion(Request $request)
+	public function store_welcome_kit(Request $request)
 	{
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+		$location = $user->location;
+
 		// Nuevo cliente con un url base
 		$client = new Client();
 
 		//Token Crud
-		$crud = PromotionController::crud();
+		$crud = WelcomeKitController::crud();
 
 		//se obtiene la imagen
 		$file_img = $request->file('img');
@@ -111,7 +115,7 @@ class WelcomeKitController extends Controller
 			$kit_mime = $file_img->getMimeType();
 
 			//path donde se almacenara la imagen
-			$path = 'assets/images/kit_welcome/';
+			$path = 'assets/images/welcome_kit/';
 
 			switch ($kit_mime)
 			{
@@ -125,7 +129,7 @@ class WelcomeKitController extends Controller
 
 						$file_img->move($path, $nombre);
 
-						$img = 'assets/images/kit_welcome/'.$nombre;
+						$img = 'assets/images/welcome_kit/'.$nombre;
 
 					}
 				break;
@@ -144,7 +148,7 @@ class WelcomeKitController extends Controller
 						'description' => $request->description,
 						'start_time' => date('Y-m-d H:i', strtotime($request->start_time)),
 						'end_time' => date('Y-m-d H:i', strtotime($request->end_time)),
-						'locations' => $request->location_id,
+						'locations' => $location->location_id,
 						'enabled' => 1,
 				]
 		]);
@@ -171,7 +175,7 @@ class WelcomeKitController extends Controller
 			$welcome->img = $img;
 			$welcome->start_time = $welcome_response->campaign->start_time;
 			$welcome->end_time = $welcome_response->campaign->end_time;
-			$welcome->location_id = $request->location_id;
+			$welcome->location_id = $location->location_id;
 			$welcome->enabled = $welcome_response->campaign->enabled;
 			$welcome->save();
 
@@ -193,7 +197,7 @@ class WelcomeKitController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit_promotion($id)
+	public function edit_welcome_kit($id)
 	{
 
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
@@ -214,13 +218,13 @@ class WelcomeKitController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update_promotion(Request $request, $id)
+	public function update_welcome_kit(Request $request, $id)
 	{
 		// Nuevo cliente con un url base
 		$client = new Client();
 
 		//Token Crud
-		$crud = PromotionController::crud();
+		$crud = WelcomeKitController::crud();
 
 		//Location
 		$welcome_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$id.'/update', [
@@ -244,7 +248,7 @@ class WelcomeKitController extends Controller
 
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-			$promotion = Promotion::where([
+			$welcome = Promotion::where([
 									['user_id', '=', $user->user_id ],
 									['promotion_id', '=', $id],
 									['type', '=', 1]
@@ -256,7 +260,7 @@ class WelcomeKitController extends Controller
 				$kit_mime = $file_img->getMimeType();
 
 				//path donde se almacenara la imagen
-				$path = 'assets/images/kit_welcome/';
+				$path = 'assets/images/welcome_kit/';
 
 				switch ($kit_mime)
 				{
@@ -270,14 +274,14 @@ class WelcomeKitController extends Controller
 
 							$file_img->move($path, $nombre);
 
-							$img = 'assets/images/kit_welcome/'.$nombre;
+							$img = 'assets/images/welcome_kit/'.$nombre;
 
 						}
 					break;
 				}
 			}
 			else {
-			 $img = $promotion->img;
+			 $img = $welcome->img;
 			}
 
 								
@@ -306,13 +310,13 @@ class WelcomeKitController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy_promotion($promotion_id)
+	public function destroy_welcome_kit($promotion_id)
 	{
 		// Nuevo cliente con un url base
 		$client = new Client();
 
 		//Token Crud
-		$crud = PromotionController::crud();
+		$crud = WelcomeKitController::crud();
 
 		$welcome_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/delete', [
 				// un array con la data de los headers como tipo de peticion, etc.
@@ -320,21 +324,21 @@ class WelcomeKitController extends Controller
 		]);
 
 		//Json parse
-		$json_c = $welcome_api->getBody();
+		$json_welcome = $welcome_api->getBody();
 
-		$welcome_response = json_decode($json_c);
+		$welcome_response = json_decode($json_welcome);
 
 		if ($welcome_response->status_code === 200 ):
 
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-			$promotion =  Promotion::where([
+			$welcome =  Promotion::where([
 									['user_id', '=', $user->user_id ],
 									['promotion_id', '=', $promotion_id],
 									['type', '=', 1]
 								])->first();
 
-			$promotion->delete();
+			$welcome->delete();
 
 			return redirect()->route('all_welcome_kit')
 					->with(['status' => 'Se ha Eliminado el kit de bienvenida con éxito', 'type' => 'success']);

@@ -37,17 +37,17 @@
             </thead>
 
             <tbody>
+              @foreach($welcome_kits as $wk)
               <tr id="id">
-                <td>ejm</td>
-                <td>ejm</td>
-                <td>ejm</td>
-
-                <td><a href="#"><i class="material-icons">add</i></a></td>
-                <td><a href="#"><i class="material-icons">edit</i></a></td>
+                <td>{{ $wk->id }}</td>
+                <td>{{ $wk->name }}</td>
+                <td>{{ $wk->description }}</td>
+                <td><a href="{{ route('all_content', $wk->id) }}"><i class="material-icons">add</i></a></td>
+                <td><a href="{{ route('edit_welcome_kit', $wk->id) }}"><i class="material-icons">edit</i></a></td>
               <?php
 
                 echo "<td onclick= \"modal_activate('".
-                   route( "destroy_promotion",'#' ).
+                   route( "destroy_welcome_kit",$wk->id ).
                   "' , '#eliminarkitBienvenida')\" >";
 
               ?>
@@ -63,6 +63,8 @@
                   </div>
                 </td>
               </tr>
+              @endforeach
+
             </tbody>
           </table>
         </div>
@@ -80,7 +82,7 @@
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_campana') }}">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_welcome_kit') }}">
       {{ csrf_field() }}
 
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
