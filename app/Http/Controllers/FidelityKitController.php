@@ -35,9 +35,9 @@ class FidelityKitController extends Controller
 				]
 		]);
 
-		$json_promotion = $response_crud->getBody();
+		$json_fidelity_kit = $response_crud->getBody();
 
-		$token_crud = json_decode($json_promotion);
+		$token_crud = json_decode($json_fidelity_kit);
 
 		Log::info('This is some useful information.');
 
@@ -94,15 +94,48 @@ class FidelityKitController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store_promotion(Request $request)
+	public function store_fidelity_kit(Request $request)
 	{
 		// Nuevo cliente con un url base
 		$client = new Client();
 
 		//Token Crud
 		$crud = PromotionController::crud();
+
+		//se obtiene la imagen
+		$file_img = $request->file('img');
+
+		if ( !is_null( $file_img ) ) {
+
+			//mime de la imagen kit
+			$kit_mime = $file_img->getMimeType();
+
+			//path donde se almacenara la imagen
+			$path = 'assets/images/fidelity_kit/';
+
+			switch ($kit_mime)
+			{
+				case "image/jpeg":
+				case "image/png":
+					if ($file_img->isValid())
+					{
+
+						$nombre = $file_img->getClientOriginalName();
+											$nombre = date('dmyhis').'-'.$nombre;
+
+						$file_img->move($path, $nombre);
+
+						$img = 'assets/images/fidelity_kit/'.$nombre;
+
+					}
+				break;
+			}
+		}
+		else {
+		 $img = "";
+		}
 		//Location
-		$promotion_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns', [
+		$fidelity_kit_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns', [
 				// un array con la data de los headers como tipo de peticion, etc.
 				'headers' => ['Authorization' => 'Bearer '.$crud ],
 				// array de datos del formulario
@@ -117,36 +150,36 @@ class FidelityKitController extends Controller
 		]);
 
 		//Json parse
-		$json_promotion = $promotion_api->getBody();
+		$json_fidelity_kit = $fidelity_kit_api->getBody();
 
-		$promotion_response = json_decode($json_promotion);
+		$fidelity_kit_response = json_decode($json_fidelity_kit);
 
 
-		if ($promotion_response->status_code === 200 ):
+		if ($fidelity_kit_response->status_code === 200 ):
 
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-			$cam = new Promotion();
-			$cam->promotion_id = $promotion_response->campaign->id;
-			$cam->user_id = $user->user_id;
-			$cam->name = $promotion_response->campaign->name;
+			$fidelity_kit = new Promotion();
+			$fidelity_kit->promotion_id = $fidelity_kit_response->campaign->id;
+			$fidelity_kit->user_id = $user->user_id;
+			$fidelity_kit->name = $fidelity_kit_response->campaign->name;
 			(isset($promotion->campaign->description)) ?
-				$cam->description = $promotion_response->campaign->description :
-				$cam->description = "";
-			$cam->start_time = $promotion_response->campaign->start_time;
-			$cam->end_time = $promotion_response->campaign->end_time;
-			$cam->location_id = $request->location_id;
-			$cam->enabled = $promotion_response->campaign->enabled;
-			$cam->save();
+				$fidelity_kit->description = $fidelity_kit_response->campaign->description :
+				$fidelity_kit->description = "";
+			$fidelity_kit->start_time = $fidelity_kit_response->campaign->start_time;
+			$fidelity_kit->end_time = $fidelity_kit_response->campaign->end_time;
+			$fidelity_kit->location_id = $request->location_id;
+			$fidelity_kit->enabled = $fidelity_kit_response->campaign->enabled;
+			$fidelity_kit->save();
 
-			return redirect()->route('all_promotion');
+			return redirect()->route('all_fidelity_kit');
 
 		else:
 
 			// var_dump($promotion);
 			// return;
 
-			return redirect()->route('all_promotion')->with(['status' => 'Error al ingresar el kit de bienvenida', 'type' => 'error']);
+			return redirect()->route('all_fidelity_kit')->with(['status' => 'Error al ingresar el kit de bienvenida', 'type' => 'error']);
 
 		endif;
 	}
@@ -157,7 +190,7 @@ class FidelityKitController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit_promotion($id)
+	public function edit_fidelity_kit($id)
 	{
 
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
@@ -171,7 +204,7 @@ class FidelityKitController extends Controller
 							])->first();
 
 
-		return view('promotions.promotion_edit', ['promotion' => $promotion, 'locations' => $location]);
+		return view('fidelity_kits.fidelity_kit_edit', ['fidelity_kit' => $promotion, 'location' => $location]);
 	}
 
 	/**
@@ -180,7 +213,7 @@ class FidelityKitController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update_promotion(Request $request, $id)
+	public function update_fidelity_kit(Request $request, $id)
 	{
 		// Nuevo cliente con un url base
 		$client = new Client();
@@ -189,7 +222,7 @@ class FidelityKitController extends Controller
 		$crud = PromotionController::crud();
 
 		//Location
-		$promotion_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$id.'/update', [
+		$fidelity_kit_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$id.'/update', [
 				// un array con la data de los headers como tipo de peticion, etc.
 				'headers' => ['Authorization' => 'Bearer '.$crud ],
 				// array de datos del formulario
@@ -202,11 +235,11 @@ class FidelityKitController extends Controller
 		]);
 
 		//Json parse
-		$json_promotion = $promotion_api->getBody();
+		$json_fidelity_kit = $fidelity_kit_api->getBody();
 
-		$promotion_response = json_decode($json_promotion);
+		$fidelity_kit_response = json_decode($json_fidelity_kit);
 
-		if ( $promotion_response->status_code === 200 ):
+		if ( $fidelity_kit_response->status_code === 200 ):
 
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
@@ -216,17 +249,17 @@ class FidelityKitController extends Controller
 									['type', '=', 2]
 								])
 								->update(array(
-									'name' => $promotion_response->campaign->name,
-									'description' => (isset($promotion_response->campaign->description)) ? $promotion_response->campaign->description : '',
-									'start_time' => $promotion_response->campaign->start_time,
-									'end_time' => $promotion_response->campaign->end_time,
+									'name' => $fidelity_kit_response->campaign->name,
+									'description' => (isset($fidelity_kit_response->campaign->description)) ? $fidelity_kit_response->campaign->description : '',
+									'start_time' => $fidelity_kit_response->campaign->start_time,
+									'end_time' => $fidelity_kit_response->campaign->end_time,
 								));
 
-			return redirect()->route('all_promotion');
+			return redirect()->route('all_fidelity_kit');
 
 		else:
 
-			return redirect()->route('add_promotion')->with(['status' => 'Error al ingresar el kit de bienvenida', 'type' => 'error']);
+			return redirect()->route('add_fidelity_kit')->with(['status' => 'Error al ingresar el kit de bienvenida', 'type' => 'error']);
 
 		endif;
 	}
@@ -237,7 +270,7 @@ class FidelityKitController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy_promotion($promotion_id)
+	public function destroy_fidelity_kit($promotion_id)
 	{
 		// Nuevo cliente con un url base
 		$client = new Client();
@@ -245,17 +278,17 @@ class FidelityKitController extends Controller
 		//Token Crud
 		$crud = PromotionController::crud();
 
-		$promotion_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/delete', [
+		$fidelity_kit_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/delete', [
 				// un array con la data de los headers como tipo de peticion, etc.
 				'headers' => ['Authorization' => 'Bearer '.$crud ]
 		]);
 
 		//Json parse
-		$json_promotion = $promotion_->getBody();
+		$json_fidelity_kit = $fidelity_kit_api->getBody();
 
-		$promotion_response = json_decode($json_promotion);
+		$fidelity_kit_response = json_decode($json_fidelity_kit);
 
-		if ($promotion_response->status_code === 200 ):
+		if ($fidelity_kit_response->status_code === 200 ):
 
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
@@ -267,14 +300,14 @@ class FidelityKitController extends Controller
 
 			$promotion->delete();
 
-			return redirect()->route('all_promotion')
+			return redirect()->route('all_fidelity_kit')
 					->with(['status' => 'Se ha Eliminado el kit de bienvenida con éxito', 'type' => 'success']);
 
 		else:
 
-			//echo "<pre>"; var_dump($campaña); echo "</pre>";
+			//echo "<pre>"; var_dump($fidelity_kit); echo "</pre>";
 
-			return redirect()->route('all_promotion')->with(['status' => 'Error al eliminar el kit de bienvenida', 'type' => 'error']);
+			return redirect()->route('all_fidelity_kit')->with(['status' => 'Error al eliminar el kit de bienvenida', 'type' => 'error']);
 
 		endif;
 	}

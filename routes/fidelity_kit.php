@@ -15,7 +15,7 @@
 
 //FidelityKits
 
-Route::group(['prefix' => 'fidelity_kits'], function () {
+Route::group(['prefix' => 'kit_fidelidad	'], function () {
 
 	Route::get('/', 'FidelityKitController@index')
 			->name('all_fidelity_kit');
