@@ -80,12 +80,12 @@ class FidelityKitController extends Controller
 	{
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-		$promotion = Promotion::where([
+		$fidelity_kits = Promotion::where([
 						['user_id', '=', $user->user_id],
 						['type', '=', 2]
 					])->get();
 
-		return view( 'fidelity_kits.fidelity_kit', ['promotion' => $promotion, 'location' => $user->location] );
+		return view( 'fidelity_kits.fidelity_kit', ['fidelity_kits' => $fidelity_kits, 'location' => $user->location] );
 	}
 
 	/**
@@ -104,7 +104,7 @@ class FidelityKitController extends Controller
 		$client = new Client();
 
 		//Token Crud
-		$crud = PromotionController::crud();
+		$crud = FidelityKitController::crud();
 
 		//se obtiene la imagen
 		$file_img = $request->file('img');
@@ -223,7 +223,7 @@ class FidelityKitController extends Controller
 		$client = new Client();
 
 		//Token Crud
-		$crud = PromotionController::crud();
+		$crud = FidelityKitController::crud();
 
 		//Location
 		$fidelity_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$id.'/update', [
@@ -315,7 +315,7 @@ class FidelityKitController extends Controller
 		$client = new Client();
 
 		//Token Crud
-		$crud = PromotionController::crud();
+		$crud = FidelityKitController::crud();
 
 		$fidelity_kit_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/delete', [
 				// un array con la data de los headers como tipo de peticion, etc.

@@ -80,12 +80,12 @@ class WelcomeKitController extends Controller
 	{
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-		$welcome_kit = Promotion::where([
+		$welcome_kits = Promotion::where([
 						['user_id', '=', $user->user_id],
 						['type', '=', 1]
 					])->get();
 
-		return view( 'welcome_kits.welcome_kit', ['welcome_kit' => $welcome_kit, 'location' => $user->location] );
+		return view( 'welcome_kits.welcome_kit', ['welcome_kits' => $welcome_kits, 'location' => $user->location] );
 	}
 
 	/**
@@ -104,7 +104,7 @@ class WelcomeKitController extends Controller
 		$client = new Client();
 
 		//Token Crud
-		$crud = PromotionController::crud();
+		$crud = WelcomeKitController::crud();
 
 		//se obtiene la imagen
 		$file_img = $request->file('img');
@@ -224,7 +224,7 @@ class WelcomeKitController extends Controller
 		$client = new Client();
 
 		//Token Crud
-		$crud = PromotionController::crud();
+		$crud = WelcomeKitController::crud();
 
 		//Location
 		$welcome_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$id.'/update', [
@@ -316,7 +316,7 @@ class WelcomeKitController extends Controller
 		$client = new Client();
 
 		//Token Crud
-		$crud = PromotionController::crud();
+		$crud = WelcomeKitController::crud();
 
 		$welcome_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/delete', [
 				// un array con la data de los headers como tipo de peticion, etc.
