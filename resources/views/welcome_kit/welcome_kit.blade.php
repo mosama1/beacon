@@ -8,7 +8,7 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Kits de Fidelidad
+        Kits de Bienvenida
       </h3>
     </div>
     <div class="agregar">
@@ -48,7 +48,7 @@
 
                 echo "<td onclick= \"modal_activate('".
                    route( "destroy_promotion",'#' ).
-                  "' , '#eliminarkitFidelidad')\" >";
+                  "' , '#eliminarkitBienvenida')\" >";
 
               ?>
                 <a href="#eliminarPlan"><i class="material-icons">clear</i></a></td>
@@ -72,10 +72,10 @@
 </div>
 
 
-<div id="kitFidelidad" class="modal modal_">
+<div id="kitBienvenida" class="modal modal_">
   <div class="titulo">
     <h3>
-      Kit de Fidelidad
+      Kit de Bienvenida
     </h3>
   </div>
 
@@ -196,7 +196,7 @@
           <div class="btn">
             <span class="icon"><img src="img/icons/subir_archivo.png" alt=""></span>
             <span>Subir Logo</span>
-            <input type="file" name="img" id="addKit_f">
+            <input type="file" name="img" id="addKit_b">
           </div>
           <div class="file-path-wrapper">
             <input class="file-path validate" type="text">
@@ -220,7 +220,7 @@
         <div class="vista_previa">
           <center  id="vista_previa">
             <!-- <a href="#" class="vistaPreviaImg"> -->
-              <div class="img" id="vista_kit_f">
+              <div class="img" id="vista_kit_b">
               </div>
             <!-- </a> -->
 
@@ -236,7 +236,7 @@
           <button type="submit" name="button" id="guardar">
             <span>Guardar</span>
           </button>
-          <a href="#" class="" onclick="$('#kitFidelidad').modal('close'); return false;">
+          <a href="#" class="" onclick="$('#kitBienvenida').modal('close'); return false;">
             <span>Cancelar</span>
           </a>
         </center>
@@ -246,7 +246,7 @@
 </div>
 
 
-<div id="eliminarkitFidelidad" class="modal modal_">
+<div id="eliminarkitBienvenida" class="modal modal_">
   <div class="titulo">
     <h3>
       Esta seguro que desea eliminar esta promoción
@@ -261,7 +261,7 @@
           <button type="submit" name="button">
             <span>Si</span>
           </button>
-          <a href="#" class="" onclick="$('#eliminarkitFidelidad').modal('close'); return false;">
+          <a href="#" class="" onclick="$('#eliminarkitBienvenida').modal('close'); return false;">
             <span>No</span>
           </a>
         </center>

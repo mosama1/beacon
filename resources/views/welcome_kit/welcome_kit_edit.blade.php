@@ -7,7 +7,7 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Editar Kit de Fidelidad
+        Editar Kit de Bienvenida
       </h3>
     </div>
 
@@ -23,7 +23,7 @@
 
        <form class="form-horizontal" role="form" method="POST" action="{{ route('store_campana') }}">
          {{ csrf_field() }}
-        {{ method_field('PUT') }}
+         {{ method_field('PUT') }}
 
          <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
            <input type="text" name="name" value="" required="">
@@ -138,7 +138,7 @@
              <div class="btn">
                <span class="icon"><img src="img/icons/subir_archivo.png" alt=""></span>
                <span>Subir Logo</span>
-               <input type="file" name="img" id="addKit_f">
+               <input type="file" name="img" id="addKit_b">
              </div>
              <div class="file-path-wrapper">
                <input class="file-path validate" type="text">
@@ -162,7 +162,7 @@
            <div class="vista_previa">
              <center  id="vista_previa">
                <!-- <a href="#" class="vistaPreviaImg"> -->
-                 <div class="img" id="vista_kit_f">
+                 <div class="img" id="vista_kit_b">
                  </div>
                <!-- </a> -->
 
@@ -178,13 +178,12 @@
              <button type="submit" name="button" id="guardar">
                <span>Guardar</span>
              </button>
-             <a href="#" class="" onclick="$('#kitFidelidad').modal('close'); return false;">
+             <a href="#" class="" onclick="$('#kitBienvenida').modal('close'); return false;">
                <span>Cancelar</span>
              </a>
            </center>
          </div>
        </form>
-
 
     </div>
   </div>
