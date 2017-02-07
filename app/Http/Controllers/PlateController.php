@@ -145,6 +145,7 @@ class PlateController extends Controller
 		//	$plate_translation->language_id = $request->language_id;
 		$plate_translation->language_id = 1;
 		$plate_translation->plate_id = $plate->id;
+		$plate_translation->status = 1;
 		$plate_translation->save();
 
 		$menu = Menu::where([

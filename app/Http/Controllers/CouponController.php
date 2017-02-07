@@ -155,7 +155,7 @@ class CouponController extends Controller
 				$coupon_translation->description = "";
 
 			$coupon_translation->message = $coupon_response->coupon->message;
-
+			$coupon_translation->status = 1;
 			$coupon_translation->language_id = 1;
 			$coupon_translation->coupon_id = $coupon->coupon_id;
 			$coupon_translation->save();

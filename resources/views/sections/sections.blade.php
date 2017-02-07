@@ -72,7 +72,7 @@
                   <div class="switch">
                     <label>
                       Si
-                      <input type="checkbox">
+                      <input type="checkbox" {{ ($s->section_translation[0] ->status > 0 ? '' : 'checked') }} class="filled-in" id="filled-in-box" />
                       <span class="lever"></span>
                       No
                     </label>
