@@ -42,7 +42,7 @@
                 <td>{{ $wk->id }}</td>
                 <td>{{ $wk->name }}</td>
                 <td>{{ $wk->description }}</td>
-                <td><a href="{{ route('all_content', $wk->promotion_id) }}"><i class="material-icons">add</i></a></td>
+                <td><a href="{{ route('all_content_promotion', $wk->promotion_id) }}"><i class="material-icons">add</i></a></td>
 
                 <td><a href="{{ route('edit_welcome_kit', $wk->promotion_id) }}"><i class="material-icons">edit</i></a></td>
               <?php
