@@ -149,8 +149,8 @@ class FidelityKitController extends Controller
 				'form_params' => [
 						'name' => $request->name,
 						'description' => $request->description,
-						'start_time' => date('Y-m-d H:i', strtotime($request->start_time)),
-						'end_time' => date('Y-m-d H:i', strtotime($request->end_time)),
+						'start_time' => date('Y-m-d H:i', strtotime('01-01-2017')),
+						'end_time' => date('Y-m-d H:i', strtotime('01-01-2099')),
 						'locations' => $location->location_id,
 						'enabled' => 1,
 				]
@@ -160,6 +160,8 @@ class FidelityKitController extends Controller
 		$json_fidelity_kit = $fidelity_kit_api->getBody();
 
 		$fidelity_response = json_decode($json_fidelity_kit);
+
+			//echo "<pre>"; var_dump($fidelity_kit); echo "</pre>";
 
 
 		if ($fidelity_response->status_code === 200 ):
@@ -241,8 +243,8 @@ class FidelityKitController extends Controller
 				'form_params' => [
 						'name' => $request->name,
 						'description' => $request->description,
-						'start_time' => date("Y-m-d H:i", strtotime($request->start_time)),
-						'end_time' => date("Y-m-d H:i", strtotime($request->end_time)),
+						'start_time' => date('Y-m-d H:i', strtotime('01-01-2017')),
+						'end_time' => date('Y-m-d H:i', strtotime('01-01-2099')),
 				]
 		]);
 

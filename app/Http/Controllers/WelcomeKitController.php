@@ -146,8 +146,8 @@ class WelcomeKitController extends Controller
 				'form_params' => [
 						'name' => $request->name,
 						'description' => $request->description,
-						'start_time' => date('Y-m-d H:i', strtotime($request->start_time)),
-						'end_time' => date('Y-m-d H:i', strtotime($request->end_time)),
+						'start_time' => date('Y-m-d H:i', strtotime('01-01-2017')),
+						'end_time' => date('Y-m-d H:i', strtotime('01-01-2099')),
 						'locations' => $location->location_id,
 						'enabled' => 1,
 				]
@@ -157,6 +157,9 @@ class WelcomeKitController extends Controller
 		$json_welcome_kit = $welcome_api->getBody();
 
 		$welcome_response = json_decode($json_welcome_kit);
+
+			// echo "<pre>"; var_dump($welcome_response); echo "</pre>";
+			// return;
 
 
 		if ($welcome_response->status_code === 200 ):
