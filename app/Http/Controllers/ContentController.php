@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Beacon\Campana;
 use Beacon\Content;
 use Beacon\Coupon;
+use Beacon\Promotion;
 use Beacon\Tag;
 use Beacon\Timeframe;
 use Beacon\User;
@@ -138,7 +139,7 @@ class ContentController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index_promotion($id)
+	public function index_promotion($promotion_id)
 	{
 
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
@@ -147,7 +148,7 @@ class ContentController extends Controller
 
 		$contents = $content->where([
 			['user_id', '=', $user->user_id],
-			['campana_id', '=', $id],
+			['campana_id', '=', $promotion_id],
 		])->get();
 
 		foreach ($contents as $key => $content) {
@@ -194,7 +195,7 @@ class ContentController extends Controller
 						'contents' => $contents,
 						'tags' => $tags,
 						'timeframes' => $timeframes,
-						'campana_id' => $id,
+						'campana_id' => $promotion_id,
 						'location' => $user->location,
 					]);
 	}
@@ -411,7 +412,7 @@ class ContentController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store_promotion(Request $request, $campana_id)
+	public function store_promotion(Request $request, $promotion_id)
 	{
 		$content = new Content();
 
@@ -471,7 +472,7 @@ class ContentController extends Controller
 					);
 
 		//Location
-		$content_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/contents', $parameters);
+		$content_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/contents', $parameters);
 
 		//Json parse
 		$json_c = $content_api->getBody();
@@ -510,7 +511,7 @@ class ContentController extends Controller
 
 			//	$cam_c->tag = $request->tag_id;
 			$cam_c->tag = $tag_id;
-			$cam_c->campana_id = $campana_id;
+			$cam_c->campana_id = $promotion_id;
 			$cam_c->trigger_name = $content_api->trigger_name;
 			$cam_c->save();
 
@@ -524,7 +525,7 @@ class ContentController extends Controller
 			// return;
 
 			//Location
-			$campana_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/update', [
+			$campana_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/update', [
 					// un array con la data de los headers como tipo de peticion, etc.
 					'headers' => ['Authorization' => 'Bearer '.$crud ],
 					// array de datos del formulario
@@ -545,13 +546,13 @@ class ContentController extends Controller
 
 			if ($campana_response->status_code == 200 )
 			{
-				$campana = Campana::where('campana_id', '=', $campana_id)->first();
-				$campana->description = $coupon->coupon_translation[0]->description;
-				$campana->update();
+				$promotion = Promotion::where('promotion_id', '=', $promotion_id)->first();
+				$promotion->description = $coupon->coupon_translation[0]->description;
+				$promotion->update();
 			}
 			else
 			{
-				$campana = false;
+				$promotion = false;
 				// echo "<pre>"; print_r( $campana_response ); echo "</pre>";
 				// return;
 			}
@@ -566,7 +567,7 @@ class ContentController extends Controller
 							'description' => $coupon->description,
 							'message' => $request->name,
 							'type' => 'url',
-							'url' =>  'http://dementecreativo.com/prueba/final/movil/campanas/'.$campana_id,
+							'url' =>  'http://dementecreativo.com/prueba/final/movil/campanas/'.$promotion_id,
 					]
 			]);
 
@@ -591,13 +592,13 @@ class ContentController extends Controller
 
 			if ( $campana && $coupon ) {
 				//Content::commit();
-				return redirect()->route('all_content', array('campana_id' => $campana_id ) )->with(['status' => 'Se ha creado el contenido exitosamente', 'type' => 'success']);
+				return redirect()->route('all_content', array('promotion_id' => $promotion_id ) )->with(['status' => 'Se ha creado el contenido exitosamente', 'type' => 'success']);
 			} else {
 
 				echo "<pre>";	var_dump($campana && $coupon);	echo "</pre>";
 				return;
 				//Content::rollBack();
-				return redirect()->route('all_content', array('campana_id' => $campana_id ) )->with(['status' => 'Error al ingresar el contenido', 'type' => 'error']);
+				return redirect()->route('all_content', array('promotion_id' => $promotion_id ) )->with(['status' => 'Error al ingresar el contenido', 'type' => 'error']);
 			}
 
 
@@ -606,7 +607,7 @@ class ContentController extends Controller
 			echo "<pre>";	var_dump($content_response);	echo "</pre>";
 			return;
 			//Content::rollBack();
-			return redirect()->route('all_content', array('campana_id' => $campana_id ) )->with(['status' => 'Error al ingresar el contenido', 'type' => 'error']);
+			return redirect()->route('all_content', array('promotion_id' => $promotion_id ) )->with(['status' => 'Error al ingresar el contenido', 'type' => 'error']);
 
 		endif;
 	}
@@ -933,7 +934,7 @@ class ContentController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy( $campana_id, $content_id )
+	public function destroy_promotion( $campana_id, $content_id )
 	{
 		// // Nuevo cliente con un url base
 		// $client = new Client();
