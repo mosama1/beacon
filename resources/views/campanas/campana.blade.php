@@ -57,13 +57,13 @@
                   <a href="#eliminarPlan"><i class="material-icons">clear</i></a></td>
                   <td>
                     <div class="switch">
-                      <label>
-                        Si
-                        <input type="checkbox">
-                        <span class="lever"></span>
-                        No
-                      </label>
-                    </div>
+                        <label>
+                              Si
+                              <input type="checkbox" {{ ($c->enabled > 0 ? '' : 'checked') }} class="filled-in" id="filled-in-box" />
+                              <span class="lever"></span>
+                              No
+                        </label>
+                    </div>                   
                   </td>
                 </tr>
               @endforeach

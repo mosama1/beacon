@@ -4,6 +4,8 @@
 @section('content')
 <div class="contenedor">
   <div class="principal">
+
+
     <div class="titulo">
       <h3>
         La Carta
@@ -71,7 +73,7 @@
                   <div class="switch">
                     <label>
                       Si
-                      <input type="checkbox">
+                      <input type="checkbox" {{ ($c->coupon_translation[0] ->status > 0 ? '' : 'checked') }} class="filled-in" id="filled-in-box" />
                       <span class="lever"></span>
                       No
                     </label>

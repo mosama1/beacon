@@ -102,6 +102,7 @@ class SectionController extends Controller
 		$section_translation = new SectionTranslation();
 		$section_translation->section_id = $section->id;
 		$section_translation->language_id = 1;
+		$section_translation->status = 1;
 		$section_translation->name = $request->name;
 		
 
