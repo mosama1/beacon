@@ -26,7 +26,7 @@
         {{ method_field('PUT') }}
 
          <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-           <input type="text" name="name" value="" required="">
+           <input type="text" name="name" value="{{$fidelity_kit->name}}" required="">
            <label for="">
              <span class="text">Nombre</span>
            </label>
@@ -47,7 +47,7 @@
            </div>
          @endif
          <div class="input textarea no_icon {{ $errors->has('description') ? 'error' : '' }}">
-           <textarea name="description" rows="8" cols="80" ></textarea>
+           <textarea name="description" rows="8" cols="80" >{{$fidelity_kit->description}}</textarea>
            <label for="">
              <span class="text">Descripción (Opcional)</span>
            </label>
@@ -68,7 +68,7 @@
            </div>
          @endif
          <div class="input no_icon {{ $errors->has('start_time') ? 'error' : '' }}">
-           <input type="text" name="start_time" value="" required="" class="datetimepicker date_mask">
+           <input type="text" name="start_time" value="{{$fidelity_kit->start_time}}" required="" class="datetimepicker date_mask">
            <label for="">
              <span class="text">Inicio (dd/mm/yy hh:mm)</span>
            </label>
@@ -90,7 +90,7 @@
          @endif
 
          <div class="input no_icon {{ $errors->has('end_time') ? 'error' : '' }}">
-           <input type="text" name="end_time" value="" required="" class="datetimepicker date_mask">
+           <input type="text" name="end_time" value="{{$fidelity_kit->end_time}}" required="" class="datetimepicker date_mask">
            <label for="">
              <span class="text">Final (dd/mm/yy hh:mm)</span>
            </label>
@@ -111,8 +111,8 @@
            </div>
          @endif
 
-         <div class="input no_icon {{ $errors->has('num_visit') ? 'error' : '' }}">
-           <input type="text" name="number_visits" value="" required="" class="num_mask">
+         <div class="input no_icon {{ $errors->has('number_visits') ? 'error' : '' }}">
+           <input type="text" name="number_visits" value="{{$fidelity_kit->number_visits}}" required="" class="num_mask">
            <label for="">
              <span class="text">Numero de Visitas</span>
            </label>
@@ -127,9 +127,9 @@
              </div>
            </div>
          </div>
-         @if ($errors->has('num_visit'))
+         @if ($errors->has('number_visits'))
            <div class="input_error">
-               <span>{{ $errors->first('num_visit') }}</span>
+               <span>{{ $errors->first('number_visits') }}</span>
            </div>
          @endif
 
