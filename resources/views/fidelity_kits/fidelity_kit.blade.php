@@ -48,10 +48,10 @@
 
                 echo "<td onclick= \"modal_activate('".
                    route( "destroy_fidelity_kit",$fk->promotion_id ).
-                  "' , '#eliminarkitBienvenida')\" >";
+                  "' , '#eliminarkitFidelidad')\" >";
 
               ?>
-                <a href="#eliminarPlan"><i class="material-icons">clear</i></a></td>
+                <a href="#eliminarkitFidelidad"><i class="material-icons">clear</i></a></td>
                 <td>
                   <div class="switch">
                     <label>
@@ -250,7 +250,7 @@
 <div id="eliminarkitFidelidad" class="modal modal_">
   <div class="titulo">
     <h3>
-      Esta seguro que desea eliminar esta promoción
+      Esta seguro que desea eliminar este kit
     </h3>
   </div>
   <div class="form">

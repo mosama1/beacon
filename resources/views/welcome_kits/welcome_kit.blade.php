@@ -49,7 +49,7 @@
                   "' , '#eliminarkitBienvenida')\" >";
 
               ?>
-                <a href="#eliminarPlan"><i class="material-icons">clear</i></a></td>
+                <a href="#eliminarkitBienvenida"><i class="material-icons">clear</i></a></td>
                 <td>
                   <div class="switch">
                     <label>
