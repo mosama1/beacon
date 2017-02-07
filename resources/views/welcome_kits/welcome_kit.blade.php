@@ -80,7 +80,7 @@
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_welcome_kit') }}">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_welcome_kit') }}" enctype="multipart/form-data">
       {{ csrf_field() }}
 
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
