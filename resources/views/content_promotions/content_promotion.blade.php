@@ -47,12 +47,12 @@
 									@endif
 								</td>
 
-								<td><a href="{{ route('edit_content_promotion', array('promotion_id' => $promotion_id, 'content_promotion_id' => $content_promotion->content_promotion_id) ) }}"><i class="material-icons">edit</i></a></td>
+								<td><a href="{{ route('edit_content_promotion', array('promotion_id' => $promotion_id, 'content_id' => $content->content_id) ) }}"><i class="material-icons">edit</i></a></td>
 
 							<?php
 
 									echo "<td onclick= \"modal_activate('".
-									route( "destroy_content_promotion", array('promotion_id' => $promotion_id, 'content_promotion_id' => $content_promotion->content_promotion_id) ).
+									route( "destroy_content_promotion", array('promotion_id' => $promotion_id, 'content_id' => $content->content_id) ).
 								 "' , '#eliminarContenido')\" >";
 
 							?>
@@ -67,7 +67,7 @@
 		</div>
 		<div class="agregar regresar">
 			<center>
-				<a href="{{ route('all_content_promotion') }}" class="waves-effect">
+				<a href="{{ route('all_content_promotion', array('promotion_id' => $promotion_id)) }}" class="waves-effect">
 					<div class="">
 						<span class="text">Regresar</span>
 						<span class="icon"><i class="material-icons">reply</i></span>

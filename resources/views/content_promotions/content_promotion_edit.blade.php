@@ -18,7 +18,7 @@
 					 <strong>{{ session('status') }}</strong>
 				 </span>
 			 @endif
-			 <form class="form-horizontal" role="form" method="POST" action="{{ route('update_content_promotion', array('promotion_id' => $promotion_id, 'content_promotion_id' => $content_promotion->content_promotion_id) ) }}">
+			 <form class="form-horizontal" role="form" method="POST" action="{{ route('update_content_promotion', array('promotion_id' => $promotion_id, 'content_id' => $content->content_id) ) }}">
 				 {{ csrf_field() }}
 				 {{ method_field('PUT') }}
 				<div class="input select no_icon _100 {{ $errors->has('coupon_id') ? 'error' : '' }}">
