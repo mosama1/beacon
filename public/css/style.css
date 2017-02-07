@@ -1938,8 +1938,8 @@ body.menu2 .menu_cliente{
   width: auto;
   height: auto;
   position: absolute;
-  top: 0;
-  left: -35px;
+  top: -3px;
+  right: -70px;
   line-height: 1;
 }
 .input .mas a{

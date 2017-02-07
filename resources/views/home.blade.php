@@ -34,8 +34,8 @@
             <img src="img/icons/promociones.png" title="Promociones">
           </a>
           <ul>
-            <li><a href="#kitBienvenida"><span>Kit de <br>Bienvenida</span></a></li>
-            <li><a href="#kitFidelidad"><span>Kit de <br>Fidelidad</span></a></li>
+            <li><a href="{{ route('all_welcome_kit') }}"><span>Kit de <br>Bienvenida</span></a></li>
+            <li><a href="{{ route('all_fidelity_kit') }}"><span>Kit de <br>Fidelidad</span></a></li>
           </ul>
         </li>
       </ul>
