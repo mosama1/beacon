@@ -57,8 +57,6 @@ use Beacon\Section;
                   <td>
                     @if( empty($section->price) )
                       {{$p->price}} €
-                    @else
-                      {{$section->price}} €
                     @endif
                   </td>
                   <td>

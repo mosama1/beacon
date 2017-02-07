@@ -55,7 +55,8 @@
 	                  <a href="{{ route('movil_all_plate', array('campana_id' => $campana_id, 'section_id' => $s->id) ) }}">
 	                    <span>
                         @if( ! empty($s->section_translation[0]) )
-                          {{$s->section_translation[0]->name}}
+                          {{$s->section_translation[0]->name}} {{ (!empty($s->price)) ? $s->price.' €' : '' }}
+
                         @endif
 	                    </span>
 	                  </a>

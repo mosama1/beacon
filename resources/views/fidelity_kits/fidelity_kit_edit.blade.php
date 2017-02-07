@@ -162,7 +162,8 @@
            <div class="vista_previa">
              <center  id="vista_previa">
                <!-- <a href="#" class="vistaPreviaImg"> -->
-                 <div class="img" id="vista_kit_f">
+                 <div class="img active" id="vista_kit_f">
+                   <img class="thumb" src="{{ asset($fidelity_kit->img) }}">
                  </div>
                <!-- </a> -->
 

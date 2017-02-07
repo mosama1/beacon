@@ -162,7 +162,8 @@
            <div class="vista_previa">
              <center  id="vista_previa">
                <!-- <a href="#" class="vistaPreviaImg"> -->
-                 <div class="img" id="vista_kit_b">
+                 <div class="img active" id="vista_kit_b">
+                   <img src="{{ $welcome_kit->img }}" alt="">
                  </div>
                <!-- </a> -->
 
