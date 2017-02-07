@@ -96,11 +96,7 @@ use Beacon\User;
                           </a>
                         </li>
 
-                        <li>
-                          <a href="{{ route('all_language')}}">
-                            <span>Idiomas</span>
-                          </a>
-                        </li>
+
                         <li>
                           <a href="#" class="sb_mn2">
                             <span>Promociones</span>

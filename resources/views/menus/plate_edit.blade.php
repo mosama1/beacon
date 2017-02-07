@@ -8,7 +8,7 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Editar Plato
+        Editar Plato {{ $section->price }}
       </h3>
     </div>
 
@@ -73,7 +73,9 @@
         @endif
 
   			<div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}">
-  				<input type="text" name="price" value="{{$menu->price}}" required="" class="price_mask">
+  				<input type="text" name="price" value="{{ (!empty($section->price)) ? $section->price : $menu->price }}" required="" class="price_mask" {{ (!empty($section->price)) ? 'readonly' : '' }}>
+
+
   				<label for="">
   					<span class="text">Precio 0,00 €</span>
   				</label>

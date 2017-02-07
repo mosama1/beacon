@@ -49,10 +49,8 @@
         </div>
         @endif
 
-        <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioCarta" style="display: {{ (isset($section->price)  ?  'block;' : '') }}" >
-
-
-          <input type="number" name="price" step="0.01" min="0" value="{{ $section->price }}"  id="price" min="0.00">
+        <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioCarta" style="display: {{ (!empty($section->price)  ?  'block;' : '') }}" >
+          <input type="number" name="price" step="0.01" min="0" value="{{ $section->price }}"  id="price" min="0.00"  onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)">
 
           <label for="">
             <span class="text"></span>
@@ -63,7 +61,7 @@
             </a>
             <div class="inf none hidden">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
               </p>
             </div>
           </div>
@@ -71,7 +69,7 @@
         <div class="input_error" id="errorPrecioCarta" style="display: none;">
             <span>El monto debe ser mayor a cero</span>
         </div>
-        
+
         <p>
           <input type="checkbox"  {{ ($section->price > 0  ? 'checked' : '') }} class="filled-in" id="filled-in-box" />
           <label for="filled-in-box">Manejar Precio</label>

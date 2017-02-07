@@ -21,7 +21,7 @@
          </span>
        @endif
 
-       <form class="form-horizontal" role="form" method="POST" action="{{ route('update_fidelity_kit', $fidelity_kit->promotion_id) }}">
+       <form class="form-horizontal" role="form" method="POST" action="{{ route('update_fidelity_kit', $fidelity_kit->promotion_id) }}" enctype="multipart/form-data">
          {{ csrf_field() }}
         {{ method_field('PUT') }}
 
@@ -162,7 +162,8 @@
            <div class="vista_previa">
              <center  id="vista_previa">
                <!-- <a href="#" class="vistaPreviaImg"> -->
-                 <div class="img" id="vista_kit_f">
+                 <div class="img active" id="vista_kit_f">
+                   <img class="thumb" src="{{ asset($fidelity_kit->img) }}">
                  </div>
                <!-- </a> -->
 

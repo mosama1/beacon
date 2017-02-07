@@ -49,11 +49,7 @@
 									</td>
 									<td>{{$m->type}}</td>
 									<td>
-										@if( empty($coupon->price) )
-											{{$m->price}} €
-										@else
-											{{$coupon->price}} €
-										@endif
+										{{ !empty($section->price) ? $section->price : $m->price }} €
 									</td>
 									<td><a href="{{ route('show_plate', $m->id) }}"><i class="material-icons">input</i></a></td>
 
@@ -175,9 +171,9 @@
 			</div>
 			@endif
 
-			<div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}">
+			<div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}" style="display:">
 
-				<input type="number" name="price" value="{{session('price')}}" required="" min="1" max="99999" step="any" id="menu_price">
+				<input type="number" name="price" value="{{ (!empty($section->price)) ? $section->price : session('price') }}" required="" min="1" max="99999" step="any" id="menu_price" {{ (!empty($section->price)) ? 'readonly' : '' }}>
 
 				<label for="">
 					<span class="text">Precio 0,00 €</span>

@@ -211,8 +211,8 @@ class CouponController extends Controller
 							['coupon_id', '=', $coupon_id]
 						])->first();
 
-		(empty($request->url)) ? 
-		$url =  $coupon->url: 
+		(empty($request->url)) ?
+		$url =  $coupon->url:
 		$url =  $coupon->url.$request->url;
 
 		//Location
@@ -223,6 +223,8 @@ class CouponController extends Controller
 				'form_params' => [
 						'name' => $request->name,
 						'description' => $request->description,
+						'message' => $request->name,
+
 						'url' => $url,
 				]
 		]);
@@ -304,7 +306,7 @@ class CouponController extends Controller
 								['user_id', '=', $user->user_id],
 								['coupon_id', '=', $coupon_id]
 							]);
-			
+
 			// foreach ($coupon->coupon_translation as $key => $value) {
 			// 	$value->delete();
 			// }

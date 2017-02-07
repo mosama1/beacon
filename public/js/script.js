@@ -214,6 +214,8 @@ function tamanoImgVista(id) {
 }
 tamanoImgVista('#vista_plato');
 tamanoImgVista('#vista_logo');
+tamanoImgVista('#vista_kit_b');
+tamanoImgVista('#vista_kit_f');
 
 
 function tamanoLogoVistaFinal(){
@@ -580,6 +582,8 @@ $('.datetimepicker').datetimepicker({
  timepicker:true,
  format:'d-m-Y h:m'
 });
+
+
 $('.timepicker').datetimepicker({
   datepicker:false,
   format:'H:i'

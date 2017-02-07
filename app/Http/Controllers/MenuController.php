@@ -97,7 +97,7 @@ class MenuController extends Controller
 		$section = Section::where('id', '=', $section_id)->first();
 		$section->coupon();
 
-		return view('menus.plates',['menus' => $menus,'type_plates' => $type_plates, 'section_id' => $section_id, 'coupon' => $section->coupon]);
+		return view('menus.plates',['menus' => $menus,'type_plates' => $type_plates, 'section_id' => $section_id, 'coupon' => $section->coupon, 'section' => $section]);
 	}
 
 	/**
@@ -213,7 +213,10 @@ class MenuController extends Controller
 		   ['language_id', '=', 1],
 		])->get();
 
-		return view('menus.plate_edit', ['type_plates' => $type_plates, 'menu' => $menu]);
+		$section = Section::where('id', '=', $menu->section_id)->first();
+
+
+		return view('menus.plate_edit', ['type_plates' => $type_plates, 'menu' => $menu, 'section' => $section]);
 	}
 
 	/**
