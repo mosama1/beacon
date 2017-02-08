@@ -126,49 +126,7 @@
             <span>{{ $errors->first('description') }}</span>
         </div>
       @endif
-      <div class="input no_icon {{ $errors->has('start_time') ? 'error' : '' }}">
-        <input type="text" name="start_time" value="" required="" class="datetimepicker date_mask">
-        <label for="">
-          <span class="text">Inicio (dd/mm/yy hh:mm)</span>
-        </label>
-        <div class="help">
-          <a href="#">
-            <i class="material-icons">help_outline</i>
-          </a>
-          <div class="inf none hidden">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            </p>
-          </div>
-        </div>
-      </div>
-      @if ($errors->has('start_time'))
-        <div class="input_error">
-            <span>{{ $errors->first('start_time') }}</span>
-        </div>
-      @endif
 
-      <div class="input no_icon {{ $errors->has('end_time') ? 'error' : '' }}">
-        <input type="text" name="end_time" value="" required="" class="datetimepicker date_mask">
-        <label for="">
-          <span class="text">Final (dd/mm/yy hh:mm)</span>
-        </label>
-        <div class="help">
-          <a href="#">
-            <i class="material-icons">help_outline</i>
-          </a>
-          <div class="inf none hidden">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            </p>
-          </div>
-        </div>
-      </div>
-      @if ($errors->has('end_time'))
-        <div class="input_error">
-            <span>{{ $errors->first('end_time') }}</span>
-        </div>
-      @endif
 
       <div class="input no_icon {{ $errors->has('num_visit') ? 'error' : '' }}">
         <input type="text" name="number_visits" value="" required="" class="num_mask">

@@ -121,6 +121,7 @@ class CouponController extends Controller
 						'message' => $request->name,
 						'type' => 'url',
 						'url' => 'http://dementecreativo.com/prueba/final/',
+						
 				]
 		]);
 
@@ -141,6 +142,9 @@ class CouponController extends Controller
 				$coupon->price = 0.0 :
 				$coupon->price = $request->price;
 			$coupon->url = $coupon_response->coupon->url;
+			
+
+			/*$coupon->enabled = $coupon_response->coupon->enabled;*/
 
 			  // echo "<pre>"; var_dump($cou); echo "</pre>";
 			  // return;
@@ -155,8 +159,8 @@ class CouponController extends Controller
 				$coupon_translation->description = "";
 
 			$coupon_translation->message = $coupon_response->coupon->message;
-			$coupon_translation->status = 1;
 			$coupon_translation->language_id = 1;
+			$coupon_translation->status= 1;
 			$coupon_translation->coupon_id = $coupon->coupon_id;
 			$coupon_translation->save();
 
@@ -323,5 +327,28 @@ class CouponController extends Controller
 
 		endif;
 	}
+
+	public function habilitar_coupon($id)
+	{
+		
+
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+		$location = $user->location;
+
+		$campana = Coupon::where([
+								['user_id', '=', $user->user_id ],
+								['couon_id', '=', $id]
+							])->first();
+
+		$enabled = $coupon->enabled == 0 ? 1 : 0;
+
+		$coupon->enabled = $enabled;
+		$coupon->save();
+
+		return $enabled;
+	}
+
+
 
 }
