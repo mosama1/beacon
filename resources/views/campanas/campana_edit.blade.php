@@ -1,6 +1,3 @@
-
-
-
 <?php $nivel = '../../' ?>
 
 @extends('layouts.app')
@@ -14,9 +11,6 @@
       </h3>
     </div>
 
-
-
-
     <div class="form">
       @if (session('status'))
          <span class="help-block">
@@ -28,8 +22,6 @@
         {{ method_field('PUT') }}
 
         <input type="hidden" name="location_id" value="{{ $locations->location_id }}" required="">
-
-
 
         <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
           <input type="text" name="name" value="{{$campana->name}}" required="">
