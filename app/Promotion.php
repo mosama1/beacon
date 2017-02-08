@@ -17,7 +17,7 @@ class Promotion extends Model
 
 	public function content()
 	{
-		return $this->hasOne('Beacon\Content', 'promotion_id', 'promotion_id');
+		return $this->hasOne('Beacon\Content', 'campana_id', 'promotion_id');
 	}
 	
 	public function location()
