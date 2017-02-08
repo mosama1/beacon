@@ -16,7 +16,7 @@ class Section extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-			'user_id', 'coupon_id', 'name', 'price',
+			'user_id', 'coupon_id', 'name', 'price', 'status'
 	];
 
 	public function user()

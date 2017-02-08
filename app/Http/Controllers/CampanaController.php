@@ -137,7 +137,7 @@ class CampanaController extends Controller
 			$cam->start_time = $campana->campaign->start_time;
 			$cam->end_time = $campana->campaign->end_time;
 			$cam->location_id = $request->location_id;
-			$cam->enabled = $campana->campaign->enabled;
+			$cam->status = $campana->campaign->enabled;
 			$cam->save();
 
 			return redirect()->route('all_campana');
@@ -295,8 +295,7 @@ class CampanaController extends Controller
 								['campana_id', '=', $id]
 							])->first();
 
-		$status = $campana->status == 0 ? 1 : 0;
-
+		$status = ( $campana->status == 0 ) ? 1 : 0;
 		$campana->status = $status;
 		$campana->save();
 

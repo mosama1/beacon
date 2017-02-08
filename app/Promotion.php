@@ -13,6 +13,7 @@ class Promotion extends Model
 	 */
 	protected $fillable = [
 			'name', 'description', 'number_visits', 'type', 'img', 'start_time', 'end_time', 'status', 'promotion_id', 'location_id', 'user_id',
+
 	];
 
 	public function content()

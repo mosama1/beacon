@@ -97,12 +97,12 @@ class SectionController extends Controller
 		$section->user_id = $user->user_id;
 		$section->coupon_id = $request->coupon_id; 
 		$section->price = $request->price;
+		$section->status = 1;
 		$section->save();
 
 		$section_translation = new SectionTranslation();
 		$section_translation->section_id = $section->id;
 		$section_translation->language_id = 1;
-		$section_translation->status = 1;
 		$section_translation->name = $request->name;
 		
 
@@ -180,5 +180,25 @@ class SectionController extends Controller
 				->with(['status' => 'Se ha eliminado la sección con éxito', 'type' => 'success']);
 
 	}
+
+	public function habilitar_section($id)
+	{
+		
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+		$location = $user->location;
+
+		$section = Section::where([
+								['user_id', '=', $user->user_id ],
+								['id', '=', $id]
+							])->first();
+
+		$status = ( $section->status == 0 ) ? 1 : 0;
+		$section->status = $status;
+		$section->save();
+
+		return $status;
+	}
+
 
 }

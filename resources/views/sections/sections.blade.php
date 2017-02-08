@@ -25,7 +25,9 @@
     <div class="beacons seccion">
       <div class="container">
         <div class="tabla">
-          
+          <form role="form" method="POST">
+              {{ csrf_field() }}
+              {{ method_field('PUT') }}
           <table class="bordered centered">
             <thead>
               <tr>
@@ -69,19 +71,24 @@
                 ?>
                 <a href="#eliminarSection"><i class="material-icons">clear</i></a></td>
                 <td>
+
+
                   <div class="switch">
                     <label>
                       Si
-                      <input type="checkbox" {{ ($s->section_translation[0] ->status > 0 ? '' : 'checked') }} class="filled-in" id="filled-in-box" />
+                      <input id="habilitar_{{$s->id}}" type="checkbox" {{ ($s->status > 0 ? '' : 'checked') }} class="filled-in" id="filled-in-box" onclick="habilitar('#habilitar_{{$s->id}}', 'sections', '{{$s->id}}'); return false;" />
                       <span class="lever"></span>
                       No
                     </label>
                   </div>
+
+
                 </td>
               </tr>
               @endforeach
             </tbody>
           </table>
+          </form>
         </div>
       </div>
     </div>

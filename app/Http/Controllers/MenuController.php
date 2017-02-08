@@ -177,6 +177,7 @@ class MenuController extends Controller
 			$menu->section_id = $request->section_id;
 			$menu->user_id = $user->user_id;
 			$menu->type = $request->type;
+			$menu->status = 1;
 			if ( empty($request->price) )
 				$menu->price = 0;
 			else
@@ -186,7 +187,6 @@ class MenuController extends Controller
 			$menu_translation = new MenuTranslation();
 			$menu_translation->menu_id = $menu->id;
 			$menu_translation->language_id = 1;
-			$menu_translation->status = 1;
 			$menu_translation->name = $request->name;
 			$menu_translation->save();
 
@@ -271,5 +271,26 @@ class MenuController extends Controller
 
 		endif;
 	}
+
+	public function habilitar_menu($id)
+	{
+		
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+		$location = $user->location;
+
+		$menu = Menu::where([
+								['user_id', '=', $user->user_id ],
+								['id', '=', $id]
+							])->first();
+
+		$status = ( $menu->status == 0 ) ? 1 : 0;
+		$menu->status = $status;
+		$menu->save();
+
+		return $status;
+	}
+
+
 
 }

@@ -818,4 +818,26 @@ class WelcomeKitController extends Controller
 		endif;
 	}
 
+	public function habilitar_welcomekit($id)
+	{
+		
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+		$location = $user->location;
+
+		$campana = WelcomeKit::where([
+								['user_id', '=', $user->user_id ],
+								['promotion_id', '=', $id]
+							])->first();
+
+		$status = ( $welcome->status == 0 ) ? 1 : 0;
+		$welcome->status = $status;
+		$welcome->save();
+
+		return $status;
+	}
+
+
+
+
 }

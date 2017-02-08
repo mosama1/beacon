@@ -21,6 +21,10 @@ Route::group(['prefix' => 'sections'], function () {
 
 	Route::post('/', 'SectionController@store_section')->name('store_section');
 
+	//habilita las sesiones via ajax
+	Route::put('{id}/habilitar', 'SectionController@habilitar_section')->name('habilitar_section')->where('id', '[0-9]+');
+
+
 	Route::get('{id}/edit', 'SectionController@edit_section')->name('edit_section')->where('id', '[0-9]+');
 
 	Route::put('{id}', 'SectionController@update_section')->name('update_section')->where('id', '[0-9]+');
