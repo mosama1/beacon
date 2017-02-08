@@ -18,7 +18,7 @@ use Beacon\User;
   <meta http-equiv="pragma" content="no-cache" />
 
   <!-- CSRF Token -->
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta name="csrf-token" content="{{ csrf_token() }}" id="_token">
 
   <title>Nombre de la Aplicación</title>
 
@@ -222,6 +222,7 @@ use Beacon\User;
     <script src="js/init.js"></script>
     <script src="js/datetimepicker.min.js"></script>
     <script src="js/jquery.mask.min.js"></script>
+    <script src="js/config.js"></script>    
     <script src="js/script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.13.4/jquery.mask.min.js"></script>
 

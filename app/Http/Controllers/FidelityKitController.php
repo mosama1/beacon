@@ -149,8 +149,8 @@ class FidelityKitController extends Controller
 				'form_params' => [
 						'name' => $request->name,
 						'description' => $request->description,
-						'start_time' => date('Y-m-d H:i', strtotime($request->start_time)),
-						'end_time' => date('Y-m-d H:i', strtotime($request->end_time)),
+						'start_time' => date('Y-m-d H:i', '01-01-2017'),
+						'end_time' => date('Y-m-d H:i', '31-12-2099'),
 						'locations' => $location->location_id,
 						'enabled' => 1,
 				]

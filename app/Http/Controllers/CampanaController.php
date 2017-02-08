@@ -277,4 +277,31 @@ class CampanaController extends Controller
 		endif;
 	}
 
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function habilitar_campana($id)
+	{
+		
+
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+		$location = $user->location;
+
+		$campana = Campana::where([
+								['user_id', '=', $user->user_id ],
+								['campana_id', '=', $id]
+							])->first();
+
+		$enabled = $campana->enabled == 0 ? 1 : 0;
+
+		$campana->enabled = $enabled;
+		$campana->save();
+
+		return $enabled;
+	}
+
 }
