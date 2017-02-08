@@ -184,22 +184,21 @@ class SectionController extends Controller
 	public function habilitar_section($id)
 	{
 		
-
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 		$location = $user->location;
 
 		$section = Section::where([
 								['user_id', '=', $user->user_id ],
-								['section_id', '=', $id]
+								['id', '=', $id]
 							])->first();
 
-		$status = $section->status == 0 ? 1 : 0;
-
+		$status = ( $section->status == 0 ) ? 1 : 0;
 		$section->status = $status;
 		$section->save();
 
-		return $section;
+		return $status;
 	}
+
 
 }

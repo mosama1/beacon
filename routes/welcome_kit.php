@@ -23,6 +23,10 @@ Route::group(['prefix' => 'kit_bienvenida'], function () {
 	Route::get('add', 'WelcomeKitController@create_welcome_kit')
 			->name('add_welcome_kit');
 
+	//habilita los kits de bienvenida via ajax
+	Route::put('{id}/habilitar', 'WelcomeKitController@habilitar_welcomekit')->name('habilitar_welcomkit')->where('id', '[0-9]+');
+		
+
 	Route::post('/', 'WelcomeKitController@store_welcome_kit')
 			->name('store_welcome_kit');
 

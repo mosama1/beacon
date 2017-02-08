@@ -141,7 +141,7 @@ class CouponController extends Controller
 			$coupon->coupon_id = $coupon_response->coupon->id;
 			$coupon->user_id = $user->user_id;
 			$coupon->type = $coupon_response->coupon->type;
-			$coupon->status = 1; 
+			$coupon->status = 1;
 			(empty($request->price)) ?
 				$coupon->price = 0.0 :
 				$coupon->price = $request->price;
@@ -344,8 +344,11 @@ class CouponController extends Controller
 								['coupon_id', '=', $id]
 							])->first();
 
-		$status = $coupon->status == 0 ? 1 : 0;
 
+		// echo "<pre>"; var_dump( $coupon->status ); echo "</pre>";
+		// return;
+
+		$status = ( $coupon->status == 0 ) ? 1 : 0 ;
 		$coupon->status = $status;
 		$coupon->save();
 

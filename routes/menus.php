@@ -30,6 +30,9 @@ Route::group(['prefix' => 'menus'], function () {
 
 	Route::post('/', 'MenuController@store_menu')->name('store_menu');
 
+	//habilita el menu via ajax
+	Route::put('{id}/habilitar', 'MenuController@habilitar_menu')->name('habilitar_menu')->where('id', '[0-9]+');
+
 	Route::put('{id}', 'MenuController@update_menu')->name('update_menu')->where('menu_id', '[0-9]+');
 
 	Route::get('{id}/edit', 'MenuController@edit_menu')->name('edit_menu')->where('menu_id', '[0-9]+');

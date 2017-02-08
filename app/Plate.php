@@ -12,7 +12,7 @@ class Plate extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-			'menu_id', 'user_id', 'description', 'img',
+			'menu_id', 'user_id', 'description', 'img','status'
 	];
 
     public function user()

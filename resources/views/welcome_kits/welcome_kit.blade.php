@@ -24,6 +24,9 @@
     <div class="beacons seccion">
       <div class="container">
         <div class="tabla">
+        <form role="form" method="POST">
+            {{ csrf_field() }}
+            {{ method_field('PUT') }}
           <table>
             <thead>
               <tr>
@@ -55,19 +58,20 @@
                 <a href="#eliminarkitBienvenida"><i class="material-icons">clear</i></a></td>
                 <td>
                     <div class="switch">
-                        <label>
-                            Si
-                            <input type="checkbox" {{ ($wk->enabled > 0 ? '' : 'checked') }} class="filled-in" id="filled-in-box" />
-                            <span class="lever"></span>
-                            No
-                        </label>
-                    </div>
+                    <label>
+                      Si
+                      <input id="habilitar_{{$wk->promotion_id}}" type="checkbox" {{ ($wk->status > 0 ? '' : 'checked') }} class="filled-in" id="filled-in-box" onclick="habilitar('#habilitar_{{$wk->promotion_id}}', 'kit_bienvenida', '{{$wk->promotion_id}}'); return false;" />
+                      <span class="lever"></span>
+                      No
+                    </label>
+                  </div>
                 </td>
               </tr>
               @endforeach
 
             </tbody>
           </table>
+          </form>
         </div>
       </div>
     </div>
