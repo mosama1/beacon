@@ -20,6 +20,9 @@ Route::group(['prefix' => 'campanas'], function () {
 	Route::get('/', 'CampanaController@index')->name('all_campana');
 
 	Route::get('add', 'CampanaController@create_campana')->name('add_campana');
+ 	
+ 	//habilita las campanas via ajax
+	Route::put('{id}/habilitar', 'CampanaController@habilitar_campana')->name('habilitar_campana')->where('id', '[0-9]+');
 
 	Route::post('/', 'CampanaController@store_campana')->name('store_campana');
 

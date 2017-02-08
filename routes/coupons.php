@@ -22,6 +22,10 @@ Route::group(['prefix' => 'coupons'], function () {
 	//
 	Route::post('/', 'CouponController@store_coupon')->name('store_coupon');
 
+	//habilita las cupones via ajax
+	Route::put('{id}/habilitar', 'CouponController@habilitar_coupon')->name('habilitar_coupon')->where('id', '[0-9]+');
+
+
 	Route::get('{coupon_id}/edit', 'CouponController@edit_coupon')->name('edit_coupon')->where('coupon_id', '[0-9]+');
 
 	Route::put('{coupon_id}', 'CouponController@update_coupon')->name('update_coupon')->where('coupon_id', '[0-9]+');
