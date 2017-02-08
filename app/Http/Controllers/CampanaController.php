@@ -286,8 +286,6 @@ class CampanaController extends Controller
 	public function habilitar_campana($id)
 	{
 		
-		echo "<pre>"; print_r( $id ); echo "</pre>"; 
-
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 		$location = $user->location;
@@ -302,9 +300,7 @@ class CampanaController extends Controller
 		$campana->status = $status;
 		$campana->save();
 
-		echo "<pre>"; print_r( $campana ); echo "</pre>"; 
-		return;
-		//return $enabled;
+		return $status;
 	}
 
 }
