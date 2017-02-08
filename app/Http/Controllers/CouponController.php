@@ -344,16 +344,7 @@ class CouponController extends Controller
 								['coupon_id', '=', $id]
 							])->first();
 
-<<<<<<< HEAD
-
-		// echo "<pre>"; var_dump( $coupon->status ); echo "</pre>";
-		// return;
-
-		$status = ( $coupon->status == 0 ) ? 1 : 0 ;
-=======
 		$status = ($coupon->status == 0) ? 1 : 0;
-
->>>>>>> 8652edf696775253b6d4028983ef4c81ca5cb23e
 		$coupon->status = $status;
 		$coupon->save();
 
