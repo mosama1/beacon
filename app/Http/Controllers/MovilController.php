@@ -34,7 +34,24 @@ class MovilController extends Controller
 	 */
 	public function index( $campana_id )
 	{
-		//		echo "<pre>"; var_dump($sections);	echo "</pre>";get_name_movil
+
+		$campana = Campana::where([
+			['campana_id', '=', array( $campana_id ) ],
+		])->first();
+
+		// echo "<pre>"; var_dump($campana);	echo "</pre>";
+		// return;
+
+		if ( $campana->status === 0 ): // la campaña no esta habilitada
+			return view('campana_desabilitada',
+					[
+						'campana_id' => $campana_id,
+						'sections' => $this->get_sections_movil($campana_id),
+						'type_plates' => $this->get_type_plates_movil( $campana_id ),
+						'logo' => $this->get_logo_movil($campana_id),
+						'name' => $this->get_name_movil($campana_id)
+					]);
+		endif;
 
 		return view('index',
 					[
@@ -65,8 +82,10 @@ class MovilController extends Controller
 		])->first();
 
 		$sections = Section::where([
-			['coupon_id', '=', array( $coupon->coupon_id ) ],
-		])->get();
+						['coupon_id', '=', array( $coupon->coupon_id ) ],
+						['status', '=', 1],
+						])->get();
+
 
 		foreach ($sections as $key => $section) {
 			$section->section_translation;

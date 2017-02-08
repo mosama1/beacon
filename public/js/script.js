@@ -598,6 +598,7 @@ function habilitar(id, destino, value) {
 		type: "put",
 		url: destino+'/'+value+'/habilitar',
 		success: function(respuesta) {
+
 			if( respuesta == 0 ){ // se habilito la entidad
 
 				$(id).prop('checked', true);				

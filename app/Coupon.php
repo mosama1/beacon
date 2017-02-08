@@ -12,11 +12,8 @@ class Coupon extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-<<<<<<< HEAD
+	
 			'coupon_id', 'user_id', 'type', 'url', 'status'
-=======
-			'coupon_id', 'user_id', 'type', 'status', 'url',
->>>>>>> 08786ef7a318c5ac9b08a94e92475cbbee872836
 	];
 
 	public function coupon_translation()

@@ -12,7 +12,8 @@ class Promotion extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-			'name', 'description', 'number_visits', 'type', 'img', 'start_time', 'end_time', 'enabled', 'promotion_id', 'location_id', 'user_id', 'status'
+			'name', 'description', 'number_visits', 'type', 'img', 'start_time', 'end_time', 'status', 'promotion_id', 'location_id', 'user_id',
+
 	];
 
 	public function content()

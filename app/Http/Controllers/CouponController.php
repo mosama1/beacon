@@ -146,6 +146,7 @@ class CouponController extends Controller
 				$coupon->price = 0.0 :
 				$coupon->price = $request->price;
 			$coupon->url = $coupon_response->coupon->url;
+			$coupon->status= 1;
 			
 
 			/*$coupon->enabled = $coupon_response->coupon->enabled;*/
@@ -312,11 +313,11 @@ class CouponController extends Controller
 			$coupon =  Coupon::where([
 								['user_id', '=', $user->user_id],
 								['coupon_id', '=', $coupon_id]
-							]);
+							])->first();
 
-			// foreach ($coupon->coupon_translation as $key => $value) {
-			// 	$value->delete();
-			// }
+			foreach ($coupon->coupon_translation as $key => $value) {
+				$value->delete();
+			}
 
 			$coupon->delete();
 
@@ -332,8 +333,7 @@ class CouponController extends Controller
 	}
 
 	public function habilitar_coupon($id)
-	{
-		
+	{		
 
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
@@ -344,17 +344,19 @@ class CouponController extends Controller
 								['coupon_id', '=', $id]
 							])->first();
 
+<<<<<<< HEAD
 
 		// echo "<pre>"; var_dump( $coupon->status ); echo "</pre>";
 		// return;
 
 		$status = ( $coupon->status == 0 ) ? 1 : 0 ;
+=======
+		$status = ($coupon->status == 0) ? 1 : 0;
+
+>>>>>>> 8652edf696775253b6d4028983ef4c81ca5cb23e
 		$coupon->status = $status;
 		$coupon->save();
 
 		return $status;
 	}
-
-
-
 }
