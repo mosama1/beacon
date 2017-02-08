@@ -186,7 +186,6 @@ class MenuController extends Controller
 			$menu_translation = new MenuTranslation();
 			$menu_translation->menu_id = $menu->id;
 			$menu_translation->language_id = 1;
-			$menu_translation->status = 1;
 			$menu_translation->name = $request->name;
 			$menu_translation->save();
 

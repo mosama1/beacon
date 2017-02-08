@@ -593,20 +593,12 @@ $('.timepicker').datetimepicker({
 /******************* CheckBox Habilitar *****************************/
 /********************************************************************/
 
-$('#habilitar').click(function(evt){
-
-});
-
 function habilitar(id, destino, value) {
-	console.log('si se activa');
-
 	$.ajax({
 		type: "put",
 		url: destino+'/'+value+'/habilitar',
 		success: function(respuesta) {
 
-			console.log( respuesta );
-			
 			if( respuesta == 0 ){ // se habilito la campana
 
 				$(id).prop('checked', true);				

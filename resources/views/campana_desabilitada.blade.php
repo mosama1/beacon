@@ -15,6 +15,7 @@
 			</div>
 			<div class="logo_patrocinador logo">
 				<h4>Logo Patrocinante</h4>
+				<p>Campaña no habilitada para su uso.</p>
 			</div>
 		</div>
 	</div>

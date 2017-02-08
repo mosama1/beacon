@@ -97,12 +97,13 @@ class SectionController extends Controller
 		$section->user_id = $user->user_id;
 		$section->coupon_id = $request->coupon_id; 
 		$section->price = $request->price;
+		$section->status = 1;
+
 		$section->save();
 
 		$section_translation = new SectionTranslation();
 		$section_translation->section_id = $section->id;
 		$section_translation->language_id = 1;
-		$section_translation->status = 1;
 		$section_translation->name = $request->name;
 		
 
