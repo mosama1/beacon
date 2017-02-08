@@ -309,11 +309,11 @@ class CouponController extends Controller
 			$coupon =  Coupon::where([
 								['user_id', '=', $user->user_id],
 								['coupon_id', '=', $coupon_id]
-							]);
+							])->first();
 
-			// foreach ($coupon->coupon_translation as $key => $value) {
-			// 	$value->delete();
-			// }
+			foreach ($coupon->coupon_translation as $key => $value) {
+				$value->delete();
+			}
 
 			$coupon->delete();
 

@@ -15,7 +15,7 @@ class CouponTranslation extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-			'name', 'description', 'message', 'language_id', 'coupon_id',
+			'name', 'description', 'message', 'status', 'language_id', 'coupon_id',
 	];
     
     public function language()

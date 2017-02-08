@@ -12,7 +12,7 @@ class Coupon extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-			'coupon_id', 'user_id', 'type', 'url',
+			'coupon_id', 'user_id', 'type', 'status', 'url',
 	];
 
 	public function coupon_translation()
