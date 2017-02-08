@@ -24,61 +24,67 @@
 	<div class="beacons seccion">
 	  <div class="container">
 		<div class="tabla">
-		  <table>
-			<thead>
-			  <tr>
-				  <th data-field="id">id</th>
-				  <th data-field="id">Nombre</th>
-				  <th data-field="country">Descripción</th>
-				  <th width="100px">Contenido</th>
-				  <th width="100px">Editar</th>
-				  <th width="100px">Eliminar</th>
-				  <th width="130px">Habilitado</th>
-			</thead>
+			<form role="form" method="POST">
+				{{ csrf_field() }}
+				{{ method_field('PUT') }}
+				<table>
+					<thead>
+						<tr>
+							<th data-field="id">id</th>
+							<th data-field="id">Nombre</th>
+							<th data-field="country">Descripción</th>
+							<th width="100px">Contenido</th>
+							<th width="100px">Editar</th>
+							<th width="100px">Eliminar</th>
+							<th width="130px">Habilitado</th>
+						</tr>
+					</thead>
 
-			<tbody>
-			  @foreach($campana as $c)
-				<tr id="{{$c->campana_id}}">
-				  <td>{{$c->campana_id}}</td>
-				  <td>{{$c->name}}</td>
-				  <td>{{$c->description}}</td>
+					<tbody>
+						@foreach($campana as $c)
+							<tr id="{{$c->campana_id}}">
+								<td>{{$c->campana_id}}</td>
+								<td>{{$c->name}}</td>
+								<td>{{$c->description}}</td>
 
-				  <td><a href="{{ route('all_content', $c->campana_id) }}"><i class="material-icons">add</i></a></td>
-				  <td><a href="{{ route('edit_campana', $c->campana_id) }}"><i class="material-icons">edit</i></a></td>
+								<td>
+									<a href="{{ route('all_content', $c->campana_id) }}">
+										<i class="material-icons">add</i>
+									</a>
+								</td>
+								<td>
+									<a href="{{ route('edit_campana', $c->campana_id) }}">
+										<i class="material-icons">edit</i>
+									</a>
+								</td>
 
-				  <!-- <td><a href="{{ route('all_content', $c->campana_id) }}"><i class="material-icons">add</i></a></td> -->
-				<?php
+								
+								<?php
+									echo "<td onclick= \"modal_activate('".
+									route( "destroy_campana", $c->campana_id ).
+										"' , '#eliminarPlan')\" >";
+								?>
 
-				  echo "<td onclick= \"modal_activate('".
-					 route( "destroy_campana", $c->campana_id ).
-					"' , '#eliminarPlan')\" >";
-
-				?>
-				  <a href="#eliminarPlan"><i class="material-icons">clear</i></a></td>
-				  <td>
-					<div class="switch">
-						<form role="form" method="POST">
-							{{ csrf_field() }}
-							{{ method_field('PUT') }}
-
-							<label>
-								Si
-									<input id="habilitar_{{$c->campana_id}}" type="checkbox" checked class="filled-in" id="filled-in-box" onclick="habilitar('#habilitar_{{$c->campana_id}}', 'campanas', '{{$c->campana_id}}'); return false;" />
-								<span class="lever"></span>
-								No
-							</label>
-								<!-- 
-								<input name="enabled" id="{{$c->campana_id}}" type="checkbox" {{ ($c->enabled > 0 ? '' : 'checked') }} class="filled-in" id="filled-in-box" /> 
-								-->
-
-						</form>
-
-					</div>                   
-				  </td>
-				</tr>
-			  @endforeach
-			</tbody>
-		  </table>
+									<a href="#eliminarPlan">
+										<i class="material-icons">clear</i>
+									</a>
+								</td>
+								
+								<td>
+									<div class="switch">
+										<label>
+											Si
+											<input id="habilitar_{{$c->campana_id}}" type="checkbox" {{ ($c->status > 0 ? '' : 'checked') }} class="filled-in" id="filled-in-box" onclick="habilitar('#habilitar_{{$c->campana_id}}', 'campanas', '{{$c->campana_id}}'); return false;" />
+											<span class="lever"></span>
+											No
+										</label>
+									</div>                   
+								</td>
+							</tr>
+						@endforeach
+					</tbody>
+				</table>
+			</form>
 		</div>
 	  </div>
 	</div>
