@@ -83,7 +83,7 @@ class FidelityKitController extends Controller
 		$fidelity_kits = Promotion::where([
 						['user_id', '=', $user->user_id],
 						['type', '=', 2]
-					])->get();
+					])->orderBy('name')->get();
 
 		return view( 'fidelity_kits.fidelity_kit', ['fidelity_kits' => $fidelity_kits, 'location' => $user->location] );
 	}
