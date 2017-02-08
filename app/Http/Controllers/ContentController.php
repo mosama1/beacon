@@ -919,11 +919,11 @@ class ContentController extends Controller
 
 			$content->timeframes()->sync($request->timeframe_id);
 
-			return redirect()->route('all_content_promotion', array('promotion_id' => $promotion_id ) );
+			return redirect()->route('all_content_promotion', array('promotion_id' => $promotion_id ) )->with(['status' => 'Error al ingresar la Campana', 'type' => 'success']);
 
 		else:
 
-			 return redirect()->route('edit_content_promotion', $promotion_id)->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
+			 return redirect()->route('edit_content_promotion', array('promotion_id' => $promotion_id )->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
 
 		endif;
 	}
