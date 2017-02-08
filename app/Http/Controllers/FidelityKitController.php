@@ -866,6 +866,7 @@ class FidelityKitController extends Controller
 	{
 		// Nuevo cliente con un url base
 		$client = new Client();
+		//
 
 		//Token Crud
 		$crud = FidelityKitController::crud();
