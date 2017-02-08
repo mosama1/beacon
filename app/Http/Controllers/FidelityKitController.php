@@ -35,9 +35,9 @@ class FidelityKitController extends Controller
 				]
 		]);
 
-		$json_fidelity = $response_crud->getBody();
+		$json_fidelity_kit = $response_crud->getBody();
 
-		$token_crud = json_decode($json_fidelity);
+		$token_crud = json_decode($json_fidelity_kit);
 
 		Log::info('This is some useful information.');
 
@@ -144,7 +144,7 @@ class FidelityKitController extends Controller
 		}
 
 		//Location
-		$fidelity_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns', [
+		$fidelity_kit_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns', [
 			'headers' => ['Authorization' => 'Bearer '.$crud ],
 			'form_params' => [
 					'name' => $request->name,
@@ -157,9 +157,9 @@ class FidelityKitController extends Controller
 		]);
 
 		//Json parse
-		$json_fidelity = $fidelity_api->getBody();
+		$json_fidelity_kit = $fidelity_kit_api->getBody();
 
-		$fidelity_response = json_decode($json_fidelity);
+		$fidelity_response = json_decode($json_fidelity_kit);
 
 			//echo "<pre>"; var_dump($fidelity_kit); echo "</pre>";
 
@@ -270,39 +270,30 @@ class FidelityKitController extends Controller
 								$coupon->price = 0.0 :
 								$coupon->price = $request->price;
 							$coupon->url = $coupon_resource->url;
-							$coupon->status = 1;
 
-							  // echo "<pre>"; var_dump($coupon); echo "</pre>";
+							  // echo "<pre>"; var_dump($cou); echo "</pre>";
 							  // return;
 
 							$coupon->save();
 
 
 							$coupon_translation = new CouponTranslation();
-
-							$coupon_translation->name = $coupon_resource->name;
-							(isset($coupon_resource->description)) ?
-								$coupon_translation->description = $coupon_resource->description :
+							$coupon_translation->name = $request->name;
+							(isset($coupon_resourcerequest->description)) ?
+								$coupon_translation->description = $request->description :
 								$coupon_translation->description = "";
 
-							$coupon_translation->message = $coupon_resource->message;
-							$coupon_translation->status = 1;
+							$coupon_translation->message = $request->name;
 							$coupon_translation->language_id = 1;
 							$coupon_translation->coupon_id = $coupon->coupon_id;
-
-							 echo "<pre>";	var_dump($coupon_translation); "</pre>";
 							$coupon_translation->save();
-
-							 echo "<pre>";	var_dump($coupon); "</pre>";
-
-							 echo "<pre>";	var_dump($coupon_translation); "</pre>";
 
 							$content_fidelity = new Content();
 							$content_fidelity->content_id = $content_api->id;
 							$content_fidelity->user_id = $user->user_id;
 							//	coupon_translation[0] posicion [0] es en español idioma por defecto
 
-								$content_fidelity->coupon = $req->name;
+								$content_fidelity->coupon = $coupon->coupon_translation[0]->name;
 								$content_fidelity->coupon_id = $coupon->coupon_id;
 
 
@@ -349,9 +340,9 @@ class FidelityKitController extends Controller
 								'headers' => ['Authorization' => 'Bearer '.$crud ],
 							]);
 						
-							echo "<pre>";	var_dump('ValidationException $e: =>');	echo "</pre>";
-							echo "<pre>";	var_dump($e->getErrors());	echo "</pre>";
-							return;
+							// echo "<pre>";	var_dump('ValidationException $e: =>');	echo "</pre>";
+							// echo "<pre>";	var_dump($e->getErrors());	echo "</pre>";
+							// return;
 
 							return redirect()->route('all_fidelity_kit')->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error'])
 								->withErrors( $e->getErrors() )
@@ -375,8 +366,8 @@ class FidelityKitController extends Controller
 							]);
 						
 							// echo "<pre>";	var_dump('$e: =>');	echo "</pre>";
-							// echo "<pre>";	var_dump($e->getErrors());	echo "</pre>";
-							return;
+							// echo "<pre>";	var_dump($e);	echo "</pre>";
+							// return;
 
 							return redirect()->route('all_fidelity_kit')->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error']);
 						}
@@ -405,12 +396,11 @@ class FidelityKitController extends Controller
 							'headers' => ['Authorization' => 'Bearer '.$crud ],
 						]);
 					
-						echo "<pre>";	var_dump('actualizar coupon del contenido');	echo "</pre>";
-						echo "<pre>";	var_dump($coupon_response);	echo "</pre>";
-						return;
+						// echo "<pre>";	var_dump('actualizar coupon del contenido');	echo "</pre>";
+						// echo "<pre>";	var_dump($coupon_response);	echo "</pre>";
+						// return;
 
-						return redirect()->route('all_fidelity_kit')->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error'])
-							->withErrors( $e->getErrors() );
+						return redirect()->route('all_fidelity_kit')->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error']);
 					}
 
 				} else {
@@ -425,9 +415,9 @@ class FidelityKitController extends Controller
 					]);
 
 					//codigo para revertir transaccion
-					echo "<pre>";	var_dump('respuesta contenido');	echo "</pre>";
-					echo "<pre>";	var_dump($content_response);	echo "</pre>";
-					return;
+					// echo "<pre>";	var_dump('respuesta contenido');	echo "</pre>";
+					// echo "<pre>";	var_dump($content_response);	echo "</pre>";
+					// return;
 
 					return redirect()->route('all_fidelity_kit')
 									->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error']);
@@ -440,9 +430,9 @@ class FidelityKitController extends Controller
 					'headers' => ['Authorization' => 'Bearer '.$crud ],
 				]);
 
-				echo "<pre>";	var_dump('respuesta coupon');	echo "</pre>";
-				echo "<pre>";	var_dump($coupon_response);	echo "</pre>";
-				return;
+				// echo "<pre>";	var_dump('respuesta coupon');	echo "</pre>";
+				// echo "<pre>";	var_dump($coupon_response);	echo "</pre>";
+				// return;
 
 				return redirect()->route('all_fidelity_kit')
 								->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error']);
@@ -472,20 +462,14 @@ class FidelityKitController extends Controller
 
 		$location = $user->location;
 
-		$fidelity = Promotion::where([
+		$promotion = Promotion::where([
 								['user_id', '=', $user->user_id ],
 								['promotion_id', '=', $id],
 								['type', '=', 2]
 							])->first();
 
-		$content = $fidelity->content;
 
-		$coupons = $content->coupons;
-
-		// echo "<pre>"; var_dump($fidelity); echo "</pre>";
-		// return;
-
-		return view('fidelity_kits.fidelity_kit_edit', ['fidelity_kit' => $fidelity, 'location' => $location]);
+		return view('fidelity_kits.fidelity_kit_edit', ['fidelity_kit' => $promotion, 'location' => $location]);
 	}
 
 	/**
@@ -513,14 +497,18 @@ class FidelityKitController extends Controller
 									['type', '=', 2]
 								])->first();
 
+		$fidelity_kit = $fidelity_old;
+
 		$content_old = $fidelity_old->content;
 
 		$coupon_old = $content_old->coupons;
 
-		echo "<pre>"; var_dump($fidelity_old); echo "</pre>";
-		echo "<pre>"; var_dump($content_old); echo "</pre>";
-		echo "<pre>"; var_dump($coupon_old); echo "</pre>";
-		return;
+		$coupon_translation_old = $coupon_old;
+
+		// echo "<pre>"; var_dump($fidelity_old); echo "</pre>";
+		// echo "<pre>"; var_dump($content_old); echo "</pre>";
+		// echo "<pre>"; var_dump($coupon_old); echo "</pre>";
+		// return;
 
 		//se obtiene la imagen
 		$file_img = $request->file('img');
@@ -648,63 +636,56 @@ class FidelityKitController extends Controller
 						DB::beginTransaction();
 
 						try {
-							$coupon = Coupon::where([['coupon_id', '=', $coupon_old->coupon_id]])->first();
 
-							$coupon->type = $coupon_response->coupon->type;
+							$coupon = Coupon::where([['coupon_id', '=', $coupon_old->coupon_id]])->first();	
+
+
 							(isset($request->price)) ?
 								$coupon_response->price = $request->price :
 								$coupon_response->price = 0.0;
-							$coupon->url = $coupon_resource->url;
+							$coupon->url = $img_api;
 							$coupon->save();
-							echo "<pre>";	var_dump($fidelity_kit);	echo "</pre>";
 
 							$coupon_translation = CouponTranslation::where([['coupon_id', '=', $coupon_old->coupon_id]])->first();
 
-							(isset($coupon_response->coupon->name)) ?
-								$coupon_translation->name = $coupon_response->coupon->name :
+							(isset($request->name)) ?
+								$coupon_translation->name = $request->name :
 								$coupon_translation->name = "";
 
-							$coupon_translation->name = $coupon_response->coupon->name;
-							(isset($coupon_response->coupon->description)) ?
-								$coupon_translation->description = $coupon_response->coupon->description :
+							(isset($request->description)) ?
+								$coupon_translation->description = $request->description :
 								$coupon_translation->description = "";
 
-							$coupon_translation->message = $coupon_response->coupon->message;
+							(isset($request->name)) ?
+								$coupon_translation->message = $request->name :
+								$coupon_translation->message = "";
+
 							$coupon_translation->save();
-							echo "<pre>";	var_dump($fidelity_kit);	echo "</pre>";
 
 							$content_fidelity = Content::where([
 												['content_id', '=', $content_old->content_id ]
 											])->first();
 
 
-							$content_fidelity->content_id = $content_api->id;
-							$content_fidelity->user_id = $user->user_id;
+							$content_fidelity->content_id = $content_old->content_id;
 							//coupon_translation[0] posicion [0] es en español idioma por defecto
 							$content_fidelity->coupon = $coupon_translation->name;
-							$content_fidelity->coupon_id = $coupon->coupon_id;
+							$content_fidelity->coupon_id = $coupon_old->coupon_id;
 							//    $content_fidelity->tag = $request->tag_id;
 							$content_fidelity->tag = $tag_id;
-							$content_fidelity->campana_id = $fidelity_resource->id;
-							$content_fidelity->trigger_name = $content_api->trigger_name;
+							$content_fidelity->campana_id = $promotion_id;
+							$content_fidelity->trigger_name = 'ENTRY';
 							$content_fidelity->save();
 
 
-							$fidelity_kit = Promotion::where([
-									['user_id', '=', $user->user_id],
-									['promotion_id', '=', $promotion_id]
-								]);
-
-							echo "<pre>";	var_dump($fidelity_kit);	echo "</pre>";
-
-
 							$fidelity_kit->type = 2;
-							$fidelity_kit->name = $fidelity_resource->name;
-							$fidelity_kit->description = (isset($fidelity_resource->description)) ?
+							$fidelity_kit->name = (isset($request->name)) ?
+									$fidelity_resource->name :
+									$fidelity_old->name;
+
+							$fidelity_kit->description = (isset($request->description)) ?
 									$fidelity_resource->description :
-									'';
-							$fidelity_kit->start_time = $fidelity_resource->start_time;
-							$fidelity_kit->end_time = $fidelity_resource->end_time;
+									$fidelity_old->description;
 
 							$fidelity_kit->save();
 
@@ -735,7 +716,7 @@ class FidelityKitController extends Controller
 								'headers' => ['Authorization' => 'Bearer '.$crud ],
 								'form_params' => [
 									'name' => $coupon_old->name,
-									'description' => $coupon_old->description,
+									'description' => $coupon_old->description,																																																																																																																																																																																																																																																																																																						$coupon_old->description,
 									'message' => $coupon_old->message,
 									'url' =>  $coupon_old->url,
 								]
@@ -751,13 +732,11 @@ class FidelityKitController extends Controller
 								]
 							]);
 						
-							echo "<pre>";	var_dump('ValidationException $e: =>');	echo "</pre>";
-							echo "<pre>";	var_dump($e->getErrors());	echo "</pre>";
-							return;
+							// echo "<pre>";	var_dump('ValidationException $e: =>');	echo "</pre>";
+							// echo "<pre>";	var_dump($e);	echo "</pre>";
+							// return;
 
-							return redirect()->route('all_fidelity_kit')->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error'])
-								->withErrors( $e->getErrors() )
-								->withInput();
+							return redirect()->route('all_fidelity_kit')->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error']);
 
 						} catch(\Exception $e)
 						{
@@ -783,9 +762,9 @@ class FidelityKitController extends Controller
 							$client->post('https://connect.onyxbeacon.com/api/v2.5/coupons/'.$coupon_resource->id.'/update', [
 								'headers' => ['Authorization' => 'Bearer '.$crud ],
 								'form_params' => [
-									'name' => $coupon_old->name,
-									'description' => $coupon_old->description,
-									'message' => $coupon_old->message,
+									'name' => $coupon_translation_old->name,
+									'description' => $coupon_translation_old->description,
+									'message' => $coupon_translation_old->message,
 									'url' =>  $coupon_old->url,
 								]
 							]);
@@ -800,12 +779,11 @@ class FidelityKitController extends Controller
 								]
 							]);
 						
-							echo "<pre>";	var_dump('$e: =>');	echo "</pre>";
-							echo "<pre>";	var_dump($e);	echo "</pre>";
-							return;
+							// echo "<pre>";	var_dump('$e: =>');	echo "</pre>";
+							// echo "<pre>";	var_dump($e);	echo "</pre>";
+							// return;
 
-							return redirect()->route('all_fidelity_kit')->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error'])
-								->withErrors( $e->getErrors() );
+							return redirect()->route('all_fidelity_kit')->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error']);
 						}
 
 
@@ -837,9 +815,9 @@ class FidelityKitController extends Controller
 					]);
 
 					//codigo para revertir transaccion
-					echo "<pre>";	var_dump('respuesta contenido');	echo "</pre>";
-					echo "<pre>";	var_dump($content_response);	echo "</pre>";
-					return;
+					// echo "<pre>";	var_dump('respuesta contenido');	echo "</pre>";
+					// echo "<pre>";	var_dump($content_response);	echo "</pre>";
+					// return;
 
 					return redirect()->route('all_fidelity_kit')
 									->with(['status' => 'Error al actualizar el kit de fidelidad', 'type' => 'error']);
@@ -858,9 +836,9 @@ class FidelityKitController extends Controller
 					]
 				]);
 
-				echo "<pre>";	var_dump('respuesta coupon');	echo "</pre>";
-				echo "<pre>";	var_dump($coupon_response);	echo "</pre>";
-				return;
+				// echo "<pre>";	var_dump('respuesta coupon');	echo "</pre>";
+				// echo "<pre>";	var_dump($coupon_response);	echo "</pre>";
+				// return;
 
 				return redirect()->route('all_fidelity_kit')
 								->with(['status' => 'Error al actualizar el kit de fidelidad', 'type' => 'error']);
@@ -892,15 +870,15 @@ class FidelityKitController extends Controller
 		//Token Crud
 		$crud = FidelityKitController::crud();
 
-		$fidelity_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/delete', [
+		$fidelity_kit_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/delete', [
 				// un array con la data de los headers como tipo de peticion, etc.
 				'headers' => ['Authorization' => 'Bearer '.$crud ]
 		]);
 
 		//Json parse
-		$json_fidelity = $fidelity_api->getBody();
+		$json_fidelity_kit = $fidelity_kit_api->getBody();
 
-		$fidelity_response = json_decode($json_fidelity);
+		$fidelity_response = json_decode($json_fidelity_kit);
 
 		if ($fidelity_response->status_code === 200 ):
 
