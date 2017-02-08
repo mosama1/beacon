@@ -4,11 +4,10 @@ namespace Beacon\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
-use Beacon\Location;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Beacon\Language;
 use Illuminate\Support\Facades\Input;
+use Beacon\Language;
 
 class LanguageController extends Controller
 {

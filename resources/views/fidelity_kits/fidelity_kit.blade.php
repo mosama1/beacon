@@ -42,7 +42,7 @@
                 <td>{{ $fk->id }}</td>
                 <td>{{ $fk->name }}</td>
                 <td>{{ $fk->description }}</td>
-                <td><a href="{{ route('all_content', $fk->promotion_id) }}"><i class="material-icons">add</i></a></td>
+                <td><a href="{{ route('all_content_promotion', $fk->promotion_id) }}"><i class="material-icons">add</i></a></td>
                 <td><a href="{{ route('edit_fidelity_kit', $fk->promotion_id) }}"><i class="material-icons">edit</i></a></td>
               <?php
 
@@ -60,7 +60,7 @@
                             <span class="lever"></span>
                             No
                         </label>
-                  </div>  
+                  </div>
                 </td>
               </tr>
               @endforeach

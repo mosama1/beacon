@@ -90,12 +90,14 @@ class PlateController extends Controller
 			$plate->plate_translation;
 		}
 
+		//echo "<pre>";	var_dump($plate);	echo "</pre>";
+
 		$menu = Menu::where('id', '=', $menu_id)->first();
 
-		if ($plate):
-			return view('plates.detail_plato',['plate' => $plate , 'section_id' => $menu->section_id, 'menu_id' => $menu_id]);
-		else:
+		if (empty($plate) | empty($plate->plate_translation)):
 			return view('plates.add_plato',['section_id' => $menu->section_id, 'menu_id' => $menu_id]);
+		else:
+			return view('plates.detail_plato',['plate' => $plate , 'section_id' => $menu->section_id, 'menu_id' => $menu_id]);
 		endif;
 
 	}
