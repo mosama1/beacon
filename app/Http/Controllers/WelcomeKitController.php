@@ -592,14 +592,12 @@ class WelcomeKitController extends Controller
 							$content_welcome->trigger_name = 'ENTRY';
 							$content_welcome->save();
 
-
-							$welcome_kit->type = 2;
 							$welcome_kit->name = (isset($request->name)) ?
 									$welcome_resource->name :
 									$welcome_old->name;
 
 							$welcome_kit->description = (isset($request->description)) ?
-									$welcome_resource->description :
+									$request->description :
 									$welcome_old->description;
 
 							$welcome_kit->save();
@@ -647,9 +645,9 @@ class WelcomeKitController extends Controller
 								]
 							]);
 						
-							// echo "<pre>";	var_dump('ValidationException $e: =>');	echo "</pre>";
+							echo "<pre>";	var_dump('ValidationException $e: =>');	echo "</pre>";
 							// echo "<pre>";	var_dump($e);	echo "</pre>";
-							// return;
+							return;
 
 							return redirect()->route('all_welcome_kit')->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error']);
 
@@ -694,9 +692,9 @@ class WelcomeKitController extends Controller
 								]
 							]);
 						
-							// echo "<pre>";	var_dump('$e: =>');	echo "</pre>";
-							// echo "<pre>";	var_dump($e);	echo "</pre>";
-							// return;
+							echo "<pre>";	var_dump('$e: =>');	echo "</pre>";
+							 echo "<pre>";	var_dump($e);	echo "</pre>";
+							return;
 
 							return redirect()->route('all_welcome_kit')->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error']);
 						}
@@ -730,9 +728,9 @@ class WelcomeKitController extends Controller
 					]);
 
 					//codigo para revertir transaccion
-					// echo "<pre>";	var_dump('respuesta contenido');	echo "</pre>";
-					// echo "<pre>";	var_dump($content_response);	echo "</pre>";
-					// return;
+					echo "<pre>";	var_dump('respuesta contenido');	echo "</pre>";
+					echo "<pre>";	var_dump($content_response);	echo "</pre>";
+					return;
 
 					return redirect()->route('all_welcome_kit')
 									->with(['status' => 'Error al actualizar el kit de fidelidad', 'type' => 'error']);
@@ -751,9 +749,9 @@ class WelcomeKitController extends Controller
 					]
 				]);
 
-				// echo "<pre>";	var_dump('respuesta coupon');	echo "</pre>";
-				// echo "<pre>";	var_dump($coupon_response);	echo "</pre>";
-				// return;
+				echo "<pre>";	var_dump('respuesta coupon');	echo "</pre>";
+				echo "<pre>";	var_dump($coupon_response);	echo "</pre>";
+				return;
 
 				return redirect()->route('all_welcome_kit')
 								->with(['status' => 'Error al actualizar el kit de fidelidad', 'type' => 'error']);
@@ -761,9 +759,9 @@ class WelcomeKitController extends Controller
 
 		} else {
 
-			// echo "<pre>";	var_dump('respuesta fidelidad');	echo "</pre>";
-			// echo "<pre>";	var_dump($welcome_response);	echo "</pre>";
-			// return;
+			echo "<pre>";	var_dump('respuesta fidelidad');	echo "</pre>";
+			echo "<pre>";	var_dump($welcome_response);	echo "</pre>";
+			return;
 		
 			return redirect()->route('all_welcome_kit')
 							->with(['status' => 'Error al actualizar el kit de fidelidad', 'type' => 'error']);
@@ -784,38 +782,118 @@ class WelcomeKitController extends Controller
 		//Token Crud
 		$crud = WelcomeKitController::crud();
 
-		$welcome_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/delete', [
-				// un array con la data de los headers como tipo de peticion, etc.
-				'headers' => ['Authorization' => 'Bearer '.$crud ]
-		]);
+		//
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-		//Json parse
-		$json_welcome = $welcome_api->getBody();
+		$content =  Content::where([
+								['user_id', '=', $user->user_id],
+								['campana_id', '=', $promotion_id]
+							])->first();
 
-		$welcome_response = json_decode($json_welcome);
+		$coupon = $content->coupons;
 
-		if ($welcome_response->status_code === 200 ):
+		$welcome_kit =  Promotion::where([
+								['user_id', '=', $user->user_id ],
+								['promotion_id', '=', $promotion_id],
+								['type', '=', 1]
+							])->first();
 
-			$user = User::where( 'id', '=', Auth::user()->id )->first();
+		// $content_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/content/'.$content->content_id.'/delete', [
+		// 		// un array con la data de los headers como tipo de peticion, etc.
+		// 		'headers' => ['Authorization' => 'Bearer '.$crud ]
+		// ]);
 
-			$welcome =  Promotion::where([
-									['user_id', '=', $user->user_id ],
-									['promotion_id', '=', $promotion_id],
-									['type', '=', 1]
-								])->first();
+		// //Json parse
+		// $json_content = $content_api->getBody();
 
-			$welcome->delete();
+		// $content_response = json_decode($json_content);
 
-			return redirect()->route('all_welcome_kit')
-					->with(['status' => 'Se ha Eliminado el kit de bienvenida con éxito', 'type' => 'success']);
+		// if ($content_response->status_code === 200 ) {
+		
 
-		else:
+			//Timeframe delete
+			$coupon_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons/'.$coupon->coupon_id.'/delete', [
+					// un array con la data de los headers como tipo de peticion, etc.
+					'headers' => ['Authorization' => 'Bearer '.$crud ],
+			]);
 
-			//echo "<pre>"; var_dump($campaña); echo "</pre>";
+			//Json parse
+			$json_coupon = $coupon_api->getBody();
 
-			return redirect()->route('all_welcome_kit')->with(['status' => 'Error al eliminar el kit de bienvenida', 'type' => 'error']);
+			$coupon_response = json_decode($json_coupon);
 
-		endif;
+			if ($coupon_response->status_code === 200) {
+			
+
+				$welcome_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/delete', [
+						// un array con la data de los headers como tipo de peticion, etc.
+						'headers' => ['Authorization' => 'Bearer '.$crud ]
+				]);
+
+				//Json parse
+				$json_welcome = $welcome_api->getBody();
+
+				$welcome_response = json_decode($json_welcome);
+				if ($welcome_response->status_code === 200 ) {
+						
+					DB::beginTransaction();
+
+					try {
+
+						$content->delete();
+
+						foreach ($coupon->coupon_translation as $key => $value) {
+						 	$value->delete();
+						}
+
+						$coupon->delete();
+
+						$welcome_kit->delete();
+
+					} catch(ValidationException $e)
+					{
+						// Rollback and then redirect
+						DB::rollback();
+
+						return redirect()->route('all_welcome_kit')->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
+
+					} catch(\Exception $e)
+					{
+						DB::rollback();
+
+						return redirect()->route('all_welcome_kit')
+										->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
+					}
+
+
+					DB::commit();
+
+					return redirect()->route('all_welcome_kit')
+										->with(['status' => 'Se ha Eliminado el kit de fidelidad con éxito', 'type' => 'success']);
+				} else {
+
+					//echo "<pre>"; var_dump($welcome_kit); echo "</pre>";
+
+					return redirect()->route('all_welcome_kit')
+									->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
+					
+				}
+				
+			} else {
+
+				//echo "<pre>"; var_dump($welcome_kit); echo "</pre>";
+
+				return redirect()->route('all_welcome_kit')
+								->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
+			}
+		// } else {
+
+		// 	echo "<pre>"; var_dump($content_response); echo "</pre>";
+		// 	return;
+
+		// 	return redirect()->route('all_welcome_kit')
+		// 					->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
+		// }
 	}
 
 	public function habilitar_welcomekit($id)
