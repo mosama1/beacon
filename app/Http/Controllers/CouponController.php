@@ -90,6 +90,9 @@ class CouponController extends Controller
 
 		$coupon = Coupon::where('user_id', '=', $user->user_id)->get();
 
+		// echo "<pre>"; var_dump( $coupon ); echo "</pre>";
+		// return;
+
 		return view('coupons.coupon', ['coupon' => $coupon]);
 	}
 
@@ -138,6 +141,7 @@ class CouponController extends Controller
 			$coupon->coupon_id = $coupon_response->coupon->id;
 			$coupon->user_id = $user->user_id;
 			$coupon->type = $coupon_response->coupon->type;
+			$coupon->status = 1; 
 			(empty($request->price)) ?
 				$coupon->price = 0.0 :
 				$coupon->price = $request->price;
@@ -160,7 +164,6 @@ class CouponController extends Controller
 
 			$coupon_translation->message = $coupon_response->coupon->message;
 			$coupon_translation->language_id = 1;
-			$coupon_translation->status= 1;
 			$coupon_translation->coupon_id = $coupon->coupon_id;
 			$coupon_translation->save();
 
@@ -336,17 +339,17 @@ class CouponController extends Controller
 
 		$location = $user->location;
 
-		$campana = Coupon::where([
+		$coupon = Coupon::where([
 								['user_id', '=', $user->user_id ],
-								['couon_id', '=', $id]
+								['coupon_id', '=', $id]
 							])->first();
 
-		$enabled = $coupon->enabled == 0 ? 1 : 0;
+		$status = $coupon->status == 0 ? 1 : 0;
 
-		$coupon->enabled = $enabled;
+		$coupon->status = $status;
 		$coupon->save();
 
-		return $enabled;
+		return $status;
 	}
 
 

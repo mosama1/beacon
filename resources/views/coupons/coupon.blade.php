@@ -2,6 +2,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="contenedor">
   <div class="principal">
 
@@ -27,6 +28,11 @@
     <div class="beacons seccion">
       <div class="container">
         <div class="tabla">
+
+        <form role="form" method="POST">
+                        {{ csrf_field() }}
+                        {{ method_field('PUT') }}
+
           <table class="bordered centered">
             <thead>
               <tr>
@@ -40,7 +46,9 @@
             </thead>
 
             <tbody>
+
               @foreach($coupon as $c)
+
                 <tr id='{{$c->coupon_id}}'>
                   <td>
                     @if( ! empty($c->coupon_translation[0]) )
@@ -70,42 +78,23 @@
 
                 </td>
                 <td>
-                    <!-- <div class="switch">
-                      <form role="form" method="POST">
-                          {{ csrf_field() }}
-                          {{ method_field('PUT') }}
-                        
                           <label>
-                            Si
-                            <input id ="habilitar" destino="coupons" value="{{$c->coupon_id}}" type="checkbox" {{ ($c->enabled > 0 ? '' : 'checked') }} class="filled-in" id="filled-in-box" />   
-                            <span class="lever"></span>
-                            No
+                                Si
+                                <input
+                                id="habilitar_{{$c->coupon_id}}"
+                                type="checkbox"
+                                {{ ($c->status > 0 ? '' : 'checked') }}
+                                class="filled-in" id="filled-in-box" onclick="habilitar('#habilitar_{{$c->coupon_id}}', 'coupons', {{$c->coupon_id}}'); return false;" />
+                                <span class="lever"></span>
+                                No
                           </label>
-                      </form>
-                    </div> -->
-
-                    <div class="switch">
-                    <label>
-                        Si
-                          <input type="checkbox"  class="filled-in" id="filled-in-box" />
-                          <span class="lever"></span>
-                        No
-                    </label>
-                    </div>
-
-                  <!-- <div class="switch">
-                    <label>
-                        Si
-                          <input type="checkbox" {{ ($c->coupon_translation[0] ->status > 0 ? '' : 'checked') }} class="filled-in" id="filled-in-box" />
-                          <span class="lever"></span>
-                        No
-                    </label>
-                    </div> -->
                 </td>
                 </tr>
               @endforeach
             </tbody>
           </table>
+        </form>
+
         </div>
       </div>
     </div>

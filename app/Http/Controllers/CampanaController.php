@@ -297,9 +297,9 @@ class CampanaController extends Controller
 								['campana_id', '=', $id]
 							])->first();
 
-		$enabled = $campana->enabled == 0 ? 1 : 0;
+		$status = $campana->status == 0 ? 1 : 0;
 
-		$campana->enabled = $enabled;
+		$campana->status = $status;
 		$campana->save();
 
 		echo "<pre>"; print_r( $campana ); echo "</pre>"; 
