@@ -286,7 +286,6 @@ class CampanaController extends Controller
 	public function habilitar_campana($id)
 	{
 		
-
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 		$location = $user->location;

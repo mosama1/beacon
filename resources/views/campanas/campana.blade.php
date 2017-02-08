@@ -60,15 +60,17 @@
 						<form role="form" method="POST">
 							{{ csrf_field() }}
 							{{ method_field('PUT') }}
+
 							<label>
 								Si
-									<input id="habilitar" destino="campanas" value="{{$c->campana_id}}" type="checkbox" checked class="filled-in" id="filled-in-box" />
+									<input id="habilitar_{{$c->campana_id}}" type="checkbox" checked class="filled-in" id="filled-in-box" onclick="habilitar('#habilitar_{{$c->campana_id}}', 'campanas', '{{$c->campana_id}}'); return false;" />
 								<span class="lever"></span>
 								No
 							</label>
 								<!-- 
 								<input name="enabled" id="{{$c->campana_id}}" type="checkbox" {{ ($c->enabled > 0 ? '' : 'checked') }} class="filled-in" id="filled-in-box" /> 
 								-->
+
 						</form>
 
 					</div>                   
