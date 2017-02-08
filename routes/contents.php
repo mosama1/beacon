@@ -34,6 +34,7 @@ Route::group(['prefix' => 'campanas/{campana_id}/contenidos'], function () {
 
 });
 
+
 Route::group(['prefix' => 'promotions/{promotion_id}/contenidos'], function () {
 
 	Route::get('/', 'ContentController@index_promotion')

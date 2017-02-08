@@ -189,13 +189,13 @@ class ContentController extends Controller
 
 		$timeframes = Timeframe::where('user_id', '=', $user->user_id)->get();
 
-		return view('contents.content',
+		return view('content_promotions.content_promotion',
 					[
 						'coupons' => $coupons,
 						'contents' => $contents,
 						'tags' => $tags,
 						'timeframes' => $timeframes,
-						'campana_id' => $promotion_id,
+						'promotion_id' => $promotion_id,
 						'location' => $user->location,
 					]);
 	}
@@ -463,11 +463,11 @@ class ContentController extends Controller
 		$parameters = array(
 					'headers' => ['Authorization' => 'Bearer '.$crud ],
 					'form_params' => [
-							'coupon' => intval($request->coupon_id),
-							'timeframes' => $timeframes,
-							'trigger_name' => 'ENTRY',
-							'trigger_entity' => 'tag',
-							'tag' => $tag_id
+						'coupon' => intval($request->coupon_id),
+						'timeframes' => $timeframes,
+						'trigger_name' => 'ENTRY',
+						'trigger_entity' => 'tag',
+						'tag' => $tag_id
 						]
 					);
 
@@ -590,15 +590,15 @@ class ContentController extends Controller
 				// return;
 			}
 
-			if ( $campana && $coupon ) {
+			if ( $promotion && $coupon ) {
 				//Content::commit();
-				return redirect()->route('all_content', array('promotion_id' => $promotion_id ) )->with(['status' => 'Se ha creado el contenido exitosamente', 'type' => 'success']);
+				return redirect()->route('all_content_promotion', array('promotion_id' => $promotion_id ) )->with(['status' => 'Se ha creado el contenido exitosamente', 'type' => 'success']);
 			} else {
 
 				echo "<pre>";	var_dump($campana && $coupon);	echo "</pre>";
 				return;
 				//Content::rollBack();
-				return redirect()->route('all_content', array('promotion_id' => $promotion_id ) )->with(['status' => 'Error al ingresar el contenido', 'type' => 'error']);
+				return redirect()->route('all_content_promotion', array('promotion_id' => $promotion_id ) )->with(['status' => 'Error al ingresar el contenido', 'type' => 'error']);
 			}
 
 
@@ -607,7 +607,7 @@ class ContentController extends Controller
 			echo "<pre>";	var_dump($content_response);	echo "</pre>";
 			return;
 			//Content::rollBack();
-			return redirect()->route('all_content', array('promotion_id' => $promotion_id ) )->with(['status' => 'Error al ingresar el contenido', 'type' => 'error']);
+			return redirect()->route('all_content_promotion', array('promotion_id' => $promotion_id ) )->with(['status' => 'Error al ingresar el contenido', 'type' => 'error']);
 
 		endif;
 	}
@@ -663,7 +663,7 @@ class ContentController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit_promotion($campana_id,$content_id)
+	public function edit_promotion($promotion_id,$content_id)
 	{
 		//consulta
 
@@ -692,127 +692,14 @@ class ContentController extends Controller
 		//	echo "<pre>";var_dump($content_timeframes);echo "</pre>";
 		// return;
 
-		return view('contents.content_edit', [
-					'campana_id' => $campana_id,
+		return view('content_promotions.content_promotion_edit', [
+					'promotion_id' => $promotion_id,
 					'content' => $content,
 					'coupons' => $coupons,
 					'timeframes' => $timeframes,
 					'content_timeframes' => $content_timeframes,
 					'location' => $user->location,
 				]);
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function update_promotion(Request $request, $campana_id, $content_id)
-	{
-		// Nuevo cliente con un url base
-		$client = new Client();
-
-		//Token Crud
-		$crud = ContentController::crud();
-
-		$user = User::where( 'id', '=', Auth::user()->id )->first();
-
-		$location = $user->location;
-
-		// leo el id del tag para asignarlo al beacon
-		//
-		$tag_api = $client->get('https://connect.onyxbeacon.com/api/v2.5/tags/'.$location->name, [
-			// un array con la data de los headers como tipo de peticion, etc.
-			'headers' => ['Authorization' => 'Bearer '.$crud ],
-		]);
-
-		//Json parse
-		$json_b = $tag_api->getBody();
-
-		$tag_response = json_decode($json_b);
-
-		$tag_id = strval($tag_response->tags[0]->id);
-
-
-		// formate el $timeframe al formato de la api: "1,2,3,..."
-		if ( empty($request->timeframe_id) ) {
-			$timeframes = null;
-		} else {
-			$count = count($request->timeframe_id);
-			$timeframes = $request->timeframe_id[0];
-			for ($i=1; $i < $count; $i++) {
-				$timeframes .= ",".$request->timeframe_id[$i];
-			}
-		}
-
-		$parameters = array(
-					'headers' => ['Authorization' => 'Bearer '.$crud ],
-					'form_params' => [
-							'coupon' => $request->coupon_id,
-							'timeframes' => $timeframes,
-							'trigger_name' => 'ENTRY',
-							'trigger_entity' => 'tag',
-							'tag' => $tag_id
-						]
-					 );
-
-		//Location
-		$campana_content = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/contents/'.$content_id.'/update', $parameters);
-
-		//Json parse
-		$json_c = $campana_content->getBody();
-
-		$campana_c = json_decode($json_c);
-
-		foreach ($campana_c as $key => $value) {
-			if ($key == "campaign-content") {
-				$content_api = $value;
-			}
-		}
-
-		 // echo "<pre>";  var_dump($content_api); echo "</pre>";
-
-		 // return;
-
-		if( $campana_c->status_code === 200 ):
-
-			$user = User::where( 'id', '=', Auth::user()->id )->first();
-
-			$coupon = Coupon::where([
-								['coupon_id', '=', $request->coupon_id],
-								['user_id', '=', $user->user_id]
-							])->first();
-
-			$coupon->coupon_translation;
-
-			$cam_c = Content::where([
-								['content_id', '=', $content_id ]
-							])->first();
-
-
-			$cam_c->content_id = $content_api->id;
-			$cam_c->user_id = $user->user_id;
-			//coupon_translation[0] posicion [0] es en español idioma por defecto
-			$cam_c->coupon = $coupon->coupon_translation[0]->name;
-			$cam_c->coupon_id = $coupon->coupon_id;
-		//    $cam_c->tag = $request->tag_id;
-			$cam_c->tag = $tag_id;
-			$cam_c->campana_id = $campana_id;
-			$cam_c->trigger_name = $content_api->trigger_name;
-			$cam_c->save();
-
-			$content = Content::find($cam_c->id);
-
-			$content->timeframes()->sync($request->timeframe_id);
-
-			return redirect()->route('all_content', array('campana_id' => $campana_id ) );
-
-		else:
-
-			 return redirect()->route('show_content', $campana_id)->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
-
-		endif;
 	}
 
 	/**
@@ -923,7 +810,120 @@ class ContentController extends Controller
 
 		else:
 
-			 return redirect()->route('show_content', $campana_id)->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
+			 return redirect()->route('edit_content', $campana_id)->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
+
+		endif;
+	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update_promotion(Request $request, $promotion_id, $content_id)
+	{
+		// Nuevo cliente con un url base
+		$client = new Client();
+
+		//Token Crud
+		$crud = ContentController::crud();
+
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+		$location = $user->location;
+
+		// leo el id del tag para asignarlo al beacon
+		//
+		$tag_api = $client->get('https://connect.onyxbeacon.com/api/v2.5/tags/'.$location->name, [
+			// un array con la data de los headers como tipo de peticion, etc.
+			'headers' => ['Authorization' => 'Bearer '.$crud ],
+		]);
+
+		//Json parse
+		$json_b = $tag_api->getBody();
+
+		$tag_response = json_decode($json_b);
+
+		$tag_id = strval($tag_response->tags[0]->id);
+
+
+		// formate el $timeframe al formato de la api: "1,2,3,..."
+		if ( empty($request->timeframe_id) ) {
+			$timeframes = null;
+		} else {
+			$count = count($request->timeframe_id);
+			$timeframes = $request->timeframe_id[0];
+			for ($i=1; $i < $count; $i++) {
+				$timeframes .= ",".$request->timeframe_id[$i];
+			}
+		}
+
+		$parameters = array(
+					'headers' => ['Authorization' => 'Bearer '.$crud ],
+					'form_params' => [
+							'coupon' => $request->coupon_id,
+							'timeframes' => $timeframes,
+							'trigger_name' => 'ENTRY',
+							'trigger_entity' => 'tag',
+							'tag' => $tag_id
+						]
+					 );
+
+		//Location
+		$campana_content = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/contents/'.$content_id.'/update', $parameters);
+
+		//Json parse
+		$json_c = $campana_content->getBody();
+
+		$campana_c = json_decode($json_c);
+
+		foreach ($campana_c as $key => $value) {
+			if ($key == "campaign-content") {
+				$content_api = $value;
+			}
+		}
+
+		 // echo "<pre>";  var_dump($content_api); echo "</pre>";
+
+		 // return;
+
+		if( $campana_c->status_code === 200 ):
+
+			$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+			$coupon = Coupon::where([
+								['coupon_id', '=', $request->coupon_id],
+								['user_id', '=', $user->user_id]
+							])->first();
+
+			$coupon->coupon_translation;
+
+			$content = Content::where([
+								['content_id', '=', $content_id ]
+							])->first();
+
+
+			$content->content_id = $content_api->id;
+			$content->user_id = $user->user_id;
+			//coupon_translation[0] posicion [0] es en español idioma por defecto
+			$content->coupon = $coupon->coupon_translation[0]->name;
+			$content->coupon_id = $coupon->coupon_id;
+		//    $content->tag = $request->tag_id;
+			$content->tag = $tag_id;
+			$content->campana_id = $promotion_id;
+			$content->trigger_name = $content_api->trigger_name;
+			$content->save();
+
+			$content = Content::find($content->id);
+
+			$content->timeframes()->sync($request->timeframe_id);
+
+			return redirect()->route('all_content_promotion', array('promotion_id' => $promotion_id ) );
+
+		else:
+
+			 return redirect()->route('edit_content_promotion', $promotion_id)->with(['status' => 'Error al ingresar la Campana', 'type' => 'error']);
 
 		endif;
 	}
@@ -934,7 +934,7 @@ class ContentController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy_promotion( $campana_id, $content_id )
+	public function destroy( $campana_id, $content_id )
 	{
 		// // Nuevo cliente con un url base
 		// $client = new Client();
@@ -984,7 +984,68 @@ class ContentController extends Controller
 
 		// 	//echo "<pre>"; var_dump($campaña); echo "</pre>";
 
-		// 	return redirect()->route('all_campana')->with(['status' => 'Error al eliminar el contenido', 'type' => 'error']);
+		// 	return redirect()->route('all_content')->with(['status' => 'Error al eliminar el contenido', 'type' => 'error']);
+
+		// endif;
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy_promotion( $promotion_id, $content_id )
+	{
+		// // Nuevo cliente con un url base
+		// $client = new Client();
+
+		// //Token Crud
+		// $crud = ContentController::crud();
+
+		// $content_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/content/'.$content_id.'/delete', [
+		// 		// un array con la data de los headers como tipo de peticion, etc.
+		// 		'headers' => ['Authorization' => 'Bearer '.$crud ]
+		// ]);
+
+		// //Json parse
+		// $json_c = $content_->getBody();
+
+		// $content = json_decode($json_c);
+
+		// if ($content->status_code === 200 ):
+
+			$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+			$content =  Content::where([
+									['user_id', '=', $user->user_id],
+									['content_id', '=', $content_id]
+								])->first();
+
+			$content_timeframes = DB::table('timeframes')
+				->join('content_timeframes', 'timeframes.timeframe_id', '=', 'content_timeframes.timeframe_id')
+				->join('contents', 'contents.id', '=', 'content_timeframes.content_id')
+				->select('timeframes.*')
+				->where('content_timeframes.content_id', '=', $content->id)
+				->get();
+
+			foreach ($content_timeframes as $key => $timeframe) {
+				$content->timeframes()->detach($timeframe->timeframe_id);
+			}
+
+			// var_dump($content);
+			// return;
+
+			$content->delete();
+
+			return redirect()->route('all_content_promotion', array('promotion_id' => $promotion_id ) )
+					->with(['status' => 'Se ha Eliminado el contenido con éxito', 'type' => 'success']);
+
+		// else:
+
+		// 	//echo "<pre>"; var_dump($campaña); echo "</pre>";
+
+		// 	return redirect()->route('all_content_promotion')->with(['status' => 'Error al eliminar el contenido', 'type' => 'error']);
 
 		// endif;
 	}
