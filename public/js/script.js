@@ -594,24 +594,26 @@ $('.timepicker').datetimepicker({
 /********************************************************************/
 
 $('#habilitar').click(function(evt){
-	evt.preventDefault();		
-	id = $(this).val();
-	destino = $(this).attr('destino');
+
+});
+
+function habilitar(id, destino, value) {
+	console.log('si se activa');
 
 	$.ajax({
 		type: "put",
-		url: destino+'/'+id+'/habilitar',
+		url: destino+'/'+value+'/habilitar',
 		success: function(respuesta) {
 
 			console.log( respuesta );
 			
 			if( respuesta == 0 ){ // se habilito la campana
 
-				$('#habilitar').prop('checked', true);				
+				$(id).prop('checked', true);				
 			} else {
 
-				$('#habilitar').prop('checked', false);				
+				$(id).prop('checked', false);				
 			}
 		}
 	})
-});
+}
