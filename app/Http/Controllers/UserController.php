@@ -181,8 +181,8 @@ class UserController extends Controller
 		$paso_previo = Pasos::where('id', '<', $paso_actual)->orderBy('id', 'desc')->first();
 
 		// Consulto en la tabla bitacora el ultimo paso realizado esto es paso_id
-		$ultimo_paso = PasosProcesos::where('user_id', '=', $user->id)->first();		
 
+		$ultimo_paso = PasosProcesos::where('user_id', '=', $user->id)->orderBy('paso_id', 'desc')->first();
 
 		// si paso previo es igual a paso_id quiere decir que si va a poder acceder a esa seccion del menu
 		// en ese caso se retorna un true
@@ -208,7 +208,7 @@ class UserController extends Controller
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 		// Consulto en la tabla bitacora el ultimo paso realizado esto es paso_id
-		$ultimo_paso = PasosProcesos::where('user_id', '=', $user->id)->first();
+		$ultimo_paso = PasosProcesos::where('user_id', '=', $user->id)->orderBy('paso_id', 'desc')->first();
 
 		if ( is_Null($ultimo_paso) ){
 

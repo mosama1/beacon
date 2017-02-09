@@ -144,7 +144,7 @@ class CampanaController extends Controller
 			$pasos_procesos = new PasosProcesos(); 
 			$pasos_procesos->user_id = $user->user_id; 
 			$pasos_procesos->paso_id = 6; 
-			$pasos_procesos->save();
+			$pasos_procesos->save(); 
 
 			return redirect()->route('all_campana');
 
