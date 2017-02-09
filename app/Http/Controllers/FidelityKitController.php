@@ -83,7 +83,7 @@ class FidelityKitController extends Controller
 		$fidelity_kits = Promotion::where([
 						['user_id', '=', $user->user_id],
 						['type', '=', 2]
-					])->get();
+					])->orderBy('name')->get();
 
 		return view( 'fidelity_kits.fidelity_kit', ['fidelity_kits' => $fidelity_kits, 'location' => $user->location] );
 	}
@@ -592,14 +592,12 @@ class FidelityKitController extends Controller
 							$content_fidelity->trigger_name = 'ENTRY';
 							$content_fidelity->save();
 
-
-							$fidelity_kit->type = 2;
 							$fidelity_kit->name = (isset($request->name)) ?
 									$fidelity_resource->name :
 									$fidelity_old->name;
 
 							$fidelity_kit->description = (isset($request->description)) ?
-									$fidelity_resource->description :
+									$request->description :
 									$fidelity_old->description;
 
 							$fidelity_kit->save();
@@ -768,7 +766,6 @@ class FidelityKitController extends Controller
 			return redirect()->route('all_fidelity_kit')
 							->with(['status' => 'Error al actualizar el kit de fidelidad', 'type' => 'error']);
 		}
-
 	}
 
 	/**
