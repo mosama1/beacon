@@ -215,20 +215,4 @@ class UserController extends Controller
 		return $ultimo_paso->paso_id;
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public static function all_pasos()
-	{
-		//Consulto al usuario conectado
-		$user = User::where( 'id', '=', Auth::user()->id )->first();
-
-		// Consulto en la tabla bitacora el ultimo paso realizado esto es paso_id
-		$ultimo_paso = PasosProcesos::where('user_id', '=', $user->id)->first();
-
-		return $ultimo_paso->paso_id;
-	}
 }
