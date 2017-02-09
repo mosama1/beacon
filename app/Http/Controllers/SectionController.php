@@ -12,6 +12,7 @@ use Beacon\Section;
 use Beacon\SectionTranslation;
 use Beacon\User;
 use Beacon\PasosProcesos;
+use Beacon\Pasos;
 
 class SectionController extends Controller
 {

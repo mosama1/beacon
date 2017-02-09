@@ -14,6 +14,7 @@ use Beacon\TypesPlates;
 use Beacon\User;
 use Beacon\Http\Controllers\UserController;
 use Beacon\PasosProcesos;
+use Beacon\Pasos;
 
 class MenuController extends Controller
 {

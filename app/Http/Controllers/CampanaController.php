@@ -16,6 +16,8 @@ use Beacon\User;
 use Beacon\PasosProcesos;
 use Illuminate\Support\Facades\Input;
 use Log;
+use Beacon\Pasos;
+
 
 class CampanaController extends Controller
 {
