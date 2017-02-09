@@ -29,7 +29,7 @@ Route::get('login', function () {
 
 
 
-Route::get('home', 'HomeController@index');
+Route::get('home', 'HomeController@index')->name('home');
 
 //Beacons
 Route::get('beacons', 'BeaconController@show')->name('list_beacons');

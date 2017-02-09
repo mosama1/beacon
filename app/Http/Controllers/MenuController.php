@@ -12,6 +12,7 @@ use Beacon\MenuTranslation;
 use Beacon\Section;
 use Beacon\TypesPlates;
 use Beacon\User;
+use Beacon\Http\Controllers\UserController;
 
 class MenuController extends Controller
 {
@@ -71,6 +72,12 @@ class MenuController extends Controller
 	 */
 	public function index($section_id)
 	{
+
+		if ( UserController::check_proccess(3) ){
+			echo "no puede acceder aca todavia";
+		}else{
+			echo "si si puede acceder";
+		}
 
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 

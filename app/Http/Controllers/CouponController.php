@@ -23,6 +23,8 @@ use Beacon\CouponTranslation;
 use Illuminate\Support\Facades\Input;
 use Beacon\User;
 use Log;
+use Beacon\Http\Controllers\UserController;
+use Beacon\Pasos;
 
 class CouponController extends Controller
 {
@@ -83,15 +85,20 @@ class CouponController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index()
+	public function index()	
 	{
+		$paso = Pasos::where('controller', '=', get_class() )->first();
+
+		$check_proccess = UserController::check_proccess($paso->id);
+
+		if ( $check_proccess == 0 ){ //no tiene el proceso previo realizado
+
+			return view('home');
+		}
 
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 		$coupon = Coupon::where('user_id', '=', $user->user_id)->get();
-
-		// echo "<pre>"; var_dump( $coupon ); echo "</pre>";
-		// return;
 
 		return view('coupons.coupon', ['coupon' => $coupon]);
 	}

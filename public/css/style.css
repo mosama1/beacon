@@ -58,6 +58,19 @@ select:not(.multiple_) {
 
   position: relative;
 }
+
+
+.links li.desactivado img{
+  opacity: .4;
+}
+
+.links li.desactivado a{
+  opacity: .4;
+}
+
+
+
+
 .links li a{
   line-height: 1;
   margin: 0;

@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Beacon\Location;
+use Beacon\Pasos;
+use Beacon\PasosProcesos;
+
+
 
 class UserController extends Controller
 {
@@ -159,5 +163,72 @@ class UserController extends Controller
 	public function destroy($id)
 	{
 		//
+	}
+
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public static function check_proccess( $paso_actual )
+	{
+		//Consulto al usuario conectado
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+		// Consulto en la tabla Pasos, cual es el paso requerido
+		// esto es el paso previo al paso actual.
+		$paso_previo = Pasos::where('id', '<', $paso_actual)->orderBy('id', 'desc')->first();
+
+		// Consulto en la tabla bitacora el ultimo paso realizado esto es paso_id
+		$ultimo_paso = PasosProcesos::where('user_id', '=', $user->id)->first();
+		
+
+
+		// si paso previo es igual a paso_id quiere decir que si va a poder acceder a esa seccion del menu
+		// en ese caso se retorna un true
+
+		// en caso contrario se retorna en false
+		if ( $paso_previo->id >= $ultimo_paso->paso_id ){
+			return 1;
+		};
+
+		return 0;
+	}
+
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public static function ultimo_paso()
+	{
+		//Consulto al usuario conectado
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+		// Consulto en la tabla bitacora el ultimo paso realizado esto es paso_id
+		$ultimo_paso = PasosProcesos::where('user_id', '=', $user->id)->first();
+
+		return $ultimo_paso->paso_id;
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public static function all_pasos()
+	{
+		//Consulto al usuario conectado
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+		// Consulto en la tabla bitacora el ultimo paso realizado esto es paso_id
+		$ultimo_paso = PasosProcesos::where('user_id', '=', $user->id)->first();
+
+		return $ultimo_paso->paso_id;
 	}
 }

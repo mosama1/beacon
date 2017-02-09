@@ -32,214 +32,213 @@ use Beacon\User;
 
   <!-- Scripts -->
   <script>
-      window.Laravel = "{{ json_encode(['csrfToken' => csrf_token() ]) }}";
+	 window.Laravel = "{{ json_encode(['csrfToken' => csrf_token() ]) }}";
   </script>
 
 </head>
 <body>
-    <nav class="menu" role="navigation">
-        <div class="nav-wrapper container">
+	<nav class="menu" role="navigation">
+		<div class="nav-wrapper container">
 
-          <!-- <a id="logo-container" class="brand-logo logo-patrocinante logo" href="{{ Auth::guest() ? url('/') : url('home') }}"> -->
-            <a id="logo-container" class="brand-logo logo-patrocinante logo" href="{{ Auth::guest() ? url('/login') : url('home') }}">
-              <?php if (Auth::user()): ?>
-                @php
-                $user = User::where('id', '=', Auth::user()->id)->first();
+		  <!-- <a id="logo-container" class="brand-logo logo-patrocinante logo" href="{{ Auth::guest() ? url('/') : url('home') }}"> -->
+			<a id="logo-container" class="brand-logo logo-patrocinante logo" href="{{ Auth::guest() ? url('/login') : url('home') }}">
+			  <?php if (Auth::user()): ?>
+				@php
+				$user = User::where('id', '=', Auth::user()->id)->first();
 
-                $location = Location::where('user_id', '=', $user->user_id)->first();
-                @endphp
-                <?php if (!empty($location)): ?>
-                  <img src="{{$location->logo}}" alt="">
-                <?php else: ?>
-                  <a href="{{ route('user_edit_path', Auth::user()->id) }}" class="titulologo">
-                    <h5>Recuerda Colocar tu logo</h5>
-                  </a>
-                <?php endif; ?>
+				$location = Location::where('user_id', '=', $user->user_id)->first();
+				@endphp
+				<?php if (!empty($location)): ?>
+				  <img src="{{$location->logo}}" alt="">
+				<?php else: ?>
+				  <a href="{{ route('user_edit_path', Auth::user()->id) }}" class="titulologo">
+					<h5>Recuerda Colocar tu logo</h5>
+				  </a>
+				<?php endif; ?>
 
-              <?php endif; ?>
-              <!-- <h3 class="titulologo">Logo</h3> -->
-            </a>
+			  <?php endif; ?>
+			  <!-- <h3 class="titulologo">Logo</h3> -->
+			</a>
 
-            <ul class="right ul_principal">
-                <!-- Authentication Links -->
-                @if (!Auth::guest())
-                    <!-- Dropdown Trigger -->
-                    <li>
-                      <a class="" href="{{ Auth::guest() ? url('/login') : url('home') }}">
-                         <span>Inicio</span>
-                      </a>
-                    </li>
-                    <li class="">
-                      <a class="sb_mn" href="#">
-                          <span>Servicios <i class="material-icons right">arrow_drop_down</i></span>
-                      </a>
-                      <ul class="sub_menu none">
-                        <li>
-                          <a href="{{ route('all_coupon') }}">
-                            <span>La Carta</span>
-                          </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('all_timeframe')}}">
-                                <span>Horarios</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('all_campana')}}">
-                              <span>Planificación</span>
-                              <!-- <span>Campa&ntilde;a</span> -->
-                            </a>
-                        </li>
-                        <li>
-                          <a href="{{ route('all_type_plate')}}">
-                            <span>Servicio</span>
-                          </a>
-                        </li>
-
-
-                        <li>
-                          <a href="#" class="sb_mn2">
-                            <span>Promociones</span>
-                          </a>
-                          <ul class="sub_menu2">
-                            <li>
-                              <a href="{{ route('all_welcome_kit') }}">
-                                <span>Kit de Bienvenida</span>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="{{ route('all_fidelity_kit') }}">
-                                <span>Kit de Fidelidad</span>
-                              </a>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </li>
+			<ul class="right ul_principal">
+				<!-- Authentication Links -->
+				@if (!Auth::guest())
+					<!-- Dropdown Trigger -->
+					<li>
+						<a class="" href="{{ Auth::guest() ? url('/login') : url('home') }}">
+							<span>Inicio</span>
+						</a>
+					</li>
+					<li class="">
+					<a class="sb_mn" href="#">
+						<span>Servicios <i class="material-icons right">arrow_drop_down</i></span>
+					</a>
+					<ul class="sub_menu none">
+						<li>
+							<a href="{{ route('all_coupon') }}">
+								<span>La Carta</span>
+							</a>
+						</li>
+						<li>
+							<a href="{{ route('all_timeframe')}}">
+								<span>Horarios</span>
+							</a>
+						</li>
+						<li>
+							<a href="{{ route('all_campana')}}">
+								  <span>Planificación</span>
+							</a>
+						</li>
+						<li>
+							<a href="{{ route('all_type_plate')}}">
+								<span>Servicio</span>
+							</a>
+						</li>
 
 
-
-                    <li>
-                        <a class="" href="{{ route('user_edit_path', Auth::user()->id) }}">
-                           <span>Mi Cuenta</span>
-                            <!-- <span>{{ Auth::user()->name }}</span> -->
-                        </a>
-
-                    </li>
-
-
-                    <li>
-                      <a href="{{ url('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                          <span>Salir</span>
-                      </a>
-                      <form id="logout-form" action="{{ url('logout') }}" method="POST" style="display: none;">
-                          {{ csrf_field() }}
-                      </form>
-                    </li>
-
-                @else
-                <a id="logo-container" class="brand-logo logo-patrocinante logo logo_right" href="#">
-                  <!-- <img src="img/logo/logo.png" alt=""> -->
-                  <h3 class="logopatrocinantes">Logo patrocinante</h3>
-
-                </a>
-
-                @endif
-            </ul>
+						<li>
+						<a href="#" class="sb_mn2">
+						<span>Promociones</span>
+						</a>
+							<ul class="sub_menu2">
+							<li>
+								<a href="{{ route('all_welcome_kit') }}">
+									<span>Kit de Bienvenida</span>
+								</a>
+							</li>
+							<li>
+								<a href="{{ route('all_fidelity_kit') }}">
+									<span>Kit de Fidelidad</span>
+								</a>
+							</li>
+							</ul>
+						</li>
+						</ul>
+					</li>
 
 
-            <!-- <ul id="nav-mobile" class="side-nav">
-                <li><a href="#">Navbar Link</a></li>
-            </ul> -->
-            <a href="#" class="MenuResponsive"><i class="material-icons">menu</i></a>
-        </div>
-    </nav>
+
+					<li>
+						<a class="" href="{{ route('user_edit_path', Auth::user()->id) }}">
+						   <span>Mi Cuenta</span>
+						</a>
+
+					</li>
 
 
-    @yield('content')
+					<li>
+					  <a href="{{ url('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+						  <span>Salir</span>
+					  </a>
+					  
+					  <form id="logout-form" action="{{ url('logout') }}" method="POST" style="display: none;">
+						  {{ csrf_field() }}
+					  </form>
+					</li>
 
-    <footer>
-      <div class="footer">
-        <p>
-          © {{date('Y')}} - Todos los derechos reservados. Diseñado por <a href="http://dementecreativo.com/" target="_blank"><img src="img/demente.png" alt=""></a>
-        </p>
-      </div>
-    </footer>
+				@else
+				<a id="logo-container" class="brand-logo logo-patrocinante logo logo_right" href="#">
+				  <!-- <img src="img/logo/logo.png" alt=""> -->
+				  <h3 class="logopatrocinantes">Logo patrocinante</h3>
 
-    <div class="vistaPrevia none">
-      <div class="cerrar">
+				</a>
 
-      </div>
-      <div class="container">
-        <ul>
-          <li>
-            <div class="vista">
-              <div class="header">
-                <div class="iconMenu">
-                  <img src="img/icons/menu_cliente.png" alt="">
-                </div>
-              </div>
-              <div class="content">
-                <div class="vistaInicio">
-                  <div class="centrar">
-                    <div class="logo">
-                      <img src="img/logo/logo1.png" alt="">
-                    </div>
-                    <div class="titulo">
-                      <h3>Nombre de Locacion</h3>
-                    </div>
-                  </div>
+				@endif
+			</ul>
 
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="vista">
-              <div class="header">
-                <div class="iconMenu">
-                  <img src="img/icons/menu_cliente.png" alt="">
-                </div>
-                <div class="logo">
-                  <img src="img/logo/logo1.png" alt="">
-                </div>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
 
-    </div>
+			<!-- <ul id="nav-mobile" class="side-nav">
+				<li><a href="#">Navbar Link</a></li>
+			</ul> -->
+			<a href="#" class="MenuResponsive"><i class="material-icons">menu</i></a>
+		</div>
+	</nav>
 
+
+	@yield('content')
+
+	<footer>
+	  <div class="footer">
+		<p>
+		  © {{date('Y')}} - Todos los derechos reservados. Diseñado por <a href="http://dementecreativo.com/" target="_blank"><img src="img/demente.png" alt=""></a>
+		</p>
+	  </div>
+	</footer>
+
+	<div class="vistaPrevia none">
+	  <div class="cerrar">
+
+	  </div>
+	  <div class="container">
+		<ul>
+		  <li>
+			<div class="vista">
+			  <div class="header">
+				<div class="iconMenu">
+				  <img src="img/icons/menu_cliente.png" alt="">
+				</div>
+			  </div>
+			  <div class="content">
+				<div class="vistaInicio">
+				  <div class="centrar">
+					<div class="logo">
+					  <img src="img/logo/logo1.png" alt="">
+					</div>
+					<div class="titulo">
+					  <h3>Nombre de Locacion</h3>
+					</div>
+				  </div>
+
+				</div>
+			  </div>
+			</div>
+		  </li>
+		  <li>
+			<div class="vista">
+			  <div class="header">
+				<div class="iconMenu">
+				  <img src="img/icons/menu_cliente.png" alt="">
+				</div>
+				<div class="logo">
+				  <img src="img/logo/logo1.png" alt="">
+				</div>
+			  </div>
+			</div>
+		  </li>
+		</ul>
+	  </div>
+
+	</div>
 
 
 
 
-    <!--  Scripts-->
-    <!-- <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
-    <script src="js/jquery.js"></script>
-    <script src="js/materialize.js"></script>
-    <script src="js/init.js"></script>
-    <script src="js/datetimepicker.min.js"></script>
-    <script src="js/jquery.mask.min.js"></script>
-    <script src="js/config.js"></script>    
-    <script src="js/script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.13.4/jquery.mask.min.js"></script>
 
-    @if (session('status'))
-    <script type="text/javascript">
-      var status = "{{ session('status') }}";
-      var type = "{{ session('type') }}"
-      Materialize.toast(status, 5000, type);
-    </script>
-    @endif
+	<!--  Scripts-->
+	<!-- <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
+	<script src="js/jquery.js"></script>
+	<script src="js/materialize.js"></script>
+	<script src="js/init.js"></script>
+	<script src="js/datetimepicker.min.js"></script>
+	<script src="js/jquery.mask.min.js"></script>
+	<script src="js/config.js"></script>    
+	<script src="js/script.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.13.4/jquery.mask.min.js"></script>
 
-    @if (session('mod'))
-    <script type="text/javascript">
-      $(document).ready(function(){
-        $('#platosMenu').modal('open');
-      });
-    </script>
-    @endif
+	@if (session('status'))
+	<script type="text/javascript">
+	  var status = "{{ session('status') }}";
+	  var type = "{{ session('type') }}"
+	  Materialize.toast(status, 5000, type);
+	</script>
+	@endif
+
+	@if (session('mod'))
+	<script type="text/javascript">
+	  $(document).ready(function(){
+		$('#platosMenu').modal('open');
+	  });
+	</script>
+	@endif
 </body>
 </html>
