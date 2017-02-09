@@ -1,6 +1,12 @@
 <?php
+
+use Beacon\Http\Controllers\UserController;
+
 use Beacon\Location;
 use Beacon\User;
+use Beacon\Pasos;
+
+$ultimo_paso = UserController::ultimo_paso();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,24 +79,24 @@ use Beacon\User;
 					<a class="sb_mn" href="#">
 						<span>Servicios <i class="material-icons right">arrow_drop_down</i></span>
 					</a>
-					<ul class="sub_menu none">
-						<li>
-							<a href="{{ route('all_coupon') }}">
+					<ul class="sub_menu none">						
+						<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+							<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_campana') : '' }}">
 								<span>La Carta</span>
 							</a>
 						</li>
-						<li>
-							<a href="{{ route('all_timeframe')}}">
+						<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+							<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_timeframe') : '' }}">
 								<span>Horarios</span>
 							</a>
 						</li>
-						<li>
-							<a href="{{ route('all_campana')}}">
+						<li class="{{ ( $ultimo_paso >= 5 ) ? '' : 'desactivado' }}">
+							<a href="{{ ( $ultimo_paso >= 5 ) ? route('all_campana') : '' }}">
 								  <span>Planificación</span>
 							</a>
 						</li>
-						<li>
-							<a href="{{ route('all_type_plate')}}">
+						<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+							<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_type_plate') : '' }}">
 								<span>Servicio</span>
 							</a>
 						</li>
@@ -101,13 +107,13 @@ use Beacon\User;
 						<span>Promociones</span>
 						</a>
 							<ul class="sub_menu2">
-							<li>
-								<a href="{{ route('all_welcome_kit') }}">
+							<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+								<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_welcome_kit') : '' }}">
 									<span>Kit de Bienvenida</span>
 								</a>
 							</li>
-							<li>
-								<a href="{{ route('all_fidelity_kit') }}">
+							<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+								<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_fidelity_kit') : '' }}">
 									<span>Kit de Fidelidad</span>
 								</a>
 							</li>

@@ -28,7 +28,7 @@ $('#menu_name, #menu_type, #menu_price').change(function(){
 
 /* Desactivar por pasos 0*/
 
-$('.links li.desactivado a').click(function(){
+$('.desactivado a').click(function(){
 
 	return false;
 })
