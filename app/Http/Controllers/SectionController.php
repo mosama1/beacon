@@ -11,6 +11,7 @@ use Beacon\Menu;
 use Beacon\Section;
 use Beacon\SectionTranslation;
 use Beacon\User;
+use Beacon\PasosProcesos;
 
 class SectionController extends Controller
 {
@@ -104,9 +105,12 @@ class SectionController extends Controller
 		$section_translation->section_id = $section->id;
 		$section_translation->language_id = 1;
 		$section_translation->name = $request->name;
-		
-
 		$section_translation->save();
+
+		$pasos_procesos = new PasosProcesos(); 
+		$pasos_procesos->user_id = $user ->id;
+		$pasos_procesos->paso_id = 4;
+		$pasos_procesos->save();
 
 		return redirect()->route('all_section', $request->coupon_id)->with(['status' => 'Se ingreso Section de Menu con exito', 'type' => 'success']);
 

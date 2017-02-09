@@ -25,6 +25,7 @@ use Beacon\User;
 use Log;
 use Beacon\Http\Controllers\UserController;
 use Beacon\Pasos;
+use Beacon\PasosProcesos;
 
 class CouponController extends Controller
 {
@@ -174,6 +175,15 @@ class CouponController extends Controller
 			$coupon_translation->language_id = 1;
 			$coupon_translation->coupon_id = $coupon->coupon_id;
 			$coupon_translation->save();
+
+
+			$pasos_procesos = new PasosProcesos(); 
+			$pasos_procesos->user_id = $user->id;
+			$pasos_procesos->paso_id = 3; 
+			$pasos_procesos->save();
+
+
+
 
 			return redirect()->route('all_coupon', $request->section_id)->with(['status' => 'El menu se registro con exito', 'type' => 'success']);
 

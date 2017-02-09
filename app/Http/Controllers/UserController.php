@@ -123,8 +123,6 @@ class UserController extends Controller
 
 		$location = $user->location;
 
-		// echo("<pre>");	var_dump($user->location);	echo("</pre>");
-		// return;
 
 		if ($user->location):
 
@@ -150,6 +148,7 @@ class UserController extends Controller
 		$user->phone = $request->get('phone');
 		$user->save();
 
+		
 		return redirect()->route('user_edit_path', $user->user_id)->with(['status' => 'Se edito el perfil con exito', 'type' => 'success']);
 	 }
 
@@ -182,8 +181,7 @@ class UserController extends Controller
 		$paso_previo = Pasos::where('id', '<', $paso_actual)->orderBy('id', 'desc')->first();
 
 		// Consulto en la tabla bitacora el ultimo paso realizado esto es paso_id
-		$ultimo_paso = PasosProcesos::where('user_id', '=', $user->id)->first();
-		
+		$ultimo_paso = PasosProcesos::where('user_id', '=', $user->id)->first();		
 
 
 		// si paso previo es igual a paso_id quiere decir que si va a poder acceder a esa seccion del menu
@@ -212,7 +210,14 @@ class UserController extends Controller
 		// Consulto en la tabla bitacora el ultimo paso realizado esto es paso_id
 		$ultimo_paso = PasosProcesos::where('user_id', '=', $user->id)->first();
 
-		return $ultimo_paso->paso_id;
+		if ( is_Null($ultimo_paso) ){
+
+			return 0;
+		} else {
+
+			return $ultimo_paso->paso_id;		
+		}
+		
 	}
 
 }

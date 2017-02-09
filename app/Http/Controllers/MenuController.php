@@ -13,6 +13,7 @@ use Beacon\Section;
 use Beacon\TypesPlates;
 use Beacon\User;
 use Beacon\Http\Controllers\UserController;
+use Beacon\PasosProcesos;
 
 class MenuController extends Controller
 {
@@ -196,6 +197,11 @@ class MenuController extends Controller
 			$menu_translation->language_id = 1;
 			$menu_translation->name = $request->name;
 			$menu_translation->save();
+
+			$pasos_procesos = new PasosProcesos();
+			$pasos_procesos->user_id = $user ->id;
+			$pasos_procesos->paso_id = 5; 
+			$pasos_procesos->save();
 
 
 			return redirect()->route('all_menu', $menu->section_id)->with(['status' => 'Se creo el plato', 'type' => 'success']);

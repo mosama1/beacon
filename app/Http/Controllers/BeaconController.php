@@ -21,6 +21,7 @@ use Beacon\PlateTranslation;
 use Beacon\TypesPlates;
 use Illuminate\Support\Facades\Input;
 use Beacon\User;
+use Beacon\PasosProcesos;
 use Log;
 
 class BeaconController extends Controller
@@ -199,6 +200,12 @@ class BeaconController extends Controller
 				$beac->minor = $request->minor;
 				$beac->location_id = $location->location_id;
 				$beac->save();
+
+				/*Se insertar en pasos procesos*/
+				$pasos_procesos = new PasosProcesos; 
+				$pasos_procesos->user_id = $user->id;
+				$pasos_procesos->paso_id = 2; 
+				$pasos_procesos->save();
 
 				return redirect()->route('all_beacons')->with(['status' => 'El beacons ha sido registrado exitosamente', 'type' => 'success']);
 

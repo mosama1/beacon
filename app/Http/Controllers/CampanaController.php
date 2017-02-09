@@ -13,6 +13,7 @@ use Beacon\CouponTranslation;
 use Beacon\Tag;
 use Beacon\Timeframe;
 use Beacon\User;
+use Beacon\PasosProcesos;
 use Illuminate\Support\Facades\Input;
 use Log;
 
@@ -139,6 +140,11 @@ class CampanaController extends Controller
 			$cam->location_id = $request->location_id;
 			$cam->status = $campana->campaign->enabled;
 			$cam->save();
+
+			$pasos_procesos = new PasosProcesos(); 
+			$pasos_procesos->user_id = $user->user_id; 
+			$pasos_procesos->paso_id = 6; 
+			$pasos_procesos->save();
 
 			return redirect()->route('all_campana');
 
