@@ -74,10 +74,15 @@ class MenuController extends Controller
 	public function index($section_id)
 	{
 
-		if ( UserController::check_proccess(3) ){
-			echo "no puede acceder aca todavia";
-		}else{
-			echo "si si puede acceder";
+		$paso = Pasos::where('controller', '=', get_class() )->first();
+
+		$check_proccess = UserController::check_proccess($paso->id);
+
+		if ( $check_proccess == 0 ){ //no tiene el proceso previo realizado
+
+			$ultimo_paso = UserController::ultimo_paso();
+
+			return view('home', ['ultimo_paso' => $ultimo_paso,] );
 		}
 
 		$user = User::where( 'id', '=', Auth::user()->id )->first();

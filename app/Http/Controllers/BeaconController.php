@@ -84,6 +84,19 @@ class BeaconController extends Controller
 	 */
 	public function show()
 	{
+
+		$paso = Pasos::where('controller', '=', get_class() )->first();
+
+		$check_proccess = UserController::check_proccess($paso->id);
+
+		if ( $check_proccess == 0 ){ //no tiene el proceso previo realizado
+
+			$ultimo_paso = UserController::ultimo_paso();
+
+			return view('home', ['ultimo_paso' => $ultimo_paso,] );
+		}
+
+
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 		$beacons = Beacon::where('user_id', '=', $user->user_id)->get();
