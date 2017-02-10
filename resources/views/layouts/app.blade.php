@@ -56,6 +56,9 @@ $actual = (isset($actual)) ? $actual : '';
 				$user = User::where('id', '=', Auth::user()->id)->first();
 
 				$location = Location::where('user_id', '=', $user->user_id)->first();
+
+				$ultimo_paso = UserController::ultimo_paso();
+
 				@endphp
 				<?php if (!empty($location)): ?>
 				  <img src="{{$location->logo}}" alt="">

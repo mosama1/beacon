@@ -149,8 +149,6 @@ class UserController extends Controller
 		$user->email = $request->get('email');
 		$user->phone = $request->get('phone');
 		$user->save();
-
-
 		return redirect()->route('user_edit_path', $user->user_id)->with(['status' => 'Se edito el perfil con exito', 'type' => 'success']);
 	 }
 
@@ -183,14 +181,20 @@ class UserController extends Controller
 		$paso_previo = Pasos::where('id', '<', $paso_actual)->orderBy('id', 'desc')->first();
 
 		// Consulto en la tabla bitacora el ultimo paso realizado esto es paso_id
-
 		$ultimo_paso = PasosProcesos::where('user_id', '=', $user->id)->orderBy('paso_id', 'desc')->first();
+
+
+		echo "user         : " . $user->id . "<br>";
+		echo "paso actual  : " . $paso_actual . "<br>";
+		echo "paso_previo  : " . $paso_previo->id . "<br>";
+		echo "ultimo_paso  : " . $ultimo_paso->paso_id . "<br>";
 
 		// si paso previo es igual a paso_id quiere decir que si va a poder acceder a esa seccion del menu
 		// en ese caso se retorna un true
 
 		// en caso contrario se retorna en false
-		if ( $paso_previo->id >= $ultimo_paso->paso_id ){
+		if ( $ultimo_paso->paso_id >= $paso_previo->id  ){
+
 			return 1;
 		};
 
@@ -208,7 +212,9 @@ class UserController extends Controller
 	{
 
 
-		if (Auth::user()) {
+
+		if ( !Auth::guest() ) {
+
 			//Consulto al usuario conectado
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
@@ -223,7 +229,5 @@ class UserController extends Controller
 				return $ultimo_paso->paso_id;
 			}
 		}
-
 	}
-
 }

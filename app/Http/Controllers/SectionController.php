@@ -12,6 +12,7 @@ use Beacon\Section;
 use Beacon\SectionTranslation;
 use Beacon\User;
 use Beacon\PasosProcesos;
+use Beacon\Pasos;
 
 class SectionController extends Controller
 {
@@ -68,6 +69,17 @@ class SectionController extends Controller
 
 	public function index($coupon_id)
 	{
+
+		$paso = Pasos::where('controller', '=', get_class() )->first();
+
+		$check_proccess = UserController::check_proccess($paso->id);
+
+		if ( $check_proccess == 0 ){ //no tiene el proceso previo realizado
+
+			$ultimo_paso = UserController::ultimo_paso();
+
+			return view('home', ['ultimo_paso' => $ultimo_paso,] );
+		}
 
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 

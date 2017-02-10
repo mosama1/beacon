@@ -28,8 +28,8 @@ $actual = 'home';
 				</a>
 			</li>
 
-			<li class="{{ ( $ultimo_paso >= 5 ) ? '' : 'desactivado' }}">
-				<a href="{{ ( $ultimo_paso >= 5 ) ? route('all_campana') : '' }}">
+			<li class="{{ ( $ultimo_paso >= 6 ) ? '' : 'desactivado' }}">
+				<a href="{{ ( $ultimo_paso >= 6 ) ? route('all_campana') : '' }}">
 					<img src="img/icons/plan.png" title="Planificación">
 				</a>
 			</li>
