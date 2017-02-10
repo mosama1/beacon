@@ -13,8 +13,6 @@ use Beacon\Timeframe;
 use Beacon\Beacon;
 use Beacon\Plate;
 use Beacon\User;
-use Beacon\Pasos;
-use Beacon\PasosProcesos;
 use Log;
 
 class TimeframeController extends Controller
@@ -135,14 +133,6 @@ class TimeframeController extends Controller
 			$time->end_time = $timeframe->timeframe->end_time;
 			$time->days = $timeframe->timeframe->days;
 			$time->save();
-
-			// Control de Proceso 
-			//
-			$paso = Pasos::where('controller', '=', get_class() )->first();
-			$pasos_procesos = new PasosProcesos(); 
-			$pasos_procesos->user_id = $user->id;
-			$pasos_procesos->paso_id = $paso->id; 
-			$pasos_procesos->save();			
 
 			return redirect()->route('all_timeframe');
 

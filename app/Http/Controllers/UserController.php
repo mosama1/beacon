@@ -9,8 +9,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Beacon\Location;
-use Beacon\Pasos;
-use Beacon\PasosProcesos;
+use Beacon\Beacon;
+use Beacon\Coupon;
+use Beacon\Section;
+use Beacon\Menu;
+use Beacon\Timeframe;
+use Beacon\Campana;
 
 
 
@@ -163,44 +167,6 @@ class UserController extends Controller
 		//
 	}
 
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public static function check_proccess( $paso_actual )
-	{
-		//Consulto al usuario conectado
-		$user = User::where( 'id', '=', Auth::user()->id )->first();
-
-		// Consulto en la tabla Pasos, cual es el paso requerido
-		// esto es el paso previo al paso actual.
-		$paso_previo = Pasos::where('id', '<', $paso_actual)->orderBy('id', 'desc')->first();
-
-		// Consulto en la tabla bitacora el ultimo paso realizado esto es paso_id
-		$ultimo_paso = PasosProcesos::where('user_id', '=', $user->id)->orderBy('paso_id', 'desc')->first();
-
-
-		echo "user         : " . $user->id . "<br>";
-		echo "paso actual  : " . $paso_actual . "<br>";
-		echo "paso_previo  : " . $paso_previo->id . "<br>";
-		echo "ultimo_paso  : " . $ultimo_paso->paso_id . "<br>";
-
-		// si paso previo es igual a paso_id quiere decir que si va a poder acceder a esa seccion del menu
-		// en ese caso se retorna un true
-
-		// en caso contrario se retorna en false
-		if ( $ultimo_paso->paso_id >= $paso_previo->id  ){
-
-			return 1;
-		};
-
-		return 0;
-	}
-
-
 	/**
 	 * Remove the specified resource from storage.
 	 *
@@ -210,20 +176,61 @@ class UserController extends Controller
 	public static function ultimo_paso()
 	{
 		
-		if ( !Auth::guest() ) {
+		if ( !Auth::guest() ) { // si no se ha logeado 
 
 			//Consulto al usuario conectado
-			$user = User::where( 'id', '=', Auth::user()->id )->first();
+			$user = Auth::user()->user_id;
+			$paso_completado = 0;
 
-			// Consulto en la tabla bitacora el ultimo paso realizado esto es paso_id
-			$ultimo_paso = PasosProcesos::where('user_id', '=', $user->id)->orderBy('paso_id', 'desc')->first();
+			// Consulto que data posee registrada y devuelvo el paso que representa
+			//
 
-			if ( is_Null($ultimo_paso) ){
+			if ( Location::where('user_id','=', $user)->get()->count() < 1 ) {
 
-				return 0;
+				return $paso_completado;
 			} else {
 
-				return $ultimo_paso->paso_id;
+				$paso_completado++;
+
+				if ( Beacon::where('user_id','=', $user)->get()->count() < 1 ){
+
+					return $paso_completado;
+				} else {
+
+					$paso_completado++;
+
+					if ( Coupon::where('user_id','=', $user)->get()->count() < 1 ){
+
+						return $paso_completado;
+					} else {
+
+						$paso_completado++;
+
+						if ( Timeframe::where('user_id','=', $user)->get()->count() < 1 ) {
+
+							return $paso_completado;
+						} else {
+
+							$paso_completado++;			
+
+							if (  Menu::where('user_id','=', $user)->get()->count() < 1 ){
+								
+								return $paso_completado;
+							} else {
+
+								$paso_completado++;
+
+								if ( Campana::where('user_id','=', $user)->get()->count() < 1 ){
+
+									return $paso_completado;
+								} else {
+
+									return $paso_completado++;
+								}
+							}							
+						}					
+					}
+				}
 			}
 		}		
 	}
