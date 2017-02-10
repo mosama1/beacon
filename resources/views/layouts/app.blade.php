@@ -92,8 +92,8 @@ use Beacon\Pasos;
 								<span>Horarios</span>
 							</a>
 						</li>
-						<li class="{{ ( $ultimo_paso >= 5 ) ? '' : 'desactivado' }}">
-							<a href="{{ ( $ultimo_paso >= 5 ) ? route('all_campana') : '' }}">
+						<li class="{{ ( $ultimo_paso >= 6 ) ? '' : 'desactivado' }}">
+							<a href="{{ ( $ultimo_paso >= 6 ) ? route('all_campana') : '' }}">
 								  <span>Planificación</span>
 							</a>
 						</li>
