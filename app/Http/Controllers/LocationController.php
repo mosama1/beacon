@@ -20,7 +20,7 @@ use Beacon\TypesPlates;
 use Illuminate\Support\Facades\Input;
 use Beacon\User;
 use Log;
-use Beacon\PasosProcesos;
+
 
 class LocationController extends Controller
 {
@@ -84,17 +84,6 @@ class LocationController extends Controller
 	 */
 	public function index()
 	{
-
-		$paso = Pasos::where('controller', '=', get_class() )->first();
-
-		$check_proccess = UserController::check_proccess($paso->id);
-
-		if ( $check_proccess == 0 ){ //no tiene el proceso previo realizado
-
-			$ultimo_paso = UserController::ultimo_paso();
-
-			return view('home', ['ultimo_paso' => $ultimo_paso,] );
-		}		
 
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
@@ -266,11 +255,6 @@ class LocationController extends Controller
 			// $tag_->user_id = $user->user_id;
 			// $tag_->name = $tag->tag->name;
 			// $tag_->save();
-
-			$pasos_procesos = new PasosProcesos;
-			$pasos_procesos->user_id = $user->id;
-			$pasos_procesos->paso_id = 1; 
-			$pasos_procesos->save();
 
 			return redirect()->route('user_edit_path', $user->user_id)->with(['status' => 'Se ha almacenado la localidad exitosamente', 'type' => 'success']);
 

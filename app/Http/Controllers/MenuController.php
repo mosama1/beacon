@@ -13,8 +13,6 @@ use Beacon\Section;
 use Beacon\TypesPlates;
 use Beacon\User;
 use Beacon\Http\Controllers\UserController;
-use Beacon\PasosProcesos;
-use Beacon\Pasos;
 
 class MenuController extends Controller
 {
@@ -74,17 +72,6 @@ class MenuController extends Controller
 	 */
 	public function index($section_id)
 	{
-
-		$paso = Pasos::where('controller', '=', get_class() )->first();
-
-		$check_proccess = UserController::check_proccess($paso->id);
-
-		if ( $check_proccess == 0 ){ //no tiene el proceso previo realizado
-
-			$ultimo_paso = UserController::ultimo_paso();
-
-			return view('home', ['ultimo_paso' => $ultimo_paso,] );
-		}
 
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
@@ -203,12 +190,6 @@ class MenuController extends Controller
 			$menu_translation->language_id = 1;
 			$menu_translation->name = $request->name;
 			$menu_translation->save();
-
-			$pasos_procesos = new PasosProcesos();
-			$pasos_procesos->user_id = $user ->id;
-			$pasos_procesos->paso_id = 5; 
-			$pasos_procesos->save();
-
 
 			return redirect()->route('all_menu', $menu->section_id)->with(['status' => 'Se creo el plato', 'type' => 'success']);
 		}

@@ -21,8 +21,6 @@ use Beacon\PlateTranslation;
 use Beacon\TypesPlates;
 use Illuminate\Support\Facades\Input;
 use Beacon\User;
-use Beacon\PasosProcesos;
-use Beacon\Pasos;
 use Log;
 
 class BeaconController extends Controller
@@ -85,18 +83,6 @@ class BeaconController extends Controller
 	 */
 	public function show()
 	{
-
-		$paso = Pasos::where('controller', '=', get_class() )->first();
-
-		$check_proccess = UserController::check_proccess($paso->id);
-
-		if ( $check_proccess == 0 ){ //no tiene el proceso previo realizado
-
-			$ultimo_paso = UserController::ultimo_paso();
-
-			return view('home', ['ultimo_paso' => $ultimo_paso,] );
-		}
-
 
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
@@ -214,12 +200,6 @@ class BeaconController extends Controller
 				$beac->minor = $request->minor;
 				$beac->location_id = $location->location_id;
 				$beac->save();
-
-				/*Se insertar en pasos procesos*/
-				$pasos_procesos = new PasosProcesos; 
-				$pasos_procesos->user_id = $user->id;
-				$pasos_procesos->paso_id = 2; 
-				$pasos_procesos->save();
 
 				return redirect()->route('all_beacons')->with(['status' => 'El beacons ha sido registrado exitosamente', 'type' => 'success']);
 

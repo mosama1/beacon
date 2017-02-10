@@ -82,18 +82,6 @@ class CampanaController extends Controller
 	public function index()
 	{
 
-		$paso = Pasos::where('controller', '=', get_class() )->first();
-
-		$check_proccess = UserController::check_proccess($paso->id);
-
-		if ( $check_proccess == 0 ){ //no tiene el proceso previo realizado
-
-			$ultimo_paso = UserController::ultimo_paso();
-
-			return view('home', ['ultimo_paso' => $ultimo_paso,] );
-		}
-
-
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 		$campana = Campana::where([
@@ -155,11 +143,6 @@ class CampanaController extends Controller
 			$cam->location_id = $request->location_id;
 			$cam->status = $campana->campaign->enabled;
 			$cam->save();
-
-			$pasos_procesos = new PasosProcesos(); 
-			$pasos_procesos->user_id = $user->id; 
-			$pasos_procesos->paso_id = 6; 
-			$pasos_procesos->save(); 
 
 			return redirect()->route('all_campana');
 
