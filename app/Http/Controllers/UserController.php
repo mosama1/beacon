@@ -123,10 +123,12 @@ class UserController extends Controller
 
 		$location = $user->location;
 
+		$ultimo_paso = UserController::ultimo_paso();
+
 
 		if ($user->location):
 
-			return view('users.edit', ['user' => $user, 'location' => $location ]);
+			return view('users.edit', ['user' => $user, 'location' => $location, 'ultimo_paso' => $ultimo_paso ]);
 		else:
 			return view('locations.location_add');
 		endif;
@@ -148,7 +150,7 @@ class UserController extends Controller
 		$user->phone = $request->get('phone');
 		$user->save();
 
-		
+
 		return redirect()->route('user_edit_path', $user->user_id)->with(['status' => 'Se edito el perfil con exito', 'type' => 'success']);
 	 }
 
@@ -204,20 +206,24 @@ class UserController extends Controller
 	 */
 	public static function ultimo_paso()
 	{
-		//Consulto al usuario conectado
-		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-		// Consulto en la tabla bitacora el ultimo paso realizado esto es paso_id
-		$ultimo_paso = PasosProcesos::where('user_id', '=', $user->id)->orderBy('paso_id', 'desc')->first();
 
-		if ( is_Null($ultimo_paso) ){
+		if (Auth::user()) {
+			//Consulto al usuario conectado
+			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-			return 0;
-		} else {
+			// Consulto en la tabla bitacora el ultimo paso realizado esto es paso_id
+			$ultimo_paso = PasosProcesos::where('user_id', '=', $user->id)->orderBy('paso_id', 'desc')->first();
 
-			return $ultimo_paso->paso_id;		
+			if ( is_Null($ultimo_paso) ){
+
+				return 0;
+			} else {
+
+				return $ultimo_paso->paso_id;
+			}
 		}
-		
+
 	}
 
 }

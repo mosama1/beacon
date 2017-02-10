@@ -86,7 +86,7 @@ class CouponController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index()	
+	public function index()
 	{
 		$paso = Pasos::where('controller', '=', get_class() )->first();
 
@@ -132,7 +132,7 @@ class CouponController extends Controller
 						'message' => $request->name,
 						'type' => 'url',
 						'url' => 'http://dementecreativo.com/prueba/final/',
-						
+
 				]
 		]);
 
@@ -155,7 +155,7 @@ class CouponController extends Controller
 				$coupon->price = $request->price;
 			$coupon->url = $coupon_response->coupon->url;
 			$coupon->status= 1;
-			
+
 
 			/*$coupon->enabled = $coupon_response->coupon->enabled;*/
 
@@ -177,9 +177,9 @@ class CouponController extends Controller
 			$coupon_translation->save();
 
 
-			$pasos_procesos = new PasosProcesos(); 
+			$pasos_procesos = new PasosProcesos();
 			$pasos_procesos->user_id = $user->id;
-			$pasos_procesos->paso_id = 3; 
+			$pasos_procesos->paso_id = 3;
 			$pasos_procesos->save();
 
 
@@ -350,7 +350,7 @@ class CouponController extends Controller
 	}
 
 	public function habilitar_coupon($id)
-	{		
+	{
 
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 

@@ -1,4 +1,7 @@
-<?php $nivel = '../' ?>
+<?php
+$nivel = '../';
+$actual = 'edit';
+ ?>
 @extends('layouts.app')
 
 @section('content')
@@ -64,7 +67,7 @@
 
         </div>
         <div class="links_">
-          <a href="#cambiarContrasena">Cambiar Contraseña</a> || <a href="{{ route('all_beacons') }}">Información de Beacons</a>
+          <a href="#cambiarContrasena">Cambiar Contraseña</a> || <a href="{{ route('all_beacons') }}" @if($ultimo_paso == 1) data-step="2" data-intro="Debes registrar tu dispositivo beacon" @endif>Información de Beacons</a>
         </div>
         <div class="button">
           <center>

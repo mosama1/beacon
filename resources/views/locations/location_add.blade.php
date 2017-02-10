@@ -1,4 +1,7 @@
-<?php $nivel = '../' ?>
+<?php
+$nivel = '../';
+$actual = 'location_add'
+ ?>
 
 @extends('layouts.app')
 

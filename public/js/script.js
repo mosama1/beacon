@@ -29,15 +29,18 @@ $('#menu_name, #menu_type, #menu_price').change(function(){
 /* Desactivar por pasos 0*/
 
 $('.desactivado a').click(function(){
-
 	return false;
 })
 
 
+/* InTRO JS */
 
-// $(document).ready(function (){
+
+$(document).ready(function(){
 //   alert('');
-// });
+    introJs().start();
+
+});
 
 $('.authenticate .divide .divide_cont.new_user .new_user_head .icon a').click(function(){
   if (!$('.authenticate .divide .divide_cont.new_user').hasClass('active')) {
@@ -608,10 +611,10 @@ function habilitar(id, destino, value) {
 
 			if( respuesta == 0 ){ // se habilito la entidad
 
-				$(id).prop('checked', true);				
+				$(id).prop('checked', true);
 			} else {
 
-				$(id).prop('checked', false);				
+				$(id).prop('checked', false);
 			}
 		}
 	})

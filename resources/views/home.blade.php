@@ -1,3 +1,6 @@
+<?php
+$actual = 'home';
+?>
 @extends('layouts.app')
 
 @section('content')
@@ -5,13 +8,21 @@
 <div class="contenedor">
 	<div class="principal">
 		<ul class="links">
-			<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+			@if( $ultimo_paso == 2 and $actual == 'home')
+				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}" data-step="3" data-intro="Debes crear La Carta">
+			@else
+				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+			@endif
 				<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_coupon') : '' }}">
 				  <img src="img/icons/menu.png" title="Carta">
-				</a>      
+				</a>
 			</li>
 
-			<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+			@if( $ultimo_paso == 2 and $actual == 'home')
+				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}" data-step="4" data-intro="Debes crear Horarios">
+			@else
+				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+			@endif
 				<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_timeframe') : ''}}">
 					<img src="img/icons/horarios.png" title="Horarios">
 				</a>
@@ -23,19 +34,32 @@
 				</a>
 			</li>
 
-			<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+			@if( $ultimo_paso == 2 and $actual == 'home')
+				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}" data-step="5" data-intro="Debes crear Tipos de platos">
+			@else
+				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+			@endif
 				<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_type_plate') : '' }}">
 					<img src="img/icons/servicio.png" title="Servicio">
 				</a>
 			</li>
 
-			<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+			@if( $ultimo_paso == 2 and $actual == 'home')
+				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}" data-step="6" data-intro="Puedes Crear idiomas">
+			@else
+				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+			@endif
 				<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_language') : '' }}">
 					<img src="img/icons/idiomas.png" title="Idiomas">
 				</a>
 			</li>
 
-			<li>
+
+				@if( $ultimo_paso == 2 and $actual == 'home')
+					<li data-step="7" data-intro="Puedes Crear Promociones">
+				@else
+					<li>
+				@endif
 				<a href="#" onclick="return false;">
 					<img src="img/icons/promociones.png" title="Promociones">
 				</a>

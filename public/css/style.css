@@ -70,7 +70,10 @@ select:not(.multiple_) {
   opacity: .4;
 }
 
-
+.introjs-helperNumberLayer{
+    top: auto;
+    bottom: 0;
+}
 
 
 .links li a{

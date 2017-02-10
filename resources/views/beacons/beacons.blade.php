@@ -1,4 +1,7 @@
-<?php $nivel = '' ?>
+<?php
+    $nivel = '';
+    $actual = 'beacons';
+ ?>
 @extends('layouts.app')
 
 @section('content')

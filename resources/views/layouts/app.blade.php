@@ -7,6 +7,8 @@ use Beacon\User;
 use Beacon\Pasos;
 
 $ultimo_paso = UserController::ultimo_paso();
+
+$actual = (isset($actual)) ? $actual : '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,6 +34,7 @@ $ultimo_paso = UserController::ultimo_paso();
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/datetimepicker.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/introjs.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   {{--<link href="css/app.css" rel="stylesheet">--}}
   <link rel="shortcut icon" type="image/png" href="img/icons/ingrementa_clientes.png"/>
@@ -79,7 +82,7 @@ $ultimo_paso = UserController::ultimo_paso();
 					<a class="sb_mn" href="#">
 						<span>Servicios <i class="material-icons right">arrow_drop_down</i></span>
 					</a>
-					<ul class="sub_menu none">						
+					<ul class="sub_menu none">
 						<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
 							<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_campana') : '' }}">
 								<span>La Carta</span>
@@ -122,25 +125,34 @@ $ultimo_paso = UserController::ultimo_paso();
 						</ul>
 					</li>
 
-
-
-					<li>
+                    @if( $ultimo_paso == 0 and $actual != 'location_add')
+                        <li data-step="1" data-intro="Debes registrar tu ubicacion">
+                    @elseif($ultimo_paso == 1 and $actual != 'beacons' and $actual != 'edit')
+                        <li data-step="2" data-intro="Debes registrar tu dispositivo beacon">
+                    @else
+                        <li>
+                    @endif
 						<a class="" href="{{ route('user_edit_path', Auth::user()->id) }}">
-						   <span>Mi Cuenta</span>
+						   <span>Mi Cuenta {{$ultimo_paso}}</span>
 						</a>
-
 					</li>
 
 
 					<li>
 					  <a href="{{ url('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-						  <span>Salir</span>
+						  <span>Salir {{$actual}}</span>
 					  </a>
-					  
+
 					  <form id="logout-form" action="{{ url('logout') }}" method="POST" style="display: none;">
 						  {{ csrf_field() }}
 					  </form>
 					</li>
+                    <!-- <li>
+                        <a class="introduccion" href="javascript:void(0);" onclick="javascript:startTour();">
+                           <span>Intro</span>
+                        </a>
+
+                    </li> -->
 
 				@else
 				<a id="logo-container" class="brand-logo logo-patrocinante logo logo_right" href="#">
@@ -227,9 +239,20 @@ $ultimo_paso = UserController::ultimo_paso();
 	<script src="js/init.js"></script>
 	<script src="js/datetimepicker.min.js"></script>
 	<script src="js/jquery.mask.min.js"></script>
-	<script src="js/config.js"></script>    
-	<script src="js/script.js"></script>
+	<script src="js/config.js"></script>
+    <script src="js/intro.min.js"></script>
+    <script src="js/script.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.13.4/jquery.mask.min.js"></script>
+    <script type="text/javascript">
+        function startTour() {
+            var tour = introJs()
+            tour.setOption('tooltipPosition', 'auto');
+            tour.setOption('positionPrecedence', ['left', 'right', 'bottom', 'top'])
+            tour.start()
+        }
+
+
+    </script>
 
 	@if (session('status'))
 	<script type="text/javascript">
