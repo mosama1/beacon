@@ -201,25 +201,8 @@ class UserController extends Controller
 					$paso_completado++;
 
 					if ( Coupon::where('user_id','=', $user)->get()->count() < 1 ){
-
-<<<<<<< HEAD
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public static function ultimo_paso()
-	{
-
-
-
-		if ( !Auth::guest() ) {
-=======
 						return $paso_completado;
 					} else {
->>>>>>> d7401bebf44b1f1077f6683f2bc2302da4cb8bf5
-
 						$paso_completado++;
 
 						if ( Timeframe::where('user_id','=', $user)->get()->count() < 1 ) {
