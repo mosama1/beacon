@@ -223,8 +223,8 @@ class UserController extends Controller
 
 									return $paso_completado;
 								} else {
-
-									return $paso_completado++;
+									$paso_completado++;
+									return $paso_completado;
 								}
 							}
 						}

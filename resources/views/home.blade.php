@@ -8,8 +8,8 @@ $actual = 'home';
 <div class="contenedor">
 	<div class="principal">
 		<ul class="links">
-			@if( $ultimo_paso == 2 and $actual == 'home')
-				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}" data-step="3" data-intro="Debes crear La Carta">
+			@if( ( $ultimo_paso == 2 and $actual == 'home' ) or ( $actual == 'home' and $ultimo_paso == 4 ) )
+				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}" data-step="3" data-intro="Debes crear La Carta, Secciones y Platos">
 			@else
 				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
 			@endif
@@ -18,7 +18,7 @@ $actual = 'home';
 				</a>
 			</li>
 
-			@if( $ultimo_paso == 2 and $actual == 'home')
+			@if( $ultimo_paso == 3 and $actual == 'home')
 				<li class="{{ ( $ultimo_paso >= 3 ) ? '' : 'desactivado' }}" data-step="4" data-intro="Debes crear Horarios">
 			@else
 				<li class="{{ ( $ultimo_paso >= 3 ) ? '' : 'desactivado' }}">
@@ -28,14 +28,18 @@ $actual = 'home';
 				</a>
 			</li>
 
-			<li class="{{ ( $ultimo_paso >= 5 ) ? '' : 'desactivado' }}">
+			@if( $ultimo_paso == 5 and $actual == 'home')
+				<li class="{{ ( $ultimo_paso >= 5 ) ? '' : 'desactivado' }}" data-step="5" data-intro="Puedes crear tus planificaciones">
+			@else
+				<li class="{{ ( $ultimo_paso >= 5 ) ? '' : 'desactivado' }}">
+			@endif
 				<a href="{{ ( $ultimo_paso >= 5 ) ? route('all_campana') : '' }}">
 					<img src="img/icons/plan.png" title="Planificación">
 				</a>
 			</li>
 
 			@if( $ultimo_paso == 2 and $actual == 'home')
-				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}" data-step="5" data-intro="Debes crear Tipos de platos">
+				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}"  data-step="4" data-intro="Puedes crear Tipos de platos">
 			@else
 				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
 			@endif
@@ -65,12 +69,12 @@ $actual = 'home';
 				</a>
 				<ul>
 					<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
-						<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_welcome_kit') : '' }}">
+						<a href="{{ ( $ultimo_paso == 2 ) ? route('all_welcome_kit') : '' }}">
 							<span>Kit de <br>Bienvenida</span>
 						</a>
 					</li>
 					<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
-						<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_fidelity_kit') : '' }}">
+						<a href="{{ ( $ultimo_paso == 2 ) ? route('all_fidelity_kit') : '' }}">
 							<span>Kit de <br>Fidelidad</span>
 						</a>
 					</li>
