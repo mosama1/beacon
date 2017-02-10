@@ -5,6 +5,7 @@
 <div class="contenedor">
 	<div class="principal">
 		<ul class="links">
+			
 			<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
 				<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_coupon') : '' }}">
 				  <img src="img/icons/menu.png" title="Carta">
@@ -17,8 +18,8 @@
 				</a>
 			</li>
 
-			<li class="{{ ( $ultimo_paso >= 5 ) ? '' : 'desactivado' }}">
-				<a href="{{ ( $ultimo_paso >= 5 ) ? route('all_campana') : '' }}">
+			<li class="{{ ( $ultimo_paso >= 6 ) ? '' : 'desactivado' }}">
+				<a href="{{ ( $ultimo_paso >= 6 ) ? route('all_campana') : '' }}">
 					<img src="img/icons/plan.png" title="Planificación">
 				</a>
 			</li>

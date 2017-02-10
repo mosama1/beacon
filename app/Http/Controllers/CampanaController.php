@@ -157,7 +157,7 @@ class CampanaController extends Controller
 			$cam->save();
 
 			$pasos_procesos = new PasosProcesos(); 
-			$pasos_procesos->user_id = $user->user_id; 
+			$pasos_procesos->user_id = $user->id; 
 			$pasos_procesos->paso_id = 6; 
 			$pasos_procesos->save(); 
 

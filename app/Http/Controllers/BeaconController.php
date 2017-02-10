@@ -22,6 +22,7 @@ use Beacon\TypesPlates;
 use Illuminate\Support\Facades\Input;
 use Beacon\User;
 use Beacon\PasosProcesos;
+use Beacon\Pasos;
 use Log;
 
 class BeaconController extends Controller
@@ -300,6 +301,22 @@ class BeaconController extends Controller
 							])->first();
 
 			$beacons->delete();
+
+			// cuento los beacons a ver si se quedo sin beacon para controlar los procesos
+			// $count = App\MessageIncoming::where(['status' => 0])->count()
+/*			$nro_beacons = Beacon::where([
+								['user_id', '=', $user->user_id],
+								['beacon_id', '=', $beacon_id]
+							])->count();
+			if ( $nro_beacons == 0 ){ 
+
+			} else {
+
+			}
+*/
+
+
+
 			return redirect()->route('all_beacons')->with(['status' => 'Beacon eliminado exitosamente', 'type' => 'success']);
 
 

@@ -90,7 +90,7 @@ class CouponController extends Controller
 	{
 		$paso = Pasos::where('controller', '=', get_class() )->first();
 
-		$check_proccess = UserController::check_proccess($paso->id);
+		$check_proccess = UserController::check_proccess( $paso->id );
 
 		if ( $check_proccess == 0 ){ //no tiene el proceso previo realizado
 
