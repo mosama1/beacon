@@ -13,6 +13,8 @@ use Beacon\Timeframe;
 use Beacon\Beacon;
 use Beacon\Plate;
 use Beacon\User;
+use Beacon\Pasos;
+use Beacon\PasosProcesos;
 use Log;
 
 class TimeframeController extends Controller
@@ -167,7 +169,6 @@ class TimeframeController extends Controller
 						['user_id', '=', $user->user_id],
 						['timeframe_id', '=', $id]
 					])->first();
-
 
 		return view('timeframes.timeframe_edit', ['timeframe' => $timeframe]);
 	}
