@@ -32,6 +32,20 @@ $menu2 = '';
 
     </div>
 
+    <div class="inf">
+
+      <div class="description">
+        <p>{{$menu->plate->plate_translation->madiraje}}</p>
+
+      </div>
+      <div class="img">
+        @if($menu->plate->img_madiraje != NULL OR !empty($menu->plate->img_madiraje))
+        <img alt="" src="{{ asset($menu->plate->img_madiraje) }}">
+        @endif
+      </div>
+
+    </div>
+
 
     <div class="agregar regresar">
       <center>

@@ -140,10 +140,26 @@ class PlateController extends Controller
 			$plate->img = $storage_logo.'/'.$name_logo;
 		}
 
+		// se valida si esta seteada la variable de la imagen del madiraje 
+		$file_madiraje = Input::file('img_madiraje');
+		if ( !empty($file_madiraje) ) {
+
+			$name_madiraje = $file_madiraje->getClientOriginalName();
+			$name_madiraje = date('dmyhis').'-'.$name_madiraje;
+
+			//Ruta donde se va a guardar la img
+			$storage_madiraje = 'assets/images/madirajes';
+
+			// Muevo el docuemnto a la ruta
+			$file_madiraje = $file_madiraje->move($storage_madiraje, $name_madiraje);
+			$plate->img_madiraje = $storage_madiraje.'/'.$name_madiraje;
+		}
 		$plate->save();
 
 		$plate_translation = new PlateTranslation();
 		$plate_translation->description = $request->description;
+		$plate_translation->madiraje = $request->madiraje;
+
 		//	$plate_translation->language_id = $request->language_id;
 		$plate_translation->language_id = 1;
 		$plate_translation->plate_id = $plate->id;
@@ -191,6 +207,21 @@ class PlateController extends Controller
 			$plate->img = $storage_logo.'/'.$name_logo;
 		}
 
+		// se valida si esta seteada la variable de la imagen dle madiraje
+		$file_madiraje = Input::file('img_madiraje');
+		if ( !empty($file_madiraje) ) {
+
+			$name_madiraje = $file_madiraje->getClientOriginalName();
+			$name_madiraje = date('dmyhis').'-'.$name_madiraje;
+
+			//Ruta donde se va a guardar la img
+			$storage_madiraje = 'assets/images/madirajes';
+
+			// Muevo el docuemnto a la ruta
+			$file_madiraje = $file_madiraje->move($storage_madiraje, $name_madiraje);
+			$plate->img_madiraje = $storage_madiraje.'/'.$name_madiraje;
+		}
+
 		$tipo_platos = TypesPlates::where([
 							['language_id', '=', 1]
 						])->get();
@@ -198,6 +229,7 @@ class PlateController extends Controller
 		$plate->plate_translation;
 
 		$plate->plate_translation->description = $request->description;
+		$plate->plate_translation->madiraje = $request->madiraje;
 		$plate->plate_translation->save();
 
 		$plate->save();

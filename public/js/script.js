@@ -203,6 +203,33 @@ function vistaPlato(evt) {
 }
 $('#addPlato').change(vistaPlato);
 
+
+
+function vistamadiraje(evt) {
+	var files = evt.target.files; // FileList object
+	// Obtenemos la imagen del campo "file".
+	for (var i = 0, f; f = files[i]; i++) {
+	  //Solo admitimos imágenes.
+	  if (!f.type.match('image.*')) {
+		  continue;
+	  }
+	  var reader = new FileReader();
+	  reader.onload = (function(theFile) {
+		return function(e) {
+		  $('#vista_madiraje').html([' <img class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '" /> '].join(''));
+		};
+	  })(f);
+		reader.readAsDataURL(f);
+		setTimeout(function(){
+		  tamanoImgVista('#vista_madiraje');
+		},500);
+	}
+}
+$('#addImg_madiraje').change(vistamadiraje);
+
+
+
+
 function tamanoImgVista(id) {
   if ($(id+' img').length > 0) {
 	setTimeout(function(){
