@@ -47,7 +47,7 @@
 		</div>
 	</div>
 </div>
-<div id="crearIdioma" class="modal modal_">
+<div id="crearIdioma" class="modal modal_ select">
 	<div class="titulo">
 		<h3>
 			Agregar Idioma
@@ -58,8 +58,8 @@
 		<form class="form-horizontal" role="form" method="POST" action="{{ route('store_language') }}">
 			{{ csrf_field() }}
 
-			<div class="input select no_icon _100 {{ $errors->has('coupon_id') ? 'error' : '' }}">
-				<select id="coupon_id" class="form-control icons" name="coupon_id" required>
+			<div class="input select no_icon _100 {{ $errors->has('language_id') ? 'error' : '' }}">
+				<select id="language_id" class="form-control icons" name="language_id" required>
 					<option value="" disabled selected>Seleccione un Idioma</option>
 					@foreach($languages as $language)
 					<option value="{{$language->id}}">{{$language->name}}</option>
@@ -76,9 +76,9 @@
 					</div>
 				</div>
 			</div>
-			@if ($errors->has('coupon_id'))
+			@if ($errors->has('language_id'))
 			<div class="input_error">
-				<span>{{ $errors->first('coupon_id') }}</span>
+				<span>{{ $errors->first('language_id') }}</span>
 			</div>
 			@endif
 

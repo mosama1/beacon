@@ -41,12 +41,18 @@ select:not(.multiple_) {
   opacity: 0;
   position: absolute;
   top: 0;
+    left: 9999px;
 }
 .otro_idioma{
     overflow: hidden;
     max-height: 0;
 }
-
+.modal.select{
+    overflow: visible;
+}
+.input.select .dropdown-content{
+    max-height: 300px !important;
+}
 
 .links{
   text-align: center;

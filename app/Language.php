@@ -14,4 +14,17 @@ class Language extends Model
 	protected $fillable = [
 			'name', 'abbreviation', 'user_id'
 	];
+
+	public function users()
+	{
+		return $this->belongsToMany('Beacon\User', 'language_users', 'user_id', 'user_id');
+	}
+
+	//
+	// public function language_user()
+	// {
+	// 	// return $this->belongsToMany('Beacon\LanguageUser', 'id', 'language_id');
+	// 	return $this->belongsToMany('Beacon\LanguageUser', 'language_users', 'user_id', 'language_id');
+	// }
+
 }
