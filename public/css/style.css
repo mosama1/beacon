@@ -42,6 +42,10 @@ select:not(.multiple_) {
   position: absolute;
   top: 0;
 }
+.otro_idioma{
+    overflow: hidden;
+    max-height: 0;
+}
 
 
 .links{

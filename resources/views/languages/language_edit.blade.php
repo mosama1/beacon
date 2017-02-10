@@ -18,14 +18,14 @@
            <strong>{{ session('status') }}</strong>
          </span>
        @endif
-       <form class="form-horizontal" role="form" method="POST" action="#">
+       <form class="form-horizontal" role="form" method="POST" action="{{ route( 'update_language', $language->id ) }}">
         {{ csrf_field() }}
 
         <input type="hidden" name="_method" value="PUT">
 
 
         <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-          <input type="text" name="name" value="IdiomaDB" required="">
+          <input type="text" name="name" value="{{$language->name}}" required="">
           <label for="">
             <span class="text">Idioma</span>
           </label>
@@ -46,8 +46,8 @@
         </div>
         @endif
 
-        <div class="input no_icon {{ $errors->has('abreb') ? 'error' : '' }}">
-          <input type="text" name="abreb" value="IdiomaDB" required="">
+        <div class="input no_icon {{ $errors->has('abbreviation') ? 'error' : '' }}">
+          <input type="text" name="abbreviation" value="{{$language->abbreviation}}" required="">
           <label for="">
             <span class="text">Abreviatura</span>
           </label>
@@ -62,15 +62,12 @@
             </div>
           </div>
         </div>
-        @if ($errors->has('abreb'))
+        @if ($errors->has('abbreviation'))
         <div class="input_error">
-          <span>{{ $errors->first('abreb') }}</span>
+          <span>{{ $errors->first('abbreviation') }}</span>
         </div>
         @endif
-        <div class="checkbox">
-          <input type="checkbox" class="filled-in" id="filled-in-box" />
-          <label for="filled-in-box">Habilitar</label>
-        </div>
+
 
 
         <div class="button">
@@ -90,3 +87,31 @@
 </div>
 
 @endsection
+
+@foreach($languages as $language)
+<tr id="{{$language->id}}">
+    <td>{{$language->name}}</td>
+    <td>{{$language->abbreviation}}</td>
+    <td>{{$language->icon}}</td>
+    <td><a href="{{ route('edit_language', $language->id)}}"><i class="material-icons">edit</i></a></td>
+    <?php
+
+        echo "<td onclick= \"modal_activate('".
+             route( "destroy_language", $language->id ).
+            "' , '#eliminarLanguaje')\" >";
+
+    ?>
+    <a href="#eliminarLanguaje"><i class="material-icons">clear</i></a></td>
+    <td>
+        <div class="switch">
+            <label>
+                Si
+                <input type="checkbox">
+                <span class="lever"></span>
+                No
+            </label>
+        </div>
+    </td>
+</tr>
+
+@endforeach

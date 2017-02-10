@@ -25,6 +25,6 @@ Route::group(['prefix' => 'languages'], function () {
 
 	Route::put('{language_id}', 'LanguageController@update')->name('update_language')->where('language_id', '[0-9]+');
 
-	Route::delete('{language_id}', 'LanguageController@destroy')->name('delete_language')->where('language_id', '[0-9]+');
+	Route::delete('{language_id}', 'LanguageController@destroy')->name('destroy_language')->where('language_id', '[0-9]+');
 
 });

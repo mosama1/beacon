@@ -101,11 +101,16 @@ $actual = (isset($actual)) ? $actual : '';
 								  <span>Planificación</span>
 							</a>
 						</li>
-						<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+                        <li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
 							<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_type_plate') : '' }}">
 								<span>Servicio</span>
 							</a>
 						</li>
+                        <li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+                            <a href="{{ ( $ultimo_paso >= 2 ) ? route('all_language') : '' }}">
+                                <span>Idiomas</span>
+                            </a>
+                        </li>
 
 
 						<li>
@@ -136,14 +141,14 @@ $actual = (isset($actual)) ? $actual : '';
                         <li>
                     @endif
 						<a class="" href="{{ route('user_edit_path', Auth::user()->id) }}">
-						   <span>Mi Cuenta {{$ultimo_paso}}</span>
+						   <span>Mi Cuenta</span>
 						</a>
 					</li>
 
 
 					<li>
 					  <a href="{{ url('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-						  <span>Salir {{$actual}}</span>
+						  <span>Salir</span>
 					  </a>
 
 					  <form id="logout-form" action="{{ url('logout') }}" method="POST" style="display: none;">

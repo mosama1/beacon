@@ -21,8 +21,11 @@ class LanguageController extends Controller
 	 */
 	public function index()
 	{
+		// $languages = Language::all();
+		// $languages = Language::where( 'user_id', '=', Auth::user()->user_id )->get();
 		$languages = Language::all();
-
+		// echo "<pre>"; var_dump($languages); echo "</pre>";
+		// return;
 		return view('languages.language', ['languages' => $languages]);
 	}
 
@@ -62,11 +65,12 @@ class LanguageController extends Controller
 		$language = new Language();
 		$language->name = $request->name;
 		$language->abbreviation = $request->abbreviation;
+		$language->user_id = Auth::user()->user_id;
 		$language->save();
 
 
 		return redirect()->route( 'all_language' )
-						->with( [ 'status' => 'Se creo el tipo de plato', 'type' => 'success' ] );
+						->with( [ 'status' => 'Se creo el idioma', 'type' => 'success' ] );
 
 	}
 
@@ -78,7 +82,9 @@ class LanguageController extends Controller
 	 */
 	public function edit( $id )
 	{
-		return view('languages.language_edit');
+		$language = Language::where( 'id', '=', $id )->first();
+
+		return view('languages.language_edit', ['language' => $language]);
 	}
 
 	/**
