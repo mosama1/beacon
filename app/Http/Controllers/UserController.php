@@ -184,10 +184,10 @@ class UserController extends Controller
 		$ultimo_paso = PasosProcesos::where('user_id', '=', $user->id)->orderBy('paso_id', 'desc')->first();
 
 
-		echo "user         : " . $user->id . "<br>";
-		echo "paso actual  : " . $paso_actual . "<br>";
-		echo "paso_previo  : " . $paso_previo->id . "<br>";
-		echo "ultimo_paso  : " . $ultimo_paso->paso_id . "<br>";
+		// echo "user         : " . $user->id . "<br>";
+		// echo "paso actual  : " . $paso_actual . "<br>";
+		// echo "paso_previo  : " . $paso_previo->id . "<br>";
+		// echo "ultimo_paso  : " . $ultimo_paso->paso_id . "<br>";
 
 		// si paso previo es igual a paso_id quiere decir que si va a poder acceder a esa seccion del menu
 		// en ese caso se retorna un true
