@@ -17,7 +17,7 @@ class Language extends Model
 
 	public function users()
 	{
-		return $this->belongsToMany('Beacon\User', 'language_users', 'user_id', 'user_id');
+		return $this->belongsToMany('Beacon\User', 'language_user')->withPivot('language_id');
 	}
 
 	//

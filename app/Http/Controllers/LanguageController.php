@@ -31,8 +31,12 @@ class LanguageController extends Controller
 		// $language_user->language;
 
 
-		$user = User::where( 'user_id', '=', Auth::user()->user_id )->get();
+		$user = User::where( 'id', '=', 8 )->get();
+		$language_user = LanguageUser::where( 'user_id', '=', 8 )->get();
 
+		foreach ($user as $key => $value) {
+		 	echo $value->languages->language;
+		}
 // 		$language = DB::table('languages')
 // 					->join('language_user')
 //
@@ -45,21 +49,15 @@ class LanguageController extends Controller
 // ->where('content_timeframes.content_id', '=', $content->id)
 // ->get();
 //
-		echo "<pre>"; var_dump($user); echo "</pre>";
+		echo "<pre>"; print_r( $language_user ); echo "</pre>";
+		echo "<pre>"; print_r( $user ); echo "</pre>";
 
-		foreach ($user->languages as $value) {
-			$value->language;
-		}
 
 		// foreach ($user->languages as $language) {
 		//     echo $language;
 		// }
 
-		// foreach ($language_user as $key => $value) {
-		// 	$value->language;
-		// }
 
-		echo "<pre>"; var_dump($user); echo "</pre>";
 		// return;
 
 		// echo count($language_user);
