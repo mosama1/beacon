@@ -15,7 +15,7 @@ class MenuTranslation extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-			'description', 'language_id', 'menu_id',
+			'description', 'language_id', 'menu_id','coupon_id'
 	];
     
     public function language()

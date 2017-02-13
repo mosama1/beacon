@@ -174,8 +174,11 @@ class MenuController extends Controller
 
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
+			$sesion = Section::where( 'id', '=', $request->section_id )->first();			
+
 			$menu = new Menu();
 			$menu->section_id = $request->section_id;
+			$menu->coupon_id = $sesion->coupon_id;
 			$menu->user_id = $user->user_id;
 			$menu->type = $request->type;
 			$menu->status = 1;
@@ -189,6 +192,7 @@ class MenuController extends Controller
 			$menu_translation->menu_id = $menu->id;
 			$menu_translation->language_id = 1;
 			$menu_translation->name = $request->name;
+			$menu_translation->coupon_id = $sesion->coupon_id;
 			$menu_translation->save();
 
 			return redirect()->route('all_menu', $menu->section_id)->with(['status' => 'Se creo el plato', 'type' => 'success']);

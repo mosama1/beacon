@@ -40,6 +40,7 @@
 				<th data-field="id">Descripción</th>
 				<th data-field="name" width="100px">Detalles</th>
 				<th data-field="price" width="100px">Editar</th>
+				<th data-field="price" width="100px">Duplicar</th>
 				<th data-field="price" width="100px">Eliminar</th>
 				<th data-field="id" width="130px">Habilitado</th>
 			  </tr>
@@ -65,6 +66,10 @@
 
 				  <!-- <td><a href="#idioma"><i class="material-icons">language</i></a></td> -->
 				  <td><a href="{{ route( 'edit_coupon', $c->coupon_id ) }}"><i class="material-icons">edit</i></a></td>
+
+				  <!-- DUPLICAR CUPON -->
+				  <td><a href="{{ route( 'duplicate_coupon', $c->coupon_id ) }}"><i class="material-icons">edit</i></a></td>
+
 
 				  <?php
 
@@ -173,6 +178,8 @@
 	</form>
   </div>
 </div>
+
+
 <div id="idioma" class="modal modal_">
   <div class="titulo">
 	<h3>
@@ -181,7 +188,7 @@
   </div>
 
   <div class="form">
-	<form class="form-horizontal" role="form" method="POST"> <!-- action="{{ route('store_coupon') }}" -->
+	<form class="form-horizontal" role="form" method="POST"> 
 	  {{ csrf_field() }}
 
 	  <div class="input select {{ $errors->has('type') ? 'error' : '' }}">
@@ -269,5 +276,6 @@
 	</form>
   </div>
 </div>
+
 
 @endsection
