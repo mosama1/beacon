@@ -169,7 +169,7 @@ $nivel = '../../';
 								   <img src="{{$language->icon}}" alt="" width="30px"> {{$language->name}}
 							   </h5>
 						   </div>
-						   <input type="hidden" name="language_ids[]" value="{{$plate->plate_translation[$i]->language_id}}">
+						   <input type="hidden" name="language_id[]" value="{{$plate->plate_translation[$i]->language_id}}">
 						   <div class="input no_icon textarea {{ $errors->has('language_description') ? 'error' : '' }}">
 	 		  					<textarea name="language_description[]" rows="8" cols="80">{{ $plate->plate_translation[$i]->description }}</textarea>
 	 		  					<label for="">
