@@ -30,9 +30,9 @@
 		  <table>
 			<thead>
 			  <tr>
-				  <th data-field="id">id</th>
 				  <th data-field="id">Nombre</th>
 				  <th data-field="country">Descripción</th>
+				  <th width="100px">Editar</th>
 				  <th width="100px">Eliminar</th>
 				  <th width="130px">Habilitado</th>
 			</thead>
@@ -40,9 +40,9 @@
 			<tbody>
 			  @foreach($welcome_kits as $wk)
 			  <tr id="id">
-				<td>{{ $wk->id }}</td>
 				<td>{{ $wk->name }}</td>
 				<td>{{ $wk->description }}</td>
+				<td><a href="{{ route('edit_welcome_kit', $wk->promotion_id) }}"><i class="material-icons">edit</i></a></td>		
 			  <?php
 
 				echo "<td onclick= \"modal_activate('".

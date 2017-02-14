@@ -10,10 +10,6 @@
         Editar Kit de Bienvenida
       </h3>
     </div>
-
-
-
-
     <div class="form">
       @if (session('status'))
          <span class="help-block">
@@ -137,7 +133,7 @@
              <button type="submit" name="button" id="guardar">
                <span>Guardar</span>
              </button>
-             <a href="{{ route('all_fidelity_kit') }}" class="">
+             <a href="{{ route('all_welcome_kit') }}" class="">
                <span>Cancelar</span>
              </a>
            </center>

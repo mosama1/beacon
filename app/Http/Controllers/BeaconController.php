@@ -21,7 +21,6 @@ use Beacon\PlateTranslation;
 use Beacon\TypesPlates;
 use Illuminate\Support\Facades\Input;
 use Beacon\User;
-use Log;
 
 class BeaconController extends Controller
 {
@@ -46,34 +45,7 @@ class BeaconController extends Controller
 
 		$token_crud = json_decode($json_c);
 
-		Log::info('This is some useful information.');
-
 		return $token_crud->access_token;
-	}
-
-
-	/**
-	 * @return token analytics
-	 */
-	public function analytics()
-	{
-		// Nuevo cliente con un url base
-		$client = new Client();
-
-		//Token analytics
-		$response_analytics = $client->request('POST', 'https://connect.onyxbeacon.com/oauth/client', [
-				'form_params' => [
-						'client_id' => '89b88a5f9eaec9ab9b059a56c51e37413be4e043',
-						'client_secret' => '7e58c94dafd3751f90b0e4b4de871be7e8b7ae44',
-						'scope' => 'analytics'
-				]
-		]);
-
-		$json_a = $response_analytics->getBody();
-
-		$token_analytics = json_decode($json_a);
-
-		return $token_analytics->access_token;
 	}
 
 	/**
@@ -84,9 +56,7 @@ class BeaconController extends Controller
 	public function show()
 	{
 
-		$user = User::where( 'id', '=', Auth::user()->id )->first();
-
-		$beacons = Beacon::where('user_id', '=', $user->user_id)->get();
+		$beacons = Beacon::where('user_id', '=', Auth::user()->user_id)->get();
 
 		return view('beacons.beacons', ['beacons' => $beacons]);
 	}
@@ -119,7 +89,6 @@ class BeaconController extends Controller
 			//Token Crud
 			$crud = BeaconController::crud();
 
-
 			$beacon_api = $client->get('https://connect.onyxbeacon.com/api/v2.5/beacons?filter[major]='.$request->major.'&filter[minor]='.$request->minor.'', [
 					// un array con la data de los headers como tipo de peticion, etc.
 					'headers' => ['Authorization' => 'Bearer '.$crud ],
@@ -129,15 +98,14 @@ class BeaconController extends Controller
 			$json_b = $beacon_api->getBody();
 			$beacons_response = json_decode($json_b);
 
-			$user = User::where( 'id', '=', Auth::user()->id )->first();
-			$location = Location::where( 'user_id', '=', $user->user_id )->first();
+			$location = Location::where( 'user_id', '=', Auth::user()->user_id )->first();
 
 			if ( $beacons_response->status_code == 200 ) {
 
 				if ( empty($beacons_response->beacons) ) {
 
 					// si esta asignado a location se retorna a la vista con el error
-					return redirect()->route('all_beacons')->with(['status' => 'El beacons no registrado en nuetra plataforma', 'type' => 'error']);
+					return redirect()->route('all_beacons')->with(['status' => 'El beacons no registrado en nuestra plataforma', 'type' => 'error']);
 				}
 				else {
 
@@ -173,12 +141,11 @@ class BeaconController extends Controller
 					else {
 
 						// si esta asignado a location se retorna a la vista con el error
-						return redirect()->route('all_beacons')->with(['status' => 'El beacons ya se encuantra asignado', 'type' => 'error']);
+						return redirect()->route('all_beacons')->with(['status' => 'El beacons ya se encuentra asignado', 'type' => 'error']);
 					}
 				}
 			}
 			else {
-
 
 				//si no retorna un 200 == 'ok'
 				return redirect()->route('all_beacons')->with(['status' => 'Error al registrar el beacon', 'type' => 'error']);

@@ -221,9 +221,8 @@ class WelcomeKitController extends Controller
 								$coupon->price = 0.0 :
 								$coupon->price = $request->price;
 							$coupon->url = $coupon_resource->url;
-							  // echo "<pre>"; var_dump($cou); echo "</pre>";
-							  // return;
 							$coupon->save();
+
 							$coupon_translation = new CouponTranslation();
 							$coupon_translation->name = $request->name;
 							(isset($coupon_resourcerequest->description)) ?
@@ -233,6 +232,7 @@ class WelcomeKitController extends Controller
 							$coupon_translation->language_id = 1;
 							$coupon_translation->coupon_id = $coupon->coupon_id;
 							$coupon_translation->save();
+
 							$content_welcome = new Content();
 							$content_welcome->content_id = $content_api->id;
 							$content_welcome->user_id = $user->user_id;
@@ -244,6 +244,7 @@ class WelcomeKitController extends Controller
 							$content_welcome->campana_id = $welcome_resource->id;
 							$content_welcome->trigger_name = $content_api->trigger_name;
 							$content_welcome->save();
+							
 							$welcome_kit = new Promotion();
 							$welcome_kit->promotion_id = $welcome_resource->id;
 							$welcome_kit->user_id = $user->user_id;
@@ -277,9 +278,6 @@ class WelcomeKitController extends Controller
 								'headers' => ['Authorization' => 'Bearer '.$crud ],
 							]);
 						
-							 echo "<pre>";	var_dump('ValidationException $e: =>');	echo "</pre>";
-							 echo "<pre>";	var_dump($e->getErrors());	echo "</pre>";
-							 return;
 							return redirect()->route('all_welcome_kit')->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error'])
 								->withErrors( $e->getErrors() )
 								->withInput();
@@ -298,9 +296,7 @@ class WelcomeKitController extends Controller
 								'headers' => ['Authorization' => 'Bearer '.$crud ],
 							]);
 						
-							 echo "<pre>";	var_dump('$e: =>');	echo "</pre>";
-							 echo "<pre>";	var_dump($e);	echo "</pre>";
-							 return;
+;
 							return redirect()->route('all_welcome_kit')->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error']);
 						}
 						DB::commit();
@@ -322,9 +318,6 @@ class WelcomeKitController extends Controller
 							'headers' => ['Authorization' => 'Bearer '.$crud ],
 						]);
 					
-						 echo "<pre>";	var_dump('actualizar coupon del contenido');	echo "</pre>";
-						 echo "<pre>";	var_dump($coupon_response);	echo "</pre>";
-						 return;
 						return redirect()->route('all_welcome_kit')->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error']);
 					}
 				} else {
@@ -335,10 +328,7 @@ class WelcomeKitController extends Controller
 					$client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$welcome_resource->id.'/delete', [
 						'headers' => ['Authorization' => 'Bearer '.$crud ],
 					]);
-					//codigo para revertir transaccion
-					 echo "<pre>";	var_dump('respuesta contenido');	echo "</pre>";
-					 echo "<pre>";	var_dump($content_response);	echo "</pre>";
-					 return;
+
 					return redirect()->route('all_welcome_kit')
 									->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error']);
 				}
@@ -348,17 +338,12 @@ class WelcomeKitController extends Controller
 				$client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$welcome_resource->id.'/delete', [
 					'headers' => ['Authorization' => 'Bearer '.$crud ],
 				]);
-				 echo "<pre>";	var_dump('respuesta coupon');	echo "</pre>";
-				 echo "<pre>";	var_dump($coupon_response);	echo "</pre>";
-				// return;
+
 				return redirect()->route('all_welcome_kit')
 								->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error']);
 			}
 		} else {
-			 echo "<pre>";	var_dump('respuesta fidelidad');	echo "</pre>";
-			 echo "<pre>";	var_dump($welcome_response);	echo "</pre>";
-			// return;
-		
+	
 			return redirect()->route('all_welcome_kit')
 							->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error']);
 		}
@@ -645,7 +630,6 @@ class WelcomeKitController extends Controller
 								]
 							]);
 						
-							echo "<pre>";	var_dump('ValidationException $e: =>');	echo "</pre>";
 							// echo "<pre>";	var_dump($e);	echo "</pre>";
 							return;
 
@@ -728,9 +712,6 @@ class WelcomeKitController extends Controller
 					]);
 
 					//codigo para revertir transaccion
-					echo "<pre>";	var_dump('respuesta contenido');	echo "</pre>";
-					echo "<pre>";	var_dump($content_response);	echo "</pre>";
-					return;
 
 					return redirect()->route('all_welcome_kit')
 									->with(['status' => 'Error al actualizar el kit de fidelidad', 'type' => 'error']);
@@ -749,20 +730,11 @@ class WelcomeKitController extends Controller
 					]
 				]);
 
-				echo "<pre>";	var_dump('respuesta coupon');	echo "</pre>";
-				echo "<pre>";	var_dump($coupon_response);	echo "</pre>";
-				return;
-
 				return redirect()->route('all_welcome_kit')
 								->with(['status' => 'Error al actualizar el kit de fidelidad', 'type' => 'error']);
 			}
 
 		} else {
-
-			echo "<pre>";	var_dump('respuesta fidelidad');	echo "</pre>";
-			echo "<pre>";	var_dump($welcome_response);	echo "</pre>";
-			return;
-		
 			return redirect()->route('all_welcome_kit')
 							->with(['status' => 'Error al actualizar el kit de fidelidad', 'type' => 'error']);
 		}
@@ -782,18 +754,15 @@ class WelcomeKitController extends Controller
 		//Token Crud
 		$crud = WelcomeKitController::crud();
 
-		//
-		$user = User::where( 'id', '=', Auth::user()->id )->first();
-
 		$content =  Content::where([
-								['user_id', '=', $user->user_id],
+								['user_id', '=', Auth::user()->user_id],
 								['campana_id', '=', $promotion_id]
 							])->first();
 
 		$coupon = $content->coupons;
 
 		$welcome_kit =  Promotion::where([
-								['user_id', '=', $user->user_id ],
+								['user_id', '=', Auth::user()->user_id ],
 								['promotion_id', '=', $promotion_id],
 								['type', '=', 1]
 							])->first();
