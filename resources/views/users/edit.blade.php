@@ -5,6 +5,8 @@ $actual = 'edit';
 @extends('layouts.app')
 
 @section('content')
+
+
 <div class="contenedor">
   <div class="section_ authenticate edit" id="register">
     <div class="fondo_mitad fondo_reg_user"></div>

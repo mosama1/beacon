@@ -3,6 +3,21 @@
 
 @section('content')
 
+<script type="text/javascript">
+function checkSubmit() {
+    document.getElementById("guardar").value = "Enviando...";
+    document.getElementById("guardar").disabled = true;
+    return true;
+}
+
+function eliminar(){
+	document.getElementById("eliminar").value = "Enviando...";
+	document.getElementById("eliminar").disabled = true;
+	return true;
+
+}
+</script>
+
 <div class="contenedor">
   <div class="principal">
 
@@ -115,7 +130,7 @@
   </div>
 
   <div class="form">
-	<form class="form-horizontal" role="form" method="POST" action="{{ route('store_coupon') }}">
+	<form class="form-horizontal" onsubmit="return checkSubmit();" role="form" method="POST" action="{{ route('store_coupon') }}">
 	  {{ csrf_field() }}
 
 	  <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
@@ -257,14 +272,14 @@
   </div>
 
   <div class="form">
-	<form class="form-horizontal" role="form" method="POST">
+	<form class="form-horizontal" role="form" method="POST" onsubmit="return eliminar();">
 
 	  {{ csrf_field() }}
 	  {{ method_field('DELETE') }}
 
 	  <div class="button">
 		<center>
-		  <button type="submit" name="button">
+		  <button type="submit" name="button" id="eliminar">
 			<span>Si</span>
 		  </button>
 		  <a href="#" class="" onclick="$('#eliminarCoupon').modal('close'); return false;">
