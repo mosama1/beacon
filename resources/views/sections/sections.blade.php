@@ -41,14 +41,22 @@
                 </tr>
             </thead>
             <tbody>
-              @foreach($sections as $s)
+            
+
+
+              @foreach($sections as $s)              
               <tr id='{{$s->id}}'>
                 <!-- <td><input type="checkbox" id="test{{$s->id}}" /><label for="test{{$s->id}}"></label></td> -->
                 <!-- -->
+
                 @if( ! empty($s->section_translation[0]) )
                 <td>
-                  {{$s->section_translation[0]->name}}
+                  {{ $s->section_translation[0]->name }}
                 </td>
+                @else
+                  <td>
+                    
+                  </td>                
                 @endif
 
                 <td>

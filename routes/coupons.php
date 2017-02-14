@@ -25,6 +25,10 @@ Route::group(['prefix' => 'coupons'], function () {
 	//habilita las cupones via ajax
 	Route::put('{id}/habilitar', 'CouponController@habilitar_coupon')->name('habilitar_coupon')->where('id', '[0-9]+');
 
+	//DUPLICAR CUPON//
+	Route::get('{id}/duplicate', 'CouponController@duplicate_coupon')->name('duplicate_coupon')->where('coupon_id', '[0-9]+')->where('coupon_id', '[0-9]+');
+	Route::post('/duplicate', 'CouponController@process_duplicate_coupon')->name('process_duplicate_coupon');
+	
 
 	Route::get('{coupon_id}/edit', 'CouponController@edit_coupon')->name('edit_coupon')->where('coupon_id', '[0-9]+');
 

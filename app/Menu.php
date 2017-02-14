@@ -12,7 +12,7 @@ class Menu extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-			'section_id', 'user_id', 'name', 'type', 'price'
+			'section_id', 'user_id', 'name', 'type', 'price', 'coupon_id'
 	];
 
 	public function menu_translation()

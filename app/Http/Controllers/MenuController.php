@@ -185,9 +185,11 @@ class MenuController extends Controller
 
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
+			$sesion = Section::where( 'id', '=', $request->section_id )->first();
+
 			$menu = new Menu();
 			$menu->section_id = $request->section_id;
-			$menu->coupon_id = $request->coupon_id;
+			$menu->coupon_id = $sesion->coupon_id;
 			$menu->user_id = $user->user_id;
 
 			$menu->type = $request->type;
@@ -204,6 +206,7 @@ class MenuController extends Controller
 			$menu_translation->language_id = 1;
 			$menu_translation->coupon_id = $request->coupon_id;
 			$menu_translation->name = $request->name;
+			$menu_translation->coupon_id = $sesion->coupon_id;
 			$menu_translation->save();
 
 
@@ -291,6 +294,8 @@ class MenuController extends Controller
 	 */
 	public function destroy_menu($id)
 	{
+
+
 
 		$menu =  Menu::find($id);
 		$section_id = $menu->section_id;

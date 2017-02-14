@@ -15,7 +15,7 @@ class PlateTranslation extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-			'description', 'language_id', 'plate_id',
+			'description', 'language_id', 'plate_id','coupon_id'
 	];
     
     public function language()

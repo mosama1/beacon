@@ -18,7 +18,7 @@ class SectionTranslation extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-			'description', 'language_id', 'section_id',
+			'description', 'language_id', 'section_id', 'coupon_id'
 	];
 
     public function language()

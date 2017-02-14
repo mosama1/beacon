@@ -9,21 +9,17 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Beacon\Tag;
 use Beacon\Coupon;
+use Beacon\Section;
 use Beacon\CouponTranslation;
-
-// use Beacon\Timeframe;
-// use Beacon\Campana;
-// use Beacon\Content;
-// use Beacon\Beacon;
-// use Beacon\Section;
-// use Beacon\Menu;
-// use Beacon\Plate;
-// use Beacon\PlateTranslation;
-// use Beacon\TypesPlates;
+use Beacon\SectionTranslation;
+use Beacon\Menu;
+use Beacon\MenuTranslation;
+use Beacon\Plate;
+use Beacon\PlateTranslation;
 use Illuminate\Support\Facades\Input;
 use Beacon\User;
-use Log;
 use Beacon\Http\Controllers\UserController;
+
 
 class CouponController extends Controller
 {
@@ -47,8 +43,6 @@ class CouponController extends Controller
 		$json_c = $response_crud->getBody();
 
 		$token_crud = json_decode($json_c);
-
-		Log::info('This is some useful information.');
 
 		return $token_crud->access_token;
 	}
@@ -148,7 +142,7 @@ class CouponController extends Controller
 
 
 
-		if ($coupon_response->status_code === 200 ):
+		if ($coupon_response->status_code === 200 ){
 
 			$coupon = new Coupon();
 			$coupon->coupon_id = $coupon_response->coupon->id;
@@ -198,11 +192,11 @@ class CouponController extends Controller
 
 			return redirect()->route('all_coupon', $request->section_id)->with(['status' => 'El menu se registro con exito', 'type' => 'success']);
 
-		else:
+		}else{
 
 			return redirect()->route('all_coupon', $request->section_id)->with(['status' => 'Error al ingresar el coupon', 'type' => 'error']);
 
-		endif;
+		}
 	}
 
 	/**
@@ -345,7 +339,7 @@ class CouponController extends Controller
 	 * @param  int  $coupon_id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy_coupon($coupon_id)
+	public function destroy_coupon( $coupon_id )
 	{
 		// Nuevo cliente con un url base
 		$client = new Client();
@@ -353,41 +347,33 @@ class CouponController extends Controller
 		//Token Crud
 		$crud = CouponController::crud();
 
-		//Timeframe delete
-		$coupon_delete = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons/'.$coupon_id.'/delete', [
-				// un array con la data de los headers como tipo de peticion, etc.
-				'headers' => ['Authorization' => 'Bearer '.$crud ],
-		]);
+		//Coupon delete
+		$coupon_delete = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons/'.$coupon_id.'/delete', [// un array con la data de los headers como tipo de peticion, etc.
+	 			'headers' => ['Authorization' => 'Bearer '.$crud ],
+				]);	
 
 		//Json parse
 		$json_ld = $coupon_delete->getBody();
-
 		$coupon_delete = json_decode($json_ld);
 
-		if ($coupon_delete->status_code === 200):
+		if ( $coupon_delete->status_code === 200 ): //si lo borro en el API borrarlo en la DB
 
-			$user = User::where( 'id', '=', Auth::user()->id )->first();
+			/*ELIMINAR EL COUPON*/
+			Coupon::where('coupon_id', '=', $coupon_id )->delete();
+			Section::where('coupon_id', '=', $coupon_id )->delete();
+			SectionTranslation::where('coupon_id', '=', $coupon_id)->delete();
+			Menu::where('coupon_id', '=', $coupon_id)->delete();
+			
+			return redirect()->route('all_coupon')
+						->with(['status' => 'El menu fue eliminado con exito', 'type' => 'success']);
 
-			$coupon =  Coupon::where([
-								['user_id', '=', $user->user_id],
-								['coupon_id', '=', $coupon_id]
-							])->first();
+		else: //no lo borro en el API
 
-			foreach ($coupon->coupon_translation as $key => $value) {
-				$value->delete();
-			}
-
-			$coupon->delete();
-
-        	return redirect()->route('all_coupon')
-                        ->with(['status' => 'Menú eliminado con éxito', 'type' => 'success']);
-
-		else:
-
-        	return redirect()->route('all_coupon')
-                        ->with(['status' => 'Error al eliminar Menú', 'type' => 'error']);
-
+			return redirect()->route('all_coupon')
+						->with(['status' => 'Error al ingresar el coupon', 'type' => 'error']);			
 		endif;
+
+		/*FIN DE ELIMINAR EL COUPON*/
 	}
 
 	public function habilitar_coupon($id)
@@ -408,4 +394,187 @@ class CouponController extends Controller
 
 		return $status;
 	}
+
+
+	/**
+	 * Show a view to edit a resource in storage
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function duplicate_coupon($coupon_id)
+	{
+
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+		return view('coupons.coupon_duplicate', ['coupon' => $coupon_id] );
+	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function process_duplicate_coupon(Request $request)
+	{
+		// Nuevo cliente con un url base
+		$client = new Client();
+
+		//Token Crud
+		$crud = CouponController::crud();
+
+		$user_id = Auth::user()->user_id;
+
+		//Crea el coupon en el servidor del beacon
+		$coupon_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons', [
+				// un array con la data de los headers como tipo de peticion, etc.
+				'headers' => ['Authorization' => 'Bearer '.$crud ],
+				// array de datos del formulario
+				'form_params' => [
+						'name' => $request->name,
+						'description' => $request->description,
+						'message' => $request->name,
+						'type' => 'url',
+						'url' => 'http://dementecreativo.com/prueba/final/',
+				]
+		]);
+
+		//Json parse
+		$json_c = $coupon_->getBody();
+
+		$coupon_response = json_decode($json_c);
+		
+		if ($coupon_response->status_code === 200 ):
+
+			DB::beginTransaction();
+
+
+			try {
+
+				$coupon = new Coupon();
+				$coupon->coupon_id = $coupon_response->coupon->id;
+				$coupon->user_id = $user_id;
+				$coupon->type = $coupon_response->coupon->type;
+				$coupon->status = 1;
+				(empty($request->price)) ?
+					$coupon->price = 0.0 :
+					$coupon->price = $request->price;
+				$coupon->url = $coupon_response->coupon->url;
+				$coupon->status= 1;
+				$coupon->save();
+
+				$coupon_translation = new CouponTranslation();
+				$coupon_translation->name = $coupon_response->coupon->name;
+				(isset($coupon_response->coupon->description)) ?
+					$coupon_translation->description = $coupon_response->coupon->description :
+					$coupon_translation->description = "";
+
+				$coupon_translation->message = $coupon_response->coupon->message;
+				$coupon_translation->language_id = 1;
+				$coupon_translation->coupon_id = $coupon->coupon_id;
+				$coupon_translation->save();
+
+				/*Insertar sesion*/
+				$buscar_section = Section::where('coupon_id', '=', $request->coupon_id )->get();
+
+				foreach ( $buscar_section as $key => $row_bs ) {
+
+					$section = new Section();
+					$section->user_id = $user_id;
+					$section->coupon_id = $coupon_response->coupon->id;
+					$section->price = $row_bs->price;
+					$section->status = $row_bs->status;
+					$section->save();
+
+					$buscar_section_translation = SectionTranslation::where('section_id','=', $row_bs->id)->get();
+
+					foreach ($buscar_section_translation as $key => $row_bst) {
+		
+						$section_translation = new SectionTranslation(); 
+						$section_translation->name = $row_bst->name; 
+						$section_translation->language_id = $row_bst->language_id;
+						$section_translation->section_id = $section->id;
+						$section_translation->coupon_id = $coupon_response->coupon->id; 
+						$section_translation->save();
+					}
+
+					/*Insertar menu*/
+					$buscar_menu = Menu::where('coupon_id','=', $request->coupon_id)
+										->where('section_id','=', $row_bs->id)->get();
+					foreach ($buscar_menu as $key => $row_bm) {
+		
+						$menu = new Menu();
+						$menu->type = $row_bm->type;
+						$menu->price = $row_bm->price;
+						$menu->section_id = $section->id;
+						$menu->user_id = $user_id;
+						$menu->status = $row_bm->status;
+						$menu->coupon_id = $coupon_response->coupon->id;
+						$menu->save();
+
+						$buscar_menu_translation = MenuTranslation::where('menu_id','=', $row_bm->id)->get();
+						foreach ($buscar_menu_translation as $key => $row_bmt) {
+
+							$menu_translation = new MenuTranslation(); 
+							$menu_translation->name = $row_bmt->name; 
+							$menu_translation->language_id = $row_bmt->language_id; 
+							$menu_translation->menu_id = $menu->id; 
+							$menu_translation->coupon_id = $coupon_response->coupon->id; 
+							$menu_translation->save();
+						}
+
+						/*Insertar plates*/
+						$buscar_plates = Plate::where( 'menu_id','=', $row_bm->id )->get();
+						foreach ($buscar_plates as $key => $row_bp) {
+								
+							$plate = new Plate(); 
+							$plate->img = $row_bp->img; 
+							$plate->img_madiraje = $row_bp->img_madiraje;
+							$plate->menu_id = $menu->id;
+							$plate->type_plate_id = $row_bp->type_plate_id;
+							$plate->user_id = $user_id;
+							$plate->coupon_id = $coupon_response->coupon->id;
+							$plate->save(); 
+
+							$buscar_plate_translation = PlateTranslation::where( 'plate_id','=', $row_bp->id )->get();
+							foreach ($buscar_plate_translation as $key => $_bpt) {
+				
+								$plate_translation = new PlateTranslation(); 
+								$plate_translation->description = $_bpt->description; 
+								$plate_translation->madiraje = $_bpt->madiraje; 
+								$plate_translation->status = $_bpt->status; 
+								$plate_translation->language_id = $_bpt->language_id; 
+								$plate_translation->plate_id = $plate->id; 
+								$plate_translation->coupon_id = $coupon_response->coupon->id; 
+								$plate_translation->save();
+							}
+						}
+					}
+				}
+
+				DB::commit();
+				return redirect()->route('all_coupon')->with(['status' => 'El menu se duplico con exito', 'type' => 'success']);
+			}
+			catch (\Exception $e) {
+
+				DB::rollback();
+				return redirect()->route('all_coupon')->with(['status' => 'El menu no se pudo duplicar con exito', 'type' => 'success']);
+				//throw $e;
+				//echo $e->getMessage();
+			}
+			catch (\Throwable $e) {
+
+				DB::rollback();
+				return redirect()->route('all_coupon')->with(['status' => 'El menu no se pudo duplicar con exito', 'type' => 'success']);
+				//throw $e;
+				//echo $e->getMessage();
+			}
+
+		else:
+
+			return redirect()->route('all_coupon')->with(['status' => 'Error al ingresar el coupon', 'type' => 'error']);
+		endif;
+	}
 }
+

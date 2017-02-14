@@ -106,8 +106,10 @@ class SectionController extends Controller
 
 		$section = new Section();
 		$section->user_id = $user->user_id;
-		$section->coupon_id = $request->coupon_id;
-		$section->price = $request->price;
+		$section->coupon_id = $request->coupon_id; 
+		(isset($request->price)) ?
+				$section->price = intval($request->price) :
+				$section->price = 0;
 		$section->status = 1;
 		$section->save();
 
@@ -116,6 +118,7 @@ class SectionController extends Controller
 		$section_translation->language_id = 1;
 		$section_translation->coupon_id = $request->coupon_id;
 		$section_translation->name = $request->name;
+		$section_translation->coupon_id = $request->coupon_id;
 		$section_translation->save();
 
 		for ($i=0; $i < count($request->language_id); $i++) {
@@ -170,7 +173,7 @@ class SectionController extends Controller
 		// return;
 
 		$section = Section::find($section_id);
-		$section->price = $request->price;
+		$section->price = intval($request->price);
 		$section->save();
 
 		$section_translation = SectionTranslation::where( [
