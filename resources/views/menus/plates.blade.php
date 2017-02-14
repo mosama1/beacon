@@ -4,13 +4,7 @@
 
 @section('content')
 
-<script type="text/javascript">
-function checkSubmit() {
-    document.getElementById("guardar").value = "Enviando...";
-    document.getElementById("guardar").disabled = true;
-    return true;
-}
-</script>
+
 <div class="contenedor">
 	<div class="principal">
 		<div class="titulo">
@@ -122,7 +116,7 @@ function checkSubmit() {
 	</div>
 
 	<div class="form">
-		<form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
+		<form class="form-horizontal form_send" role="form" method="POST" action="{{ route('store_menu') }}">
 			{{ csrf_field() }}
 			<input type="hidden" name="section_id" value="{{$section_id}}" required>
 			<input type="hidden" name="coupon_id" value="{{$coupon->coupon_id}}" required>
@@ -237,7 +231,7 @@ function checkSubmit() {
 			</div>
 			<div class="button">
 				<center>
-					<button type="submit" name="button" id="guardar">
+					<button type="submit" name="button" id="guardar" class="send_form">
 						<span>Guardar</span>
 					</button>
 					<a href="#" class="" onclick="$('#platosMenu').modal('close'); return false;">
@@ -249,64 +243,6 @@ function checkSubmit() {
 	</div>
 </div>
 
-<!--AGREGAR PLATO-->
-<div id="Idioma" class="modal modal_">
-	<div class="titulo">
-		<h3>
-			Agregar Plato
-		</h3>
-	</div>
-
-	<div class="form">
-		<form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
-			{{ csrf_field() }}
-			<input type="hidden" name="section_id" value="{{$section_id}}" required>
-
-
-			<div class="input select {{ $errors->has('type') ? 'error' : '' }}">
-				<!-- <img src="img/icons/idioma.png" alt="" class="icon"> -->
-				<select id="type" class="form-control icons" name="type" required>
-					<option value="" disabled selected>Seleccione un Idioma</option>
-
-					<option value="vegetariana">vegetariana</option>
-					<option value="sin gluten">sin gluten</option>
-					<option value="bja caloria">baja caloria</option>
-					<option value="picante">picante</option>
-				</select>
-
-				@if ($errors->has('type'))
-				<span class="error_input">
-					<strong>{{ $errors->first('type') }}</strong>
-				</span>
-				@endif
-			</div>
-
-			<div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-				<input type="text" name="name" value="" required="" >
-				<label for="">
-					<span class="text">Traduccion Plato</span>
-				</label>
-				@if ($errors->has('name'))
-					<span class="error_input">
-							<strong>{{ $errors->first('name') }}</strong>
-					</span>
-				@endif
-			</div>
-
-			<div class="button">
-				<center>
-					<button type="submit" name="button">
-						<span>Guardar</span>
-					</button>
-					<a href="#" class="" onclick="$('#Idioma').modal('close'); return false;">
-						<span>Cancelar</span>
-					</a>
-				</center>
-			</div>
-		</form>
-	</div>
-</div>
-<!--AGREGAR PLATO-->
 
 <!--ELIMINAR PLATO-->
 <div id="eliminarPlato" class="modal modal_">
@@ -316,12 +252,12 @@ function checkSubmit() {
 		</h3>
 	</div>
 	<div class="form">
-		<form class="form-horizontal" role="form" method="POST">
+		<form class="form-horizontal form_send" role="form" method="POST">
 			{{ csrf_field() }}
 			<input type="hidden" name="_method" value="DELETE">
 			<div class="button">
 				<center>
-					<button type="submit" name="button">
+					<button type="submit" name="button" class="send_form">
 						<span>Si</span>
 					</button>
 					<a href="#" class="" onclick="$('#eliminarPlato').modal('close'); return false;">
@@ -341,7 +277,7 @@ function checkSubmit() {
     </h3>
   </div>
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('create_tipoPlato') }}">
+    <form class="form-horizontal form_send" role="form" method="POST" action="{{ route('create_tipoPlato') }}">
       {{ csrf_field() }}
 			<input type="hidden" name="section_id" value="{{ $section_id }}">
 			<input type="hidden" name="mod" value="add_menu" required>
@@ -394,7 +330,7 @@ function checkSubmit() {
       @endif
       <div class="button">
         <center>
-          <button type="submit" name="button">
+          <button type="submit" name="button" class="send_form">
             <span>Guardar</span>
           </button>
           <a href="#" class="" onclick="$('#tipoPlato').modal('close'); return false;">

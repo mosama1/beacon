@@ -80,7 +80,7 @@
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_promotion') }}">
+    <form class="form-horizontal form_send" role="form" method="POST" action="{{ route('store_promotion') }}">
       {{ csrf_field() }}
 
       <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
@@ -153,7 +153,7 @@
 
       <div class="button">
         <center>
-          <button type="submit" name="button" id="guardar">
+          <button type="submit" name="button" id="guardar" class="send_form">
             <span>Guardar</span>
           </button>
           <a href="#" class="" onclick="$('#agregarPlan').modal('close'); return false;">
@@ -173,12 +173,12 @@
     </h3>
   </div>
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST">
+    <form class="form-horizontal form_send" role="form" method="POST">
       {{ csrf_field() }}
       {{ method_field('DELETE') }}
       <div class="button">
         <center>
-          <button type="submit" name="button">
+          <button type="submit" name="button" class="send_form">
             <span>Si</span>
           </button>
           <a href="#" class="" onclick="$('#eliminarPlan').modal('close'); return false;">

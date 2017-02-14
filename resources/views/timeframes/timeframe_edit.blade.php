@@ -4,13 +4,6 @@
 
 @section('content')
 
-<script type="text/javascript">
-function checkSubmit() {
-    document.getElementById("guardar").value = "Enviando...";
-    document.getElementById("guardar").disabled = true;
-    return true;
-}
-</script>
 
 <div class="contenedor">
   <div class="principal">
@@ -22,7 +15,7 @@ function checkSubmit() {
 
     <div class="form">
 
-       <form class="form-horizontal" role="form" method="POST" action="{{ route('update_timeframe',$timeframe->timeframe_id) }}">
+       <form class="form-horizontal form_send" role="form" method="POST" action="{{ route('update_timeframe',$timeframe->timeframe_id) }}">
         {{ csrf_field() }}
         {{ method_field('PUT') }}
 
@@ -115,7 +108,7 @@ function checkSubmit() {
 
         <div class="button">
           <center>
-            <button type="submit" name="button" id="guardar">
+            <button type="submit" name="button" id="guardar" class="send_form">
               <span>Guardar</span>
             </button>
             <a href="{{ route('all_timeframe') }}" class="">

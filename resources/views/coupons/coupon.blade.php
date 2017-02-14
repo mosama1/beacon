@@ -3,20 +3,6 @@
 
 @section('content')
 
-<script type="text/javascript">
-function checkSubmit() {
-    document.getElementById("guardar").value = "Enviando...";
-    document.getElementById("guardar").disabled = true;
-    return true;
-}
-
-function eliminar(){
-	document.getElementById("eliminar").value = "Enviando...";
-	document.getElementById("eliminar").disabled = true;
-	return true;
-
-}
-</script>
 
 <div class="contenedor">
   <div class="principal">
@@ -135,7 +121,7 @@ function eliminar(){
 
       <div class="default">
           <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-            <input type="text" name="name" value="" >
+            <input type="text" name="name" value="" required="">
             <label for="">
               <span class="text">Nombre</span>
             </label>
@@ -242,7 +228,7 @@ function eliminar(){
   </div>
 
   <div class="form">
-	<form class="form-horizontal" role="form" method="POST"> 
+	<form class="form-horizontal" role="form" method="POST">
 	  {{ csrf_field() }}
 
 	  <div class="input select {{ $errors->has('type') ? 'error' : '' }}">

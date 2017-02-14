@@ -39,38 +39,41 @@
 
 						<tbody>
 							@foreach($languages as $language)
+								@if($language->id != 1)
 								<tr>
 									<th data-field="id"><img src="{{$language->icon}}" alt="" width="40px"></th>
 									<th data-field="id">{{$language->name}}</th>
 									<th data-field="id">{{$language->abbreviation}}</th>
-				  				  <?php
+									<?php
 
-				  				  echo "<td onclick= \"modal_activate('".
-				  				  route( "destroy_language", $language->id ).
-				  				  "' , '#eliminarLanguage')\" >";
+									echo "<td onclick= \"modal_activate('".
+									route( "destroy_language", $language->id ).
+									"' , '#eliminarLanguage')\" >";
 
-				  				  ?>
+									?>
 
-				  				  <a href="#eliminarLanguage"><i class="material-icons">clear</i></a>
+									<a href="#eliminarLanguage"><i class="material-icons">clear</i></a>
 
-				  				</td>
-				  				<td>
+								</td>
+								<td>
 									<div class="switch">
 										<label>
-					  						Si
+											Si
 											@foreach($language_users as $language_user)
-												@if( $language_user->language_id == $language->id )
-												<input id="habilitar_{{$language_user->id}}" type="checkbox" {{ ($language_user->status > 0 ? '' : 'checked') }} class="filled-in" onclick="habilitar('#habilitar_{{$language_user->id}}', 'languages', '{{$language_user->id}}'); return false;" />
+											@if( $language_user->language_id == $language->id )
+											<input id="habilitar_{{$language_user->id}}" type="checkbox" {{ ($language_user->status > 0 ? '' : 'checked') }} class="filled-in" onclick="habilitar('#habilitar_{{$language_user->id}}', 'languages', '{{$language_user->id}}'); return false;" />
 
-												@endif
+											@endif
 											@endforeach
 
-					  						<span class="lever"></span>
-					  						No
-					  				  </label>
+											<span class="lever"></span>
+											No
+										</label>
 									</div>
-				  				</td>
-								</tr>
+								</td>
+							</tr>
+								@endif
+
 							@endforeach
 						</tbody>
 					</table>
@@ -87,14 +90,16 @@
 	</div>
 
 	<div class="form">
-		<form class="form-horizontal" role="form" method="POST" action="{{ route('store_language') }}">
+		<form class="form-horizontal form_send" role="form" method="POST" action="{{ route('store_language') }}">
 			{{ csrf_field() }}
 
 			<div class="input select no_icon _100 {{ $errors->has('language_id') ? 'error' : '' }}">
 				<select id="language_id" class="form-control icons" name="language_id" required>
 					<option value="" disabled selected>Seleccione un Idioma</option>
 					@foreach($languages_all as $l)
-					<option value="{{$l->id}}">{{$l->name}}</option>
+						@if($l->id != 1)
+							<option value="{{$l->id}}">{{$l->name}}</option>
+						@endif
 					@endforeach
 				</select>
 				<div class="help">
@@ -119,7 +124,7 @@
 
 			<div class="button">
 				<center>
-					<button type="submit" name="button">
+					<button type="submit" name="button" id="guardar" class="send_form">
 						<span>Guardar</span>
 					</button>
 					<a href="#" class="" onclick="$('#crearIdioma').modal('close'); return false;">
@@ -138,12 +143,12 @@
 		</h3>
 	</div>
 	<div class="form">
-		<form class="form-horizontal" role="form" method="POST">
+		<form class="form-horizontal form_send" role="form" method="POST">
 			{{ csrf_field() }}
 			{{ method_field('DELETE') }}
 			<div class="button">
 				<center>
-					<button type="submit" name="button">
+					<button type="submit" name="button" class="send_form">
 						<span>Si</span>
 					</button>
 					<a href="#" class="" onclick="$('#eliminarLanguage').modal('close'); return false;">

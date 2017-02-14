@@ -141,9 +141,7 @@
 							@endphp
 							<li>
 								<a href="{{ route('inicio_language', array( 'campana_id' => $campana_id, 'language_id' => $language->id ) ) }}">
-									<span>
-										{{$language->name}}
-									</span>
+									<img src="{{$language->icon}}" alt="" width="40px">
 								</a>
 							</li>
 						@endif
@@ -203,7 +201,7 @@
 
 	<script type="text/javascript">
 	  $('.menu_cliente .logo').click(function(){
-		window.location.href = 'movil/campanas/{{ $campana_id }}';
+		window.location.href = 'movil/campanas/{{ $campana_id }}/{{ $language_id }}';
 	  });
 	</script>
 

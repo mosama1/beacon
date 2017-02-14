@@ -50,10 +50,10 @@ function checkSubmit() {
                 </tr>
             </thead>
             <tbody>
-            
 
 
-              @foreach($sections as $s)              
+
+              @foreach($sections as $s)
               <tr id='{{$s->id}}'>
                 <!-- <td><input type="checkbox" id="test{{$s->id}}" /><label for="test{{$s->id}}"></label></td> -->
                 <!-- -->
@@ -64,8 +64,8 @@ function checkSubmit() {
                 </td>
                 @else
                   <td>
-                    
-                  </td>                
+
+                  </td>
                 @endif
 
                 <td>
@@ -138,7 +138,7 @@ function checkSubmit() {
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_section') }}">
+    <form class="form-horizontal form_send" role="form" method="POST" action="{{ route('store_section') }}">
       {{ csrf_field() }}
       <input type="hidden" name="coupon_id" value="{{$coupon_id}}" required="">
 
@@ -217,7 +217,7 @@ function checkSubmit() {
 
       <div class="button">
         <center>
-          <button type="submit" name="button" id="guardar">
+          <button type="submit" name="button" id="guardar" class="send_form">
             <span>Guardar</span>
           </button>
           <a href="#" class="" onclick="$('#agregarSection').modal('close'); return false;">
@@ -238,7 +238,7 @@ function checkSubmit() {
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('store_section') }}">
+    <form class="form-horizontal form_send" role="form" method="POST" action="{{ route('store_section') }}">
       {{ csrf_field() }}
       <input type="hidden" name="coupon_id" value="{{$coupon_id}}" required="">
       <div class="input select no_icon {{ $errors->has('type') ? 'error' : '' }}">
@@ -270,7 +270,7 @@ function checkSubmit() {
       </div>
       <div class="button">
         <center>
-          <button type="submit" name="button">
+          <button type="submit" name="button" class="send_form">
             <span>Guardar</span>
           </button>
           <a href="#" class="" onclick="$('#Idioma').modal('close'); return false;">
@@ -290,12 +290,12 @@ function checkSubmit() {
   </div>
 
   <div class="form">
-    <form class="form-horizontal" role="form" method="POST">
+    <form class="form-horizontal form_send" role="form" method="POST">
       {{ csrf_field() }}
       <input type="hidden" name="_method" value="DELETE">
       <div class="button">
         <center>
-          <button type="submit" name="button">
+          <button type="submit" name="button" class="send_form">
             <span>Si</span>
           </button>
           <a href="#" class="" onclick="$('#eliminarSection').modal('close'); return false;">

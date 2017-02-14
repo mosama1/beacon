@@ -20,7 +20,7 @@
            <strong>{{ session('status') }}</strong>
          </span>
        @endif
-       <form class="form-horizontal" role="form" method="POST" action="#">
+       <form class="form-horizontal form_send" role="form" method="POST" action="#">
         {{ csrf_field() }}
         {{ method_field('PUT') }}
 
@@ -96,7 +96,7 @@
 
         <div class="button">
           <center>
-            <button type="submit" name="button">
+            <button type="submit" name="button" class="send_form">
               <span>Guardar</span>
             </button>
             <a href="{{ route('all_promotion') }}" class="">

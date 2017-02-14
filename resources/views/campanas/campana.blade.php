@@ -4,14 +4,6 @@
 
 @section('content')
 
-<script type="text/javascript">
-function checkSubmit() {
-    document.getElementById("guardar").value = "Enviando...";
-    document.getElementById("guardar").disabled = true;
-    return true;
-}
-</script>
-
 <div class="contenedor">
   <div class="principal">
 	<div class="titulo">
@@ -66,7 +58,7 @@ function checkSubmit() {
 									</a>
 								</td>
 
-								
+
 								<?php
 									echo "<td onclick= \"modal_activate('".
 									route( "destroy_campana", $c->campana_id ).
@@ -77,7 +69,7 @@ function checkSubmit() {
 										<i class="material-icons">clear</i>
 									</a>
 								</td>
-								
+
 								<td>
 									<div class="switch">
 										<label>
@@ -86,7 +78,7 @@ function checkSubmit() {
 											<span class="lever"></span>
 											No
 										</label>
-									</div>                   
+									</div>
 								</td>
 							</tr>
 						@endforeach
@@ -108,7 +100,7 @@ function checkSubmit() {
   </div>
 
   <div class="form">
-	<form class="form-horizontal" role="form" method="POST" action="{{ route('store_campana') }}">
+	<form class="form-horizontal form_send" role="form" method="POST" action="{{ route('store_campana') }}">
 	  {{ csrf_field() }}
 	  <input type="hidden" name="location_id" value="{{$location->location_id}}" required="">
 
@@ -201,7 +193,7 @@ function checkSubmit() {
 
 	  <div class="button">
 		<center>
-		  <button type="submit" name="button" id="guardar">
+		  <button type="submit" name="button" id="guardar" class="send_form">
 			<span>Guardar</span>
 		  </button>
 		  <a href="#" class="" onclick="$('#agregarPlan').modal('close'); return false;">
@@ -221,12 +213,12 @@ function checkSubmit() {
 	</h3>
   </div>
   <div class="form">
-	<form class="form-horizontal" role="form" method="POST">
+	<form class="form-horizontal form_send" role="form" method="POST">
 	  {{ csrf_field() }}
 	  {{ method_field('DELETE') }}
 	  <div class="button">
 		<center>
-		  <button type="submit" name="button">
+		  <button type="submit" name="button" class="send_form">
 			<span>Si</span>
 		  </button>
 		  <a href="#" class="" onclick="$('#eliminarPlan').modal('close'); return false;">
