@@ -68,8 +68,7 @@
 				  <td><a href="{{ route( 'edit_coupon', $c->coupon_id ) }}"><i class="material-icons">edit</i></a></td>
 
 				  <!-- DUPLICAR CUPON -->
-				  <td><a href="{{ route( 'duplicate_coupon', $c->coupon_id ) }}"><i class="material-icons">edit</i></a></td>
-
+				  <td><a href="{{ route( 'duplicate_coupon', $c->coupon_id ) }}"><i class="material-icons">content_copy</i></a></td>
 
 				  <?php
 

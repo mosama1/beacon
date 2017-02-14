@@ -490,84 +490,91 @@ class CouponController extends Controller
 				$coupon_translation->coupon_id = $coupon->coupon_id;
 				$coupon_translation->save();
 
-				/*	Insertar sesion*/
+				/*Insertar sesion*/
 				$buscar_section = Section::where('coupon_id', '=', $request->coupon_id )->get();
 
-				foreach ($buscar_section as $key => $row) {
+				foreach ( $buscar_section as $key => $row_bs ) {
 
+<<<<<<< HEAD
 					$section = new Section();				
 					$section->user_id = $user_id; 
 					$section->coupon_id = $coupon_response->coupon->id;				
 					$section->price = $row->price;
 					$section->status = $row->status; 
+=======
+					$section = new Section();
+					$section->user_id = $user_id;
+					$section->coupon_id = $coupon_response->coupon->id;
+					$section->price = $row_bs->price;
+					$section->status = $row_bs->status;
+>>>>>>> 39a9eeb35c5f970783857c6a1bd905633703d5dd
 					$section->save();
-				}
 
-				$buscar_section_translation = SectionTranslation::where('coupon_id','=', $request->coupon_id)->get();
+					$buscar_section_translation = SectionTranslation::where('section_id','=', $row_bs->id)->get();
 
-				foreach ($buscar_section_translation as $key => $row) {
-	
-					$section_translation = new SectionTranslation(); 
-					$section_translation->name = $row->name; 
-					$section_translation->language_id = $row->language_id;
-					$section_translation->section_id = $section->id;
-					$section_translation->coupon_id = $coupon_response->coupon->id; 
-					$section_translation->save();
-				}
+					foreach ($buscar_section_translation as $key => $row_bst) {
+		
+						$section_translation = new SectionTranslation(); 
+						$section_translation->name = $row_bst->name; 
+						$section_translation->language_id = $row_bst->language_id;
+						$section_translation->section_id = $section->id;
+						$section_translation->coupon_id = $coupon_response->coupon->id; 
+						$section_translation->save();
+					}
 
-				/*Insertar menu*/
-				$buscar_menu = Menu::where('coupon_id','=', $request->coupon_id)->get();
+					/*Insertar menu*/
+					$buscar_menu = Menu::where('coupon_id','=', $request->coupon_id)
+										->where('section_id','=', $row_bs->id)->get();
+					foreach ($buscar_menu as $key => $row_bm) {
+		
+						$menu = new Menu();
+						$menu->type = $row_bm->type;
+						$menu->price = $row_bm->price;
+						$menu->section_id = $section->id;
+						$menu->user_id = $user_id;
+						$menu->status = $row_bm->status;
+						$menu->coupon_id = $coupon_response->coupon->id;
+						$menu->save();
 
-				foreach ($buscar_menu as $key => $row) {
-	
-					$menu = new Menu();
-					$menu->type = $row->type; 
-					$menu->price = $row->price; 
-					$menu->section_id = $section->id; 
-					$menu->user_id = $user_id; 
-					$menu->status = $row->status; 
-					$menu->coupon_id = $coupon_response->coupon->id; 
-					$menu->save(); 
-				}
+						$buscar_menu_translation = MenuTranslation::where('menu_id','=', $row_bm->id)->get();
+						foreach ($buscar_menu_translation as $key => $row_bmt) {
 
-				$buscar_menu_translation = MenuTranslation::where('coupon_id','=', $request->coupon_id)->get();
-
-				foreach ($buscar_menu_translation as $key => $row) {
-
-					$menu_translation = new MenuTranslation(); 
-					$menu_translation->name = $row->name; 
-					$menu_translation->language_id = $row->language_id; 
-					$menu_translation->menu_id = $menu->id; 
-					$menu_translation->coupon_id = $coupon_response->coupon->id; 
-					$menu_translation->save();
+							$menu_translation = new MenuTranslation(); 
+							$menu_translation->name = $row_bmt->name; 
+							$menu_translation->language_id = $row_bmt->language_id; 
+							$menu_translation->menu_id = $menu->id; 
+							$menu_translation->coupon_id = $coupon_response->coupon->id; 
+							$menu_translation->save();
+						}
+					}
 				}
 
 				/*Insertar plates*/
 				$buscar_plates = Plate::where('coupon_id','=', $request->coupon_id)->get();
-				foreach ($buscar_plates as $key => $row) {
+
+				foreach ($buscar_plates as $key => $row_bp) {
 						
 					$plate = new Plate(); 
-					$plate->img = $row->img; 
-					$plate->img_madiraje = $row->img_madiraje; 
-					$plate->menu_id = $menu->id; 
-					$plate->type_plate_id = $row->type_plate_id; 
-					$plate->user_id = $user_id; 
-					$plate->coupon_id = $coupon_response->coupon->id; 
+					$plate->img = $row_bp->img; 
+					$plate->img_madiraje = $row_bp->img_madiraje;
+					$plate->menu_id = $menu->id;
+					$plate->type_plate_id = $row_bp->type_plate_id;
+					$plate->user_id = $user_id;
+					$plate->coupon_id = $coupon_response->coupon->id;
 					$plate->save(); 
-				}
 
-				$buscar_plate_translation = PlateTranslation::where( 'coupon_id','=', $request->coupon_id )->get();
-
-				foreach ($buscar_plate_translation as $key => $row) {
-	
-					$plate_translation = new PlateTranslation(); 
-					$plate_translation->description = $row->description; 
-					$plate_translation->madiraje = $row->madiraje; 
-					$plate_translation->status = $row->status; 
-					$plate_translation->language_id = $row->language_id; 
-					$plate_translation->plate_id = $plate->id; 
-					$plate_translation->coupon_id = $coupon_response->coupon->id; 
-					$plate_translation->save();
+					$buscar_plate_translation = PlateTranslation::where( 'plate_id','=', $row_bp->id )->get();
+					foreach ($buscar_plate_translation as $key => $_bpt) {
+		
+						$plate_translation = new PlateTranslation(); 
+						$plate_translation->description = $_bpt->description; 
+						$plate_translation->madiraje = $_bpt->madiraje; 
+						$plate_translation->status = $_bpt->status; 
+						$plate_translation->language_id = $_bpt->language_id; 
+						$plate_translation->plate_id = $plate->id; 
+						$plate_translation->coupon_id = $coupon_response->coupon->id; 
+						$plate_translation->save();
+					}
 				}
 
 				DB::commit();
@@ -598,3 +605,4 @@ class CouponController extends Controller
 		endif;
 	}
 }
+
