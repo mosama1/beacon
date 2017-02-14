@@ -1,5 +1,5 @@
 <?php
-$nivel = '../../../../../../../' ;
+$nivel = '../../../../../../../../' ;
 $menu2 = '';
 ?>
 @extends('layouts.appFinal')
@@ -10,8 +10,18 @@ $menu2 = '';
     <div class="titulo">
 
       <h3>
-        @if( ! empty($menu->menu_translation[0]) )
-          {{$menu->menu_translation[0]->name}}
+
+
+        @if( isset($language_id) )
+            @foreach ($menu->menu_translation as $menu_)
+                @if($menu_->language_id == $language_id)
+                {{$menu_->name}}
+                @endif
+            @endforeach
+        @else
+            @if( ! empty($menu->menu_translation[0]) )
+              {{$menu->menu_translation[0]->name}}
+            @endif
         @endif
       </h3>
       <h4>
@@ -27,13 +37,43 @@ $menu2 = '';
 
           $plate_translation = PlateTranslation::where([
           ['plate_id', '=', $menu->plate->id ],
-          ])->first();
+          ])->get();
         @endphp
-        <p>{{$plate_translation->description}}</p>
+
+
+        <p>
+
+            @if( isset($language_id) )
+                @foreach ($plate_translation as $plate)
+                    @if($plate->language_id == $language_id)
+                    {{$plate->description}}
+                    @endif
+                @endforeach
+            @else
+                {{$plate_translation[0]->description}}
+            @endif
+        </p>
 
       </div>
       <div class="img">
-        <img alt="" src="{{ asset($menu->plate->img) }}">
+          @if($menu->plate->img_madiraje != NULL OR !empty($menu->plate->img_madiraje))
+          <img alt="" src="{{ asset($menu->plate->img_madiraje) }}">
+          @endif
+      </div>
+
+      <div class="description">
+        <p>
+            @if( isset($language_id) )
+                @foreach ($plate_translation as $plate)
+                    @if($plate->language_id == $language_id)
+                    {{$plate->madiraje}}
+                    @endif
+                @endforeach
+            @else
+                {{$plate_translation[0]->madiraje}}
+            @endif
+        </p>
+
       </div>
 
     </div>
@@ -41,7 +81,7 @@ $menu2 = '';
 
     <div class="agregar regresar">
       <center>
-        <a href="{{ route('movil_all_types_plates', array('campana_id' => $campana_id, 'type_plate_id' => $type_plate_id, 'menu_id' => $menu->menu_id) ) }}" class="waves-effect">
+        <a href="{{ route('movil_all_types_plates', array('campana_id' => $campana_id, 'type_plate_id' => $type_plate_id, 'menu_id' => $menu->menu_id, 'language_id' => $language_id) ) }}" class="waves-effect">
           <div class="">
             <span class="text">Regresar</span>
             <span class="icon"><i class="material-icons">reply</i></span>

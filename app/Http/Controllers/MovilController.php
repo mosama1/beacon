@@ -219,15 +219,17 @@ class MovilController extends Controller
 
 	   $sections_trans = SectionTranslation::where([
 		   ['section_id', '=', array( $section_id )]
-	   ])->first();
+	   ])->get();
+
+	//    echo "<pre>"; var_dump($sections_trans);    echo "</pre>";
+	//    return;
+
 
 	   $coupon = Section::where([
 		   ['id', '=', array( $section_id ) ],
 	   ])->first()->coupon;
 
 
-	   // echo "<pre>"; var_dump($coupon);    echo "</pre>";
-	   // return;
 
 	   return view('movil.plates',
 				   [
@@ -238,7 +240,7 @@ class MovilController extends Controller
 					   'section_id' => $section_id,
 					   'coupon' => $coupon,
 					   'menu' => $menu_,
-					   'section_name' => $sections_trans->name,
+					   'section' => $sections_trans,
 					   'language_id' => $language_id
 				   ]);
    }
@@ -248,7 +250,7 @@ class MovilController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function all_types_plates( $campana_id, $type_plate_id )
+	public function all_types_plates( $campana_id, $language_id, $type_plate_id )
 	{
 		$menus = Menu::where([
 			['type', '=', array( $type_plate_id ) ],
@@ -275,6 +277,7 @@ class MovilController extends Controller
 						'menus' => $menus,
 						'campana_id' => $campana_id,
 						'type_plate' => $type_plate,
+						'language_id' => $language_id,
 					]);
 	}
 
@@ -283,7 +286,7 @@ class MovilController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show_desc_plate_by_type( $campana_id, $type_plate_id, $menu_id )
+	public function show_desc_plate_by_type( $campana_id, $language_id, $type_plate_id, $menu_id )
 	{
 
 		$menu = Menu::where([
@@ -311,7 +314,8 @@ class MovilController extends Controller
 						'type_plate_id' => $type_plate_id,
 						'campana_id' => $campana_id,
 						'section_name' => $section_translation->name,
-						'nivel' => '../'
+						'nivel' => '../',
+						'language_id' => $language_id,
 					]);
 	}
 
@@ -320,7 +324,7 @@ class MovilController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show_desc_plate( $campana_id, $menu_id )
+	public function show_desc_plate( $campana_id, $language_id, $menu_id )
 	{
 		// 	$plate = Plate::where([
 		// 		['menu_id', '=', array( $menu_id )]
@@ -358,6 +362,8 @@ class MovilController extends Controller
 						'menu' => $menu,
 						'campana_id' => $campana_id,
 						'section_name' => $section_translation->name,
+						'language_id' => $language_id
+
 					]);
 	}
 

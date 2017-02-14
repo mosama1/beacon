@@ -109,7 +109,7 @@
 						@if( !empty($type_plates) )
 						@foreach ($type_plates as $type_plate)
 						<li>
-							<a href="{{ route('movil_all_types_plates', array( 'campana_id' => $campana_id, 'type_plate_id' => $type_plate->id ) ) }}">
+							<a href="{{ route('movil_all_types_plates', array( 'campana_id' => $campana_id, 'type_plate_id' => $type_plate->id, 'language_id' => $language_id ) ) }}">
 								<span>
 									{{$type_plate->name}}
 								</span>
@@ -140,7 +140,7 @@
 								])->first();
 							@endphp
 							<li>
-								<a href="{{ route('inicio_language', array( 'campana_id' => $campana_id, 'type_plate_id' => $language->id ) ) }}">
+								<a href="{{ route('inicio_language', array( 'campana_id' => $campana_id, 'language_id' => $language->id ) ) }}">
 									<span>
 										{{$language->name}}
 									</span>
@@ -152,7 +152,7 @@
 
 				</ul>
 				<a href="#" class="sb_mn">
-					<img src="img/icons/filtro.png" alt="">
+					<img src="img/icons/idioma.png" alt="" style="filter: invert(1);">
 				</a>
 			</li>
 			@endif

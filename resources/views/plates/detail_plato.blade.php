@@ -1,4 +1,9 @@
-<?php $nivel = '../../' ?>
+<?php
+use Beacon\Language;
+use Beacon\LanguageUser;
+
+$nivel = '../../';
+ ?>
 @extends('layouts.app')
 
 @section('content')
@@ -22,7 +27,7 @@
 				<input type="hidden" name="_method" value="PUT">
 
 				<div class="input no_icon textarea {{ $errors->has('description') ? 'error' : '' }}">
-					<textarea name="description" rows="8" cols="80">{{$plate->plate_translation->description}}</textarea>
+					<textarea name="description" rows="8" cols="80">{{$plate->plate_translation[0]->description}}</textarea>
 					<label for="">
 						<span class="text">Descripción (Opcional)</span>
 					</label>
@@ -79,10 +84,10 @@
 							@endif
 						</div>
 					</center>
-				</div>				
+				</div>
 
 				<div class="input no_icon textarea {{ $errors->has('madiraje') ? 'error' : '' }}">
-					<textarea name="madiraje" rows="8" cols="80">{{$plate->plate_translation->madiraje}}</textarea>
+					<textarea name="madiraje" rows="8" cols="80">{{$plate->plate_translation[0]->madiraje}}</textarea>
 					<label for="">
 						<span class="text">madiraje (Opcional)</span>
 					</label>
@@ -139,6 +144,58 @@
 							@endif
 						</div>
 					</center>
+				</div>
+
+
+				<div class="languages ppal">
+
+					@for ($i = 1; $i < count($plate->plate_translation); $i++)
+					   @php
+						   $language_user = LanguageUser::where([
+							   ['language_id', '=', $plate->plate_translation[$i]->language_id],
+							   ['user_id', '=', Auth::user()->user_id],
+							   ['status', '=', 1],
+						 ])->first();
+					   @endphp
+					   @if($language_user)
+						   @php
+							   $language = Language::where([
+								   ['id', '=', $language_user->language_id],
+							 ])->first();
+						   @endphp
+						   <div class="titulo">
+							   <h5>
+								   <img src="{{$language->icon}}" alt="" width="30px"> {{$language->name}}
+							   </h5>
+						   </div>
+						   <input type="hidden" name="language_ids[]" value="{{$plate->plate_translation[$i]->language_id}}">
+						   <div class="input no_icon textarea {{ $errors->has('language_description') ? 'error' : '' }}">
+	 		  					<textarea name="language_description[]" rows="8" cols="80">{{ $plate->plate_translation[$i]->description }}</textarea>
+	 		  					<label for="">
+	 		  						<span class="text">Description (Opcional)</span>
+	 		  					</label>
+	 		  				</div>
+
+	 		  				@if ($errors->has('language_description'))
+	 		  					<div class="input_error">
+	 		  						<span>{{ $errors->first('language_description') }}</span>
+	 		  					</div>
+	 		  				@endif
+
+	 						<div class="input no_icon textarea {{ $errors->has('language_madiraje') ? 'error' : '' }}">
+	 							<textarea name="language_madiraje[]" rows="8" cols="80">{{$plate->plate_translation[$i]->madiraje}}</textarea>
+	 							<label for="">
+	 								<span class="text">Madiraje (Opcional)</span>
+	 							</label>
+	 						</div>
+	 						@if ($errors->has('language_madiraje'))
+	 							<div class="input_error">
+	 								<span>{{ $errors->first('language_madiraje') }}</span>
+	 							</div>
+	 						@endif
+
+					   @endif
+					@endfor
 				</div>
 
 				<!-- vista_previa -->

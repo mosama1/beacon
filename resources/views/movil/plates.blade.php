@@ -27,7 +27,19 @@ use Beacon\Section;
 		  <table class="bordered centered">
 			<thead>
 			  <tr>
-				  <th data-field="id" style="text-transform: capitalize;">{{ $section_name }}</th>
+				  <th data-field="id" style="text-transform: capitalize;">
+
+                      @if( isset($language_id) )
+                          @foreach ($section as $s)
+                              @if($s->language_id == $language_id)
+                              {{$s->name}}
+                              @endif
+                          @endforeach
+                      @else
+                        {{ $section[1]->name }}
+                        @endif
+
+                  </th>
 				  <th data-field="id">Precio</th>
 				  <th data-field="name"></th>
 			  </tr>
@@ -67,7 +79,7 @@ use Beacon\Section;
 				  </td>
 				  <td>
 					@if ($plate != NULL)
-					<a href="{{ route('show_desc_plate', array('campana_id' => $campana_id, 'menu_id' => $p->id) ) }}"><i class="material-icons">remove_red_eye</i></a>
+					<a href="{{ route('show_desc_plate', array('campana_id' => $campana_id, 'menu_id' => $p->id, 'language_id' => $language_id) ) }}"><i class="material-icons">remove_red_eye</i></a>
 					@endif
 				  </td>
 				</tr>

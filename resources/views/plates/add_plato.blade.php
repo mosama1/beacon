@@ -150,18 +150,31 @@
 								  </h5>
 							  </div>
 						  </a>
-						  <div class="input no_icon textarea {{ $errors->has('description') ? 'error' : '' }}">
+						  <div class="input no_icon textarea {{ $errors->has('language_description') ? 'error' : '' }}">
 		  					<textarea name="language_description[]" rows="8" cols="80"></textarea>
 		  					<label for="">
 		  						<span class="text">Description (Opcional)</span>
 		  					</label>
 		  				</div>
 
-		  				@if ($errors->has('description'))
+		  				@if ($errors->has('language_description'))
 		  					<div class="input_error">
-		  						<span>{{ $errors->first('description') }}</span>
+		  						<span>{{ $errors->first('language_description') }}</span>
 		  					</div>
 		  				@endif
+
+						<div class="input no_icon textarea {{ $errors->has('language_madiraje') ? 'error' : '' }}">
+							<textarea name="language_madiraje[]" rows="8" cols="80"></textarea>
+							<label for="">
+								<span class="text">Madiraje (Opcional)</span>
+							</label>
+						</div>
+						@if ($errors->has('language_madiraje'))
+							<div class="input_error">
+								<span>{{ $errors->first('language_madiraje') }}</span>
+							</div>
+						@endif
+
 					  </div>
 					@endforeach
 				</div>
