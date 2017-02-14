@@ -38,7 +38,7 @@ class User extends Authenticatable
 
 	public function languages()
 	{
-		return $this->hasMany('Beacon\LanguageUser');
+		return $this->belongsTo('Beacon\Language','LanguageUser','id','id');
 	}
 
 	public function beacons()

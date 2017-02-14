@@ -96,7 +96,9 @@ class SectionController extends Controller
 		$section = new Section();
 		$section->user_id = $user->user_id;
 		$section->coupon_id = $request->coupon_id; 
-		$section->price = $request->price;
+		(isset($request->price)) ?
+				$section->price = intval($request->price) :
+				$section->price = 0;
 		$section->status = 1;
 		$section->save();
 
@@ -138,7 +140,7 @@ class SectionController extends Controller
 	public function update_section(Request $request, $section_id)
 	{
 		$section = Section::find($section_id);
-		$section->price = $request->price;
+		$section->price = intval($request->price);
 		$section->save();
 
 		$section_translation = SectionTranslation::where( [
