@@ -1,5 +1,6 @@
 <?php
-
+use Beacon\User;
+use Beacon\Languagep;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,6 +11,22 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+/*Route::group(['prefix' => 'p'], function () {
+
+		$user = User::where( 'id', '=', 23 )->first();
+
+		$languages = languagep::where('user_id', '=', $user->user_id)->users()->get();
+
+		foreach ($user as $key => $value) {
+		 	echo $value->languages->language;
+		}
+});
+*/
+
+
+
+
+
 Route::group(['middleware' => 'auth'], function () {
 	require (__DIR__ . '/beacons.php');
 	require (__DIR__ . '/campanas.php');

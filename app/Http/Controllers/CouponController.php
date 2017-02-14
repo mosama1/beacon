@@ -16,20 +16,10 @@ use Beacon\Menu;
 use Beacon\MenuTranslation;
 use Beacon\Plate;
 use Beacon\PlateTranslation;
-
-// use Beacon\Timeframe;
-// use Beacon\Campana;
-// use Beacon\Content;
-// use Beacon\Beacon;
-// use Beacon\Section;
-// use Beacon\Menu;
-// use Beacon\Plate;
-// use Beacon\PlateTranslation;
-// use Beacon\TypesPlates;
 use Illuminate\Support\Facades\Input;
 use Beacon\User;
-use Log;
 use Beacon\Http\Controllers\UserController;
+
 
 class CouponController extends Controller
 {
@@ -53,8 +43,6 @@ class CouponController extends Controller
 		$json_c = $response_crud->getBody();
 
 		$token_crud = json_decode($json_c);
-
-		Log::info('This is some useful information.');
 
 		return $token_crud->access_token;
 	}
@@ -139,7 +127,7 @@ class CouponController extends Controller
 
 
 
-		if ($coupon_response->status_code === 200 ):
+		if ($coupon_response->status_code === 200 ){
 
 			$coupon = new Coupon();
 			$coupon->coupon_id = $coupon_response->coupon->id;
@@ -174,11 +162,11 @@ class CouponController extends Controller
 
 			return redirect()->route('all_coupon', $request->section_id)->with(['status' => 'El menu se registro con exito', 'type' => 'success']);
 
-		else:
+		}else{
 
 			return redirect()->route('all_coupon', $request->section_id)->with(['status' => 'Error al ingresar el coupon', 'type' => 'error']);
 
-		endif;
+		}
 	}
 
 	/**
@@ -299,11 +287,19 @@ class CouponController extends Controller
 		//Token Crud
 		$crud = CouponController::crud();
 
+
+		$coupon = Coupon::where([
+							['coupon_id', '=', $coupon_id]
+						])->first();
+
 		//Timeframe delete
-		// $coupon_delete = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons/'.$coupon_id.'/delete', [
+		//$coupon_delete = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons/'.$coupon_id.'/delete', [
 		// 		// un array con la data de los headers como tipo de peticion, etc.
-		// 		'headers' => ['Authorization' => 'Bearer '.$crud ],
+		// 	'headers' => ['Authorization' => 'Bearer '.$crud ],
 		// ]);
+
+
+
 
 		//Json parse
 		$json_ld = $coupon_delete->getBody();
@@ -314,26 +310,85 @@ class CouponController extends Controller
 
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-			$coupon =  Coupon::where([
-								['user_id', '=', $user->user_id],
-								['coupon_id', '=', $coupon_id]
-							])->first();
+		/*ELIMINAR EL COUPON*/
 
-			foreach ($coupon->coupon_translation as $key => $value) {
-				$value->delete();
+		DB::beginTransaction();
+
+		try {
+
+			$section = Section::where('coupon_id','=', $coupon_id )->get();
+
+				foreach ($section as $key => $row) {
+					$row->delete();
+				}
+
+			$section_translation = SectionTranslation('coupon_id','=', $coupon_id)->get();
+
+				foreach ($section_translation as $key => $row) {
+					$row->delete();
+				}
+
+			$menu = Menu::where('coupon_id','=', $coupon_id)->get();
+
+					foreach ($menu as $key => $row) {
+						$row->delete();
+					}
+
+			DB::commit();
+			return redirect()->route('all_coupon')->with(['status' => 'El menu fue eliminado con exito', 'type' => 'success']);
+
 			}
 
-			$coupon->delete();
+			
 
-        	return redirect()->route('all_coupon')
-                        ->with(['status' => 'Menú eliminado con éxito', 'type' => 'success']);
+			catch (\Exception $e) {
+
+				DB::rollback();
+				//return redirect()->route('all_coupon', $request->section_id)->with(['status' => 'El menu no se pudo duplicar con exito', 'type' => 'success']);
+				//throw $e;
+				echo $e->getMessage();
+			} 
+
+			catch (\Throwable $e) {
+
+				DB::rollback();
+				//return redirect()->route('all_coupon', $request->section_id)->with(['status' => 'El menu no se pudo duplicar con exito', 'type' => 'success']);
+				//throw $e;
+				echo $e->getMessage();
+			}
 
 		else:
 
-        	return redirect()->route('all_coupon')
-                        ->with(['status' => 'Error al eliminar Menú', 'type' => 'error']);
-
+			return redirect()->route('all_coupon', $request->section_id)->with(['status' => 'Error al ingresar el coupon', 'type' => 'error']);
+		
 		endif;
+
+		/*FIN DE ELIMINAR EL COUPON*/
+
+
+
+
+
+		// 	$coupon =  Coupon::where([
+		// 						['user_id', '=', $user->user_id],
+		// 						['coupon_id', '=', $coupon_id]
+		// 					])->first();
+
+		// 	foreach ($coupon->coupon_translation as $key => $value) {
+		// 		$value->delete();
+		// 	}
+
+		// 	$coupon->delete();
+
+  //       	return redirect()->route('all_coupon')
+  //                       ->with(['status' => 'Menú eliminado con éxito', 'type' => 'success']);
+
+		// else:
+
+  //       	return redirect()->route('all_coupon')
+  //                       ->with(['status' => 'Error al eliminar Menú', 'type' => 'error']);
+
+		// endif;
 	}
 
 	public function habilitar_coupon($id)
@@ -378,19 +433,13 @@ class CouponController extends Controller
 	 */
 	public function process_duplicate_coupon(Request $request)
 	{
-
-
-		
-		/*echo "<pre>"; var_dump($request->name); echo "</pre>";
-		return;*/
-
 		// Nuevo cliente con un url base
 		$client = new Client();
 
 		//Token Crud
 		$crud = CouponController::crud();
 
-		$user = User::where( 'id', '=', Auth::user()->id )->first();
+		$user_id = Auth::user()->user_id;
 
 		//Crea el coupon en el servidor del beacon
 		$coupon_ = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons', [
@@ -410,17 +459,17 @@ class CouponController extends Controller
 		$json_c = $coupon_->getBody();
 
 		$coupon_response = json_decode($json_c);
-
-
-
+		
 		if ($coupon_response->status_code === 200 ):
 
 			DB::beginTransaction();
+
+
 			try {
 
 				$coupon = new Coupon();
 				$coupon->coupon_id = $coupon_response->coupon->id;
-				$coupon->user_id = $user->user_id;
+				$coupon->user_id = $user_id;
 				$coupon->type = $coupon_response->coupon->type;
 				$coupon->status = 1;
 				(empty($request->price)) ?
@@ -441,90 +490,111 @@ class CouponController extends Controller
 				$coupon_translation->coupon_id = $coupon->coupon_id;
 				$coupon_translation->save();
 
-				/* partiendo del $request->coupon_id hacer las consultas en sections, menus y plates */
-
 				/*	Insertar sesion*/
-				$buscar_section = Section::where('coupon_id', '=', $request->coupon_id )->first();
-				$section = new Section();
-				$section->user_id = $user->user_id; 
-				$section->coupon_id = $coupon_response->coupon->id;
-				$section->price = $buscar_section->price;
-				$section->status = $buscar_section->status; 
-				$section->save();
-				
-				$buscar_section_translation = SectionTranslation::where('coupon_id','=', $request->coupon_id)->first();
-				$section_translation = new SectionTranslation(); 
-				$section_translation->name = $buscar_section_translation->name; 
-				$section_translation->language_id = $buscar_section_translation->language_id;
-				$section_translation->section_id = $section->id;
-				$section_translation->coupon_id = $coupon_response->coupon->id; 
-				$section_translation->save();
+				$buscar_section = Section::where('coupon_id', '=', $request->coupon_id )->get();
+
+				foreach ($buscar_section as $key => $row) {
+
+					$section = new Section();				
+					$section->user_id = $user_id; 
+					$section->coupon_id = $coupon_response->coupon->id;				
+					$section->price = $row->price;
+					$section->status = $row->status; 
+					$section->save();
+				}
+
+				$buscar_section_translation = SectionTranslation::where('coupon_id','=', $request->coupon_id)->get();
+
+				foreach ($buscar_section_translation as $key => $row) {
+	
+					$section_translation = new SectionTranslation(); 
+					$section_translation->name = $row->name; 
+					$section_translation->language_id = $row->language_id;
+					$section_translation->section_id = $section->id;
+					$section_translation->coupon_id = $coupon_response->coupon->id; 
+					$section_translation->save();
+				}
 
 				/*Insertar menu*/
-				$buscar_menu = Menu::where('coupon_id','=', $request->coupon_id)->first(); 
-				$menu = new Menu();
-				$menu->type = $buscar_menu->type; 
-				$menu->price = $buscar_menu->price; 
-				$menu->section_id = $section->id; 
-				$menu->user_id = $user->user_id; 
-				$menu->status = $buscar_menu->status; 
-				$menu->coupon_id = $coupon_response->coupon->id; 
-				$menu->save(); 
+				$buscar_menu = Menu::where('coupon_id','=', $request->coupon_id)->get();
 
-				$buscar_menu_translation = MenuTranslation::where('coupon_id','=', $request->coupon_id)->first();
-				$menu_translation = new MenuTranslation(); 
-				$menu_translation->name = $buscar_menu_translation->name; 
-				$menu_translation->language_id = $buscar_menu_translation->language_id; 
-				$menu_translation->menu_id = $menu->id; 
-				$menu_translation->coupon_id = $coupon_response->coupon->id; 
-				$menu_translation->save();
+				foreach ($buscar_menu as $key => $row) {
+	
+					$menu = new Menu();
+					$menu->type = $row->type; 
+					$menu->price = $row->price; 
+					$menu->section_id = $section->id; 
+					$menu->user_id = $user_id; 
+					$menu->status = $row->status; 
+					$menu->coupon_id = $coupon_response->coupon->id; 
+					$menu->save(); 
+				}
+
+				$buscar_menu_translation = MenuTranslation::where('coupon_id','=', $request->coupon_id)->get();
+
+				foreach ($buscar_menu_translation as $key => $row) {
+
+					$menu_translation = new MenuTranslation(); 
+					$menu_translation->name = $row->name; 
+					$menu_translation->language_id = $row->language_id; 
+					$menu_translation->menu_id = $menu->id; 
+					$menu_translation->coupon_id = $coupon_response->coupon->id; 
+					$menu_translation->save();
+				}
 
 				/*Insertar plates*/
-				$buscar_plates = Plate::where('coupon_id','=', $request->coupon_id)->first();
-				$plate = new Plate(); 
-				$plate->img = $buscar_plates->img; 
-				$plate->img_madiraje = $buscar_plates->img_madiraje; 
-				$plate->menu_id = $menu->id; 
-				$plate->type_plate_id = $buscar_plates->type_plate_id; 
-				$plate->user_id = $user->user_id; 
-				$plate->coupon_id = $coupon_response->coupon->id; 
-				$plate->save(); 
+				$buscar_plates = Plate::where('coupon_id','=', $request->coupon_id)->get();
+				foreach ($buscar_plates as $key => $row) {
+						
+					$plate = new Plate(); 
+					$plate->img = $row->img; 
+					$plate->img_madiraje = $row->img_madiraje; 
+					$plate->menu_id = $menu->id; 
+					$plate->type_plate_id = $row->type_plate_id; 
+					$plate->user_id = $user_id; 
+					$plate->coupon_id = $coupon_response->coupon->id; 
+					$plate->save(); 
+				}
 
-				$buscar_plate_translation = PlateTranslation::where( 'coupon_id','=', $request->coupon_id )->first();
-				$plate_translation = new PlateTranslation(); 
-				$plate_translation->description = $buscar_plate_translation->description; 
-				$plate_translation->madiraje = $buscar_plate_translation->madiraje; 
-				$plate_translation->status = $buscar_plate_translation->status; 
-				$plate_translation->language_id = $buscar_plate_translation->language_id; 
-				$plate_translation->plate_id = $plate->id; 
-				$plate_translation->coupon_id = $coupon_response->coupon->id; 
-				$plate_translation->save();
+				$buscar_plate_translation = PlateTranslation::where( 'coupon_id','=', $request->coupon_id )->get();
 
-				
-			} catch(ValidationException $e)
-			{
-				// Rollback and then redirect
-				// back to form with errors
+				foreach ($buscar_plate_translation as $key => $row) {
+	
+					$plate_translation = new PlateTranslation(); 
+					$plate_translation->description = $row->description; 
+					$plate_translation->madiraje = $row->madiraje; 
+					$plate_translation->status = $row->status; 
+					$plate_translation->language_id = $row->language_id; 
+					$plate_translation->plate_id = $plate->id; 
+					$plate_translation->coupon_id = $coupon_response->coupon->id; 
+					$plate_translation->save();
+				}
+
+				DB::commit();
+				return redirect()->route('all_coupon', $request->section_id)->with(['status' => 'El menu se duplico con exito', 'type' => 'success']);
+
+
+			} 
+
+			catch (\Exception $e) {
+
 				DB::rollback();
+				//return redirect()->route('all_coupon', $request->section_id)->with(['status' => 'El menu no se pudo duplicar con exito', 'type' => 'success']);
+				//throw $e;
+				echo $e->getMessage();
+			} 
 
-			} catch(\Exception $e)
-			{
+			catch (\Throwable $e) {
+
 				DB::rollback();
-				throw $e;
+				//return redirect()->route('all_coupon', $request->section_id)->with(['status' => 'El menu no se pudo duplicar con exito', 'type' => 'success']);
+				//throw $e;
+				echo $e->getMessage();
 			}
-
-			// If we reach here, then
-			// data is valid and working.
-			// Commit the queries!
-			DB::commit();
-
-			return redirect()->route('all_coupon', $request->section_id)->with(['status' => 'El menu se duplico con exito', 'type' => 'success']);
 
 		else:
 
 			return redirect()->route('all_coupon', $request->section_id)->with(['status' => 'Error al ingresar el coupon', 'type' => 'error']);
-
 		endif;
 	}
-
 }

@@ -24,7 +24,7 @@
           <input type="hidden" name="coupon_id" value="{{ $coupon }}">
 
           <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-          <input type="text" name="name" value="" required="">
+          <input type="text" name="name"  value="duplicar {{ $coupon }}" required="">
           <label for="">
             <span class="text">Nombre</span>
           </label>

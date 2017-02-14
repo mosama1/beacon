@@ -258,6 +258,8 @@ class MenuController extends Controller
 	public function destroy_menu($id)
 	{
 
+
+
 		$menu =  Menu::find($id);
 		$section_id = $menu->section_id;
 		$menu->delete();

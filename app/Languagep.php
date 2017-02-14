@@ -4,7 +4,7 @@ namespace Beacon;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Language extends Model
+class Languagep extends Model
 {
 	/**
 	 * The attributes that are mass assignable.
@@ -12,13 +12,8 @@ class Language extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-			'name', 'abbreviation', 'user_id'
+		'name', 'abbreviation', 'Enabled', 'predertermined'
 	];
-
-	public function users()
-	{
-		return $this->belongsToMany('Beacon\User', 'language_user')->withPivot('language_id');
-	}
 
 	public function users()
 	{
