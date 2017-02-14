@@ -28,7 +28,12 @@ class CreateMenuTranslationsTable extends Migration
                     ->references('id')->on('menus')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
-                    
+            $table->integer('coupon_id')->unsigned()
+                    ->foreign('coupon_id')
+                    ->references('coupon_id')->on('coupons')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

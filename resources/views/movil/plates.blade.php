@@ -1,6 +1,7 @@
 <?php
-  $nivel = '../../../../../';
+  $nivel = '../../../../../../';
   $menu2 = '';
+
 
 ?>
 @php
@@ -31,12 +32,8 @@ use Beacon\Section;
 				  <th data-field="name"></th>
 			  </tr>
 			</thead>
-
-
 			<tbody>
 			<pre><?php ?>
-
-
 			  @foreach($menus as $p)
 				@php
 				  $plate = plate::where([
@@ -51,9 +48,17 @@ use Beacon\Section;
 				@if ( $p->status != 0 )
 				<tr id='{{$p->id}}'>
 				  <td>
-					@if( ! empty($p->menu_translation[0]) )
-					  {{$p->menu_translation[0]->name}}
-					@endif
+                      @if( isset($language_id) )
+                          @foreach ($p->menu_translation as $menu)
+                              @if($menu->language_id == $language_id)
+                              {{$menu->name}}
+                              @endif
+                          @endforeach
+                      @else
+                          @if( ! empty($p->menu_translation[0]) )
+                          {{$p->menu_translation[0]->name}}
+                          @endif
+                      @endif
 				  </td>
 				  <td>
 					@if( empty($section->price) )

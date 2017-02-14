@@ -16,17 +16,17 @@ class CreateTimeframesTable extends Migration
         Schema::create('timeframes', function (Blueprint $table) {
         	$table->increments('id');
         	$table->string('name');
-        	$table->string('description');
+        	$table->string('description')->nullable();
         	$table->string('start_time');
         	$table->string('end_time');
-        	$table->string('days');
+        	$table->string('days')->nullable();
 
             $table->integer('timeframe_id')
                     ->unique();
 
             $table->integer('user_id')
                     ->foreign('user_id')
-                    ->references('id')->on('users')
+                    ->references('user_id')->on('users')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
 

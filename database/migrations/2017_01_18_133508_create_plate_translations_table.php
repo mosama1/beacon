@@ -15,7 +15,8 @@ class CreatePlateTranslationsTable extends Migration
     {
         Schema::create('plate_translations', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('description');
+            $table->string('description')->nullable();
+            $table->string('madiraje');
 
             $table->integer('language_id')->unsigned()
                     ->foreign('language_id')
@@ -28,7 +29,13 @@ class CreatePlateTranslationsTable extends Migration
                     ->references('id')->on('plates')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
-                    
+
+            $table->integer('coupon_id')->unsigned()
+                    ->foreign('coupon_id')
+                    ->references('coupon_id')->on('coupons')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

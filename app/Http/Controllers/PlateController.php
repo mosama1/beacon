@@ -94,8 +94,20 @@ class PlateController extends Controller
 
 		$menu = Menu::where('id', '=', $menu_id)->first();
 
+		$languages = DB::table('languages')
+		->join('language_users', 'languages.id', '=', 'language_users.language_id')
+		->join('users', 'users.user_id', '=', 'language_users.user_id')
+		->select('languages.*')
+		->where([
+			['language_users.user_id', '=', Auth::user()->user_id],
+			['language_users.status', '=', 1],
+			['languages.id', '!=', 1],
+		])
+		->orderBy('name')->get();
+
+
 		if (empty($plate) | empty($plate->plate_translation)):
-			return view('plates.add_plato',['section_id' => $menu->section_id, 'menu_id' => $menu_id]);
+			return view('plates.add_plato',['section_id' => $menu->section_id, 'menu_id' => $menu_id, 'languages' => $languages]);
 		else:
 			return view('plates.detail_plato',['plate' => $plate , 'section_id' => $menu->section_id, 'menu_id' => $menu_id]);
 		endif;
@@ -140,7 +152,7 @@ class PlateController extends Controller
 			$plate->img = $storage_logo.'/'.$name_logo;
 		}
 
-		// se valida si esta seteada la variable de la imagen del madiraje 
+		// se valida si esta seteada la variable de la imagen del madiraje
 		$file_madiraje = Input::file('img_madiraje');
 		if ( !empty($file_madiraje) ) {
 
@@ -165,6 +177,16 @@ class PlateController extends Controller
 		$plate_translation->plate_id = $plate->id;
 		$plate_translation->status = 1;
 		$plate_translation->save();
+
+
+		for ($i=0; $i < count($request->language_id); $i++) {
+			if ( !empty($request->language_description[$i]) ) {
+				$plate_translation = new PlateTranslation();
+				$plate_translation->descripcion = $request->description[$i];
+				$plate_translation->save();
+			}
+		}
+
 
 		$menu = Menu::where([
 						['user_id', '=', $user->user_id],
@@ -247,6 +269,6 @@ class PlateController extends Controller
 
 	}
 
-	
+
 
 }

@@ -79,7 +79,18 @@ class SectionController extends Controller
 			$section->section_translation;
 		}
 
-		return view('sections.sections', ['sections' => $sections, 'coupon_id' => $coupon_id]);
+		$languages = DB::table('languages')
+		->join('language_users', 'languages.id', '=', 'language_users.language_id')
+		->join('users', 'users.user_id', '=', 'language_users.user_id')
+		->select('languages.*')
+		->where([
+			['language_users.user_id', '=', Auth::user()->user_id],
+			['language_users.status', '=', 1],
+			['languages.id', '!=', 1],
+		])
+		->orderBy('name')->get();
+
+		return view('sections.sections', ['sections' => $sections, 'coupon_id' => $coupon_id, 'languages' => $languages]);
 	}
 
 	/**
@@ -95,7 +106,7 @@ class SectionController extends Controller
 
 		$section = new Section();
 		$section->user_id = $user->user_id;
-		$section->coupon_id = $request->coupon_id; 
+		$section->coupon_id = $request->coupon_id;
 		$section->price = $request->price;
 		$section->status = 1;
 		$section->save();
@@ -103,8 +114,21 @@ class SectionController extends Controller
 		$section_translation = new SectionTranslation();
 		$section_translation->section_id = $section->id;
 		$section_translation->language_id = 1;
+		$section_translation->coupon_id = $request->coupon_id;
 		$section_translation->name = $request->name;
 		$section_translation->save();
+
+		for ($i=0; $i < count($request->language_id); $i++) {
+			if ( !empty($request->language_name[$i]) ) {
+				$section_translation = new SectionTranslation();
+				$section_translation->name = $request->language_name[$i];
+				$section_translation->language_id = $request->language_id[$i];
+				$section_translation->section_id = $section->id;
+				$section_translation->coupon_id = $request->coupon_id;
+
+				$section_translation->save();
+			}
+		}
 
 		return redirect()->route('all_section', $request->coupon_id)->with(['status' => 'Se ingreso Section de Menu con exito', 'type' => 'success']);
 
@@ -136,6 +160,15 @@ class SectionController extends Controller
 	 */
 	public function update_section(Request $request, $section_id)
 	{
+
+		// for ($i=0; $i < count($request->language_ids); $i++) {
+		// 	echo $request->language_ids[$i], '<br>';
+		// 	echo $request->language_name[$i], '<br>';
+		// 	echo '<br><br><br>';
+		//
+		// }
+		// return;
+
 		$section = Section::find($section_id);
 		$section->price = $request->price;
 		$section->save();
@@ -151,6 +184,15 @@ class SectionController extends Controller
 
 
 
+		for ($i=0; $i < count($request->language_ids); $i++) {
+			// $section_translation = new SectionTranslation();
+			$section_translation = SectionTranslation::where( [
+														['section_id', '=', $section_id],
+														['language_id', '=', $request->language_ids[$i]]
+													])->first();
+			$section_translation->name = $request->language_name[$i];
+			$section_translation->save();
+		}
 		return redirect()->route('all_section', $request->coupon_id )
 				->with(['status' => 'Se actualizó la seccion con exito', 'type' => 'success']);
 
@@ -181,7 +223,7 @@ class SectionController extends Controller
 
 	public function habilitar_section($id)
 	{
-		
+
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 		$location = $user->location;

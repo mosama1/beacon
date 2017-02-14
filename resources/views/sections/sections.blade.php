@@ -50,7 +50,7 @@
                   {{$s->section_translation[0]->name}}
                 </td>
                 @endif
-              
+
                 <td>
                   @if( $s->price > 0 )
                     {{$s->price}} €
@@ -58,7 +58,7 @@
                     --
                   @endif
                 </td>
-                
+
                 <td><a href="{{ route('all_menu', $s->id) }}"><i class="material-icons">input</i></a></td>
                 <td><a href="{{ route('edit_section', $s->id) }}"><i class="material-icons">edit</i></a></td>
                 <!-- <td><a href="#Idioma"><i class="material-icons">language</i></a></td> -->
@@ -113,7 +113,7 @@
 
 
 <div id="agregarSection" class="modal modal_">
-  
+
   <div class="titulo">
     <h3>
       Agregar Sección
@@ -171,6 +171,33 @@
       <input type="checkbox" class="filled-in" id="filled-in-box" />
       <label for="filled-in-box">Manejar Precio</label>
         </p>
+
+        <div class="languages">
+            @foreach($languages as $language)
+              <div class="language" id="language_{{$language->id}}">
+                  <input type="hidden" name="language_id[]" value="{{$language->id}}" >
+                  <a href="#" class="select_language">
+                      <div class="titulo">
+                          <h5>
+                              <img src="{{$language->icon}}" alt="" width="30px">{{$language->name}}
+                          </h5>
+                      </div>
+                  </a>
+                  <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
+                      <input type="text" name="language_name[]" value="" >
+                      <label for="">
+                          <span class="text">Nombre</span>
+                      </label>
+                  </div>
+                  @if ($errors->has('name'))
+                      <div class="input_error">
+                          <span>{{ $errors->first('name') }}</span>
+                      </div>
+                  @endif
+              </div>
+            @endforeach
+        </div>
+
       <div class="button">
         <center>
           <button type="submit" name="button">

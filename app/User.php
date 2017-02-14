@@ -6,6 +6,8 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticableTrait;
+use Illuminate\Database\Eloquent\Model;
+
 
 class User extends Authenticatable
 {
@@ -40,11 +42,16 @@ class User extends Authenticatable
 	// {
 	// 	return $this->belongsTo('Beacon\LanguageUser', 'user_id', 'user_id');
 	// }
+	// public function languages()
+	// {
+	// 	return $this->belongsToMany('Beacon\Language', 'language_users', 'user_id', 'id');
+	// }
+
+
 	public function languages()
 	{
-		return $this->belongsToMany('Beacon\Language', 'language_users', 'user_id', 'id');
+		return $this->belongsToMany('Beacon\Language', 'language_users', 'user_id', 'user_id');
 	}
-
 
 
 

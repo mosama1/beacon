@@ -32,7 +32,7 @@ class MovilController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index( $campana_id )
+	public function index( $campana_id)
 	{
 
 		$campana = Campana::where([
@@ -60,6 +60,44 @@ class MovilController extends Controller
 						'type_plates' => $this->get_type_plates_movil( $campana_id ),
 						'logo' => $this->get_logo_movil($campana_id),
 						'name' => $this->get_name_movil($campana_id)
+					] );
+	}
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function index_language( $campana_id, $language_id)
+	{
+
+		$campana = Campana::where([
+			['campana_id', '=', array( $campana_id ) ],
+		])->first();
+
+		// echo "<pre>"; var_dump($campana);	echo "</pre>";
+		// return;
+
+		if ( $campana->status === 0 ): // la campaña no esta habilitada
+			return view('campana_desabilitada',
+					[
+						'campana_id' => $campana_id,
+						'sections' => $this->get_sections_movil($campana_id),
+						'type_plates' => $this->get_type_plates_movil( $campana_id ),
+						'logo' => $this->get_logo_movil($campana_id),
+						'name' => $this->get_name_movil($campana_id)
+					]);
+		endif;
+
+		return view('index',
+					[
+						'campana_id' => $campana_id,
+						'sections' => $this->get_sections_movil($campana_id),
+						'type_plates' => $this->get_type_plates_movil( $campana_id ),
+						'logo' => $this->get_logo_movil($campana_id),
+						'name' => $this->get_name_movil($campana_id),
+						'nivel' => '../../../',
+						'language_id' => $language_id
 					] );
 	}
 
@@ -156,7 +194,7 @@ class MovilController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	 public function all_plate( $campana_id, $section_id )
+	 public function all_plate( $campana_id, $language_id, $section_id )
    {
 	   $menus = Menu::where([
 		   ['section_id', '=', array( $section_id ) ],
@@ -168,6 +206,7 @@ class MovilController extends Controller
 			   $menu->plate->plate_translation;
 		   }
 	   }
+
 	   $menu_ = Menu::where([
 		   ['id', '=', array( $menu->id )]
 	   ])->first();
@@ -199,7 +238,8 @@ class MovilController extends Controller
 					   'section_id' => $section_id,
 					   'coupon' => $coupon,
 					   'menu' => $menu_,
-					   'section_name' => $sections_trans->name
+					   'section_name' => $sections_trans->name,
+					   'language_id' => $language_id
 				   ]);
    }
 

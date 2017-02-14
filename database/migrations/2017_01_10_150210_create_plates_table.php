@@ -16,10 +16,16 @@ class CreatePlatesTable extends Migration
         Schema::create('plates', function (Blueprint $table) {
             $table->increments('id');
             $table->string('img');
+            $table->string('img_madiraje');
 
             $table->integer('menu_id')->unsigned()
                     ->foreign('menu_id')
                     ->references('id')->on('menus')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+            $table->integer('coupon_id')->unsigned()
+                    ->foreign('coupon_id')
+                    ->references('coupon_id')->on('coupons')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
 
@@ -31,7 +37,7 @@ class CreatePlatesTable extends Migration
 
             $table->integer('user_id')->unsigned()
                     ->foreign('user_id')
-                    ->references('id')->on('users')
+                    ->references('user_id')->on('users')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
 

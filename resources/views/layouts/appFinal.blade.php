@@ -2,6 +2,10 @@
 	use Beacon\Location;
 	use Beacon\User;
 	use Beacon\Campana;
+	use Beacon\Content;
+	use Beacon\CouponTranslation;
+	use Beacon\Language;
+	use Beacon\LanguageUser;
 
 	$campana = Campana::where([
 	  ['campana_id', '=', array( $campana_id ) ],
@@ -10,6 +14,17 @@
 	$location = Location::where([
 	  ['location_id', '=', array( $campana->location_id ) ],
 	])->first();
+
+	$content = Content::where([
+	  ['campana_id', '=', array( $campana_id ) ],
+	])->first();
+
+	$coupon_translation = CouponTranslation::where([
+	  ['coupon_id', '=', array( $content->coupon_id ) ],
+	])->get();
+
+	$language_id = (isset($language_id)) ? $language_id : 1 ;
+
 @endphp
 
 <!DOCTYPE html>
@@ -37,6 +52,7 @@
 
 </head>
 <body style="" class="clienteFinal {{ isset($menu2) ? 'meu2' : '' }}">
+
   <div class="preload">
 	<div class="img">
 	  <img src="{{ $location->logo }}" alt="">
@@ -55,16 +71,26 @@
 					@if ( $s->status != 0 )
 					  <?php  $s->section_translation; ?>
 						<li>
-						  <a href="{{ route('movil_all_plate', array('campana_id' => $campana_id, 'section_id' => $s->id) ) }}">
+						  <a href="{{ route('movil_all_plate', array('campana_id' => $campana_id, 'section_id' => $s->id, 'language_id' => $language_id) ) }}">
 							<span>
-							@if( ! empty($s->section_translation[0]) )
-							  {{$s->section_translation[0]->name}} {{ (!empty($s->price)) ? $s->price.' €' : '' }}
+								@if( isset($language_id) )
+									@foreach ($s->section_translation as $section)
+										@if($section->language_id == $language_id)
+										{{$section->name}}
+										@endif
+									@endforeach
+								@else
+									@if( ! empty($s->section_translation[0]) )
+									{{$s->section_translation[0]->name}} {{ (!empty($s->price)) ? $s->price.' €' : '' }}
+									@endif
+								@endif
 
-							@endif
+
+
 							</span>
 						  </a>
 						</li>
-					@endif						
+					@endif
 				@endforeach
 			  </ul>
 			  <a href="#" class="sb_mn">
@@ -76,29 +102,64 @@
 			  <img src="{{ $location->logo }}" alt="">
 			</li>
 			@endif
+
+			@if(isset($menu2))
+				<li class="idioma">
+					<ul class="sub_menu none">
+						@if( !empty($type_plates) )
+						@foreach ($type_plates as $type_plate)
+						<li>
+							<a href="{{ route('movil_all_types_plates', array( 'campana_id' => $campana_id, 'type_plate_id' => $type_plate->id ) ) }}">
+								<span>
+									{{$type_plate->name}}
+								</span>
+							</a>
+						</li>
+						@endforeach
+						@endif
+					</ul>
+					<a href="#" class="sb_mn">
+						<img src="img/icons/filtro.png" alt="">
+					</a>
+				</li>
+			@else
 			<li class="idioma">
-			  <ul class="sub_menu none">
+				<ul class="sub_menu none">
+					@for ($i = 0; $i < count($coupon_translation); $i++)
+						@php
+							$language_user = LanguageUser::where([
+								['language_id', '=', $coupon_translation[$i]->language_id],
+								['user_id', '=', Auth::user()->user_id],
+								['status', '=', 1],
+							])->first();
+						@endphp
+						@if($language_user)
+							@php
+								$language = Language::where([
+									['id', '=', $language_user->language_id],
+								])->first();
+							@endphp
+							<li>
+								<a href="{{ route('inicio_language', array( 'campana_id' => $campana_id, 'type_plate_id' => $language->id ) ) }}">
+									<span>
+										{{$language->name}}
+									</span>
+								</a>
+							</li>
+						@endif
 
+					@endfor
 
-				@if( !empty($type_plates) )
-				  @foreach ($type_plates as $type_plate)
-					<li>
-					  <a href="{{ route('movil_all_types_plates', array( 'campana_id' => $campana_id, 'type_plate_id' => $type_plate->id ) ) }}">
-						<span>
-						  {{$type_plate->name}}
-						</span>
-					  </a>
-					</li>
-				  @endforeach
-
-				@endif
-
-			  </ul>
-
-			  <a href="#" class="sb_mn">
-				<img src="img/icons/filtro.png" alt="">
-			  </a>
+				</ul>
+				<a href="#" class="sb_mn">
+					<img src="img/icons/filtro.png" alt="">
+				</a>
 			</li>
+			@endif
+
+
+
+
 		  </ul>
 
 

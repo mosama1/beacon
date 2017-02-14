@@ -1,5 +1,7 @@
 <?php
-  $nivel = '../../';
+  //   (isset($nivel) ? $nivel )
+  // $nivel = '../../';
+  $nivel = (isset($nivel)) ? $nivel : '../../';
 ?>
 @extends('layouts.appFinal')
 

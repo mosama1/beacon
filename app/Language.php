@@ -15,9 +15,19 @@ class Language extends Model
 			'name', 'abbreviation', 'user_id'
 	];
 
+	// public function users()
+	// {
+	// 	return $this->belongsToMany('Beacon\User', 'language_users', 'user_id', 'user_id');
+	// }
+
 	public function users()
 	{
-		return $this->belongsToMany('Beacon\User', 'language_users', 'user_id', 'user_id');
+		return $this->belongsToMany('Beacon\User', 'language_users');
+	}
+
+	public function coupon_translation()
+	{
+		return $this->hasMany('Beacon\CouponTranslation', 'coupon_id', 'coupon_id');
 	}
 
 	//

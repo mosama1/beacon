@@ -79,7 +79,7 @@
 </div>
 
 
-<div id="agregarContenido" class="modal modal_">
+<div id="agregarContenido" class="modal modal_ select">
 	<div class="titulo">
 		<h3>
 			Agregar Contenido

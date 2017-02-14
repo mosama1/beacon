@@ -1,4 +1,9 @@
-<?php $nivel = '../../' ?>
+<?php
+
+use Beacon\Language;
+use Beacon\LanguageUser;
+$nivel = '../../'
+?>
 
 @extends('layouts.app')
 
@@ -95,6 +100,56 @@
           <span>{{ $errors->first('price') }}</span>
         </div>
         @endif
+
+
+        <div class="languages ppal">
+
+            @for ($i = 1; $i < count($menu->menu_translation); $i++)
+               @php
+                   $language_user = LanguageUser::where([
+                       ['language_id', '=', $menu->menu_translation[$i]->language_id],
+                       ['user_id', '=', Auth::user()->user_id],
+                       ['status', '=', 1],
+                 ])->first();
+               @endphp
+               @if($language_user)
+                   @php
+                       $language = Language::where([
+                           ['id', '=', $language_user->language_id],
+                     ])->first();
+                   @endphp
+
+                   <div class="titulo">
+                       <h5>
+                           <img src="{{$language->icon}}" alt="" width="30px"> {{$language->name}}
+                       </h5>
+                   </div>
+                   <input type="hidden" name="language_id[]" value="{{$menu->menu_translation[$i]->language_id}}">
+                   <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
+                     <input type="text" name="language_name[]" value="{{ $menu->menu_translation[$i]->name }}" required="">
+                     <label for="">
+                       <span class="text">Nombre</span>
+                     </label>
+                     <div class="help">
+                       <a href="#">
+                         <i class="material-icons">help_outline</i>
+                       </a>
+                       <div class="inf none hidden">
+                         <p>
+                           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                         </p>
+                       </div>
+                     </div>
+                   </div>
+                   @if ($errors->has('name'))
+                   <div class="input_error">
+                     <span>{{ $errors->first('name') }}</span>
+                   </div>
+                   @endif
+               @endif
+            @endfor
+        </div>
+
 
 
         <div class="button">

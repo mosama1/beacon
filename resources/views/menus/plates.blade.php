@@ -75,7 +75,7 @@
                       						<span class="lever"></span>
                       						No
                     					</label>
-                  					</div>    
+                  					</div>
 								</td>
 								</tr>
 							@endforeach
@@ -106,7 +106,7 @@
 
 
 <!--AGREGAR PLATO -->
-<div id="platosMenu" class="modal modal_">
+<div id="platosMenu" class="modal modal_ select">
 	<div class="titulo">
 		<h3>
 			Agregar Plato
@@ -117,6 +117,8 @@
 		<form class="form-horizontal" role="form" method="POST" action="{{ route('store_menu') }}">
 			{{ csrf_field() }}
 			<input type="hidden" name="section_id" value="{{$section_id}}" required>
+			<input type="hidden" name="coupon_id" value="{{$coupon->coupon_id}}" required>
+
 
 			<div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
 				<input type="text" name="name" value="{{session('name')}}" required="" id="menu_name">
@@ -140,7 +142,7 @@
 			</div>
 			@endif
 
-			<div class="input select no_icon {{ $errors->has('type') ? 'error' : '' }}">
+			<div class="input select no_icon _100 {{ $errors->has('type') ? 'error' : '' }}">
 				<select id="menu_type" class="form-control icons" name="type">
 
 
@@ -199,6 +201,32 @@
 						<span>{{ $errors->first('price') }}</span>
 				</div>
 			@endif
+
+			<div class="languages">
+				@foreach($languages as $language)
+				  <div class="language" id="language_{{$language->id}}">
+					  <input type="hidden" name="language_id[]" value="{{$language->id}}" >
+					  <a href="#" class="select_language">
+						  <div class="titulo">
+							  <h5>
+								  <img src="{{$language->icon}}" alt="" width="30px">{{$language->name}}
+							  </h5>
+						  </div>
+					  </a>
+					  <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
+						  <input type="text" name="language_name[]" value="" >
+						  <label for="">
+							  <span class="text">Nombre</span>
+						  </label>
+					  </div>
+					  @if ($errors->has('name'))
+						  <div class="input_error">
+							  <span>{{ $errors->first('name') }}</span>
+						  </div>
+					  @endif
+				  </div>
+				@endforeach
+			</div>
 			<div class="button">
 				<center>
 					<button type="submit" name="button">

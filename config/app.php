@@ -152,6 +152,8 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+
+
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
@@ -244,5 +246,10 @@ return [
     	'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],
+
+    'Barryvdh\Debugbar\ServiceProvider',
+    'Debugbar' => 'Barryvdh\Debugbar\Facade',
+
+
 
 ];

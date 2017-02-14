@@ -91,7 +91,19 @@ class CouponController extends Controller
 
 		$coupon = Coupon::where('user_id', '=', $user->user_id)->get();
 
-		return view('coupons.coupon', ['coupon' => $coupon]);
+		$languages = DB::table('languages')
+		->join('language_users', 'languages.id', '=', 'language_users.language_id')
+		->join('users', 'users.user_id', '=', 'language_users.user_id')
+		->select('languages.*')
+		->where([
+			['language_users.user_id', '=', Auth::user()->user_id],
+			['language_users.status', '=', 1],
+			['languages.id', '!=', 1],
+		])
+		->orderBy('name')->get();
+
+
+		return view('coupons.coupon', ['coupon' => $coupon, 'languages' => $languages]);
 	}
 
 	/**
@@ -102,6 +114,9 @@ class CouponController extends Controller
 	 */
 	public function store_coupon(Request $request)
 	{
+
+
+
 
 		// Nuevo cliente con un url base
 		$client = new Client();
@@ -166,6 +181,21 @@ class CouponController extends Controller
 			$coupon_translation->coupon_id = $coupon->coupon_id;
 			$coupon_translation->save();
 
+			for ($i=0; $i < count($request->language_id); $i++) {
+				if ( !empty($request->language_name[$i]) ) {
+					$coupon_translation = new CouponTranslation();
+					$coupon_translation->name = $request->language_name[$i];
+					(isset($request->language_description[$i])) ?
+						$coupon_translation->description = $request->language_description[$i] :
+						$coupon_translation->description = "";
+
+					$coupon_translation->message = $coupon_response->coupon->message;
+					$coupon_translation->language_id = $request->language_id[$i];
+					$coupon_translation->coupon_id = $coupon->coupon_id;
+					$coupon_translation->save();
+				}
+			}
+
 			return redirect()->route('all_coupon', $request->section_id)->with(['status' => 'El menu se registro con exito', 'type' => 'success']);
 
 		else:
@@ -193,7 +223,21 @@ class CouponController extends Controller
 
 		$coupon->coupon_translation;
 
-		// echo "<pre>"; var_dump($coupon); echo "</pre>";
+
+
+		// $languages = DB::table('languages')
+		// ->join('language_users', 'languages.id', '=', 'language_users.language_id')
+		// ->join('users', 'users.user_id', '=', 'language_users.user_id')
+		// ->select('languages.*')
+		// ->where([
+		// 	['language_users.user_id', '=', Auth::user()->user_id],
+		// 	['language_users.status', '=', 1],
+		// 	['languages.id', '!=', 1],
+		// ])
+		// ->orderBy('name')->get();
+
+
+		// echo "<pre>"; var_dump($coupon->coupon_translation); echo "</pre>";
 		// return;
 
 		return view('coupons.coupon_edit', ['coupon' => $coupon] );
@@ -267,6 +311,22 @@ class CouponController extends Controller
 
 			$coupon_translation->message = $coupon_response->coupon->message;
 			$coupon_translation->save();
+
+
+			for ($i=0; $i < count($request->language_id); $i++) {
+				if ( !empty($request->language_name[$i]) ) {
+					$coupon_translation = CouponTranslation::where([
+						['coupon_id', '=', $coupon->coupon_id],
+						['language_id', '=', $request->language_id[$i]],
+					])->first();
+					$coupon_translation->name = $request->language_name[$i];
+					(isset($request->language_description[$i])) ?
+						$coupon_translation->description = $request->language_description[$i] :
+						$coupon_translation->description = "";
+					$coupon_translation->save();
+				}
+
+			}
 
 			return redirect()->route('all_coupon')
 							->with(['status' => 'El menu se ha actualizado con éxito', 'type' => 'success']);

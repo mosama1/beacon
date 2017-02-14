@@ -16,13 +16,16 @@ class CreateCouponsTable extends Migration
         Schema::create('coupons', function (Blueprint $table) {
         	$table->increments('id');
         	$table->string('type');
-        	$table->string('url');
+            $table->string('url');
+            $table->float('price')->nullable();
+            $table->tinyInteger('status')->default(1);
+
 
             $table->integer('coupon_id')->unique();
 
             $table->integer('user_id')
                     ->foreign('user_id')
-                    ->references('id')->on('users')
+                    ->references('user_id')->on('users')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
 
