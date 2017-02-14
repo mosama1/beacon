@@ -18,7 +18,7 @@
            <strong>{{ session('status') }}</strong>
          </span>
        @endif
-       <form class="form-horizontal" role="form" method="POST" action="{{ route( 'update_language', $language->id ) }}">
+       <form class="form-horizontal form_send" role="form" method="POST" action="{{ route( 'update_language', $language->id ) }}">
         {{ csrf_field() }}
 
         <input type="hidden" name="_method" value="PUT">
@@ -72,7 +72,7 @@
 
         <div class="button">
           <center>
-            <button type="submit" name="button">
+            <button type="submit" name="button" id="guardar" class="send_form">
               <span>Guardar</span>
             </button>
             <a href="{{ URL::previous() }}" class="">

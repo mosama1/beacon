@@ -646,6 +646,22 @@ function habilitar(id, destino, value) {
 		}
 	})
 }
+function checkSubmit() {
+    document.getElementById("guardar").value = "Enviando...";
+    document.getElementById("guardar").disabled = true;
+    return true;
+}
+
+$('.form_send').submit(function(){
+    $('.send_form').prop('disabled', true);
+});
+
+// function eliminar(){
+// 	document.getElementById("eliminar").value = "Enviando...";
+// 	document.getElementById("eliminar").disabled = true;
+// 	return true;
+//
+// }
 /********************************************************************/
 /******************* Traducciones  *****************************/
 /********************************************************************/

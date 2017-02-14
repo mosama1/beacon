@@ -4,13 +4,7 @@
 
 @section('content')
 
-<script type="text/javascript">
-function checkSubmit() {
-    document.getElementById("guardar").value = "Enviando...";
-    document.getElementById("guardar").disabled = true;
-    return true;
-}
-</script>
+
 
 <div class="contenedor">
   <div class="principal">
@@ -90,7 +84,7 @@ function checkSubmit() {
   </div>
 
   <div class="form">
-	<form class="form-horizontal" role="form" method="POST" action="{{ route('store_welcome_kit') }}" enctype="multipart/form-data">
+	<form class="form-horizontal form_send" role="form" method="POST" action="{{ route('store_welcome_kit') }}" enctype="multipart/form-data">
 	  {{ csrf_field() }}
 
 	  <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
@@ -199,7 +193,7 @@ function checkSubmit() {
 
 	  <div class="button">
 		<center>
-		  <button type="submit" name="button" id="guardar">
+		  <button type="submit" name="button" id="guardar" class="send_form">
 			<span>Guardar</span>
 		  </button>
 		  <a href="#" class="" onclick="$('#kitBienvenida').modal('close'); return false;">
@@ -219,12 +213,12 @@ function checkSubmit() {
 	</h3>
   </div>
   <div class="form">
-	<form class="form-horizontal" role="form" method="POST">
+	<form class="form-horizontal form_send" role="form" method="POST">
 	  {{ csrf_field() }}
 	  {{ method_field('DELETE') }}
 	  <div class="button">
 		<center>
-		  <button type="submit" name="button">
+		  <button type="submit" name="button" class="send_form">
 			<span>Si</span>
 		  </button>
 		  <a href="#" class="" onclick="$('#eliminarkitBienvenida').modal('close'); return false;">

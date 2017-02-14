@@ -15,7 +15,7 @@
 				</span>
 			@endif
 
-			<form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data"  action="{{ route('store_plate', $menu_id) }}">
+			<form class="form-horizontal form_send" role="form" method="POST" enctype="multipart/form-data"  action="{{ route('store_plate', $menu_id) }}">
 				{{ csrf_field() }}
 
 				<input type="hidden" name="menu_id" value="{{$menu_id}}" required>
@@ -180,7 +180,7 @@
 				</div>
 				<div class="button">
 					<center>
-						<button type="submit" name="button">
+						<button type="submit" name="button" class="send_form">
 							<span>Guardar</span>
 						</button>
 						<a href="{{ route('all_menu', array('section_id' => $section_id)) }}" class="">

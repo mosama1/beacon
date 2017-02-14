@@ -4,13 +4,6 @@
 
 @section('content')
 
-<script type="text/javascript">
-function checkSubmit() {
-    document.getElementById("guardar").value = "Enviando...";
-    document.getElementById("guardar").disabled = true;
-    return true;
-}
-</script>
 
 <div class="contenedor">
   <div class="principal">
@@ -30,7 +23,7 @@ function checkSubmit() {
          </span>
        @endif
 
-       <form class="form-horizontal" role="form" method="POST" action="{{ route('update_welcome_kit', $welcome_kit->promotion_id) }}" enctype="multipart/form-data">
+       <form class="form-horizontal form_send" role="form" method="POST" action="{{ route('update_welcome_kit', $welcome_kit->promotion_id) }}" enctype="multipart/form-data">
          {{ csrf_field() }}
          {{ method_field('PUT') }}
 
@@ -143,7 +136,7 @@ function checkSubmit() {
 
          <div class="button">
            <center>
-             <button type="submit" name="button" id="guardar">
+             <button type="submit" name="button" id="guardar" class="send_form">
                <span>Guardar</span>
              </button>
              <a href="{{ route('all_fidelity_kit') }}" class="">

@@ -18,7 +18,7 @@
 					 <strong>{{ session('status') }}</strong>
 				 </span>
 			 @endif
-			 <form class="form-horizontal" role="form" method="POST" action="{{ route('update_content', array('campana_id' => $campana_id, 'content_id' => $content->content_id) ) }}">
+			 <form class="form-horizontal form_send" role="form" method="POST" action="{{ route('update_content', array('campana_id' => $campana_id, 'content_id' => $content->content_id) ) }}">
 				 {{ csrf_field() }}
 				 {{ method_field('PUT') }}
 				<div class="input select no_icon _100 {{ $errors->has('coupon_id') ? 'error' : '' }}">
@@ -75,7 +75,7 @@
 
 				 <div class="button">
 					 <center>
-						 <button type="submit" name="button" id="guardar">
+						 <button type="submit" name="button" id="guardar" class="send_form">
 							 <span>Guardar</span>
 						 </button>
 						 <a href="{{ route('all_content', array('$campana_id' => $campana_id )) }}" class="">

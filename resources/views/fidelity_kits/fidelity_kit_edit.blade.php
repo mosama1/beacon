@@ -29,7 +29,7 @@ function checkSubmit() {
          </span>
        @endif
 
-       <form class="form-horizontal" role="form" method="POST" action="{{ route('update_fidelity_kit', $fidelity_kit->promotion_id) }}" enctype="multipart/form-data">
+       <form class="form-horizontal form_send" role="form" method="POST" action="{{ route('update_fidelity_kit', $fidelity_kit->promotion_id) }}" enctype="multipart/form-data">
          {{ csrf_field() }}
         {{ method_field('PUT') }}
 
@@ -141,7 +141,7 @@ function checkSubmit() {
 
          <div class="button">
            <center>
-             <button type="submit" name="button" id="guardar">
+             <button type="submit" name="button" id="guardar" class="send_form">
                <span>Guardar</span>
              </button>
              <a href="{{ route('all_fidelity_kit') }}" class="">

@@ -65,7 +65,7 @@
     </div>
 
     <div class="form">
-      <form class="form-horizontal" role="form" method="POST" action="{{ route('store_beacon') }}" id="add_beacon">
+      <form class="form-horizontal form_send" role="form" method="POST" action="{{ route('store_beacon') }}" id="add_beacon">
         {{ csrf_field() }}
 
         <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
@@ -134,7 +134,7 @@
         @endif
         <div class="button">
           <center>
-            <button type="submit" name="button" id="guardar_beacons">
+            <button type="submit" name="button" id="guardar_beacons" class="send_form">
               <span>Guardar</span>
             </button>
             <a href="#" class="" onclick="$('#agregarBeacon').modal('close'); return false;">
@@ -155,12 +155,12 @@
     </div>
 
     <div class="form">
-      <form class="form-horizontal" role="form" method="POST">
+      <form class="form-horizontal form_send" role="form" method="POST">
         {{ csrf_field() }}
         {{ method_field('DELETE') }}
         <div class="button">
           <center>
-            <button type="submit" name="button">
+            <button type="submit" name="button" class="send_form">
               <span>Si</span>
             </button>
             <a href="#" class="" onclick="$('#eliminarBeacon').modal('close'); return false;">

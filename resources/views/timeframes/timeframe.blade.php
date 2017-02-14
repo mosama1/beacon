@@ -4,14 +4,6 @@
 
 @section('content')
 
-<script type="text/javascript">
-function checkSubmit() {
-    document.getElementById("guardar").value = "Enviando...";
-    document.getElementById("guardar").disabled = true;
-    return true;
-}
-</script>
-
 <div class="contenedor">
 	<div class="principal">
 		<div class="titulo">
@@ -80,7 +72,7 @@ function checkSubmit() {
 	</div>
 
 	<div class="form">
-		<form class="form-horizontal" role="form" method="POST" action="{{ route('store_timeframe') }}">
+		<form class="form-horizontal form_send" role="form" method="POST" action="{{ route('store_timeframe') }}">
 			{{ csrf_field() }}
 			<div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
 				<input type="text" name="name" value="" required="">
@@ -172,7 +164,7 @@ function checkSubmit() {
 
 			<div class="button">
 				<center>
-					<button type="submit" name="button" id="guardar">
+					<button type="submit" name="button" id="guardar" class="send_form">
 						<span>Guardar</span>
 					</button>
 					<a href="#" class="" onclick="$('#agregarHorario').modal('close'); return false;">
@@ -192,12 +184,12 @@ function checkSubmit() {
 	</div>
 
 	<div class="form">
-		<form class="form-horizontal" role="form" method="POST">
+		<form class="form-horizontal form_send" role="form" method="POST">
 			{{ csrf_field() }}
 			{{ method_field('DELETE') }}
 			<div class="button">
 				<center>
-					<button type="submit" name="button">
+					<button type="submit" name="button" class="send_form">
 						<span>Si</span>
 					</button>
 					<a href="#" class="" onclick="$('#eliminarHorario').modal('close'); return false;">

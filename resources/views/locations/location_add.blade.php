@@ -21,7 +21,7 @@ $actual = 'location_add'
           <strong>{{ session('status') }}</strong>
         </span>
       @endif -->
-      <form class="form-horizontal" role="form" method="POST" action="{{ route('store_locations') }}" enctype="multipart/form-data">
+      <form class="form-horizontal form_send" role="form" method="POST" action="{{ route('store_locations') }}" enctype="multipart/form-data">
         {{ csrf_field() }}
 
 
@@ -172,7 +172,7 @@ $actual = 'location_add'
         </div>
         <div class="button">
           <center>
-            <button type="submit" name="button">
+            <button type="submit" name="button" class="send_form">
               <span>Guardar</span>
             </button>
             <a href="{{ route('location_beacons') }}" class="">

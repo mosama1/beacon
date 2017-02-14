@@ -87,7 +87,7 @@
 	</div>
 
 	<div class="form">
-		<form class="form-horizontal" role="form" method="POST" action="{{ route('store_content_promotion', $promotion_id) }}">
+		<form class="form-horizontal form_send" role="form" method="POST" action="{{ route('store_content_promotion', $promotion_id) }}">
 			{{ csrf_field() }}
 			<input type="hidden" name="tigger_name_id" value="DWELL_TIME">
 
@@ -145,7 +145,7 @@
 
 			<div class="button">
 				<center>
-					<button type="submit" name="button">
+					<button type="submit" name="button" class="send_form">
 						<span>Guardar</span>
 					</button>
 					<a href="#" onclick="$('#agregarContenido').modal('close'); return false;" class="">
@@ -165,12 +165,12 @@
 		</h3>
 	</div>
 	<div class="form">
-		<form class="form-horizontal" role="form" method="POST">
+		<form class="form-horizontal form_send" role="form" method="POST">
 			{{ csrf_field() }}
 			{{ method_field('DELETE') }}
 			<div class="button">
 				<center>
-					<button type="submit" name="button">
+					<button type="submit" name="button" class="send_form">
 						<span>Si</span>
 					</button>
 					<a href="#" class="" onclick="$('#eliminarContenido').modal('close'); return false;">
