@@ -18,15 +18,19 @@ class CreateSectionsTable extends Migration
 
             $table->integer('coupon_id')
                     ->foreign('coupon_id')
-                    ->references('id')->on('coupons')
+                    ->references('coupon_id')->on('coupons')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
-            
+
             $table->integer('user_id')
                     ->foreign('user_id')
-                    ->references('id')->on('users')
+                    ->references('user_id')->on('users')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
+
+            $table->string('price')->default(0.00);
+            $table->tinyInteger('status');
+
 
             $table->timestamps();
         });

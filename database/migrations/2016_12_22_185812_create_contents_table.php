@@ -18,31 +18,32 @@ class CreateContentsTable extends Migration
         	$table->string('coupon');
         	$table->string('tag');
             $table->string('trigger_name');
+            $table->integer('dwell_time');
 
             $table->integer('content_id')
                     ->unique();
-                    
-        	$table->string('timeframe_id')
-                    ->foreign('timeframe_id')
-                    ->references('id')->on('timeframes')
+
+        	$table->string('timeframe')
+                    ->foreign('timeframe')
+                    ->references('timeframe_id')->on('timeframes')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
 
             $table->integer('campana_id')
                     ->foreign('campana_id')
-                    ->references('id')->on('campanas')
+                    ->references('campana_id')->on('campanas')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
 
             $table->integer('coupon_id')
                     ->foreign('coupon_id')
-                    ->references('id')->on('coupons')
+                    ->references('coupon_id')->on('coupons')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
 
             $table->integer('user_id')
                     ->foreign('user_id')
-                    ->references('id')->on('users')
+                    ->references('user_id')->on('users')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
 

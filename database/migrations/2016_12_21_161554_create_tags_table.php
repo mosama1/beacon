@@ -21,16 +21,16 @@ class CreateTagsTable extends Migration
 
             $table->integer('location_id')->unique()
                     ->foreign('location_id')
-                    ->references('id')->on('locations')
+                    ->references('location_id')->on('locations')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
 
             $table->integer('user_id')
                     ->foreign('user_id')
-                    ->references('id')->on('users')
+                    ->references('user_id')->on('users')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
-            
+
         	$table->timestamps();
         });
     }

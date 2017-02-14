@@ -29,17 +29,49 @@
 					<table class="bordered centered">
 						<thead>
 							<tr>
+								<th data-field="id" width="100px">Icono</th>
 								<th data-field="id">Nombre</th>
 								<th data-field="id">Abreviatura</th>
-								<th data-field="id">Icono</th>
-								<th data-field="id" width="100px">Editar</th>
 								<th data-field="name" width="100px">Eliminar</th>
 								<th data-field="id" width="130px">Habilitado</th>
 							</tr>
 						</thead>
 
 						<tbody>
+							@foreach($languages as $language)
+								<tr>
+									<th data-field="id"><img src="{{$language->icon}}" alt="" width="40px"></th>
+									<th data-field="id">{{$language->name}}</th>
+									<th data-field="id">{{$language->abbreviation}}</th>
+				  				  <?php
 
+				  				  echo "<td onclick= \"modal_activate('".
+				  				  route( "destroy_language", $language->id ).
+				  				  "' , '#eliminarLanguage')\" >";
+
+				  				  ?>
+
+				  				  <a href="#eliminarLanguage"><i class="material-icons">clear</i></a>
+
+				  				</td>
+				  				<td>
+									<div class="switch">
+										<label>
+					  						Si
+											@foreach($language_users as $language_user)
+												@if( $language_user->language_id == $language->id )
+												<input id="habilitar_{{$language_user->id}}" type="checkbox" {{ ($language_user->status > 0 ? '' : 'checked') }} class="filled-in" onclick="habilitar('#habilitar_{{$language_user->id}}', 'languages', '{{$language_user->id}}'); return false;" />
+
+												@endif
+											@endforeach
+
+					  						<span class="lever"></span>
+					  						No
+					  				  </label>
+									</div>
+				  				</td>
+								</tr>
+							@endforeach
 						</tbody>
 					</table>
 				</div>
@@ -61,8 +93,8 @@
 			<div class="input select no_icon _100 {{ $errors->has('language_id') ? 'error' : '' }}">
 				<select id="language_id" class="form-control icons" name="language_id" required>
 					<option value="" disabled selected>Seleccione un Idioma</option>
-					@foreach($languages as $language)
-					<option value="{{$language->id}}">{{$language->name}}</option>
+					@foreach($languages_all as $l)
+					<option value="{{$l->id}}">{{$l->name}}</option>
 					@endforeach
 				</select>
 				<div class="help">
@@ -98,7 +130,7 @@
 		</form>
 	</div>
 </div>
-<div id="eliminarLanguaje" class="modal modal_">
+<div id="eliminarLanguage" class="modal modal_">
 
 	<div class="titulo">
 		<h3>
@@ -114,7 +146,7 @@
 					<button type="submit" name="button">
 						<span>Si</span>
 					</button>
-					<a href="#" class="" onclick="$('#eliminarLanguaje').modal('close'); return false;">
+					<a href="#" class="" onclick="$('#eliminarLanguage').modal('close'); return false;">
 						<span>No</span>
 					</a>
 				</center>

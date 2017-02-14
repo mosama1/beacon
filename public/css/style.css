@@ -48,7 +48,8 @@ select:not(.multiple_) {
     max-height: 0;
 }
 .modal.select{
-    overflow: visible;
+    overflow-x: hidden;
+    overflow-y: visible;
 }
 .input.select .dropdown-content{
     max-height: 300px !important;
@@ -172,6 +173,48 @@ select:not(.multiple_) {
 }*/
 .links li ul li a{
   color: #fff;
+}
+.languages{
+    margin-top: 10px;
+}
+.languages .language{
+    overflow: hidden;
+    /*background: rgb(179, 12, 103);
+    border: solid 1px #000;*/
+
+    max-height: 1000px;
+    margin-top: 10px;
+
+    -webkit-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
+
+/*.languages .language.active{
+    max-height: 1000px;
+}*/
+
+.languages .titulo{
+    height: 30px;
+    padding: 0 !important;
+
+}
+.ppal.languages .titulo{
+    margin: 10px 0;
+}
+
+.languages .titulo h5{
+    margin: 0;
+    text-align: left;
+    color: rgb(255, 255, 255);
+}
+.languages .titulo h5 img{
+    width: 30px;
+    position: relative;
+    top: 8px;
+    margin-right: 7px;
 }
 
 

@@ -646,3 +646,37 @@ function habilitar(id, destino, value) {
 		}
 	})
 }
+/********************************************************************/
+/******************* Traducciones  *****************************/
+/********************************************************************/
+
+// $('.select_language').click(function(){
+//     var div = $(this).parent();
+//
+//     if (div.filter('.active').length <= 0) {
+//         div.addClass('active');
+//         $('input, textarea', div).prop('disabled', false);
+//     }else {
+//         div.removeClass('active');
+//         $('input, textarea', div).prop('disabled', true);
+//
+//     }
+//     return false;
+// });
+// $('.default input').keyup(function(){
+//     var value = $(this).val();
+//     $('.languages input').val(value);
+//     verificarInputVacios($('.languages input'));
+// });
+//
+// $('.default textarea').keyup(function(){
+//     var value = $(this).val();
+//
+//     $('.languages textarea').each(function(){
+//         if ($(this).val() === '') {
+//             $('.languages textarea').val(value);
+//
+//         }
+//     });
+//     verificarInputVacios($('.languages textarea'));
+// });

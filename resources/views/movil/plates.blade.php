@@ -1,6 +1,7 @@
 <?php
-  $nivel = '../../../../../';
+  $nivel = '../../../../../../';
   $menu2 = '';
+
 
 ?>
 @php
@@ -26,17 +27,25 @@ use Beacon\Section;
 		  <table class="bordered centered">
 			<thead>
 			  <tr>
-				  <th data-field="id" style="text-transform: capitalize;">{{ $section_name }}</th>
+				  <th data-field="id" style="text-transform: capitalize;">
+
+                      @if( isset($language_id) )
+                          @foreach ($section as $s)
+                              @if($s->language_id == $language_id)
+                              {{$s->name}}
+                              @endif
+                          @endforeach
+                      @else
+                        {{ $section[1]->name }}
+                        @endif
+
+                  </th>
 				  <th data-field="id">Precio</th>
 				  <th data-field="name"></th>
 			  </tr>
 			</thead>
-
-
 			<tbody>
 			<pre><?php ?>
-
-
 			  @foreach($menus as $p)
 				@php
 				  $plate = plate::where([
@@ -51,9 +60,17 @@ use Beacon\Section;
 				@if ( $p->status != 0 )
 				<tr id='{{$p->id}}'>
 				  <td>
-					@if( ! empty($p->menu_translation[0]) )
-					  {{$p->menu_translation[0]->name}}
-					@endif
+                      @if( isset($language_id) )
+                          @foreach ($p->menu_translation as $menu)
+                              @if($menu->language_id == $language_id)
+                              {{$menu->name}}
+                              @endif
+                          @endforeach
+                      @else
+                          @if( ! empty($p->menu_translation[0]) )
+                          {{$p->menu_translation[0]->name}}
+                          @endif
+                      @endif
 				  </td>
 				  <td>
 					@if( empty($section->price) )
@@ -62,7 +79,7 @@ use Beacon\Section;
 				  </td>
 				  <td>
 					@if ($plate != NULL)
-					<a href="{{ route('show_desc_plate', array('campana_id' => $campana_id, 'menu_id' => $p->id) ) }}"><i class="material-icons">remove_red_eye</i></a>
+					<a href="{{ route('show_desc_plate', array('campana_id' => $campana_id, 'menu_id' => $p->id, 'language_id' => $language_id) ) }}"><i class="material-icons">remove_red_eye</i></a>
 					@endif
 				  </td>
 				</tr>

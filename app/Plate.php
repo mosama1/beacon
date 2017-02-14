@@ -32,6 +32,7 @@ class Plate extends Model
 
 	public function plate_translation()
 	{
-	    return $this->hasOne('Beacon\PlateTranslation', 'plate_id', 'id');
+	    return $this->hasMany('Beacon\PlateTranslation', 'plate_id', 'id');
 	}
+
 }

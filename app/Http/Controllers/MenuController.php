@@ -98,7 +98,18 @@ class MenuController extends Controller
 		$section = Section::where('id', '=', $section_id)->first();
 		$section->coupon();
 
-		return view('menus.plates',['menus' => $menus,'type_plates' => $type_plates, 'section_id' => $section_id, 'coupon' => $section->coupon, 'section' => $section]);
+		$languages = DB::table('languages')
+		->join('language_users', 'languages.id', '=', 'language_users.language_id')
+		->join('users', 'users.user_id', '=', 'language_users.user_id')
+		->select('languages.*')
+		->where([
+			['language_users.user_id', '=', Auth::user()->user_id],
+			['language_users.status', '=', 1],
+			['languages.id', '!=', 1],
+		])
+		->orderBy('name')->get();
+
+		return view('menus.plates',['menus' => $menus,'type_plates' => $type_plates, 'section_id' => $section_id, 'coupon' => $section->coupon, 'section' => $section, 'languages' => $languages]);
 	}
 
 	/**
@@ -174,12 +185,13 @@ class MenuController extends Controller
 
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-			$sesion = Section::where( 'id', '=', $request->section_id )->first();			
+			$sesion = Section::where( 'id', '=', $request->section_id )->first();
 
 			$menu = new Menu();
 			$menu->section_id = $request->section_id;
 			$menu->coupon_id = $sesion->coupon_id;
 			$menu->user_id = $user->user_id;
+
 			$menu->type = $request->type;
 			$menu->status = 1;
 			if ( empty($request->price) )
@@ -188,12 +200,27 @@ class MenuController extends Controller
 				$menu->price = $request->price;
 			$menu->save();
 
+
 			$menu_translation = new MenuTranslation();
 			$menu_translation->menu_id = $menu->id;
 			$menu_translation->language_id = 1;
+			$menu_translation->coupon_id = $request->coupon_id;
 			$menu_translation->name = $request->name;
 			$menu_translation->coupon_id = $sesion->coupon_id;
 			$menu_translation->save();
+
+
+			for ($i=0; $i < count($request->language_id); $i++) {
+				if ( !empty($request->language_name[$i]) ) {
+					$menu_translation = new MenuTranslation();
+					$menu_translation->name = $request->language_name[$i];
+					$menu_translation->language_id = $request->language_id[$i];
+					$menu_translation->menu_id = $menu->id;
+					$menu_translation->coupon_id = $request->coupon_id;
+
+					$menu_translation->save();
+				}
+			}
 
 			return redirect()->route('all_menu', $menu->section_id)->with(['status' => 'Se creo el plato', 'type' => 'success']);
 		}
@@ -245,6 +272,16 @@ class MenuController extends Controller
 		$menu_translation->name = $request->name;
 		$menu_translation->save();
 
+		for ($i=0; $i < count($request->language_id); $i++) {
+			// $section_translation = new SectionTranslation();
+			$menu_translation = MenuTranslation::where( [
+														['menu_id', '=', $menu->id],
+														['language_id', '=', $request->language_id[$i]]
+													])->first();
+			$menu_translation->name = $request->language_name[$i];
+			$menu_translation->save();
+		}
+
 
 		return redirect()->route('all_menu', $menu->section_id)->with(['status' => 'Se ha actualizado el plato', 'type' => 'success']);
 	}
@@ -280,7 +317,7 @@ class MenuController extends Controller
 
 	public function habilitar_menu($id)
 	{
-		
+
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 		$location = $user->location;

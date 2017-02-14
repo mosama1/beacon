@@ -1,5 +1,5 @@
 <?php
-  $nivel = '../../../../../';
+  $nivel = '../../../../../../';
   $menu2 = '';
 
 ?>
@@ -46,9 +46,17 @@ use Beacon\Section;
 				@if ( $p->status != 0 )
 				<tr id='{{$p->id}}'>
 				  <td>
-					@if( ! empty($p->menu_translation[0]) )
-					  {{$p->menu_translation[0]->name}}
-					@endif
+                    @if( isset($language_id) )
+                        @foreach ($p->menu_translation as $plate)
+                            @if($plate->language_id == $language_id)
+                            {{$plate->name}}
+                            @endif
+                        @endforeach
+                    @else
+                        @if( ! empty($p->menu_translation[0]) )
+                          {{$p->menu_translation[0]->name}}
+                        @endif
+                    @endif
 				  </td>
 				  <td>
 					@if( empty($section->price) )
@@ -59,7 +67,7 @@ use Beacon\Section;
 				  </td>
 				  <td>
 					@if ($plate != NULL)
-					<a href="{{ route('show_desc_plate_by_type', array('campana_id' => $campana_id, 'type_plate' => $type_plate->id, 'menu_id' => $p->id ) ) }}"><i class="material-icons">remove_red_eye</i></a>
+					<a href="{{ route('show_desc_plate_by_type', array('campana_id' => $campana_id, 'type_plate' => $type_plate->id, 'menu_id' => $p->id, 'language_id' => $language_id ) ) }}"><i class="material-icons">remove_red_eye</i></a>
 					@endif
 				  </td>
 				</tr>
@@ -75,7 +83,7 @@ use Beacon\Section;
 	<!--BOTON REGRESAR-->
 		<div class="agregar regresar">
 		  <center>
-			<a href="{{ route('inicio', $campana_id) }}" class="waves-effect">
+			<a href="{{ route('inicio_language', array( 'campana_id' => $campana_id, 'language_id' => $language_id ) ) }}" class="waves-effect">
 			  <div class="">
 				<span class="text">Regresar</span>
 				<span class="icon"><i class="material-icons">reply</i></span>

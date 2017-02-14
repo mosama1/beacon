@@ -23,47 +23,34 @@ class LanguageController extends Controller
 	 */
 	public function index()
 	{
-		// $languages = Language::all();
-		// $languages = Language::where( 'user_id', '=', Auth::user()->user_id )->get();
-		// $languages = Language::all();
-		// $language_user = LanguageUser::where( 'user_id', '=', Auth::user()->user_id )->get();
-		// $language_user->user;
-		// $language_user->language;
 
-
-		$user = User::where( 'id', '=', 8 )->get();
-		$language_user = LanguageUser::where( 'user_id', '=', 8 )->get();
-
-		foreach ($user as $key => $value) {
-		 	echo $value->languages->language;
-		}
-// 		$language = DB::table('languages')
-// 					->join('language_user')
-//
-//
-//
-// $content_timeframes = DB::table('timeframes')
-// ->join('content_timeframes', 'timeframes.timeframe_id', '=', 'content_timeframes.timeframe_id')
-// ->join('contents', 'contents.id', '=', 'content_timeframes.content_id')
-// ->select('timeframes.*')
-// ->where('content_timeframes.content_id', '=', $content->id)
-// ->get();
-//
-		echo "<pre>"; print_r( $language_user ); echo "</pre>";
-		echo "<pre>"; print_r( $user ); echo "</pre>";
-
-
-		// foreach ($user->languages as $language) {
-		//     echo $language;
-		// }
-
-
+		// $user = User::where([
+		// 	['user_id', '=', Auth::user()->user_id],
+		// ])->get();
+		// echo "<pre>"; var_dump($user); echo "</pre>";
 		// return;
 
-		// echo count($language_user);
-		return;
 
-		return view('languages.language', ['languages' => $languages]);
+		$languages = DB::table('languages')
+		->join('language_users', 'languages.id', '=', 'language_users.language_id')
+		->join('users', 'users.user_id', '=', 'language_users.user_id')
+		->select('languages.*')
+		->where([
+			['language_users.user_id', '=', Auth::user()->user_id],
+		])
+		->orderBy('name')->get();
+
+
+		$languages_all = DB::table('languages')
+		->orderBy('name')->get();
+
+		$language_users = LanguageUser::where([
+			['user_id', '=', Auth::user()->user_id],
+		])->get();
+
+
+		return view('languages.language', ['languages_all' => $languages_all, 'languages' => $languages, 'language_users' => $language_users]);
+
 	}
 
 	/**
@@ -99,14 +86,36 @@ class LanguageController extends Controller
 	public function store( Request $request )
 	{
 
-		$language = new LanguageUser();
-		$language->user_id = Auth::user()->user_id;
-		$language->language_id = $request->language_id;
-		$language->save();
+		// $languages = new LanguageUser();
+
+		$languages = LanguageUser::where([
+			['user_id', '=', Auth::user()->user_id],
+			['language_id', '=', $request->language_id],
+		])->first();
 
 
-		return redirect()->route( 'all_language' )
-						->with( [ 'status' => 'Se creo el idioma', 'type' => 'success' ] );
+		// echo "<pre>"; var_dump($languages); echo "</pre>";
+		// return;
+
+		if (!$languages) {
+			$language = new LanguageUser();
+			$language->user_id = Auth::user()->user_id;
+			$language->language_id = $request->language_id;
+			$language->save();
+
+			return redirect()->route( 'all_language' )
+							->with( [ 'status' => 'Se creo el idioma', 'type' => 'success' ] );
+
+		}else {
+			return redirect()->route( 'all_language' )
+							->with( [ 'status' => 'El idioma seleccionado ya esta agregado', 'type' => 'success' ] );
+
+		}
+
+
+
+
+
 
 	}
 
@@ -149,15 +158,29 @@ class LanguageController extends Controller
 	 * @param  integer $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy( $id )
+	public function destroy( $language_id )
 	{
 
-        $language = Language::where('id', '=', $id)
-                        ->first()->delete();
+        $language_users = LanguageUser::where([
+			['language_id', '=', $language_id],
+			['user_id', '=', Auth::user()->user_id],
+		])->first()->delete();
 
         return redirect()->route('all_language')
                         ->with(['status' => 'Idioma eliminado con éxito', 'type' => 'success']);
 
+	}
+
+	public function habilitar($id)
+	{
+
+		$language_user = LanguageUser::where('id', '=', $id)->first();
+		$status = ($language_user->status == 0) ? 1 : 0;
+		$language_user->status = $status;
+		$language_user->save();
+
+
+		return $status;
 	}
 
 

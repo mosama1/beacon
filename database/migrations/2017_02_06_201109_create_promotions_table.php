@@ -16,26 +16,28 @@ class CreatePromotionsTable extends Migration
 		Schema::create('promotions', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('name');
-			$table->string('description');
-			$table->string('start_time');
-			$table->string('end_time');	
-
-			$table->boolean('enabled');
-
+			$table->string('description')->nullable();
 			$table->integer('number_visits');
 			$table->integer('type');
+			$table->string('img');
+
+			$table->string('start_time');
+			$table->string('end_time');
+			$table->tinyInteger('status');
+
+
 			$table->integer('promotion_id')
 					->unique();
-			
+
 			$table->integer('location_id')
 					->foreign('location_id')
-					->references('id')->on('locations')
+					->references('location_id')->on('locations')
 					->onUpdate('cascade')
 					->onDelete('cascade');
 
 			$table->integer('user_id')
 					->foreign('user_id')
-					->references('id')->on('users')
+					->references('user_id')->on('users')
 					->onUpdate('cascade')
 					->onDelete('cascade');
 

@@ -12,7 +12,7 @@ class LanguageUser extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-			'user_id', 'language_id'
+			'language_id', 'user_id'
 	];
 
 	// public function user()
@@ -21,15 +21,15 @@ class LanguageUser extends Model
 	// 	return $this->belongsToMany('Beacon\User', 'role_user', 'user_id', 'role_id');
 	// }
 
-	// public function language()
-	// {
-	//     return $this->belongsTo('Beacon\Language', 'language_id', 'id' );
-	// }
-	//
-	// public function user()
-	// {
-	//     return $this->belongsTo('Beacon\User', 'user_id', 'user_id');
-	// }
+	public function languages()
+	{
+	    return $this->belongsTo('Beacon\Language', 'language_id', 'id' );
+	}
+
+	public function users()
+	{
+	    return $this->belongsTo('Beacon\User', 'user_id', 'user_id');
+	}
 
 
 

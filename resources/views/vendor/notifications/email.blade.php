@@ -21,19 +21,21 @@ $style = [
     /* Layout ------------------------------ */
 
     'body' => 'margin: 0; padding: 0; width: 100%; background-color: #F2F4F6;',
-    'email-wrapper' => 'width: 100%; margin: 0; padding: 0; background-color: #F2F4F6;',
+    'email-wrapper' => 'width: 100%; margin: 0; padding: 0; background-color: #666666;',
 
     /* Masthead ----------------------- */
 
     'email-masthead' => 'padding: 25px 0; text-align: center;',
-    'email-masthead_name' => 'font-size: 16px; font-weight: bold; color: #2F3133; text-decoration: none; text-shadow: 0 1px 0 white;',
+    'email-masthead_name' => 'font-size: 16px; font-weight: bold; color: #fff; text-decoration: none; text-shadow: 0 1px 0 white;',
 
     'email-body' => 'width: 100%; margin: 0; padding: 0; border-top: 1px solid #EDEFF2; border-bottom: 1px solid #EDEFF2; background-color: #FFF;',
     'email-body_inner' => 'width: auto; max-width: 570px; margin: 0 auto; padding: 0;',
     'email-body_cell' => 'padding: 35px;',
 
     'email-footer' => 'width: auto; max-width: 570px; margin: 0 auto; padding: 0; text-align: center;',
-    'email-footer_cell' => 'color: #AEAEAE; padding: 35px; text-align: center;',
+    'email-footer_cell' => 'color: #fff; padding: 35px; text-align: center;',
+    'color-footer' => 'color: #fff;',
+    'color-demente' => 'color: #0050ff;',
 
     /* Body ------------------------------ */
 
@@ -71,7 +73,7 @@ $style = [
                     <tr>
                         <td style="{{ $style['email-masthead'] }}">
                             <a style="{{ $fontFamily }} {{ $style['email-masthead_name'] }}" href="{{ url('/') }}" target="_blank">
-                                {{ config('app.name') }}
+                                Nombre de la aplicación
                             </a>
                         </td>
                     </tr>
@@ -88,9 +90,9 @@ $style = [
                                                 {{ $greeting }}
                                             @else
                                                 @if ($level == 'error')
-                                                    Whoops!
+                                                    ¡Lo sentimos!
                                                 @else
-                                                    Hello!
+                                                    ¡Hola!
                                                 @endif
                                             @endif
                                         </h1>
@@ -121,7 +123,7 @@ $style = [
                                                         ?>
 
                                                         <a href="{{ $actionUrl }}"
-                                                            style="{{ $fontFamily }} {{ $style['button'] }} {{ $style[$actionColor] }}"
+                                                            style="{{ $fontFamily }}"
                                                             class="button"
                                                             target="_blank">
                                                             {{ $actionText }}
@@ -140,7 +142,7 @@ $style = [
 
                                         <!-- Salutation -->
                                         <p style="{{ $style['paragraph'] }}">
-                                            Regards,<br>{{ config('app.name') }}
+                                            Saludos,<br>Nombre de la aplicación
                                         </p>
 
                                         <!-- Sub Copy -->
@@ -149,8 +151,8 @@ $style = [
                                                 <tr>
                                                     <td style="{{ $fontFamily }}">
                                                         <p style="{{ $style['paragraph-sub'] }}">
-                                                            If you’re having trouble clicking the "{{ $actionText }}" button,
-                                                            copy and paste the URL below into your web browser:
+                                                            Si usted está teniendo problemas para hacer click en el botón de "Restablecer Contraseña",
+                                                            copia y pega el siguiente URL en su navegador web:
                                                         </p>
 
                                                         <p style="{{ $style['paragraph-sub'] }}">
@@ -174,10 +176,11 @@ $style = [
                             <table style="{{ $style['email-footer'] }}" align="center" width="570" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="{{ $fontFamily }} {{ $style['email-footer_cell'] }}">
-                                        <p style="{{ $style['paragraph-sub'] }}">
+                                        <p style="{{ $style['paragraph-sub'] }} {{ $style['color-footer'] }}">
                                             &copy; {{ date('Y') }}
-                                            <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">{{ config('app.name') }}</a>.
-                                            All rights reserved.
+                                            - Todos los derechos reservados. Diseñado por
+                                            <a style="{{ $style['anchor'] }} {{ $style['color-demente'] }}" href="http://dementecreativo.com/" target="_blank">Demente Creativo</a>.
+
                                         </p>
                                     </td>
                                 </tr>

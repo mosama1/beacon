@@ -3,6 +3,21 @@
 
 @section('content')
 
+<script type="text/javascript">
+function checkSubmit() {
+    document.getElementById("guardar").value = "Enviando...";
+    document.getElementById("guardar").disabled = true;
+    return true;
+}
+
+function eliminar(){
+	document.getElementById("eliminar").value = "Enviando...";
+	document.getElementById("eliminar").disabled = true;
+	return true;
+
+}
+</script>
+
 <div class="contenedor">
   <div class="principal">
 
@@ -115,53 +130,93 @@
   </div>
 
   <div class="form">
-	<form class="form-horizontal" role="form" method="POST" action="{{ route('store_coupon') }}">
+	<form class="form-horizontal" onsubmit="return checkSubmit();" role="form" method="POST" action="{{ route('store_coupon') }}">
 	  {{ csrf_field() }}
 
-	  <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-		<input type="text" name="name" value="" required="">
-		<label for="">
-		  <span class="text">Nombre</span>
-		</label>
-		<div class="help">
-		  <a href="#">
-			<i class="material-icons">help_outline</i>
-		  </a>
-		  <div class="inf none hidden">
-			<p>
-			  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-			</p>
-		  </div>
-		</div>
-	  </div>
-	  @if ($errors->has('name'))
-		<div class="input_error">
-			<span>{{ $errors->first('name') }}</span>
-		</div>
-	  @endif
+      <div class="default">
+          <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
+            <input type="text" name="name" value="" >
+            <label for="">
+              <span class="text">Nombre</span>
+            </label>
+            <div class="help">
+              <a href="#">
+                <i class="material-icons">help_outline</i>
+              </a>
+              <div class="inf none hidden">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                </p>
+              </div>
+            </div>
+          </div>
+          @if ($errors->has('name'))
+            <div class="input_error">
+                <span>{{ $errors->first('name') }}</span>
+            </div>
+          @endif
 
-	  <div class="input textarea no_icon {{ $errors->has('description') ? 'error' : '' }}">
-		<textarea name="description" rows="8" cols="80"></textarea>
-		<label for="">
-		  <span class="text">Descripción</span>
-		</label>
-		<div class="help">
-		  <a href="#">
-			<i class="material-icons">help_outline</i>
-		  </a>
-		  <div class="inf none hidden">
-			<p>
-			  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-			</p>
-		  </div>
-		</div>
-	  </div>
-	  @if ($errors->has('description'))
-		<div class="input_error">
-			<span>{{ $errors->first('description') }}</span>
-		</div>
+          <div class="input textarea no_icon {{ $errors->has('description') ? 'error' : '' }}">
+            <textarea name="description" rows="8" cols="80"></textarea>
+            <label for="">
+              <span class="text">Descripción</span>
+            </label>
+            <div class="help">
+              <a href="#">
+                <i class="material-icons">help_outline</i>
+              </a>
+              <div class="inf none hidden">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                </p>
+              </div>
+            </div>
+          </div>
+          @if ($errors->has('description'))
+            <div class="input_error">
+                <span>{{ $errors->first('description') }}</span>
+            </div>
+          @endif
+      </div>
 
-	  @endif
+
+      <div class="languages">
+          @foreach($languages as $language)
+            <div class="language" id="language_{{$language->id}}">
+                <input type="hidden" name="language_id[]" value="{{$language->id}}">
+                <a href="#" class="select_language">
+                    <div class="titulo">
+                        <h5>
+                            <img src="{{$language->icon}}" alt="" width="30px">{{$language->name}}
+                        </h5>
+                    </div>
+                </a>
+                <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
+                    <input type="text" name="language_name[]" value="">
+                    <label for="">
+                        <span class="text">Nombre</span>
+                    </label>
+                </div>
+          	    @if ($errors->has('name'))
+                    <div class="input_error">
+                        <span>{{ $errors->first('name') }}</span>
+                    </div>
+          	    @endif
+                <div class="input textarea no_icon {{ $errors->has('description') ? 'error' : '' }}">
+                  <textarea name="language_description[]" rows="8" cols="80"></textarea>
+                  <label for="">
+                    <span class="text">Descripción</span>
+                  </label>
+                </div>
+                @if ($errors->has('description'))
+                  <div class="input_error">
+                      <span>{{ $errors->first('description') }}</span>
+                  </div>
+                @endif
+
+            </div>
+          @endforeach
+      </div>
 	  <!-- <label><input type="checkbox" id="cbox1" value="first_checkbox"> Este es mi primer checkbox</label><br> -->
 
 	  <div class="button">
@@ -257,14 +312,14 @@
   </div>
 
   <div class="form">
-	<form class="form-horizontal" role="form" method="POST">
+	<form class="form-horizontal" role="form" method="POST" onsubmit="return eliminar();">
 
 	  {{ csrf_field() }}
 	  {{ method_field('DELETE') }}
 
 	  <div class="button">
 		<center>
-		  <button type="submit" name="button">
+		  <button type="submit" name="button" id="eliminar">
 			<span>Si</span>
 		  </button>
 		  <a href="#" class="" onclick="$('#eliminarCoupon').modal('close'); return false;">

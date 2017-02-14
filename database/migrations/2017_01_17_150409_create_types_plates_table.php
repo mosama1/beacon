@@ -16,14 +16,20 @@ class CreateTypesPlatesTable extends Migration
         Schema::create('types_plates', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable();
 
             $table->integer('language_id')->unsigned()
                     ->foreign('language_id')
                     ->references('id')->on('languages')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
-                    
+
+            $table->integer('user_id')->unsigned()
+                    ->foreign('user_id')
+                    ->references('user_id')->on('users')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

@@ -16,7 +16,7 @@ class CreateCouponTranslationsTable extends Migration
         Schema::create('coupon_translations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->string('message');
 
             $table->integer('language_id')->unsigned()
@@ -27,10 +27,10 @@ class CreateCouponTranslationsTable extends Migration
 
             $table->integer('coupon_id')->unsigned()
                     ->foreign('coupon_id')
-                    ->references('id')->on('coupons')
+                    ->references('coupon_id')->on('coupons')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
-            
+
             $table->timestamps();
         });
     }

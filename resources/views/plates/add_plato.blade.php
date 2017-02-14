@@ -22,7 +22,7 @@
 
 				<div class="input no_icon textarea {{ $errors->has('description') ? 'error' : '' }}">
 					<textarea name="description" rows="8" cols="80"></textarea>
-					<label for="">	
+					<label for="">
 						<span class="text">Descripción (Opcional)</span>
 					</label>
 
@@ -76,11 +76,11 @@
 						<div class="img" id="vista_plato">
 						</div>
 					</center>
-				</div>					
+				</div>
 
 				<div class="input no_icon textarea {{ $errors->has('madiraje') ? 'error' : '' }}">
 					<textarea name="madiraje" rows="8" cols="80"></textarea>
-					<label for="">	
+					<label for="">
 						<span class="text">madiraje (Opcional)</span>
 					</label>
 
@@ -134,9 +134,50 @@
 						<div class="img" id="vista_madiraje">
 						</div>
 					</center>
-				</div>	
+				</div>
+
 
 				<!-- vista_previa -->
+
+				<div class="languages">
+					@foreach($languages as $language)
+					  <div class="language" id="language_{{$language->id}}">
+						  <input type="hidden" name="language_id[]" value="{{$language->id}}" >
+						  <a href="#" class="select_language">
+							  <div class="titulo">
+								  <h5>
+									  <img src="{{$language->icon}}" alt="" width="30px">{{$language->name}}
+								  </h5>
+							  </div>
+						  </a>
+						  <div class="input no_icon textarea {{ $errors->has('language_description') ? 'error' : '' }}">
+		  					<textarea name="language_description[]" rows="8" cols="80"></textarea>
+		  					<label for="">
+		  						<span class="text">Description (Opcional)</span>
+		  					</label>
+		  				</div>
+
+		  				@if ($errors->has('language_description'))
+		  					<div class="input_error">
+		  						<span>{{ $errors->first('language_description') }}</span>
+		  					</div>
+		  				@endif
+
+						<div class="input no_icon textarea {{ $errors->has('language_madiraje') ? 'error' : '' }}">
+							<textarea name="language_madiraje[]" rows="8" cols="80"></textarea>
+							<label for="">
+								<span class="text">Madiraje (Opcional)</span>
+							</label>
+						</div>
+						@if ($errors->has('language_madiraje'))
+							<div class="input_error">
+								<span>{{ $errors->first('language_madiraje') }}</span>
+							</div>
+						@endif
+
+					  </div>
+					@endforeach
+				</div>
 				<div class="button">
 					<center>
 						<button type="submit" name="button">

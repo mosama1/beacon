@@ -22,18 +22,18 @@ class CreateLocationsTable extends Migration
             $table->string('street');
             $table->string('street_number');
             $table->string('logo');
-            $table->string('timezone');
-            $table->float('lat');
-            $table->float('lng');
+            $table->string('timezone')->nullable();
+            $table->float('lat')->nullable();
+            $table->float('lng')->nullable();
 
             $table->integer('location_id')->unique();
 
             $table->integer('user_id')
                     ->foreign('user_id')
-                    ->references('id')->on('users')
+                    ->references('user_id')->on('users')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
-            
+
             $table->timestamps();
         });
     }

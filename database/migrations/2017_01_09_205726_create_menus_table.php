@@ -16,20 +16,27 @@ class CreateMenusTable extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->increments('id');
             $table->string('type');
-            $table->decimal('price', 5, 3);
+            $table->decimal('price', 5, 2);
 
             $table->integer('section_id')->unsigned()
                     ->foreign('section_id')
                     ->references('id')->on('sections')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
+            $table->integer('coupon_id')->unsigned()
+                    ->foreign('coupon_id')
+                    ->references('coupon_id')->on('coupons')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
 
             $table->integer('user_id')->unsigned()
                     ->foreign('user_id')
-                    ->references('id')->on('users')
+                    ->references('user_id')->on('users')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
-                    
+            $table->tinyInteger('status');
+
+
             $table->timestamps();
         });
     }

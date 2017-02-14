@@ -89,13 +89,28 @@ class PlateController extends Controller
 		if ($plate) {
 			$plate->plate_translation;
 		}
-
-		//echo "<pre>";	var_dump($plate);	echo "</pre>";
+		//
+		// echo "<pre>";	var_dump($plate->plate_translation);	echo "</pre>";
+		// return;
 
 		$menu = Menu::where('id', '=', $menu_id)->first();
 
+		$languages = DB::table('languages')
+		->join('language_users', 'languages.id', '=', 'language_users.language_id')
+		->join('users', 'users.user_id', '=', 'language_users.user_id')
+		->select('languages.*')
+		->where([
+			['language_users.user_id', '=', Auth::user()->user_id],
+			['language_users.status', '=', 1],
+			['languages.id', '!=', 1],
+		])
+		->orderBy('name')->get();
+
+
+
+
 		if (empty($plate) | empty($plate->plate_translation)):
-			return view('plates.add_plato',['section_id' => $menu->section_id, 'menu_id' => $menu_id]);
+			return view('plates.add_plato',['section_id' => $menu->section_id, 'menu_id' => $menu_id, 'languages' => $languages]);
 		else:
 			return view('plates.detail_plato',['plate' => $plate , 'section_id' => $menu->section_id, 'menu_id' => $menu_id]);
 		endif;
@@ -143,7 +158,7 @@ class PlateController extends Controller
 			$plate->img = $storage_logo.'/'.$name_logo;
 		}
 
-		// se valida si esta seteada la variable de la imagen del madiraje 
+		// se valida si esta seteada la variable de la imagen del madiraje
 		$file_madiraje = Input::file('img_madiraje');
 		if ( !empty($file_madiraje) ) {
 
@@ -170,6 +185,23 @@ class PlateController extends Controller
 		$plate_translation->status = 1;
 		$plate_translation->save();
 
+
+		for ($i=0; $i < count($request->language_id); $i++) {
+			if ( !empty($request->language_description[$i]) ) {
+				$plate_translation = new PlateTranslation();
+				$plate_translation->description = $request->language_description[$i];
+				$plate_translation->madiraje = $request->language_madiraje[$i];
+				$plate_translation->coupon_id = $coupon->coupon_id;
+
+				//	$plate_translation->language_id = $request->language_id;
+				$plate_translation->language_id = $request->language_id[$i];
+				$plate_translation->plate_id = $plate->id;
+				$plate_translation->status = 1;
+				$plate_translation->save();
+			}
+		}
+
+
 		$menu = Menu::where([
 						['user_id', '=', $user->user_id],
 						['id', '=', $menu_id]
@@ -186,71 +218,138 @@ class PlateController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update_plate(Request $request, $menu_id)
-	{
+	// public function update_plate(Request $request, $menu_id)
+	// {
+	//
+	// 	$user = User::where( 'id', '=', Auth::user()->id )->first();
+	//
+	// 	$plate = Plate::where([
+	// 						['user_id', '=', $user->user_id],
+	// 						['menu_id', '=', $menu_id]
+	// 					])->first();
+	//
+	// 	// se valida si esta seteada la variable de la imagen para ser actualizada
+	// 	$file_logo = Input::file('plato');
+	// 	if ( !empty($file_logo) ) {
+	//
+	// 		$name_logo = $file_logo->getClientOriginalName();
+	// 		$name_logo = date('dmyhis').'-'.$name_logo;
+	//
+	// 		//Ruta donde se va a guardar la img
+	// 		$storage_logo = 'assets/images/platos';
+	//
+	// 		// Muevo el docuemnto a la ruta
+	// 		$file_logo = $file_logo->move($storage_logo, $name_logo);
+	// 		$plate->img = $storage_logo.'/'.$name_logo;
+	// 	}
+	//
+	// 	// se valida si esta seteada la variable de la imagen dle madiraje
+	// 	$file_madiraje = Input::file('img_madiraje');
+	// 	if ( !empty($file_madiraje) ) {
+	//
+	// 		$name_madiraje = $file_madiraje->getClientOriginalName();
+	// 		$name_madiraje = date('dmyhis').'-'.$name_madiraje;
+	//
+	// 		//Ruta donde se va a guardar la img
+	// 		$storage_madiraje = 'assets/images/madirajes';
+	//
+	// 		// Muevo el docuemnto a la ruta
+	// 		$file_madiraje = $file_madiraje->move($storage_madiraje, $name_madiraje);
+	// 		$plate->img_madiraje = $storage_madiraje.'/'.$name_madiraje;
+	// 	}
+	//
+	// 	$tipo_platos = TypesPlates::where([
+	// 						['language_id', '=', 1]
+	// 					])->get();
+	//
+	// 	$plate->plate_translation;
+	//
+	// 	$plate->plate_translation->description = $request->description;
+	// 	$plate->plate_translation->madiraje = $request->madiraje;
+	// 	$plate->plate_translation->save();
+	//
+	// 	$plate->save();
+	//
+	// 	$menu = Menu::where([
+	// 					['user_id', '=', $user->user_id],
+	// 					['id', '=', $menu_id]
+	// 				])->first();
+	//
+	// 	return redirect()->route('all_menu',
+	// 							[
+	// 								'section_id' => $menu->section_id
+	// 							])
+	// 					->with(['status' => 'Se editó descripción de plato', 'type' => 'success', 'type_plates_names' => $tipo_platos]);
+	//
+	// }
 
-		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-		$plate = Plate::where([
+		public function update_plate(Request $request, $menu_id)
+		{
+
+			$user = User::where( 'id', '=', Auth::user()->id )->first();
+
+			$plate = Plate::where([
+								['user_id', '=', $user->user_id],
+								['menu_id', '=', $menu_id]
+							])->first();
+
+			// se valida si esta seteada la variable de la imagen para ser actualizada
+			$file_logo = Input::file('plato');
+			if ( !empty($file_logo) ) {
+
+				$name_logo = $file_logo->getClientOriginalName();
+				$name_logo = date('dmyhis').'-'.$name_logo;
+
+				//Ruta donde se va a guardar la img
+				$storage_logo = 'assets/images/platos';
+
+				// Muevo el docuemnto a la ruta
+				$file_logo = $file_logo->move($storage_logo, $name_logo);
+				$plate->img = $storage_logo.'/'.$name_logo;
+			}
+
+			// se valida si esta seteada la variable de la imagen dle madiraje
+			$file_madiraje = Input::file('img_madiraje');
+			if ( !empty($file_madiraje) ) {
+
+				$name_madiraje = $file_madiraje->getClientOriginalName();
+				$name_madiraje = date('dmyhis').'-'.$name_madiraje;
+
+				//Ruta donde se va a guardar la img
+				$storage_madiraje = 'assets/images/madirajes';
+
+				// Muevo el docuemnto a la ruta
+				$file_madiraje = $file_madiraje->move($storage_madiraje, $name_madiraje);
+				$plate->img_madiraje = $storage_madiraje.'/'.$name_madiraje;
+			}
+
+			$tipo_platos = TypesPlates::where([
+								['language_id', '=', 1]
+							])->get();
+
+			$plate->plate_translation;
+
+			$plate->plate_translation->description = $request->description;
+			$plate->plate_translation->madiraje = $request->madiraje;
+			$plate->plate_translation->save();
+
+			$plate->save();
+			
+
+			$menu = Menu::where([
 							['user_id', '=', $user->user_id],
-							['menu_id', '=', $menu_id]
+							['id', '=', $menu_id]
 						])->first();
 
-		// se valida si esta seteada la variable de la imagen para ser actualizada
-		$file_logo = Input::file('plato');
-		if ( !empty($file_logo) ) {
+			return redirect()->route('all_menu',
+									[
+										'section_id' => $menu->section_id
+									])
+							->with(['status' => 'Se editó descripción de plato', 'type' => 'success', 'type_plates_names' => $tipo_platos]);
 
-			$name_logo = $file_logo->getClientOriginalName();
-			$name_logo = date('dmyhis').'-'.$name_logo;
-
-			//Ruta donde se va a guardar la img
-			$storage_logo = 'assets/images/platos';
-
-			// Muevo el docuemnto a la ruta
-			$file_logo = $file_logo->move($storage_logo, $name_logo);
-			$plate->img = $storage_logo.'/'.$name_logo;
 		}
 
-		// se valida si esta seteada la variable de la imagen dle madiraje
-		$file_madiraje = Input::file('img_madiraje');
-		if ( !empty($file_madiraje) ) {
 
-			$name_madiraje = $file_madiraje->getClientOriginalName();
-			$name_madiraje = date('dmyhis').'-'.$name_madiraje;
-
-			//Ruta donde se va a guardar la img
-			$storage_madiraje = 'assets/images/madirajes';
-
-			// Muevo el docuemnto a la ruta
-			$file_madiraje = $file_madiraje->move($storage_madiraje, $name_madiraje);
-			$plate->img_madiraje = $storage_madiraje.'/'.$name_madiraje;
-		}
-
-		$tipo_platos = TypesPlates::where([
-							['language_id', '=', 1]
-						])->get();
-
-		$plate->plate_translation;
-
-		$plate->plate_translation->description = $request->description;
-		$plate->plate_translation->madiraje = $request->madiraje;
-		$plate->plate_translation->save();
-
-		$plate->save();
-
-		$menu = Menu::where([
-						['user_id', '=', $user->user_id],
-						['id', '=', $menu_id]
-					])->first();
-
-		return redirect()->route('all_menu',
-								[
-									'section_id' => $menu->section_id
-								])
-						->with(['status' => 'Se editó descripción de plato', 'type' => 'success', 'type_plates_names' => $tipo_platos]);
-
-	}
-
-	
 
 }
