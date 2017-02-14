@@ -7,6 +7,14 @@ $nivel = '../../';
 @extends('layouts.app')
 
 @section('content')
+
+<script type="text/javascript">
+function checkSubmit() {
+    document.getElementById("guardar").value = "Enviando...";
+    document.getElementById("guardar").disabled = true;
+    return true;
+}
+</script>
 <div class="contenedor">
 	<div class="principal">
 		<div class="titulo">
@@ -201,7 +209,7 @@ $nivel = '../../';
 				<!-- vista_previa -->
 				<div class="button">
 					<center>
-						<button type="submit" name="button">
+						<button type="submit" name="button" id="guardar">
 							<span>Guardar</span>
 						</button>
 						<a href="{{ route('all_menu', array('section_id' => $section_id)) }}" class="">

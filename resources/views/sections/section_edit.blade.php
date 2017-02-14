@@ -9,6 +9,13 @@ $nivel = '../../'
 
 @section('content')
 <!-- -->
+<script type="text/javascript">
+function checkSubmit() {
+    document.getElementById("guardar").value = "Enviando...";
+    document.getElementById("guardar").disabled = true;
+    return true;
+}
+</script>
 
 <div class="contenedor">
   <div class="principal">
@@ -131,7 +138,7 @@ $nivel = '../../'
 
         <div class="button">
           <center>
-            <button type="submit" name="button">
+            <button type="submit" name="button" id="guardar">
               <span>Guardar</span>
             </button>
             <a href="{{ route( 'all_section', $coupon_id ) }}" class="">

@@ -9,6 +9,14 @@ $nivel = '../../'
 
 @section('content')
 
+<script type="text/javascript">
+function checkSubmit() {
+    document.getElementById("guardar").value = "Enviando...";
+    document.getElementById("guardar").disabled = true;
+    return true;
+}
+</script>
+
 <div class="contenedor">
   <div class="principal">
     <div class="titulo">
