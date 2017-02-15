@@ -87,7 +87,7 @@ $actual = (isset($actual)) ? $actual : '';
 					</a>
 					<ul class="sub_menu none">
 						<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
-							<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_campana') : '' }}">
+							<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_coupon') : '' }}">
 								<span>La Carta</span>
 							</a>
 						</li>
