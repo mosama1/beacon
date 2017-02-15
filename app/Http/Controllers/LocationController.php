@@ -16,11 +16,10 @@ use Beacon\Beacon;
 use Beacon\Section;
 use Beacon\Menu;
 use Beacon\Plate;
+use Beacon\LanguageUser;
 use Beacon\TypesPlates;
 use Illuminate\Support\Facades\Input;
 use Beacon\User;
-use Log;
-
 
 class LocationController extends Controller
 {
@@ -45,35 +44,10 @@ class LocationController extends Controller
 
 		$token_crud = json_decode($json_c);
 
-		Log::info('This is some useful information.');
-
 		return $token_crud->access_token;
 	}
 
 
-	/**
-	 * @return token analytics
-	 */
-	public function analytics()
-	{
-		// Nuevo cliente con un url base
-		$client = new Client();
-
-		//Token analytics
-		$response_analytics = $client->request('POST', 'https://connect.onyxbeacon.com/oauth/client', [
-				'form_params' => [
-						'client_id' => '89b88a5f9eaec9ab9b059a56c51e37413be4e043',
-						'client_secret' => '7e58c94dafd3751f90b0e4b4de871be7e8b7ae44',
-						'scope' => 'analytics'
-				]
-		]);
-
-		$json_a = $response_analytics->getBody();
-
-		$token_analytics = json_decode($json_a);
-
-		return $token_analytics->access_token;
-	}
 
 	//************************************* LOCATION **************************************************//
 
@@ -257,7 +231,7 @@ class LocationController extends Controller
 			// $tag_->save();
 
 			// Guardo el castellano como idioma por defecto
-			// esta carga es requerida por la aplicación 
+			// esta carga es requerida por la aplicación
 			$language = new LanguageUser();
 			$language->user_id = Auth::user()->user_id;
 			$language->language_id = 1; // <--- castellano

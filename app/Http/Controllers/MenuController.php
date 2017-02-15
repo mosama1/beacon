@@ -211,15 +211,16 @@ class MenuController extends Controller
 
 
 			for ($i=0; $i < count($request->language_id); $i++) {
-				if ( !empty($request->language_name[$i]) ) {
-					$menu_translation = new MenuTranslation();
-					$menu_translation->name = $request->language_name[$i];
-					$menu_translation->language_id = $request->language_id[$i];
-					$menu_translation->menu_id = $menu->id;
-					$menu_translation->coupon_id = $request->coupon_id;
+				$menu_translation = new MenuTranslation();
+				$menu_translation->name = (empty($request->language_name[$i]))
+					? $request->name
+					: $request->language_name[$i];
 
-					$menu_translation->save();
-				}
+				$menu_translation->language_id = $request->language_id[$i];
+				$menu_translation->menu_id = $menu->id;
+				$menu_translation->coupon_id = $request->coupon_id;
+
+				$menu_translation->save();
 			}
 
 			return redirect()->route('all_menu', $menu->section_id)->with(['status' => 'Se creo el plato', 'type' => 'success']);

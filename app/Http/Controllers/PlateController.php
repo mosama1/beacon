@@ -187,10 +187,15 @@ class PlateController extends Controller
 
 
 		for ($i=0; $i < count($request->language_id); $i++) {
-			if ( !empty($request->language_description[$i]) ) {
 				$plate_translation = new PlateTranslation();
-				$plate_translation->description = $request->language_description[$i];
-				$plate_translation->madiraje = $request->language_madiraje[$i];
+				$plate_translation->description = (empty($request->language_description[$i]))
+					? $request->description
+					: $request->language_description[$i];
+
+				$plate_translation->madiraje = (empty($request->language_madiraje[$i]))
+					? $request->madiraje
+					: $request->language_madiraje[$i];
+
 				$plate_translation->coupon_id = $coupon->coupon_id;
 
 				//	$plate_translation->language_id = $request->language_id;
@@ -198,7 +203,6 @@ class PlateController extends Controller
 				$plate_translation->plate_id = $plate->id;
 				$plate_translation->status = 1;
 				$plate_translation->save();
-			}
 		}
 
 
@@ -227,7 +231,7 @@ class PlateController extends Controller
 							])->first();
 
 			dd( $plate );
-			
+
 			// se valida si esta seteada la variable de la imagen para ser actualizada
 			$file_logo = Input::file('plato');
 			if ( !empty($file_logo) ) {
