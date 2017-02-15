@@ -75,7 +75,17 @@ class CampanaController extends Controller
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store_campana(Request $request)
-	{
+	{	
+		
+		$fecha_inicio = date('Y', strtotime($request->start_time));
+		$fecha_fin    = date('Y', strtotime($request->end_time));
+
+		if ( $fecha_inicio == '1970' | $fecha_fin == '1970' ) {
+			
+			return redirect()->route('all_campana')
+					->with(['status' => 'Error al indicar fechas (dd-mm-yy)', 'type' => 'error']);
+		}
+		
 		// Nuevo cliente con un url base
 		$client = new Client();
 
@@ -95,15 +105,14 @@ class CampanaController extends Controller
 						'enabled' => 1,
 				]
 		]);
-		dd(date('Y-m-d H:i', strtotime( $request->start_time )));
+
 
 		//Json parse
 		$json_c = $campana_->getBody();
 
 		$campana = json_decode($json_c);
 
-
-		if ($campana->status_code === 200 ):
+		if ( $campana->status_code === 200 ):
 
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
