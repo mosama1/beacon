@@ -27,6 +27,7 @@
 
 @endphp
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -129,7 +130,7 @@
 						@php
 							$language_user = LanguageUser::where([
 								['language_id', '=', $coupon_translation[$i]->language_id],
-								['user_id', '=', Auth::user()->user_id],
+								['user_id', '=', $content->user_id],
 								['status', '=', 1],
 							])->first();
 						@endphp
