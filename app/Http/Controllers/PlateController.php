@@ -140,7 +140,7 @@ class PlateController extends Controller
 		$plate = new Plate();
 		$plate->menu_id = $menu_id;
 		$plate->coupon_id = $coupon->coupon_id;
-		$plate->type_plate_id = $menu[0]->type;
+		$plate->type_plate_id = $menu->type;
 		$plate->user_id = $user->user_id;
 
 		// se valida si esta seteada la variable de la imagen para ser actualizada
