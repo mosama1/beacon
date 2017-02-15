@@ -97,9 +97,7 @@
 				<select id="language_id" class="form-control icons" name="language_id" required>
 					<option value="" disabled selected>Seleccione un Idioma</option>
 					@foreach($languages_all as $l)
-						@if($l->id != 1)
 							<option value="{{$l->id}}">{{$l->name}}</option>
-						@endif
 					@endforeach
 				</select>
 				<div class="help">

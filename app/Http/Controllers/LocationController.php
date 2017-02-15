@@ -249,12 +249,19 @@ class LocationController extends Controller
 			$loca->lng =  0;
 			$loca->save();
 
-			$tag_ = new Tag;
+			// $tag_ = new Tag;
 			// $tag_->tag_id = $tag->tag->id;
 			// $tag_->location_id = $locations->location->id;
 			// $tag_->user_id = $user->user_id;
 			// $tag_->name = $tag->tag->name;
 			// $tag_->save();
+
+			// Guardo el castellano como idioma por defecto
+			// esta carga es requerida por la aplicación 
+			$language = new LanguageUser();
+			$language->user_id = Auth::user()->user_id;
+			$language->language_id = 1; // <--- castellano
+			$language->save();
 
 			return redirect()->route('user_edit_path', $user->user_id)->with(['status' => 'Se ha almacenado la localidad exitosamente', 'type' => 'success']);
 

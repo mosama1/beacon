@@ -176,18 +176,21 @@ class CouponController extends Controller
 			$coupon_translation->save();
 
 			for ($i=0; $i < count($request->language_id); $i++) {
-				if ( !empty($request->language_name[$i]) ) {
-					$coupon_translation = new CouponTranslation();
-					$coupon_translation->name = $request->language_name[$i];
-					(isset($request->language_description[$i])) ?
-						$coupon_translation->description = $request->language_description[$i] :
-						$coupon_translation->description = "";
 
-					$coupon_translation->message = $coupon_response->coupon->message;
-					$coupon_translation->language_id = $request->language_id[$i];
-					$coupon_translation->coupon_id = $coupon->coupon_id;
-					$coupon_translation->save();
-				}
+				$coupon_translation = new CouponTranslation();
+				$coupon_translation->name = (empty($request->language_name[$i])) 
+					? $coupon_response->coupon->name 
+					: $request->language_name[$i];
+					
+				(isset($request->language_description[$i])) 
+					? $coupon_translation->description = $request->language_description[$i] 
+					: $coupon_translation->description = "";
+
+				$coupon_translation->message = $coupon_response->coupon->message;
+				$coupon_translation->language_id = $request->language_id[$i];
+				$coupon_translation->coupon_id = $coupon->coupon_id;
+				$coupon_translation->save();
+
 			}
 
 			return redirect()->route('all_coupon', $request->section_id)->with(['status' => 'El menu se registro con exito', 'type' => 'success']);

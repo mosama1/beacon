@@ -14,7 +14,7 @@ $nivel = '../../'
   <div class="principal">
     <div class="titulo">
       <h3>
-        Editar Plato {{ $section->price }}
+        Editar Plato
       </h3>
     </div>
 
@@ -102,7 +102,6 @@ $nivel = '../../'
         </div>
         @endif
 
-
         <div class="languages ppal">
 
             @for ($i = 1; $i < count($menu->menu_translation); $i++)
@@ -150,8 +149,6 @@ $nivel = '../../'
                @endif
             @endfor
         </div>
-
-
 
         <div class="button">
           <center>
