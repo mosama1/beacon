@@ -76,7 +76,7 @@
 								@if( isset($language_id) )
 									@foreach ($s->section_translation as $section)
 										@if($section->language_id == $language_id)
-										{{$section->name}}
+										{{$section->name}} {{ (!empty($s->price)) ? $s->price.' €' : '' }}
 										@endif
 									@endforeach
 								@else

@@ -56,36 +56,6 @@ function modal_activate(ruta, div) {
 
 }
 
-// function delete_location(id){
-//     $.ajax({
-//         type: "get",
-//         url: "beacons/delete",
-//         data: {id:id},
-//         success: function(respuesta) {
-//         	if(respuesta == 1){
-//         		$('#'+id).fadeOut(300);
-//         	} else {
-//         		alert('Error');
-//         	}
-//         }
-//     })
-// }
-//
-// function delete_section(id){
-//     $.ajax({
-//         type: "get",
-//         url: "beacons/section/delete",
-//         data: {id:id},
-//         success: function(respuesta) {
-//         	if(respuesta == 1){
-//         		$('#'+id).fadeOut(300);
-//         	} else {
-//         		alert('Error');
-//         	}
-//         }
-//     })
-// }
-
 function vistaKit_B(evt) {
 	var files = evt.target.files; // FileList object
 	// Obtenemos la imagen del campo "file".

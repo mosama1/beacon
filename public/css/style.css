@@ -1,4 +1,4 @@
-@font-face{
+ @font-face{
   font-family: 'century';
   src: url(../fonts/ufonts.com_century-gothic.ttf)format('truetype');
 }
@@ -48,8 +48,8 @@ select:not(.multiple_) {
     max-height: 0;
 }
 .modal.select{
-    overflow-x: hidden;
-    overflow-y: visible;
+    /*overflow-x: hidden;*/
+    overflow: visible;
 }
 .input.select .dropdown-content{
     max-height: 300px !important;
@@ -1705,7 +1705,7 @@ body.menu2 .menu_cliente{
 
   background-image: url(../img/fondos/completo.jpg);
   padding-bottom: 30px;
-  overflow: auto;
+  overflow-x: hidden;
 }
 
 .contenedor .principal .titulo,
