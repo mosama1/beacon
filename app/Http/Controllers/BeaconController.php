@@ -89,6 +89,9 @@ class BeaconController extends Controller
 			//Token Crud
 			$crud = BeaconController::crud();
 
+			// Usuario Conectado
+			$user = Auth::user();
+
 			$beacon_api = $client->get('https://connect.onyxbeacon.com/api/v2.5/beacons?filter[major]='.$request->major.'&filter[minor]='.$request->minor.'', [
 					// un array con la data de los headers como tipo de peticion, etc.
 					'headers' => ['Authorization' => 'Bearer '.$crud ],

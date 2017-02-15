@@ -133,7 +133,7 @@ class PlateController extends Controller
 		$menu = Menu::where([
 						['user_id', '=', $user->user_id],
 						['id', '=', $menu_id ]
-					])->first()->get();
+					])->first();
 
 		$coupon = Menu::where( 'id', '=', $request->menu_id )->first();
 
@@ -287,6 +287,7 @@ class PlateController extends Controller
 		public function update_plate(Request $request, $menu_id)
 		{
 
+
 			$user = User::where( 'id', '=', Auth::user()->id )->first();
 
 			$plate = Plate::where([
@@ -294,6 +295,8 @@ class PlateController extends Controller
 								['menu_id', '=', $menu_id]
 							])->first();
 
+			dd( $plate );
+			
 			// se valida si esta seteada la variable de la imagen para ser actualizada
 			$file_logo = Input::file('plato');
 			if ( !empty($file_logo) ) {
@@ -323,6 +326,7 @@ class PlateController extends Controller
 				$file_madiraje = $file_madiraje->move($storage_madiraje, $name_madiraje);
 				$plate->img_madiraje = $storage_madiraje.'/'.$name_madiraje;
 			}
+			$plate->save();
 
 			$tipo_platos = TypesPlates::where([
 								['language_id', '=', 1]
@@ -332,10 +336,7 @@ class PlateController extends Controller
 
 			$plate->plate_translation->description = $request->description;
 			$plate->plate_translation->madiraje = $request->madiraje;
-			$plate->plate_translation->save();
-
-			$plate->save();
-			
+			$plate->plate_translation->save();			
 
 			$menu = Menu::where([
 							['user_id', '=', $user->user_id],
