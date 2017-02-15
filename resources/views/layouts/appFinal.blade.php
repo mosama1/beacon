@@ -25,6 +25,8 @@
 
 	$language_id = (isset($language_id)) ? $language_id : 1 ;
 
+
+
 @endphp
 
 
@@ -77,7 +79,12 @@
 								@if( isset($language_id) )
 									@foreach ($s->section_translation as $section)
 										@if($section->language_id == $language_id)
-										{{$section->name}} {{ (!empty($s->price)) ? $s->price.' €' : '' }}
+											@if( empty($section->name) )
+												{{$s->section_translation[0]->name}} {{ (!empty($s->price)) ? $s->price.' €' : '' }}
+											@else
+												{{$section->name}} {{ (!empty($s->price)) ? $s->price.' €' : '' }}
+											@endif
+						
 										@endif
 									@endforeach
 								@else
@@ -85,9 +92,6 @@
 									{{$s->section_translation[0]->name}} {{ (!empty($s->price)) ? $s->price.' €' : '' }}
 									@endif
 								@endif
-
-
-
 							</span>
 						  </a>
 						</li>
@@ -134,33 +138,24 @@
 								['status', '=', 1],
 							])->first();
 						@endphp
-						@if($language_user)
-							@php
-								$language = Language::where([
-									['id', '=', $language_user->language_id],
-								])->first();
-							@endphp
-							<li>
-								<a href="{{ route('inicio_language', array( 'campana_id' => $campana_id, 'language_id' => $language->id ) ) }}">
-									<img src="{{$language->icon}}" alt="" width="40px">
-								</a>
-							</li>
-						@endif
-
+						@php
+							$language = Language::where([
+								['id', '=', $language_user->language_id],
+							])->first();
+						@endphp
+						<li>
+							<a href="{{ route('inicio_language', array( 'campana_id' => $campana_id, 'language_id' => $language->id ) ) }}">
+								<img src="{{$language->icon}}" alt="" width="40px">
+							</a>
+						</li>
 					@endfor
-
 				</ul>
 				<a href="#" class="sb_mn">
 					<img src="img/icons/idioma.png" alt="" style="filter: invert(1);">
 				</a>
 			</li>
 			@endif
-
-
-
-
 		  </ul>
-
 
 		</div>
 		@if(isset($menu2))

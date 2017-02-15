@@ -105,11 +105,9 @@ class LanguageController extends Controller
 
 			return redirect()->route( 'all_language' )
 							->with( [ 'status' => 'Se creo el idioma', 'type' => 'success' ] );
-
 		}else {
 			return redirect()->route( 'all_language' )
 							->with( [ 'status' => 'El idioma seleccionado ya esta agregado', 'type' => 'success' ] );
-
 		}
 
 
