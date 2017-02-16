@@ -87,7 +87,7 @@ $nivel = '../../';
 					</center>
 				</div>
 
-				Este plato se recomienda con:
+				<p class="mensaje__">Este plato se recomienda con:</p>
 
 				<div class="input no_icon textarea {{ $errors->has('madiraje') ? 'error' : '' }}">
 					<textarea name="madiraje" rows="8" cols="80">{{$plate->plate_translation[0]->madiraje}}</textarea>
@@ -139,8 +139,8 @@ $nivel = '../../';
 					</div>
 				@endif
 
-				<div class="vista_previa">
-					<center  id="vista_previa">
+				<div class="vista_previa vista_maridaje">
+					<center  id="vista_previa" class="">
 						<div class="img {{ (!empty($plate->img_madiraje)) ? 'active' : '' }}" id="vista_madiraje">
 							@if (!empty($plate->img_madiraje))
 								<img src="{{($plate->img_madiraje)}}" alt="" >

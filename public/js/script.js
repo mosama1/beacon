@@ -189,14 +189,14 @@ function vistamadiraje(evt) {
 
 	for (var i = 0, f; f = files[i]; i++) {
 	  //Solo admitimos imágenes.
-	  
+
 	  if (!f.type.match('image.*')) {
 		  continue;
 	  }
 	  var reader = new FileReader();
 	  reader.onload = (function(theFile) {
 		return function(e) {
-		  $('#vista_madiraje').append(['<img class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '" /> '].join(''));
+		  $('#vista_madiraje').append(['<div class="img_maridaje"> <img class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '" /> </div> '].join(''));
 		};
 	  })(f);
 		reader.readAsDataURL(f);

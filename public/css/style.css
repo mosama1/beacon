@@ -2497,6 +2497,26 @@ body.menu2 .menu_cliente{
   width: 100%;
   height: 100%;
 }
+.vista_maridaje{
+    height: auto !important;
+    width: 450px !important;
+}
+.mensaje__{
+    color: #fff;
+    font-size: 18px;
+}
+#vista_madiraje{
+    position: relative;;
+}
+#vista_madiraje .img_maridaje{
+    height: 100px;
+    width: 33.33%;
+    float: left;
+}
+#vista_madiraje img{
+    width: auto;
+    height: 100%;
+}
 .form .vista_previa .img,
 .contenedor .principal .form .vista_previa .img
 {

@@ -58,6 +58,7 @@ $menu2 = '';
 
     </div>
 
+    <p class="mensaje__">Este plato se recomienda con:</p>
     <div class="inf">
 
       <div class="description">

@@ -61,6 +61,8 @@ $menu2 = '';
           @endif
       </div>
 
+      <p class="mensaje__">Este plato se recomienda con:</p>
+
       <div class="description">
         <p>
             @if( isset($language_id) )

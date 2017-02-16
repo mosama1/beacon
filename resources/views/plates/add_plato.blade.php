@@ -78,6 +78,7 @@
 					</center>
 				</div>
 
+				<p class="mensaje__">Este plato se recomienda con:</p>
 				<div class="input no_icon textarea {{ $errors->has('madiraje') ? 'error' : '' }}">
 					<textarea name="madiraje" rows="8" cols="80"></textarea>
 					<label for="">
@@ -106,7 +107,7 @@
 					<div class="btn">
 						<span class="icon"><img src="img/icons/subir_archivo.png" alt=""></span>
 						<span>Foto madiraje</span>
-						<input type="file" name="img_madiraje" id="addImg_madiraje">
+						<input type="file" name="img_madiraje" id="addImg_madiraje" multiple="multiple">
 					</div>
 					<div class="file-path-wrapper">
 						<input class="file-path validate" type="text">
@@ -121,6 +122,7 @@
 							</p>
 						</div>
 					</div>
+				</div>
 
 				@if ($errors->has('img_madiraje'))
 					<div class="input_error">
@@ -128,8 +130,8 @@
 					</div>
 				@endif
 
-				<div class="vista_previa">
-					<center  id="vista_previa">
+				<div class="vista_previa vista_maridaje">
+					<center  id="vista_previa" class="">
 						<div class="img" id="vista_madiraje">
 						</div>
 					</center>
