@@ -106,7 +106,7 @@ class SectionController extends Controller
 
 		$section = new Section();
 		$section->user_id = $user->user_id;
-		$section->coupon_id = $request->coupon_id; 
+		$section->coupon_id = $request->coupon_id;
 		(isset($request->price)) ?
 				$section->price = intval($request->price) :
 				$section->price = 0;
@@ -122,15 +122,17 @@ class SectionController extends Controller
 		$section_translation->save();
 
 		for ($i=0; $i < count($request->language_id); $i++) {
-			if ( !empty($request->language_name[$i]) ) {
+			// if ( !empty($request->language_name[$i]) ) {
 				$section_translation = new SectionTranslation();
-				$section_translation->name = $request->language_name[$i];
+				$section_translation->name = (empty($request->language_name[$i]))
+					? $request->name
+					: $request->language_name[$i];
 				$section_translation->language_id = $request->language_id[$i];
 				$section_translation->section_id = $section->id;
 				$section_translation->coupon_id = $request->coupon_id;
 
 				$section_translation->save();
-			}
+			// }
 		}
 
 		return redirect()->route('all_section', $request->coupon_id)->with(['status' => 'Se ingreso Section de Menu con exito', 'type' => 'success']);
