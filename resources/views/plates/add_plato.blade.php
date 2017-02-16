@@ -121,9 +121,6 @@
 							</p>
 						</div>
 					</div>
-				</div>
-22
-				<input type="file" name="files[]" id="filer_input" multiple="multiple">
 
 				@if ($errors->has('img_madiraje'))
 					<div class="input_error">

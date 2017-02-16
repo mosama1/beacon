@@ -30,9 +30,6 @@ $actual = (isset($actual)) ? $actual : '';
 
   <title>Nombre de la Aplicación</title>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">  
-
   <!-- Styles -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
@@ -237,12 +234,7 @@ $actual = (isset($actual)) ? $actual : '';
 		  </li>
 		</ul>
 	  </div>
-
 	</div>
-
-
-
-
 
 	<!--  Scripts-->
 	<!-- <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
@@ -254,10 +246,6 @@ $actual = (isset($actual)) ? $actual : '';
 	<script src="js/config.js"></script>
     <script src="js/intro.min.js"></script>
     <script src="js/script.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.13.4/jquery.mask.min.js"></script>
-	<script src="js/jquery.filer.min.js" type="text/javascript"></script>
-	<script src="js/custom.js" type="text/javascript"></script>
-
     <script type="text/javascript">
         function startTour() {
             var tour = introJs()
@@ -265,8 +253,6 @@ $actual = (isset($actual)) ? $actual : '';
             tour.setOption('positionPrecedence', ['left', 'right', 'bottom', 'top'])
             tour.start()
         }
-
-
     </script>
 
 	@if (session('status'))
