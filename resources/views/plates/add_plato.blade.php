@@ -107,7 +107,7 @@
 					<div class="btn">
 						<span class="icon"><img src="img/icons/subir_archivo.png" alt=""></span>
 						<span>Foto madiraje</span>
-						<input type="file" name="img_madiraje" id="addImg_madiraje" multiple="multiple">
+						<input type="file" name="img_madiraje[]" id="addImg_madiraje" value=""  multiple="multiple">
 					</div>
 					<div class="file-path-wrapper">
 						<input class="file-path validate" type="text">

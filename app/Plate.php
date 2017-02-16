@@ -35,4 +35,9 @@ class Plate extends Model
 	    return $this->hasMany('Beacon\PlateTranslation', 'plate_id', 'id');
 	}
 
+	public function madiraje_photo()
+	{
+		return $this->hasMany('Beacon\MadirajePhoto', 'plate_id', 'id');
+	} 	
+
 }

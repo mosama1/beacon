@@ -88,7 +88,6 @@ $nivel = '../../';
 				</div>
 
 				<p class="mensaje__">Este plato se recomienda con:</p>
-
 				<div class="input no_icon textarea {{ $errors->has('madiraje') ? 'error' : '' }}">
 					<textarea name="madiraje" rows="8" cols="80">{{$plate->plate_translation[0]->madiraje}}</textarea>
 					<label for="">
@@ -111,13 +110,14 @@ $nivel = '../../';
 					</div>
 				@endif
 
+
 				<div class="file-field input-field input_file {{ $errors->has('img_madiraje') ? 'has-error' : '' }}">
 					<div class="btn">
 						<span class="icon">
 							<img src="img/icons/subir_archivo.png" alt="">
 						</span>
 						<span>Foto madiraje</span>
-						<input type="file" name="img_madiraje[]" id="addImg_madiraje" value="{{$plate->img_madiraje}}"  multiple="multiple">
+						<input type="file" name="img_madiraje[]" id="addImg_madiraje" value="{{$plate->madiraje_photo}}"  multiple="multiple">
 					</div>
 					<div class="file-path-wrapper">
 						<input class="file-path validate" type="text">
@@ -141,17 +141,18 @@ $nivel = '../../';
 
 				<div class="vista_previa vista_maridaje">
 					<center  id="vista_previa" class="">
-						<div class="img {{ (!empty($plate->img_madiraje)) ? 'active' : '' }}" id="vista_madiraje">
-							@if (!empty($plate->img_madiraje))
-								<img src="{{($plate->img_madiraje)}}" alt="" >
+						<div class="img {{ (!empty($plate->madiraje_photo)) ? 'active' : '' }}" id="vista_madiraje">
+							@if (!empty($plate->madiraje_photo))
+								@for ($mp = 0; $mp < count($plate->madiraje_photo); $mp++)
+									<div class="img_maridaje">
+										<img class="thumb" src="{{$plate->madiraje_photo[$mp]->img_madiraje}}" alt="" >
+									</div>
+								@endfor
 							@endif
 						</div>
 					</center>
 				</div>
-
-
-
-				<div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioMadiraje" style="display: {{ (!empty($plate->price_madiraje)  ?  'block;' : 'block;') }}" >
+				<div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioMadiraje" style="display: {{ (!empty($plate->price_madiraje)  ?  'block;' : '') }}" >
 					<input type="number" name="price_madiraje" step="0.01" min="0" value="{{ $plate->price_madiraje }}"  id="price_madiraje" min="0.00"  onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)">
 
 					<label for="">

@@ -23,10 +23,6 @@ use Beacon\Languagep;
 });
 */
 
-
-
-
-
 Route::group(['middleware' => 'auth'], function () {
 	require (__DIR__ . '/beacons.php');
 	require (__DIR__ . '/campanas.php');
