@@ -38,6 +38,7 @@ $actual = (isset($actual)) ? $actual : '';
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   {{--<link href="css/app.css" rel="stylesheet">--}}
   <link rel="shortcut icon" type="image/png" href="img/icons/ingrementa_clientes.png"/>
+  <link href="css/jquery.filer.css" rel="stylesheet">
 
   <!-- Scripts -->
   <script>
@@ -233,12 +234,7 @@ $actual = (isset($actual)) ? $actual : '';
 		  </li>
 		</ul>
 	  </div>
-
 	</div>
-
-
-
-
 
 	<!--  Scripts-->
 	<!-- <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
@@ -250,7 +246,6 @@ $actual = (isset($actual)) ? $actual : '';
 	<script src="js/config.js"></script>
     <script src="js/intro.min.js"></script>
     <script src="js/script.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.13.4/jquery.mask.min.js"></script>
     <script type="text/javascript">
         function startTour() {
             var tour = introJs()
@@ -258,8 +253,6 @@ $actual = (isset($actual)) ? $actual : '';
             tour.setOption('positionPrecedence', ['left', 'right', 'bottom', 'top'])
             tour.start()
         }
-
-
     </script>
 
 	@if (session('status'))

@@ -93,7 +93,6 @@ class LanguageController extends Controller
 			['language_id', '=', $request->language_id],
 		])->first();
 
-
 		// echo "<pre>"; var_dump($languages); echo "</pre>";
 		// return;
 

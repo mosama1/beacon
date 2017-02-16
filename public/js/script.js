@@ -178,15 +178,25 @@ $('#addPlato').change(vistaPlato);
 function vistamadiraje(evt) {
 	var files = evt.target.files; // FileList object
 	// Obtenemos la imagen del campo "file".
+
+    if ( files.length > 3 ){
+        Materialize.toast('Ha superado el máximo de fotos permitido (3 fotos máximo)', 5000, 'error');
+        $('#addImg_madiraje').val('');
+        $('.file-path').val('');
+        $('.thumb').remove();
+    	return false;
+    }
+
 	for (var i = 0, f; f = files[i]; i++) {
 	  //Solo admitimos imágenes.
+	  
 	  if (!f.type.match('image.*')) {
 		  continue;
 	  }
 	  var reader = new FileReader();
 	  reader.onload = (function(theFile) {
 		return function(e) {
-		  $('#vista_madiraje').html([' <img class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '" /> '].join(''));
+		  $('#vista_madiraje').append(['<img class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '" /> '].join(''));
 		};
 	  })(f);
 		reader.readAsDataURL(f);
@@ -196,9 +206,6 @@ function vistamadiraje(evt) {
 	}
 }
 $('#addImg_madiraje').change(vistamadiraje);
-
-
-
 
 function tamanoImgVista(id) {
   if ($(id+' img').length > 0) {
@@ -469,10 +476,6 @@ $('.MenuResponsive').click(function(){
   }else {
 	$('.ul_principal').removeClass('active');
   }
-
-
-
-
   return false;
 });
 
@@ -531,8 +534,6 @@ $('#change_password').submit(function(evt){
 $('.help a').click(function(){
   var help = $(this).parent();
   var input = help.parent();
-
-  console.log($('.help').length);
 
   function mostrar(param) {
 	param.addClass('active');
@@ -626,15 +627,16 @@ $('.form_send').submit(function(){
     $('.send_form').prop('disabled', true);
 });
 
+
 // function eliminar(){
 // 	document.getElementById("eliminar").value = "Enviando...";
 // 	document.getElementById("eliminar").disabled = true;
 // 	return true;
 //
 // }
-/********************************************************************/
+/***************************************************************/
 /******************* Traducciones  *****************************/
-/********************************************************************/
+/***************************************************************/
 
 // $('.select_language').click(function(){
 //     var div = $(this).parent();

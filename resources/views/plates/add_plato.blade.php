@@ -121,7 +121,6 @@
 							</p>
 						</div>
 					</div>
-				</div>
 
 				@if ($errors->has('img_madiraje'))
 					<div class="input_error">
