@@ -26,7 +26,6 @@ Route::group(['prefix' => 'movil/campanas/{campana_id}'], function(){
 	Route::get('/{language_id}/platos/{menu_id}/descripcion', 'MovilController@show_desc_plate')
 			->name('show_desc_plate')->where('campana_id', '[0-9]+')->where('menu_id', '[0-9]+')->where('language_id', '[0-9]+');
 
-
 	// rutas para el filtro por tipo de platos
 
 	Route::get('/{language_id}/tipos_platos/{type_plate_id}/platos/{menu_id}/descripcion', 'MovilController@show_desc_plate_by_type')
@@ -37,5 +36,4 @@ Route::group(['prefix' => 'movil/campanas/{campana_id}'], function(){
 
 	Route::get('/{language_id}', 'MovilController@index_language')
 			->name('inicio_language')->where('id', '[0-9]+')->where('language_id', '[0-9]+');
-
 });

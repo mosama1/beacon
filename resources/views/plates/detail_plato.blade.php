@@ -152,8 +152,9 @@ $nivel = '../../';
 						</div>
 					</center>
 				</div>
-				<div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioMadiraje" style="display: {{ (!empty($plate->price_madiraje)  ?  'block;' : '') }}" >
-					<input type="number" name="price_madiraje" step="0.01" min="0" value="{{ $plate->price_madiraje }}"  id="price_madiraje" min="0.00"  onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)">
+
+				<div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioMadiraje" style="display: {{ (!empty($plate->plate_translation[0]->price_madiraje)  ?  'block;' : '') }}" >
+					<input type="number" name="price_madiraje" step="0.01" min="0" value="{{$plate->plate_translation[0]->price_madiraje}}"  id="price_madiraje" min="0.00"  onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)">
 
 					<label for="">
 						<span class="text">Indique el precio del Madiraje</span>

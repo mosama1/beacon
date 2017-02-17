@@ -137,6 +137,27 @@
 					</center>
 				</div>
 
+				<div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioMadiraje">
+					<input type="number" name="price_madiraje" step="0.01" min="0" value=""  id="price_madiraje" min="0.00"  onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)">
+
+					<label for="">
+						<span class="text">Indique el precio del Madiraje</span>
+					</label>
+					<div class="help">
+						<a href="#">
+							<i class="material-icons">help_outline</i>
+						</a>
+						<div class="inf none hidden">
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="input_error" id="errorPrecioMadiraje" style="display: none;">
+					<span>El monto debe ser mayor a cero</span>
+				</div>				
+
 
 				<!-- vista_previa -->
 
@@ -175,7 +196,6 @@
 								<span>{{ $errors->first('language_madiraje') }}</span>
 							</div>
 						@endif
-
 					  </div>
 					@endforeach
 				</div>

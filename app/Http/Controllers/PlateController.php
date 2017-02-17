@@ -111,7 +111,6 @@ class PlateController extends Controller
 		$plate->menu_id = $menu_id;
 		$plate->coupon_id = $coupon->coupon_id;
 		$plate->type_plate_id = $menu->type;
-		$plate->price_madiraje = $request->price_madiraje;
 		$plate->user_id = $user->user_id;
 
 		// se valida si esta seteada la variable de la imagen para ser actualizada
@@ -127,7 +126,7 @@ class PlateController extends Controller
 			// Muevo el docuemnto a la ruta
 			$file_logo = $file_logo->move($storage_logo, $name_logo);
 			$plate->img = $storage_logo.'/'.$name_logo;
-		}
+		}		
 		$plate->save();
 
 		// se valida si esta seteada la variable de la imagen del madiraje
@@ -166,9 +165,10 @@ class PlateController extends Controller
 		$plate_translation->madiraje = $request->madiraje;
 		$plate_translation->coupon_id = $coupon->coupon_id;
 
-		//	$plate_translation->language_id = $request->language_id;
+		//$plate_translation->language_id = $request->language_id;
 		$plate_translation->language_id = 1;
 		$plate_translation->plate_id = $plate->id;
+		$plate_translation->price_madiraje = $request->price_madiraje;
 		$plate_translation->status = 1;
 		$plate_translation->save();
 
@@ -187,6 +187,7 @@ class PlateController extends Controller
 				//	$plate_translation->language_id = $request->language_id;
 				$plate_translation->language_id = $request->language_id[$i];
 				$plate_translation->plate_id = $plate->id;
+				$plate_translation->price_madiraje = $request->price;
 				$plate_translation->status = 1;
 				$plate_translation->save();
 		}
@@ -209,11 +210,11 @@ class PlateController extends Controller
 	 */
 		public function update_plate(Request $request, $menu_id)
 		{
+
 			$plate = Plate::where([
 							['user_id', '=', Auth::user()->user_id],
 							['menu_id', '=', $menu_id],
 						])->first();
-			$plate->price_madiraje = $request->price_madiraje;
 
 			// se valida si esta seteada la variable de la imagen para ser actualizada
 			$file_logo = Input::file('plato');
@@ -254,11 +255,10 @@ class PlateController extends Controller
 								['language_id', '=', 1]
 							])->get();
 
-		$plate->plate_translation[0];
+			$plate->plate_translation[0];
 			$plate->plate_translation[0]->description = $request->description;
 			$plate->plate_translation[0]->madiraje = $request->madiraje;
 			$plate->plate_translation[0]->price_madiraje = $request->price_madiraje;
-
 			$plate->plate_translation[0]->save();
 
 			for ($i=0; $i < count($request->language_id); $i++) {
@@ -274,8 +274,7 @@ class PlateController extends Controller
 				$plate_translation->price_madiraje  = $request->price_madiraje;
 				$plate_translation->save();
 				// echo $plate_translation;
-			}
-			$plate->save();
+			}			
 
 			$menu = Menu::where([
 							['user_id', '=', Auth::user()->user_id],

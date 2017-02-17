@@ -26,7 +26,6 @@ use Beacon\User;
 
 class MovilController extends Controller
 {
-
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -34,7 +33,6 @@ class MovilController extends Controller
 	 */
 	public function index( $campana_id)
 	{
-
 		$campana = Campana::where([
 			['campana_id', '=', array( $campana_id ) ],
 		])->first();
@@ -296,6 +294,7 @@ class MovilController extends Controller
 		$menu->menu_translation;
 
 		$menu->plate;
+		$menu->plate->madiraje_photo;
 
 		$menu->section;
 
@@ -326,34 +325,25 @@ class MovilController extends Controller
 	 */
 	public function show_desc_plate( $campana_id, $language_id, $menu_id )
 	{
-		// 	$plate = Plate::where([
-		// 		['menu_id', '=', array( $menu_id )]
-		// 	])->first();
-
-		// 	if ($plate) {
-
-		// 	$plate->section;
-
-		// 	$plate->plate_translation;
-		// 	}
-
-		// 	return view('movil.detail_plato', ['plate' => $plate, 'section_id' => $plate->section->id]);
 
 		$menu = Menu::where([
 			['id', '=', array( $menu_id )]
 		])->first();
 
+	 	$plate = Plate::where([
+		 		['menu_id', '=', $menu_id ]
+		 	])->first();
+
 		$menu->menu_translation;
 
 		$menu->plate;
+		$menu->plate->madiraje_photo;
 
 		$menu->section;
 
 		$section_translation = SectionTranslation::where([
 			['section_id', '=', $menu->section->id]
 		])->first();
-
-
 
 		return view('movil.detail_plato',
 					[
@@ -363,7 +353,6 @@ class MovilController extends Controller
 						'campana_id' => $campana_id,
 						'section_name' => $section_translation->name,
 						'language_id' => $language_id
-
 					]);
 	}
 
