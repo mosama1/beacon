@@ -67,7 +67,7 @@ use Beacon\Section;
 				  </td>
 				  <td>
 					@if ($plate != NULL)
-					<a href="{{ route('show_desc_plate_by_type', array('campana_id' => $campana_id, 'type_plate' => $type_plate->id, 'menu_id' => $p->id, 'language_id' => $language_id ) ) }}"><i class="material-icons">remove_red_eye</i></a>
+					<a href="{{ route('show_desc_plate_by_type', array('campana_id' => $campana_id, 'type_plate' => $type_plate->id, 'menu_id' => $p->id, 'language_id' => $language_id ) ) }}"  target="_self"><i class="material-icons">remove_red_eye</i></a>
 					@endif
 				  </td>
 				</tr>
@@ -83,7 +83,7 @@ use Beacon\Section;
 	<!--BOTON REGRESAR-->
 		<div class="agregar regresar">
 		  <center>
-			<a href="{{ route('inicio_language', array( 'campana_id' => $campana_id, 'language_id' => $language_id ) ) }}" class="waves-effect">
+			<a href="{{ route('inicio_language', array( 'campana_id' => $campana_id, 'language_id' => $language_id ) ) }}" class="waves-effect"  target="_self">
 			  <div class="">
 				<span class="text">Regresar</span>
 				<span class="icon"><i class="material-icons">reply</i></span>

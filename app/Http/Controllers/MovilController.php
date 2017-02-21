@@ -113,6 +113,11 @@ class MovilController extends Controller
 		//$campana->content->coupon->sections;
 		$content = $campana->content;
 
+		if ( is_null( $content ) ){
+
+			dd("Por favor agrege contenido a la campaña.");
+		}
+
 		$coupon = Coupon::where([
 			['coupon_id', '=', array( $content->coupon_id ) ],
 		])->first();

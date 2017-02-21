@@ -42,11 +42,14 @@
 
 					<tbody>
 						@foreach($campana as $c)
-							<tr id="{{$c->campana_id}}">
-								<td>{{$c->campana_id}}</td>
+							<tr id="" >
+								<td>
+									<?= '<a href="#" id="preview" onclick="preview_campana('.$c->campana_id.')">';?>
+										<i class="material-icons">phonelink_setup</i>
+									</a>
+								</td>
 								<td>{{$c->name}}</td>
 								<td>{{$c->description}}</td>
-
 								<td>
 									<a href="{{ route('all_content', $c->campana_id) }}">
 										<i class="material-icons">add</i>
@@ -59,11 +62,11 @@
 								</td>
 
 
-								<?php
-									echo "<td onclick= \"modal_activate('".
-									route( "destroy_campana", $c->campana_id ).
-										"' , '#eliminarPlan')\" >";
-								?>
+									<?php
+										echo "<td onclick= \"modal_activate('".
+										route( "destroy_campana", $c->campana_id ).
+											"' , '#eliminarPlan')\" >";
+									?>
 
 									<a href="#eliminarPlan">
 										<i class="material-icons">clear</i>
@@ -230,4 +233,9 @@
   </div>
 </div>
 
+
+<div id="dialog_preview" title="Previsualización de Campaña">
+	<iframe id="myIframe" src="">
+	</iframe>	
+</div>
 @endsection

@@ -83,7 +83,7 @@ $menu2 = '';
 
     <div class="agregar regresar">
       <center>
-        <a href="{{ route('movil_all_types_plates', array('campana_id' => $campana_id, 'type_plate_id' => $type_plate_id, 'menu_id' => $menu->menu_id, 'language_id' => $language_id) ) }}" class="waves-effect">
+        <a href="{{ route('movil_all_types_plates', array('campana_id' => $campana_id, 'type_plate_id' => $type_plate_id, 'menu_id' => $menu->menu_id, 'language_id' => $language_id) ) }}" class="waves-effect" target="_self">
           <div class="">
             <span class="text">Regresar</span>
             <span class="icon"><i class="material-icons">reply</i></span>

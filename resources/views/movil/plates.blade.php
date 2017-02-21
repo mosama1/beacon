@@ -79,7 +79,7 @@ use Beacon\Section;
 				  </td>
 				  <td>
 					@if ($plate != NULL)
-					<a href="{{ route('show_desc_plate', array('campana_id' => $campana_id, 'menu_id' => $p->id, 'language_id' => $language_id) ) }}"><i class="material-icons">remove_red_eye</i></a>
+					<a href="{{ route('show_desc_plate', array('campana_id' => $campana_id, 'menu_id' => $p->id, 'language_id' => $language_id) ) }}"  target="_self"><i class="material-icons">remove_red_eye</i></a>
 					@endif
 				  </td>
 				</tr>
