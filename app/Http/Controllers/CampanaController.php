@@ -97,12 +97,12 @@ class CampanaController extends Controller
 				'headers' => ['Authorization' => 'Bearer '.$crud ],
 				// array de datos del formulario
 				'form_params' => [
-						'name' => $request->name,
-						'description' => $request->description,
-						'start_time' => date('Y-m-d H:i', strtotime($request->start_time)),
-						'end_time' => date('Y-m-d H:i', strtotime($request->end_time)),
-						'locations' => $request->location_id,
-						'enabled' => 1,
+					'name' => $request->name,
+					'description' => $request->description,
+					'start_time' => date('Y-m-d h:m:s', strtotime($request->start_time)),
+					'end_time' => date('Y-m-d h:m:s', strtotime($request->end_time)),
+					'locations' => $request->location_id,
+					'enabled' => 1,
 				]
 		]);
 
@@ -185,8 +185,8 @@ class CampanaController extends Controller
 				'form_params' => [
 						'name' => $request->name,
 						'description' => $request->description,
-						'start_time' => date("Y-m-d H:i", strtotime($request->start_time)),
-						'end_time' => date("Y-m-d H:i", strtotime($request->end_time)),
+						'start_time' => date("Y-m-d H:m:s", strtotime($request->start_time)),
+						'end_time' => date("Y-m-d H:m:s", strtotime($request->end_time)),
 				]
 		]);
 

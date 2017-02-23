@@ -192,8 +192,7 @@
 			<span>{{ $errors->first('end_time') }}</span>
 		</div>
 	  @endif
-
-
+	  
 	  <div class="button">
 		<center>
 		  <button type="submit" name="button" id="guardar" class="send_form">
@@ -234,7 +233,7 @@
 </div>
 
 
-<div id="dialog_preview" title="Previsualización de Campaña">
+<div id="dialog_preview" title="Previsualización de Campaña ">
 	<iframe id="myIframe" src="">
 	</iframe>	
 </div>

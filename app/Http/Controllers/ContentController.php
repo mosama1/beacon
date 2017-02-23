@@ -14,7 +14,6 @@ use Beacon\Tag;
 use Beacon\Timeframe;
 use Beacon\User;
 use Illuminate\Support\Facades\Input;
-use Log;
 
 class ContentController extends Controller
 {
@@ -39,34 +38,9 @@ class ContentController extends Controller
 
 		$token_crud = json_decode($json_c);
 
-		Log::info('This is some useful information.');
-
 		return $token_crud->access_token;
 	}
 
-	/**
-	 * @return token analytics
-	 */
-	public function analytics()
-	{
-		// Nuevo cliente con un url base
-		$client = new Client();
-
-		//Token analytics
-		$response_analytics = $client->request('POST', 'https://connect.onyxbeacon.com/oauth/client', [
-				'form_params' => [
-						'client_id' => '89b88a5f9eaec9ab9b059a56c51e37413be4e043',
-						'client_secret' => '7e58c94dafd3751f90b0e4b4de871be7e8b7ae44',
-						'scope' => 'analytics'
-				]
-		]);
-
-		$json_a = $response_analytics->getBody();
-
-		$token_analytics = json_decode($json_a);
-
-		return $token_analytics->access_token;
-	}
 
 	/**
 	 * Display a listing of the resource.
@@ -162,8 +136,10 @@ class ContentController extends Controller
 
 		// formate el $timeframe al formato de la api: "1,2,3,..."
 		if ( empty($request->timeframe_id) ) {
+
 			$timeframes = null;
 		} else {
+
 			$count = count($request->timeframe_id);
 			$timeframes = $request->timeframe_id[0];
 			for ($i=1; $i < $count; $i++) {
@@ -233,8 +209,8 @@ class ContentController extends Controller
 			$cam_c->user_id = $user->user_id;
 			//	coupon_translation[0] posicion [0] es en español idioma por defecto
 
-				$cam_c->coupon = $coupon->coupon_translation[0]->name;
-				$cam_c->coupon_id = $coupon->coupon_id;
+			$cam_c->coupon = $coupon->coupon_translation[0]->name;
+			$cam_c->coupon_id = $coupon->coupon_id;
 
 
 			//	$cam_c->tag = $request->tag_id;
@@ -252,6 +228,8 @@ class ContentController extends Controller
 			// echo "<pre>";	var_dump($content);	echo "</pre>";
 			// return;
 
+			$campana = Campana::where('campana_id', '=', $campana_id)->first();
+
 			//Location
 			$campana_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$campana_id.'/update', [
 					// un array con la data de los headers como tipo de peticion, etc.
@@ -260,8 +238,8 @@ class ContentController extends Controller
 					'form_params' => [
 							'name' => $request->name,
 							'description' => $coupon->description,
-							'start_time' => date("Y-m-d H:i", strtotime($request->start_time)),
-							'end_time' => date("Y-m-d H:i", strtotime($request->end_time)),
+							'start_time' => date('Y-m-d h:m:s', strtotime($campana->start_time)),
+							'end_time' => date('Y-m-d h:m:s', strtotime($campana->end_time)),
 					]
 			]);
 
@@ -270,17 +248,16 @@ class ContentController extends Controller
 
 			$campana_response = json_decode($json_campana);
 
-			//echo "<pre>";	var_dump($campana_response);	echo "</pre>";
-
 			if ($campana_response->status_code == 200 )
 			{
-				$campana = Campana::where('campana_id', '=', $campana_id)->first();
+				
 				$campana->description = $coupon->coupon_translation[0]->description;
 				$campana->update();
+				$campana_process = true;
 			}
 			else
 			{
-				$campana = false;
+				$campana_process = false;
 				// echo "<pre>"; print_r( $campana_response ); echo "</pre>";
 				// return;
 			}
@@ -310,31 +287,30 @@ class ContentController extends Controller
 					$coupon = Coupon::where('coupon_id', '=', $request->coupon_id)->first();
 					$coupon->url = $coupon_response->coupon->url;
 					$coupon->update();
+					$coupon_process = true;
 			}
 			else
 			{
-				$coupon = false;
+				$coupon_process = false;
 				// echo "<pre>"; print_r( $coupon_response ); echo "</pre>";
 				// return;
 			}
 
-			if ( $campana && $coupon ) {
-				//Content::commit();
+			if ( $campana_process && $coupon_process ) {
+				
 				return redirect()->route('all_content', array('campana_id' => $campana_id ) )->with(['status' => 'Se ha creado el contenido exitosamente', 'type' => 'success']);
 			} else {
 
-				echo "<pre>";	var_dump($campana && $coupon);	echo "</pre>";
+				echo "<pre>campana_process: ";	var_dump($campana_process);	echo "</pre>";
+				echo "<pre>coupon_process: ";	var_dump($coupon_process);	echo "</pre>";
 				return;
-				//Content::rollBack();
+				
 				return redirect()->route('all_content', array('campana_id' => $campana_id ) )->with(['status' => 'Error al ingresar el contenido', 'type' => 'error']);
 			}
 
-
-
 		else:
 			echo "<pre>";	var_dump($content_response);	echo "</pre>";
-			return;
-			//Content::rollBack();
+			return;			
 			return redirect()->route('all_content', array('campana_id' => $campana_id ) )->with(['status' => 'Error al ingresar el contenido', 'type' => 'error']);
 
 		endif;

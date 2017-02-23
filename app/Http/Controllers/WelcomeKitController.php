@@ -14,7 +14,8 @@ use Beacon\Tag;
 use Beacon\Timeframe;
 use Beacon\User;
 use Illuminate\Support\Facades\Input;
-use Log;
+//use Intervention\Image\Image as Img;
+use Image as Img;
 
 class WelcomeKitController extends Controller
 {
@@ -39,34 +40,7 @@ class WelcomeKitController extends Controller
 
 		$token_crud = json_decode($json_c);
 
-		Log::info('This is some useful information.');
-
 		return $token_crud->access_token;
-	}
-
-
-	/**
-	 * @return token analytics
-	 */
-	public function analytics()
-	{
-		// Nuevo cliente con un url base
-		$client = new Client();
-
-		//Token analytics
-		$response_analytics = $client->request('POST', 'https://connect.onyxbeacon.com/oauth/client', [
-				'form_params' => [
-						'client_id' => '89b88a5f9eaec9ab9b059a56c51e37413be4e043',
-						'client_secret' => '7e58c94dafd3751f90b0e4b4de871be7e8b7ae44',
-						'scope' => 'analytics'
-				]
-		]);
-
-		$json_a = $response_analytics->getBody();
-
-		$token_analytics = json_decode($json_a);
-
-		return $token_analytics->access_token;
 	}
 
 	//************************************* Campaña **************************************************//
@@ -96,8 +70,7 @@ class WelcomeKitController extends Controller
 	 */
 	public function store_welcome_kit(Request $request)
 	{
-		// echo "<pre>"; var_dump($request); echo "</pre>";
-		// return;
+
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 		$location = $user->location;
 		$client = new Client();
@@ -133,7 +106,7 @@ class WelcomeKitController extends Controller
 					'name' => $request->name,
 					'description' => $request->description,
 					'start_time' => date('Y-m-d H:i', strtotime('01-01-2017')),
-					'end_time' => date('Y-m-d H:i', strtotime('01-01-2099')),
+					'end_time' => date('Y-m-d H:i', strtotime('01-01-2027')),
 					'locations' => $location->location_id,
 					'enabled' => 1,
 			]
@@ -885,6 +858,56 @@ class WelcomeKitController extends Controller
 	}
 
 
+	public function create_image()
+	{
+		$now = date('d-m-Y');
+		$font = public_path('img/font/Intro.otf');		
+		$logo = public_path('img/logo/logo1.png');		
+		$file_original  = 'img/origin_promotions.png';
+		$file_promotion = 'img/promotions/wellcome_kit/kb' . date('Ymdhis') . '.png';
 
+		$chars = "ABCDEFGHIJKLMNPQRSTUVWXYZ123456789!#$%&*()_-=+;:,.?";
+    	$code_secret = trim(substr( str_shuffle( $chars ), 0, 8 ));
+
+		// create Image from file
+		try {
+
+			$img = Img::make( $file_original );
+
+			// Insert a logo			
+			$img->insert($logo, 'top');
+
+			// create first menssage
+			$img->text('¡FELICIDADES!',930,400, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(120); 
+				$font->align('center');
+				$font->color('#ff8c00');  
+			});
+
+			// show secret code
+			$img->text($code_secret, 880, 640, function($font){ 
+				$font->file(public_path('img/font/Intro.otf')); 
+				$font->size(50); 
+				$font->align('center'); 
+				$font->color('#000');  
+			});
+
+			// date validate
+			$img->text(date('d.m.Y'),880,990, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(55);
+				$font->align('center');
+				$font->color('#000');
+			});
+
+			$img->save($file_promotion); 
+
+		} catch (Exception $e) {
+		    echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+		}
+
+dd($img);
+		}
 
 }
