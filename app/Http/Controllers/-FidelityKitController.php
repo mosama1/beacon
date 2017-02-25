@@ -35,12 +35,13 @@ class FidelityKitController extends Controller
 				]
 		]);
 
-		$json_c = $response_crud->getBody();
+		$json_fidelity = $response_crud->getBody();
 
-		$token_crud = json_decode($json_c);
+		$token_crud = json_decode($json_fidelity);
 
 		return $token_crud->access_token;
 	}
+
 
 	//************************************* Campaña **************************************************//
 
@@ -69,7 +70,8 @@ class FidelityKitController extends Controller
 	 */
 	public function store_fidelity_kit(Request $request)
 	{
-
+		// echo "<pre>"; var_dump($request); echo "</pre>";
+		// return;
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 		$location = $user->location;
 		$client = new Client();
@@ -79,7 +81,7 @@ class FidelityKitController extends Controller
 		$img = $this::create_image( $message, $location->logo );
 
 		//Location
-		$fidelity_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns', [
+		$fidelity_kit_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns', [
 			'headers' => ['Authorization' => 'Bearer '.$crud ],
 			'form_params' => [
 					'name' => $request->name,
@@ -91,9 +93,9 @@ class FidelityKitController extends Controller
 			]
 		]);
 		//Json parse
-		$json_fidelity = $fidelity_api->getBody();
-		$fidelity_response = json_decode($json_fidelity);
-			//echo "<pre>"; var_dump($fidelity_response); echo "</pre>";
+		$json_fidelity_kit = $fidelity_kit_api->getBody();
+		$fidelity_response = json_decode($json_fidelity_kit);
+			//echo "<pre>"; var_dump($fidelity_kit); echo "</pre>";
 		if ($fidelity_response->status_code === 200 ){
 			//kit de la api
 			$fidelity_resource = $fidelity_response->campaign;
@@ -147,7 +149,7 @@ class FidelityKitController extends Controller
 								'description' => (isset($coupon_resource->description)) ? $coupon_resource->description : '' ,
 								'message' => $request->name,
 								'type' => 'url',
-								'url' =>  'http://dementecreativo.com/prueba/final/kit_fidelidad/' . $fidelity_resource->id,
+								'url' => 'http://dementecreativo.com/prueba/final/kit_fidelidad/' . $fidelity_resource->id, 
 						]
 					);
 					//Carga el coupon en el beacon
@@ -164,8 +166,7 @@ class FidelityKitController extends Controller
 						}
 						
 						DB::beginTransaction();
-						try {							
-
+						try {
 							$coupon = new Coupon();
 							$coupon->coupon_id = $coupon_resource->id;
 							$coupon->user_id = $user->user_id;
@@ -174,8 +175,9 @@ class FidelityKitController extends Controller
 								$coupon->price = 0.0 :
 								$coupon->price = $request->price;
 							$coupon->url = $coupon_resource->url;
+							  // echo "<pre>"; var_dump($cou); echo "</pre>";
+							  // return;
 							$coupon->save();
-
 							$coupon_translation = new CouponTranslation();
 							$coupon_translation->name = $request->name;
 							(isset($coupon_resourcerequest->description)) ?
@@ -185,7 +187,6 @@ class FidelityKitController extends Controller
 							$coupon_translation->language_id = 1;
 							$coupon_translation->coupon_id = $coupon->coupon_id;
 							$coupon_translation->save();
-
 							$content_fidelity = new Content();
 							$content_fidelity->content_id = $content_api->id;
 							$content_fidelity->user_id = $user->user_id;
@@ -197,33 +198,26 @@ class FidelityKitController extends Controller
 							$content_fidelity->campana_id = $fidelity_resource->id;
 							$content_fidelity->trigger_name = $content_api->trigger_name;
 							$content_fidelity->save();
-							
 							$fidelity_kit = new Promotion();
 							$fidelity_kit->promotion_id = $fidelity_resource->id;
 							$fidelity_kit->user_id = $user->user_id;
 							$fidelity_kit->name = $fidelity_resource->name;
-
 							(isset($fidelity_resource->description)) ?
 								$fidelity_kit->description = $fidelity_resource->description :
 								$fidelity_kit->description = "";
-
 							(isset($fidelity_response->type)) ?
 								$fidelity_kit->type = $request->type :
 								$fidelity_kit->type = 2;
-
 							(!empty($request->message)) ?
 								$fidelity_kit->message = $request->message :
-								$fidelity_kit->message = "¡FELICIDADES!";
-
+								$fidelity_kit->message = "¡FELICIDADES!";								
 							$fidelity_kit->number_visits = $request->number_visits;
-
 							$fidelity_kit->img = $img;
 							$fidelity_kit->start_time = $fidelity_resource->start_time;
 							$fidelity_kit->end_time = $fidelity_resource->end_time;
 							$fidelity_kit->location_id = $location->location_id;
 							$fidelity_kit->status = $fidelity_resource->enabled;
 							$fidelity_kit->save();
-
 						} catch(ValidationException $e)
 						{
 							// Rollback and then redirect
@@ -240,6 +234,9 @@ class FidelityKitController extends Controller
 								'headers' => ['Authorization' => 'Bearer '.$crud ],
 							]);
 						
+							 echo "<pre>";	var_dump('ValidationException $e: =>');	echo "</pre>";
+							 echo "<pre>";	var_dump($e->getErrors());	echo "</pre>";
+							 return;
 							return redirect()->route('all_fidelity_kit')->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error'])
 								->withErrors( $e->getErrors() )
 								->withInput();
@@ -258,7 +255,9 @@ class FidelityKitController extends Controller
 								'headers' => ['Authorization' => 'Bearer '.$crud ],
 							]);
 						
-;
+							 echo "<pre>";	var_dump('$e: =>');	echo "</pre>";
+							 echo "<pre>";	var_dump($e);	echo "</pre>";
+							 return;
 							return redirect()->route('all_fidelity_kit')->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error']);
 						}
 						DB::commit();
@@ -280,6 +279,9 @@ class FidelityKitController extends Controller
 							'headers' => ['Authorization' => 'Bearer '.$crud ],
 						]);
 					
+						 echo "<pre>";	var_dump('actualizar coupon del contenido');	echo "</pre>";
+						 echo "<pre>";	var_dump($coupon_response);	echo "</pre>";
+						 return;
 						return redirect()->route('all_fidelity_kit')->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error']);
 					}
 				} else {
@@ -290,7 +292,10 @@ class FidelityKitController extends Controller
 					$client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$fidelity_resource->id.'/delete', [
 						'headers' => ['Authorization' => 'Bearer '.$crud ],
 					]);
-
+					//codigo para revertir transaccion
+					 echo "<pre>";	var_dump('respuesta contenido');	echo "</pre>";
+					 echo "<pre>";	var_dump($content_response);	echo "</pre>";
+					 return;
 					return redirect()->route('all_fidelity_kit')
 									->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error']);
 				}
@@ -300,12 +305,17 @@ class FidelityKitController extends Controller
 				$client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$fidelity_resource->id.'/delete', [
 					'headers' => ['Authorization' => 'Bearer '.$crud ],
 				]);
-
+				 echo "<pre>";	var_dump('respuesta coupon');	echo "</pre>";
+				 echo "<pre>";	var_dump($coupon_response);	echo "</pre>";
+				// return;
 				return redirect()->route('all_fidelity_kit')
 								->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error']);
 			}
 		} else {
-	
+			 echo "<pre>";	var_dump('respuesta fidelidad');	echo "</pre>";
+			 echo "<pre>";	var_dump($fidelity_response);	echo "</pre>";
+			// return;
+		
 			return redirect()->route('all_fidelity_kit')
 							->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error']);
 		}
@@ -322,14 +332,16 @@ class FidelityKitController extends Controller
 
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
+		$location = $user->location;
+
 		$promotion = Promotion::where([
 								['user_id', '=', $user->user_id ],
 								['promotion_id', '=', $id],
-								['type', '=', 1]
+								['type', '=', 2]
 							])->first();
 
 
-		return view('fidelity_kits.fidelity_kit_edit', ['fidelity_kit' => $promotion, 'location' => $user->location]);
+		return view('fidelity_kits.fidelity_kit_edit', ['fidelity_kit' => $promotion, 'location' => $location]);
 	}
 
 	/**
@@ -345,9 +357,6 @@ class FidelityKitController extends Controller
 
 		$location = $user->location;
 
-		$message = (empty($request->message) ? '¡FELICIDADES!' : $request->message );
-		$img = $this::edit_image( $message, $location->logo, $promotion_id );		
-
 		// Nuevo cliente con un url base
 		$client = new Client();
 
@@ -357,7 +366,7 @@ class FidelityKitController extends Controller
 		$fidelity_old = Promotion::where([
 									['user_id', '=', $user->user_id ],
 									['promotion_id', '=', $promotion_id],
-									['type', '=', 1]
+									['type', '=', 2]
 								])->first();
 
 		$fidelity_kit = $fidelity_old;
@@ -368,14 +377,55 @@ class FidelityKitController extends Controller
 
 		$coupon_translation_old = $coupon_old;
 
-		//campaigns
+		// echo "<pre>"; var_dump($fidelity_old); echo "</pre>";
+		// echo "<pre>"; var_dump($content_old); echo "</pre>";
+		// echo "<pre>"; var_dump($coupon_old); echo "</pre>";
+		// return;
+
+		//se obtiene la imagen
+		$file_img = $request->file('img');
+
+		if ( !is_null( $file_img ) ) {
+
+			$kit_mime = $file_img->getMimeType();
+
+			$path = 'assets/images/fidelity_kit/';
+
+			switch ($kit_mime)
+			{
+				case "image/jpeg":
+				case "image/png":
+					if ($file_img->isValid())
+					{
+
+						$nombre = $file_img->getClientOriginalName();
+											$nombre = date('dmyhis').'-'.$nombre;
+
+						$file_img->move($path, $nombre);
+
+						$img = 'assets/images/fidelity_kit/'.$nombre;
+
+						$img_api = 'http://dementecreativo.com/prueba/final/'.$img;
+
+					}
+				break;
+			}
+		}
+		else {
+
+			$img = "";
+			$img_api = $coupon_old->url;
+
+		}
+
+		//Location
 		$fidelity_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/update', [
 			'headers' => ['Authorization' => 'Bearer '.$crud ],
 			'form_params' => [
 				'name' => $request->name,
 				'description' => $request->description,
 				'start_time' => date('Y-m-d H:i', strtotime('01-01-2017')),
-				'end_time' => date('Y-m-d H:i', strtotime('01-01-2027'))
+				'end_time' => date('Y-m-d H:i', strtotime('01-01-2099'))
 			]
 		]);
 
@@ -396,9 +446,9 @@ class FidelityKitController extends Controller
 				'headers' => ['Authorization' => 'Bearer '.$crud ],
 				'form_params' => [
 					'name' => $request->name,
-					'description' => (isset($request->description)) ? $request->description : $coupon_old->description,
+					'description' => (isset($request->description)) ? $request->description : $coupon_old->description ,
 					'message' => $request->name,
-					'url' => 'http://dementecreativo.com/prueba/final/kit_fidelidad/' . $fidelity_resource->id,
+					'url' =>  $img_api,
 				]
 			]);
 
@@ -459,18 +509,19 @@ class FidelityKitController extends Controller
 
 						try {
 
-							$coupon = Coupon::where([['coupon_id', '=', $coupon_old->coupon_id]])->first();
+							$coupon = Coupon::where([['coupon_id', '=', $coupon_old->coupon_id]])->first();	
+
+
 							(isset($request->price)) ?
 								$coupon_response->price = $request->price :
 								$coupon_response->price = 0.0;
+							$coupon->url = $img_api;
 							$coupon->save();
 
 							$coupon_translation = CouponTranslation::where([['coupon_id', '=', $coupon_old->coupon_id]])->first();
 
 							(isset($request->name)) ?
 								$coupon_translation->name = $request->name :
-								$coupon_translation->name = (isset($coupon_translation_old->name)) ?
-								$coupon_translation->name = $coupon_translation_old->name :
 								$coupon_translation->name = "";
 
 							(isset($request->description)) ?
@@ -487,10 +538,12 @@ class FidelityKitController extends Controller
 												['content_id', '=', $content_old->content_id ]
 											])->first();
 
+
 							$content_fidelity->content_id = $content_old->content_id;
+							//coupon_translation[0] posicion [0] es en español idioma por defecto
 							$content_fidelity->coupon = $coupon_translation->name;
 							$content_fidelity->coupon_id = $coupon_old->coupon_id;
-							//$content_fidelity->tag = $request->tag_id;
+							//    $content_fidelity->tag = $request->tag_id;
 							$content_fidelity->tag = $tag_id;
 							$content_fidelity->campana_id = $promotion_id;
 							$content_fidelity->trigger_name = 'ENTRY';
@@ -503,10 +556,6 @@ class FidelityKitController extends Controller
 							$fidelity_kit->description = (isset($request->description)) ?
 									$request->description :
 									$fidelity_old->description;
-
-							$fidelity_kit->message = (isset($request->message)) ?
-									$request->message :
-									'¡FELICIDADES!';
 
 							$fidelity_kit->save();
 
@@ -528,6 +577,7 @@ class FidelityKitController extends Controller
 									'visit_number' => $content_old->number_visits,
 									'tag' => $content_old->tag,
 								]
+
 							);
 							$client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$fidelity_resource->id.'/contents/'.$content_api->id.'/update', $parameters_content);
 
@@ -536,7 +586,7 @@ class FidelityKitController extends Controller
 								'headers' => ['Authorization' => 'Bearer '.$crud ],
 								'form_params' => [
 									'name' => $coupon_old->name,
-									'description' => $coupon_old->description,
+									'description' => $coupon_old->description,																																																																																																																																																																																																																																																																																																						$coupon_old->description,
 									'message' => $coupon_old->message,
 									'url' =>  $coupon_old->url,
 								]
@@ -552,8 +602,9 @@ class FidelityKitController extends Controller
 								]
 							]);
 						
+							// echo "<pre>";	var_dump('ValidationException $e: =>');	echo "</pre>";
 							// echo "<pre>";	var_dump($e);	echo "</pre>";
-							return;
+							// return;
 
 							return redirect()->route('all_fidelity_kit')->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error']);
 
@@ -598,9 +649,9 @@ class FidelityKitController extends Controller
 								]
 							]);
 						
-							echo "<pre>";	var_dump('$e: =>');	echo "</pre>";
-							 echo "<pre>";	var_dump($e);	echo "</pre>";
-							return;
+							// echo "<pre>";	var_dump('$e: =>');	echo "</pre>";
+							// echo "<pre>";	var_dump($e);	echo "</pre>";
+							// return;
 
 							return redirect()->route('all_fidelity_kit')->with(['status' => 'Error al ingresar el kit de fidelidad', 'type' => 'error']);
 						}
@@ -634,6 +685,9 @@ class FidelityKitController extends Controller
 					]);
 
 					//codigo para revertir transaccion
+					// echo "<pre>";	var_dump('respuesta contenido');	echo "</pre>";
+					// echo "<pre>";	var_dump($content_response);	echo "</pre>";
+					// return;
 
 					return redirect()->route('all_fidelity_kit')
 									->with(['status' => 'Error al actualizar el kit de fidelidad', 'type' => 'error']);
@@ -652,11 +706,20 @@ class FidelityKitController extends Controller
 					]
 				]);
 
+				// echo "<pre>";	var_dump('respuesta coupon');	echo "</pre>";
+				// echo "<pre>";	var_dump($coupon_response);	echo "</pre>";
+				// return;
+
 				return redirect()->route('all_fidelity_kit')
 								->with(['status' => 'Error al actualizar el kit de fidelidad', 'type' => 'error']);
 			}
 
 		} else {
+
+			// echo "<pre>";	var_dump('respuesta fidelidad');	echo "</pre>";
+			// echo "<pre>";	var_dump($fidelity_response);	echo "</pre>";
+			// return;
+		
 			return redirect()->route('all_fidelity_kit')
 							->with(['status' => 'Error al actualizar el kit de fidelidad', 'type' => 'error']);
 		}
@@ -676,106 +739,118 @@ class FidelityKitController extends Controller
 		//Token Crud
 		$crud = FidelityKitController::crud();
 
+		//
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
+
 		$content =  Content::where([
-								['user_id', '=', Auth::user()->user_id],
+								['user_id', '=', $user->user_id],
 								['campana_id', '=', $promotion_id]
 							])->first();
 
 		$coupon = $content->coupons;
 
 		$fidelity_kit =  Promotion::where([
-								['user_id', '=', Auth::user()->user_id ],
+								['user_id', '=', $user->user_id ],
 								['promotion_id', '=', $promotion_id],
-								['type', '=', 1]
+								['type', '=', 2]
 							])->first();
 
-		//Timeframe delete
-		$coupon_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons/'.$coupon->coupon_id.'/delete', [
-				// un array con la data de los headers como tipo de peticion, etc.
-				'headers' => ['Authorization' => 'Bearer '.$crud ],
-		]);
+		// $content_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/content/'.$content->content_id.'/delete', [
+		// 		// un array con la data de los headers como tipo de peticion, etc.
+		// 		'headers' => ['Authorization' => 'Bearer '.$crud ]
+		// ]);
 
-		//Json parse
-		$json_coupon = $coupon_api->getBody();
+		// //Json parse
+		// $json_content = $content_api->getBody();
 
-		$coupon_response = json_decode($json_coupon);
+		// $content_response = json_decode($json_content);
 
-		if ($coupon_response->status_code === 200) {			
+		// if ($content_response->status_code === 200 ) {
+		
 
-			$fidelity_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/delete', [
+			//Timeframe delete
+			$coupon_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons/'.$coupon->coupon_id.'/delete', [
+					// un array con la data de los headers como tipo de peticion, etc.
+					'headers' => ['Authorization' => 'Bearer '.$crud ],
+			]);
+
+			//Json parse
+			$json_coupon = $coupon_api->getBody();
+
+			$coupon_response = json_decode($json_coupon);
+
+			if ($coupon_response->status_code === 200) {
+			
+
+				$fidelity_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/delete', [
 						// un array con la data de los headers como tipo de peticion, etc.
 						'headers' => ['Authorization' => 'Bearer '.$crud ]
 				]);
 
-			//Json parse
-			$json_fidelity = $fidelity_api->getBody();
+				//Json parse
+				$json_fidelity = $fidelity_api->getBody();
 
-			$fidelity_response = json_decode($json_fidelity);
-			if ($fidelity_response->status_code === 200 ) {
+				$fidelity_response = json_decode($json_fidelity);
+				if ($fidelity_response->status_code === 200 ) {
 						
-				DB::beginTransaction();
+					DB::beginTransaction();
 
-				try {
+					try {
 
-					$content->delete();
+						$content->delete();
 
-					foreach ($coupon->coupon_translation as $key => $value) {
-					 	$value->delete();
+						foreach ($coupon->coupon_translation as $key => $value) {
+						 	$value->delete();
+						}
+
+						$coupon->delete();
+
+						$fidelity_kit->delete();
+
+					} catch(ValidationException $e)
+					{
+						// Rollback and then redirect
+						DB::rollback();
+
+						return redirect()->route('all_fidelity_kit')->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
+
+					} catch(\Exception $e)
+					{
+						DB::rollback();
+
+						return redirect()->route('all_fidelity_kit')
+										->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
 					}
 
-					$coupon->delete();
-					$fidelity_kit->delete();
 
-				} catch(ValidationException $e)
-				{
-					// Rollback and then redirect
-					DB::rollback();
+					DB::commit();
 
-					return redirect()->route('all_fidelity_kit')->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
+					return redirect()->route('all_fidelity_kit')
+										->with(['status' => 'Se ha Eliminado el kit de fidelidad con éxito', 'type' => 'success']);
+				} else {
 
-				} catch(\Exception $e)
-				{
-					DB::rollback();
+					//echo "<pre>"; var_dump($fidelity_kit); echo "</pre>";
 
 					return redirect()->route('all_fidelity_kit')
 									->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
+					
 				}
-
-				DB::commit();
-
-				return redirect()->route('all_fidelity_kit')
-										->with(['status' => 'Se ha Eliminado el kit de fidelidad con éxito', 'type' => 'success']);
+				
 			} else {
 
+				//echo "<pre>"; var_dump($fidelity_kit); echo "</pre>";
+
 				return redirect()->route('all_fidelity_kit')
-							->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
-					
-			}
-				
-		} else {
-
-			return redirect()->route('all_fidelity_kit')
 								->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
-		}
-	}
+			}
+		// } else {
 
-	public function habilitar_fidelitykit($id)
-	{
-		
-		$user = User::where( 'id', '=', Auth::user()->id )->first();
+		// 	echo "<pre>"; var_dump($content_response); echo "</pre>";
+		// 	return;
 
-		$location = $user->location;
-
-		$campana = fidelityKit::where([
-								['user_id', '=', $user->user_id ],
-								['promotion_id', '=', $id]
-							])->first();
-
-		$status = ( $fidelity->status == 0 ) ? 1 : 0;
-		$fidelity->status = $status;
-		$fidelity->save();
-
-		return $status;
+		// 	return redirect()->route('all_fidelity_kit')
+		// 					->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
+		// }
 	}
 
 
@@ -785,7 +860,7 @@ class FidelityKitController extends Controller
 		$font = public_path('img/font/Intro.otf');
 
 		$file_original  = 'img/origin_promotions.png';
-		$file_promotion = 'assets/images/fidelity_kit/kb' . date('Ymdhis') . '.png';
+		$file_promotion = 'assets/images/welcome_kit/kb' . date('Ymdhis') . '.png';
 
 		// create Image from file
 		try {
@@ -807,7 +882,7 @@ class FidelityKitController extends Controller
 			});
 
 			// LINE TEXT FIXED
-			$img->text('KIT DE fidelidad',125,120, function($font){ 
+			$img->text('KIT DE FIDELIDAD',125,120, function($font){ 
 				$font->file(public_path('img/font/Intro.otf'));
 				$font->size(15); 
 				$font->align('center');
@@ -876,7 +951,6 @@ class FidelityKitController extends Controller
 
 		$now = date('d-m-Y');
 		$font = public_path('img/font/Intro.otf');
-		$file_promotion = 'assets/images/welcome_kit/kb' . uniqid() . '.png';
 
 		$chars = "ABCDEFGHIJKLMNPQRSTUVWXYZ123456789";
 		$code_secret = trim(substr( str_shuffle( $chars ), 0, 10 ));
@@ -901,12 +975,12 @@ class FidelityKitController extends Controller
 				$font->color('#ff8c00');
 			});
 
-			$img->save( $file_promotion ); 
+			$img->save( $promotion->img ); 
 
 		} catch (Exception $e) {
 		    echo 'Excepción capturada: ',  $e->getMessage(), "\n";
 		}
-		return view( 'promotion', ['promotion' => $file_promotion] );
+		return view( 'promotion', ['promotion' => $promotion->img] );
 	}
 
 
@@ -949,7 +1023,7 @@ class FidelityKitController extends Controller
 			});
 
 			// LINE TEXT FIXED
-			$img->text('KIT DE fidelidad',125,120, function($font){ 
+			$img->text('KIT DE FIDELIDAD',125,120, function($font){ 
 				$font->file(public_path('img/font/Intro.otf'));
 				$font->size(15); 
 				$font->align('center');
@@ -1007,4 +1081,5 @@ class FidelityKitController extends Controller
 		    echo 'Excepción capturada: ',  $e->getMessage(), "\n";
 		}
 	}	
+
 }

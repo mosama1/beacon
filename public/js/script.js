@@ -640,39 +640,33 @@ function preview_campana( campana_id )
 	    height: 700,
 	    width: 450,
 	    open: function(ev, ui){
-			//$('#myIframe').attr( 'src','http://dementecreativo.com/prueba/final/' + campana_id );
-			$('#myIframe').attr( 'src','http://localhost:8000/' + campana_id);
+			$('#myIframe').attr( 'src','http://dementecreativo.com/prueba/final/' + campana_id );
+			//$('#myIframe').attr( 'src','http://localhost:8000/' + campana_id);
 		}
 	});
 	$('#dialog_preview').dialog('open');	
 }
 
-/************************************************************************/
-/********************** Preview WellcomeKit *****************************/
-/************************************************************************/
+/**********************************************************************/
+/********************** Preview Promotion *****************************/
+/**********************************************************************/
 
-function preview_wellcome_kit( url )
-{
-	//console_log('http://localhost:8000/' + url);	
-	console_log('asdasd');	
-	/*
-	$("#dialog_preview_wk").dialog({
+function preview_promotion()
+{	
+	$('#dialog_preview_promotion').dialog({
 
 	    autoOpen: false,
 	    modal: true,
 	    height: 700,
 	    width: 450,
-	    open: function(ev, ui){
-			//$('#myIframe').attr( 'src','http://dementecreativo.com/prueba/final/' + campana_id );
-			//$('#myIframe').attr( 'src','http://localhost:8000/' + url );
-			$('#myIframe').attr( 'src','http://localhost:8000/assets/images/welcome_kit/kb20170224081239.png');
-
+	    open: function(ev, ui){			
+	    	$('#myIframe').attr( 'src','http://google.com/');
+			//$('#img_preview_promotion').attr( 'src','http://localhost:8000/' + img_promotion);
 		}
 	});
-
-	$('#dialog_preview_wk').dialog('open');	
-	*/
+	$('#dialog_preview_promotion').dialog('open');	
 }
+
 
 // function eliminar(){
 // 	document.getElementById("eliminar").value = "Enviando...";

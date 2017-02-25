@@ -2,11 +2,15 @@
 
 namespace Beacon\Http\Controllers;
 
-use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Beacon\Location;
+
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Image as Img;
+
 use Beacon\Tag;
 use Beacon\Coupon;
 use Beacon\Timeframe;
@@ -20,8 +24,8 @@ use Beacon\MenuTranslation;
 use Beacon\Plate;
 use Beacon\PlateTranslation;
 use Beacon\TypesPlates;
-use Illuminate\Support\Facades\Input;
 use Beacon\User;
+use Beacon\Promotion;
 
 
 class MovilController extends Controller
@@ -360,5 +364,9 @@ class MovilController extends Controller
 						'language_id' => $language_id
 					]);
 	}
+
+
+
+
 
 }

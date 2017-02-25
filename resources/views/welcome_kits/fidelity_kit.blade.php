@@ -8,7 +8,7 @@
   <div class="principal">
 	<div class="titulo">
 	  <h3>
-		Kits de Bienvenida
+		Kits de Fidelidad
 	  </h3>
 	</div>
 	<div class="agregar">
@@ -38,15 +38,15 @@
 			</thead>
 
 			<tbody>
-			  @foreach($welcome_kits as $wk)
+			  @foreach($fidelity_kits as $wk)
 			  <tr id="id">
 				<td>{{ $wk->name }}</td>
 				<td>{{ $wk->description }}</td>
-				<td><a href="{{ route('edit_welcome_kit', $wk->promotion_id) }}"><i class="material-icons">edit</i></a></td>		
+				<td><a href="{{ route('edit_fidelity_kit', $wk->promotion_id) }}"><i class="material-icons">edit</i></a></td>		
 			  <?php
 
 				echo "<td onclick= \"modal_activate('".
-				   route( "destroy_welcome_kit",$wk->promotion_id ).
+				   route( "destroy_fidelity_kit",$wk->promotion_id ).
 				  "' , '#eliminarkitBienvenida')\" >";
 
 			  ?>
@@ -82,7 +82,7 @@
   </div>
 
   <div class="form">
-	<form class="form-horizontal form_send" role="form" method="POST" action="{{ route('store_welcome_kit') }}" enctype="multipart/form-data">
+	<form class="form-horizontal form_send" role="form" method="POST" action="{{ route('store_fidelity_kit') }}" enctype="multipart/form-data">
 	  {{ csrf_field() }}
 
 	  <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">

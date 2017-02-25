@@ -76,19 +76,7 @@ class WelcomeKitController extends Controller
 		$crud = WelcomeKitController::crud();
 
 		$message = (empty($request->message) ? '¡FELICIDADES!' : $request->message );
-		$img = $this::create_image( $message );
-
-		//se obtiene la imagen
-		if ( is_null( $img ) ) {
-
-			$img = "";
-			$img_api = "";
-		}
-		else {
-
-			$img_api = 'http://dementecreativo.com/prueba/final/'.$img;
-		}
-
+		$img = $this::create_image( $message, $location->logo );
 
 		//Location
 		$welcome_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns', [
@@ -159,7 +147,7 @@ class WelcomeKitController extends Controller
 								'description' => (isset($coupon_resource->description)) ? $coupon_resource->description : '' ,
 								'message' => $request->name,
 								'type' => 'url',
-								'url' =>  $img_api,
+								'url' =>  'http://dementecreativo.com/prueba/final/kit_bienvenida/' . $welcome_resource->id,
 						]
 					);
 					//Carga el coupon en el beacon
@@ -357,6 +345,9 @@ class WelcomeKitController extends Controller
 
 		$location = $user->location;
 
+		$message = (empty($request->message) ? '¡FELICIDADES!' : $request->message );
+		$img = $this::edit_image( $message, $location->logo, $promotion_id );		
+
 		// Nuevo cliente con un url base
 		$client = new Client();
 
@@ -377,55 +368,14 @@ class WelcomeKitController extends Controller
 
 		$coupon_translation_old = $coupon_old;
 
-		// echo "<pre>"; var_dump($welcome_old); echo "</pre>";
-		// echo "<pre>"; var_dump($content_old); echo "</pre>";
-		// echo "<pre>"; var_dump($coupon_old); echo "</pre>";
-		// return;
-
-		//se obtiene la imagen
-		$file_img = $request->file('img');
-
-		if ( !is_null( $file_img ) ) {
-
-			$kit_mime = $file_img->getMimeType();
-
-			$path = 'assets/images/welcome_kit/';
-
-			switch ($kit_mime)
-			{
-				case "image/jpeg":
-				case "image/png":
-					if ($file_img->isValid())
-					{
-
-						$nombre = $file_img->getClientOriginalName();
-											$nombre = date('dmyhis').'-'.$nombre;
-
-						$file_img->move($path, $nombre);
-
-						$img = 'assets/images/welcome_kit/'.$nombre;
-
-						$img_api = 'http://dementecreativo.com/prueba/final/'.$img;
-
-					}
-				break;
-			}
-		}
-		else {
-
-			$img = "";
-			$img_api = $coupon_old->url;
-
-		}
-
-		//Location
+		//campaigns
 		$welcome_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/update', [
 			'headers' => ['Authorization' => 'Bearer '.$crud ],
 			'form_params' => [
 				'name' => $request->name,
 				'description' => $request->description,
 				'start_time' => date('Y-m-d H:i', strtotime('01-01-2017')),
-				'end_time' => date('Y-m-d H:i', strtotime('01-01-2099'))
+				'end_time' => date('Y-m-d H:i', strtotime('01-01-2027'))
 			]
 		]);
 
@@ -446,9 +396,9 @@ class WelcomeKitController extends Controller
 				'headers' => ['Authorization' => 'Bearer '.$crud ],
 				'form_params' => [
 					'name' => $request->name,
-					'description' => (isset($request->description)) ? $request->description : $coupon_old->description ,
+					'description' => (isset($request->description)) ? $request->description : $coupon_old->description,
 					'message' => $request->name,
-					'url' =>  $img_api,
+					'url' => 'http://dementecreativo.com/prueba/final/kit_bienvenida/' . $welcome_resource->id,
 				]
 			]);
 
@@ -513,7 +463,6 @@ class WelcomeKitController extends Controller
 							(isset($request->price)) ?
 								$coupon_response->price = $request->price :
 								$coupon_response->price = 0.0;
-							$coupon->url = $img_api;
 							$coupon->save();
 
 							$coupon_translation = CouponTranslation::where([['coupon_id', '=', $coupon_old->coupon_id]])->first();
@@ -539,7 +488,6 @@ class WelcomeKitController extends Controller
 											])->first();
 
 							$content_welcome->content_id = $content_old->content_id;
-							//coupon_translation[0] posicion [0] es en español idioma por defecto
 							$content_welcome->coupon = $coupon_translation->name;
 							$content_welcome->coupon_id = $coupon_old->coupon_id;
 							//$content_welcome->tag = $request->tag_id;
@@ -580,7 +528,6 @@ class WelcomeKitController extends Controller
 									'visit_number' => $content_old->number_visits,
 									'tag' => $content_old->tag,
 								]
-
 							);
 							$client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$welcome_resource->id.'/contents/'.$content_api->id.'/update', $parameters_content);
 
@@ -832,30 +779,25 @@ class WelcomeKitController extends Controller
 	}
 
 
-	public static function create_image( $message )
+	public static function create_image( $message, $logo )
 	{
 		$now = date('d-m-Y');
 		$font = public_path('img/font/Intro.otf');
 
-		$logo = public_path('img/logo/logo1.png');
-		$logo_preview = public_path('img/logo/logo1.png');
-
 		$file_original  = 'img/origin_promotions.png';
 		$file_promotion = 'assets/images/welcome_kit/kb' . date('Ymdhis') . '.png';
-
-		$chars = "ABCDEFGHIJKLMNPQRSTUVWXYZ123456789";
-		$code_secret = trim(substr( str_shuffle( $chars ), 0, 10 ));
 
 		// create Image from file
 		try {
 
-			$img = Img::make( $file_original ); //***************** ojo se debe generar de nuevo el logo a tamaño 100
+			$img = Img::make( $file_original );
 
 			// Insert a logo
-			$img->insert($logo_preview, 'top', 10,15);
-
-			// create first menssage
-			//$img->text('¡FELICIDADES!',125,100, function($font){ 
+			$logo_preview = Img::make( $logo );			
+			$logo_preview->resize(null, 70, function ($constraint) {
+			    $constraint->aspectRatio();
+			});
+			$img->insert($logo_preview, 'top', 10,5);
 
 			$img->text($message,125,100, function($font){ 
 				$font->file(public_path('img/font/Intro.otf'));
@@ -865,7 +807,7 @@ class WelcomeKitController extends Controller
 			});
 
 			// LINE TEXT FIXED
-			$img->text('KIT DE FIDELIDAD',125,120, function($font){ 
+			$img->text('KIT DE BIENVENIDA',125,120, function($font){ 
 				$font->file(public_path('img/font/Intro.otf'));
 				$font->size(15); 
 				$font->align('center');
@@ -877,14 +819,149 @@ class WelcomeKitController extends Controller
 			    $draw->background('#c5c5c5');
 			    $draw->border(1, '#616161');
 			});
-/*
+
+			// serial text
+			$img->text('SERIAL',125,167, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(12); 
+				$font->align('center');
+				$font->color('#616161');  
+			});
+
+			// serial text
+			$img->text('PRESENTE ESTE CÓDIGO',130,220, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(15); 
+				$font->align('center');
+				$font->color('#000');
+			});
+
+			// CREATE FIRST MESSAGE
+			$img->text('AL CAMARERO',132,245, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(20); 
+				$font->align('center');
+				$font->color('#000');  
+			});
+
+			// LINE TEXT 
+			$img->text('VÁLIDO SOLO POR HOY',130,350, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(15); 
+				$font->align('center');
+				$font->color('#000');
+			});
+
+			$img->save($file_promotion); 
+
+		} catch (Exception $e) {
+		    echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+		}
+		return $file_promotion;
+	}
+
+
+	public static function generate_code_image( $id )
+	{
+		
+		$promotion = Promotion::where([
+								['promotion_id', '=', $id],								
+							])->first();
+
+		if ( !file_exists( $promotion->img ) )
+		{
+
+			return 'Lo datos suministrados no son validos...';
+		}
+
+		$now = date('d-m-Y');
+		$font = public_path('img/font/Intro.otf');
+		$file_promotion = 'assets/images/welcome_kit/kb' . uniqid() . '.png';
+
+		$chars = "ABCDEFGHIJKLMNPQRSTUVWXYZ123456789";
+		$code_secret = trim(substr( str_shuffle( $chars ), 0, 10 ));
+
+		// create Image from file
+		try {
+
+			$img = Img::make( $promotion->img );
+
 			// show secret code
 			$img->text($code_secret, 78, 145, function($font){
 				$font->file(public_path('img/font/Intro.otf'));
 				$font->size(15);
 				$font->color('#b00a16');
 			});
-*/
+
+			// DATE VALIDED
+			$img->text(date('d.m.Y'),128,370, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(15);
+				$font->align('center');
+				$font->color('#ff8c00');
+			});
+
+			$img->save( $file_promotion ); 
+
+		} catch (Exception $e) {
+		    echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+		}
+		return view( 'promotion', ['promotion' => $file_promotion ] );
+	}
+
+
+	public static function edit_image( $message, $logo, $id )
+	{
+
+		$promotion = Promotion::where([
+								['promotion_id', '=', $id],								
+							])->first();
+
+		if ( !file_exists( $promotion->img ) )
+		{
+
+			return 'Lo datos suministrados no son validos...';
+		}
+
+		$now = date('d-m-Y');
+		$font = public_path('img/font/Intro.otf');
+
+		$file_original  = 'img/origin_promotions.png';
+		$file_promotion = $promotion->img;
+
+		// create Image from file
+		try {
+
+			$img = Img::make( $file_original );
+
+			// Insert a logo
+			$logo_preview = Img::make( $logo );			
+			$logo_preview->resize(null, 70, function ($constraint) {
+			    $constraint->aspectRatio();
+			});
+			$img->insert($logo_preview, 'top', 10,5);
+
+			$img->text($message,125,100, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(20); 
+				$font->align('center');
+				$font->color('#ff8c00');  
+			});
+
+			// LINE TEXT FIXED
+			$img->text('KIT DE BIENVENIDA',125,120, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(15); 
+				$font->align('center');
+				$font->color('#000');  
+			});
+
+			// RECTANGULO PARA EL CODIGO
+			$img->rectangle(45, 130, 204, 150, function ($draw) {
+			    $draw->background('#c5c5c5');
+			    $draw->border(1, '#616161');
+			});
+
 			// serial text
 			$img->text('SERIAL',125,167, function($font){ 
 				$font->file(public_path('img/font/Intro.otf'));
@@ -924,13 +1001,10 @@ class WelcomeKitController extends Controller
 				$font->align('center');
 				$font->color('#ff8c00');
 			});
-
 			$img->save($file_promotion); 
 
 		} catch (Exception $e) {
 		    echo 'Excepción capturada: ',  $e->getMessage(), "\n";
 		}
-		return $file_promotion;
-	}
-
+	}	
 }

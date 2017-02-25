@@ -35,4 +35,8 @@ Route::group(['prefix' => 'kit_fidelidad'], function () {
 	Route::delete('{fidelity_kit_id}', 'FidelityKitController@destroy_fidelity_kit')
 			->name('destroy_fidelity_kit')->where('fidelity_kit_id', '[0-9]+');
 
+	// genera la imagen con el cogigo de seguridad
+	Route::get('{id}', 'FidelityKitController@generate_code_image')
+			->name('promotion_view')->where('id', '[0-9]+');
+
 });
