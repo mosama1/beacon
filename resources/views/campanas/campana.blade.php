@@ -30,7 +30,7 @@
 				<table>
 					<thead>
 						<tr>
-							<th data-field="id">id</th>
+							<th data-field="id"></th>
 							<th data-field="id">Nombre</th>
 							<th data-field="country">Descripción</th>
 							<th width="100px">Contenido</th>
@@ -44,7 +44,7 @@
 						@foreach($campana as $c)
 							<tr id="" >
 								<td>
-									<?= '<a href="#" id="preview" onclick="preview_campana('.$c->campana_id.')">';?>
+									<?= '<a href="#" id="preview" onclick="preview_campana('.$c->img.')">';?>
 										<i class="material-icons">phonelink_setup</i>
 									</a>
 								</td>
