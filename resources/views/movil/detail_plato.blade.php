@@ -83,9 +83,15 @@ $menu2 = '';
 			@endfor
 		@endif
 	  </div>
-	  <h4>
-	  	Precio del Madiraje ({{ $menu->plate->plate_translation[0]->price_madiraje }}€ )
-	  </h4>
+
+      <div class="titulo" style="padding-top: 10px">
+        <h3>
+            Precio del Madiraje
+        </h3>
+        <h4>
+          {{$menu->plate->plate_translation[0]->price_madiraje}} €
+        </h4>
+      </div>
 
 	</div>
 

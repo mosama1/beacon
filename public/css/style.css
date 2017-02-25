@@ -2504,6 +2504,10 @@ body.menu2 .menu_cliente{
 .mensaje__{
     color: #fff;
     font-size: 18px;
+    text-align: center;
+}
+.center{
+    text-align: center;
 }
 #vista_madiraje{
     position: relative;;
