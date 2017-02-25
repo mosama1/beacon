@@ -585,8 +585,8 @@ $('.datetimepicker').datetimepicker({
    ]
   }
  },
- timepicker:true,
- format:'d-m-Y h:m'
+ timepicker:false,
+ format:'d-m-Y'
 });
 
 
@@ -640,8 +640,7 @@ function preview_campana( campana_id )
 	    height: 700,
 	    width: 450,
 	    open: function(ev, ui){
-			$('#myIframe').attr( 'src','http://dementecreativo.com/prueba/final/' + campana_id );
-			//$('#myIframe').attr( 'src','http://localhost:8000/' + campana_id);
+			$('#myIframe').attr( 'src','http://dementecreativo.com/prueba/final/movil/campanas/' + campana_id );
 		}
 	});
 	$('#dialog_preview').dialog('open');	

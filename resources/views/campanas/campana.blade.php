@@ -44,7 +44,7 @@
 						@foreach($campana as $c)
 							<tr id="" >
 								<td>
-									<?= '<a href="#" id="preview" onclick="preview_campana('.$c->img.')">';?>
+									<?= '<a href="#" id="preview" onclick="preview_campana('.$c->campana_id.')">';?>
 										<i class="material-icons">phonelink_setup</i>
 									</a>
 								</td>
@@ -152,7 +152,7 @@
 	  <div class="input no_icon {{ $errors->has('start_time') ? 'error' : '' }}">
 		<input type="text" name="start_time" value="" required="" class="datetimepicker date_mask">
 		<label for="">
-		  <span class="text">Inicio (dd/mm/yy hh:mm)</span>
+		  <span class="text">Inicio (dd/mm/yy)</span>
 		</label>
 		<div class="help">
 		  <a href="#">
@@ -174,7 +174,7 @@
 	  <div class="input no_icon {{ $errors->has('end_time') ? 'error' : '' }}">
 		<input type="text" name="end_time" value="" required="" class="datetimepicker date_mask">
 		<label for="">
-		  <span class="text">Final (dd/mm/yy hh:mm)</span>
+		  <span class="text">Final (dd/mm/yy)</span>
 		</label>
 		<div class="help">
 		  <a href="#">
