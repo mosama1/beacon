@@ -8,7 +8,7 @@
   <div class="principal">
 	<div class="titulo">
 	  <h3>
-		Kits de Fidelidadss
+		Kits de Fidelidad
 	  </h3>
 	</div>
 	<div class="agregar">
