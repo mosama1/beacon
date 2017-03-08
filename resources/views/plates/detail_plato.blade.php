@@ -114,6 +114,18 @@ $nivel = '../../';
                     <div class="mensaje">
                         <p></p>
                     </div>
+                    @foreach( $madirajes as $madiraje )
+                        <div class="m_select" id="m_{{ $madiraje->id }}">
+                            <input type="hidden" name="madiraje_id[]" readonly value="{{ $madiraje->id }}">
+                            <span>{{ $madiraje->nombre }}</span>
+                            <span class="price">{{ $madiraje->precio }} €</span>
+                            <div class="icon">
+                                <a href="#" class="cerrar" onclick="madirajeSelectQuitar($(this)); return false;">
+                                    <i class="material-icons">clear</i>
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
 
                 </div>
                 <!-- <div class="ui-widget" style="margin-top:2em; font-family:Arial">

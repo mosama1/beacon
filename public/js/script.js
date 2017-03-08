@@ -744,7 +744,7 @@ $( "#madiraje" ).autocomplete({
       select += '<div class="m_select" id="m_'+ui.item.id+'">';
       select += '<input type="hidden" name="madiraje_id[]" readonly value="'+ui.item.id+'">';
       select += '<span>'+ui.item.value+'</span>';
-      select += '<span class="price">'+ui.item.precio+'</span>';
+      select += '<span class="price">'+ui.item.precio+'€</span>';
       select += '<div class="icon">';
       select +=       '<a href="#" class="cerrar" onclick="madirajeSelectQuitar($(this)); return false;">';
         select +=      '<i class="material-icons">clear</i>';
@@ -756,13 +756,13 @@ $( "#madiraje" ).autocomplete({
             if ($('#m_'+ui.item.id).length <= 0) {
                 $('.madiraje_select').append(select);
             }else {
-                $('.madiraje_select .mensaje p').html("Ya has seleccionado este madiraje");
+                $('.madiraje_select .mensaje p').html("Ya has seleccionado este Madiraje");
                 setTimeout(function(){
                     $('.madiraje_select .mensaje p').html("");
                 },3000);
             }
         }else {
-            $('.madiraje_select .mensaje p').html("Maximo 3 Madirajes");
+            $('.madiraje_select .mensaje p').html("Máximo 3 Madirajes");
             setTimeout(function(){
                 $('.madiraje_select .mensaje p').html("");
             },3000);
