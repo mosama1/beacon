@@ -111,34 +111,10 @@ $nivel = '../../';
 					</div>
 				@endif
                 <div class="madiraje_select">
-                    <div class="m_select">
-                        <input type="hidden" name="madiraje_id" readonly value="">
-                        <span>Malta Polar con Malta</span>
-                        <span class="price">$200000</span>
-                        <div class="icon">
-                            <a href="#" class="cerrar">
-                                <i class="material-icons">clear</i>
-                            </a>
-                        </div>
+                    <div class="mensaje">
+                        <p></p>
                     </div>
-                    <div class="m_select">
-                        <input type="hidden" name="madiraje_id" readonly value="">
-                        <span>Malta Polar con Malta</span>
-                        <div class="icon">
-                            <a href="#" class="cerrar">
-                                <i class="material-icons">clear</i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="m_select">
-                        <input type="hidden" name="madiraje_id" readonly value="">
-                        <span>Malta Polar con Malta</span>
-                        <div class="icon">
-                            <a href="#" class="cerrar">
-                                <i class="material-icons">clear</i>
-                            </a>
-                        </div>
-                    </div>
+
                 </div>
                 <!-- <div class="ui-widget" style="margin-top:2em; font-family:Arial">
                   Madiraje Seleccionado:

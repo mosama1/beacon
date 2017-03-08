@@ -537,7 +537,7 @@ $('#add_madiraje').submit(function(event){
 		if (respuesta === '0') {
 
 		  $('#add_madiraje')[0].submit();
-		  $('#add_madiraje').prop( "disabled", true );		
+		  $('#add_madiraje').prop( "disabled", true );
 		}else {
 
 		  Materialize.toast('El Madiraje ya se encuentra registrado', 5000, 'error');
@@ -678,7 +678,7 @@ $('.form_send').submit(function(){
 /********************************************************************/
 
 function preview_campana( campana_id )
-{	
+{
 	$("#dialog_preview").dialog({
 
 	    autoOpen: false,
@@ -689,7 +689,7 @@ function preview_campana( campana_id )
 			$('#myIframe').attr( 'src','http://dementecreativo.com/prueba/final/movil/campanas/' + campana_id );
 		}
 	});
-	$('#dialog_preview').dialog('open');	
+	$('#dialog_preview').dialog('open');
 }
 
 /**********************************************************************/
@@ -697,19 +697,19 @@ function preview_campana( campana_id )
 /**********************************************************************/
 
 function preview_promotion()
-{	
+{
 	$('#dialog_preview_promotion').dialog({
 
 	    autoOpen: false,
 	    modal: true,
 	    height: 700,
 	    width: 450,
-	    open: function(ev, ui){			
+	    open: function(ev, ui){
 	    	$('#myIframe').attr( 'src','http://google.com/');
 			//$('#img_preview_promotion').attr( 'src','http://localhost:8000/' + img_promotion);
 		}
 	});
-	$('#dialog_preview_promotion').dialog('open');	
+	$('#dialog_preview_promotion').dialog('open');
 }
 
 
@@ -717,11 +717,11 @@ function preview_promotion()
 /********************** Preview Promotion *****************************/
 /**********************************************************************/
 
-function log( message ) {
-	
-	$('<div>').text( message ).prependTo( "#log" );
-	$('#log').scrollTop( 0 );
-}
+// function log( message ) {
+//
+// 	$('<div>').text( message ).prependTo( "#log" );
+// 	$('#log').scrollTop( 0 );
+// }
 
 $( "#madiraje" ).autocomplete({
   source: function( request, response ) {
@@ -737,13 +737,52 @@ $( "#madiraje" ).autocomplete({
       }
     } );
   },
-  minLength: 3,
+  minLength: 1,
   select: function( event, ui ) {
 
-    log(ui.item.value);
+      var select = '';
+      select += '<div class="m_select" id="m_'+ui.item.id+'">';
+      select += '<input type="hidden" name="madiraje_id[]" readonly value="'+ui.item.id+'">';
+      select += '<span>'+ui.item.value+'</span>';
+      select += '<span class="price">'+ui.item.precio+'</span>';
+      select += '<div class="icon">';
+      select +=       '<a href="#" class="cerrar" onclick="madirajeSelectQuitar($(this)); return false;">';
+        select +=      '<i class="material-icons">clear</i>';
+        select +=       '</a>';
+        select +=   '</div>';
+        select +=  '</div>';
+
+        if ($('.madiraje_select .m_select').length < 3) {
+            if ($('#m_'+ui.item.id).length <= 0) {
+                $('.madiraje_select').append(select);
+            }else {
+                $('.madiraje_select .mensaje p').html("Ya has seleccionado este madiraje");
+                setTimeout(function(){
+                    $('.madiraje_select .mensaje p').html("");
+                },3000);
+            }
+        }else {
+            $('.madiraje_select .mensaje p').html("Maximo 3 Madirajes");
+            setTimeout(function(){
+                $('.madiraje_select .mensaje p').html("");
+            },3000);
+        }
+        setTimeout(function(){
+            $( "#madiraje" ).val("");
+        },20);
+
+
+
   }
 } );
-  
+function madirajeSelectQuitar($this) {
+    var select = $this.parent().parent();
+    select.fadeOut(300);
+    setTimeout(function(){
+        select.remove();
+    },300);
+}
+
 
 // function eliminar(){
 // 	document.getElementById("eliminar").value = "Enviando...";
