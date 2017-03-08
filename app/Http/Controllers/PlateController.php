@@ -58,10 +58,12 @@ class PlateController extends Controller
 		])
 		->orderBy('name')->get();
 
+		$madirajes = $menu->madirajes;
+
 		if ( empty($plate) | empty($plate->plate_translation) ):
 			return view('plates.add_plato',['section_id' => $menu->section_id, 'menu_id' => $menu_id, 'languages' => $languages]);
 		else:
-			return view('plates.detail_plato',['plate' => $plate , 'section_id' => $menu->section_id, 'menu_id' => $menu_id]);
+			return view('plates.detail_plato',['plate' => $plate , 'section_id' => $menu->section_id, 'menu_id' => $menu_id ]);
 		endif;
 
 	}
@@ -207,6 +209,7 @@ class PlateController extends Controller
 				$file_logo = $file_logo->move($storage_logo, $name_logo);
 				$plate->img = $storage_logo.'/'.$name_logo;
 			}
+/*
 			// se valida si esta seteada la variable de la imagen del madiraje
 			$file_madiraje = Input::file('img_madiraje');
 			if ( count( $file_madiraje ) > 3 ){
@@ -226,6 +229,7 @@ class PlateController extends Controller
 				$file_madiraje = $file_madiraje->move($storage_madiraje, $name_madiraje);
 				$plate->img_madiraje = $storage_madiraje.'/'.$name_madiraje;
 			}
+*/
 			$plate->save();
 
 			$tipo_platos = TypesPlates::where([
@@ -258,14 +262,14 @@ class PlateController extends Controller
 							['id', '=', $menu_id]
 						])->first();
 
+			// Se carga los madirajes al plato
+			//
+			$menu->madirajes()->attach( $request->madiraje_id );
+
 			return redirect()->route('all_menu',
 									[
 										'section_id' => $menu->section_id
 									])
 							->with(['status' => 'Se editó descripción de plato', 'type' => 'success', 'type_plates_names' => $tipo_platos]);
-
 		}
-
-
-
 }

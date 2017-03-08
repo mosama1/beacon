@@ -40,4 +40,11 @@ class Menu extends Model
 		return $this->belongsTo('Beacon\User', 'user_id', 'user_id');
 	}
 
+	public function madirajes()
+	{
+		return $this->belongsToMany('Beacon\Madiraje', 'menu_madirajes');
+	}
+
+
+
 }
