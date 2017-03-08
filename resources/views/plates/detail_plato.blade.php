@@ -104,16 +104,46 @@ $nivel = '../../';
 							</p>
 						</div>
 					</div>
-					<div class="ui-widget" style="margin-top:2em; font-family:Arial">
-					  Madiraje Seleccionado:
-					  <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
-					</div>
 				</div>
 				@if ($errors->has('madiraje'))
 					<div class="input_error">
 							<span>{{ $errors->first('madiraje') }}</span>
 					</div>
 				@endif
+                <div class="madiraje_select">
+                    <div class="m_select">
+                        <input type="hidden" name="madiraje_id" readonly value="">
+                        <span>Malta Polar con Malta</span>
+                        <span class="price">$200000</span>
+                        <div class="icon">
+                            <a href="#" class="cerrar">
+                                <i class="material-icons">clear</i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="m_select">
+                        <input type="hidden" name="madiraje_id" readonly value="">
+                        <span>Malta Polar con Malta</span>
+                        <div class="icon">
+                            <a href="#" class="cerrar">
+                                <i class="material-icons">clear</i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="m_select">
+                        <input type="hidden" name="madiraje_id" readonly value="">
+                        <span>Malta Polar con Malta</span>
+                        <div class="icon">
+                            <a href="#" class="cerrar">
+                                <i class="material-icons">clear</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="ui-widget" style="margin-top:2em; font-family:Arial">
+                  Madiraje Seleccionado:
+                  <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+                </div> -->
 				<!-- Div que muestra la busqueda de los registros mientras se tipea -->
 
 
