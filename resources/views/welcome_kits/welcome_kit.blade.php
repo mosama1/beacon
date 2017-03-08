@@ -39,7 +39,7 @@
 
 			<tbody>
 			  @foreach($welcome_kits as $wk)
-			  <tr id="id">
+			  <tr id="{{ $wk->promotion_id }}">
 				<td>{{ $wk->name }}</td>
 				<td>{{ $wk->description }}</td>
 				<td><a href="{{ route('edit_welcome_kit', $wk->promotion_id) }}"><i class="material-icons">edit</i></a></td>		

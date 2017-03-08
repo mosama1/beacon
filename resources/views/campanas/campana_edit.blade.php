@@ -66,9 +66,9 @@
           </div>
         @endif
         <div class="input no_icon {{ $errors->has('start_time') ? 'error' : '' }}">
-          <input type="text" name="start_time" value="{{date('d-m-Y H:i', strtotime($campana->start_time))}}" required="" class="datetimepicker">
+          <input type="text" name="start_time" value="{{date('d-m-Y', strtotime($campana->start_time))}}" required="" class="datetimepicker">
           <label for="">
-            <span class="text">Inicio (dd/mm/yy hh:mm)</span>
+            <span class="text">Inicio (dd/mm/yy)</span>
           </label>
           <div class="help">
             <a href="#">
@@ -88,9 +88,9 @@
         @endif
 
         <div class="input no_icon {{ $errors->has('end_time') ? 'error' : '' }}">
-          <input type="text" name="end_time" value="{{date('d-m-Y H:i', strtotime($campana->end_time))}}" required="" class="datetimepicker">
+          <input type="text" name="end_time" value="{{date('d-m-Y', strtotime($campana->end_time))}}" required="" class="datetimepicker">
           <label for="">
-            <span class="text">Final (dd/mm/yy hh:mm)</span>
+            <span class="text">Final (dd/mm/yy)</span>
           </label>
           <div class="help">
             <a href="#">

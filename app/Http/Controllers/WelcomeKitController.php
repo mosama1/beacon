@@ -164,8 +164,9 @@ class WelcomeKitController extends Controller
 						}
 						
 						DB::beginTransaction();
-						try {							
+						try {	
 
+							/*
 							$coupon = new Coupon();
 							$coupon->coupon_id = $coupon_resource->id;
 							$coupon->user_id = $user->user_id;
@@ -197,6 +198,7 @@ class WelcomeKitController extends Controller
 							$content_welcome->campana_id = $welcome_resource->id;
 							$content_welcome->trigger_name = $content_api->trigger_name;
 							$content_welcome->save();
+							*/
 							
 							$welcome_kit = new Promotion();
 							$welcome_kit->promotion_id = $welcome_resource->id;
@@ -670,27 +672,19 @@ class WelcomeKitController extends Controller
 	 */
 	public function destroy_welcome_kit($promotion_id)
 	{
+
 		// Nuevo cliente con un url base
 		$client = new Client();
 
 		//Token Crud
 		$crud = WelcomeKitController::crud();
 
-		$content =  Content::where([
-								['user_id', '=', Auth::user()->user_id],
-								['campana_id', '=', $promotion_id]
-							])->first();
-
-		$coupon = $content->coupons;
-
 		$welcome_kit =  Promotion::where([
-								['user_id', '=', Auth::user()->user_id ],
 								['promotion_id', '=', $promotion_id],
-								['type', '=', 1]
-							])->first();
+							])->delete();
 
 		//Timeframe delete
-		$coupon_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons/'.$coupon->coupon_id.'/delete', [
+		/*$coupon_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons/'.$coupon->coupon_id.'/delete', [
 				// un array con la data de los headers como tipo de peticion, etc.
 				'headers' => ['Authorization' => 'Bearer '.$crud ],
 		]);
@@ -698,9 +692,11 @@ class WelcomeKitController extends Controller
 		//Json parse
 		$json_coupon = $coupon_api->getBody();
 
-		$coupon_response = json_decode($json_coupon);
+		$coupon_response = json_decode($json_coupon);*/
+		$coupon_response = 200;
 
-		if ($coupon_response->status_code === 200) {			
+		//if ($coupon_response->status_code === 200) {			
+		if ($coupon_response === 200) {			
 
 			$welcome_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/delete', [
 						// un array con la data de los headers como tipo de peticion, etc.
@@ -713,43 +709,12 @@ class WelcomeKitController extends Controller
 			$welcome_response = json_decode($json_welcome);
 			if ($welcome_response->status_code === 200 ) {
 						
-				DB::beginTransaction();
-
-				try {
-
-					$content->delete();
-
-					foreach ($coupon->coupon_translation as $key => $value) {
-					 	$value->delete();
-					}
-
-					$coupon->delete();
-					$welcome_kit->delete();
-
-				} catch(ValidationException $e)
-				{
-					// Rollback and then redirect
-					DB::rollback();
-
-					return redirect()->route('all_welcome_kit')->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
-
-				} catch(\Exception $e)
-				{
-					DB::rollback();
-
-					return redirect()->route('all_welcome_kit')
-									->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
-				}
-
-				DB::commit();
-
 				return redirect()->route('all_welcome_kit')
 										->with(['status' => 'Se ha Eliminado el kit de fidelidad con éxito', 'type' => 'success']);
 			} else {
 
 				return redirect()->route('all_welcome_kit')
-							->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
-					
+							->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);				
 			}
 				
 		} else {

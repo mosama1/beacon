@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Beacon\Promotion;
 use Beacon\Content;
-use Beacon\Coupon;
-use Beacon\CouponTranslation;
+
 use Beacon\Tag;
 use Beacon\Timeframe;
 use Beacon\User;
@@ -166,7 +165,7 @@ class FidelityKitController extends Controller
 						DB::beginTransaction();
 						try {							
 
-							$coupon = new Coupon();
+						/*	$coupon = new Coupon();
 							$coupon->coupon_id = $coupon_resource->id;
 							$coupon->user_id = $user->user_id;
 							$coupon->type = $coupon_resource->type;
@@ -196,7 +195,7 @@ class FidelityKitController extends Controller
 							$content_fidelity->tag = $tag_id;
 							$content_fidelity->campana_id = $fidelity_resource->id;
 							$content_fidelity->trigger_name = $content_api->trigger_name;
-							$content_fidelity->save();
+							$content_fidelity->save();*/
 							
 							$fidelity_kit = new Promotion();
 							$fidelity_kit->promotion_id = $fidelity_resource->id;
@@ -668,7 +667,7 @@ class FidelityKitController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy_fidelity_kit($promotion_id)
+	public function destroy_fidelity_kit( $promotion_id )
 	{
 		// Nuevo cliente con un url base
 		$client = new Client();
@@ -676,36 +675,30 @@ class FidelityKitController extends Controller
 		//Token Crud
 		$crud = FidelityKitController::crud();
 
-		$content =  Content::where([
-								['user_id', '=', Auth::user()->user_id],
-								['campana_id', '=', $promotion_id]
-							])->first();
-
-		$coupon = $content->coupons;
 
 		$fidelity_kit =  Promotion::where([
 								['user_id', '=', Auth::user()->user_id ],
 								['promotion_id', '=', $promotion_id],
-								['type', '=', 1]
-							])->first();
+							])->delete();
 
 		//Timeframe delete
-		$coupon_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons/'.$coupon->coupon_id.'/delete', [
+		/*$coupon_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons/'.$coupon->coupon_id.'/delete', [
 				// un array con la data de los headers como tipo de peticion, etc.
 				'headers' => ['Authorization' => 'Bearer '.$crud ],
 		]);
 
 		//Json parse
-		$json_coupon = $coupon_api->getBody();
+		$json_coupon = $coupon_api->getBody();*/
 
-		$coupon_response = json_decode($json_coupon);
+		$coupon_response = 200;
 
-		if ($coupon_response->status_code === 200) {			
+		//if ($coupon_response->status_code === 200) {		
+		if ($coupon_response === 200) {		
 
 			$fidelity_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/delete', [
-						// un array con la data de los headers como tipo de peticion, etc.
-						'headers' => ['Authorization' => 'Bearer '.$crud ]
-				]);
+				// un array con la data de los headers como tipo de peticion, etc.
+				'headers' => ['Authorization' => 'Bearer '.$crud ]
+			]);
 
 			//Json parse
 			$json_fidelity = $fidelity_api->getBody();
@@ -713,36 +706,6 @@ class FidelityKitController extends Controller
 			$fidelity_response = json_decode($json_fidelity);
 			if ($fidelity_response->status_code === 200 ) {
 						
-				DB::beginTransaction();
-
-				try {
-
-					$content->delete();
-
-					foreach ($coupon->coupon_translation as $key => $value) {
-					 	$value->delete();
-					}
-
-					$coupon->delete();
-					$fidelity_kit->delete();
-
-				} catch(ValidationException $e)
-				{
-					// Rollback and then redirect
-					DB::rollback();
-
-					return redirect()->route('all_fidelity_kit')->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
-
-				} catch(\Exception $e)
-				{
-					DB::rollback();
-
-					return redirect()->route('all_fidelity_kit')
-									->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
-				}
-
-				DB::commit();
-
 				return redirect()->route('all_fidelity_kit')
 										->with(['status' => 'Se ha Eliminado el kit de fidelidad con éxito', 'type' => 'success']);
 			} else {

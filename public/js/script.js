@@ -51,8 +51,8 @@ $('.authenticate .divide .divide_cont.new_user .new_user_head .icon a').click(fu
 });
 
 function modal_activate(ruta, div) {
-  $(div+' form').attr('action', ruta );
 
+	$(div+' form').attr('action', ruta );
 }
 
 function vistaKit_B(evt) {
@@ -102,6 +102,30 @@ function vistaKit_F(evt) {
 	}
 }
 $('#addKit_f').change(vistaKit_F);
+
+
+function vistaPhoto(evt) {
+	var files = evt.target.files; // FileList object
+	// Obtenemos la imagen del campo "file".
+	for (var i = 0, f; f = files[i];i++) {
+	  //Solo admitimos imágenes.
+	  if (!f.type.match('image.*')) {
+		  continue;
+	  }
+	  var reader = new FileReader();
+	  reader.onload = (function(theFile) {
+		return function(e) {
+		  // Insertamos la imagen
+		  $('#vista_photo').html([' <img class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '"/> '].join(''));
+		};
+	  })(f);
+	  reader.readAsDataURL(f);
+	  setTimeout(function(){
+		tamanoImgVista('#vista_photo');
+	  },500);
+	}
+}
+$('#addPhoto').change(vistaPhoto);
 
 
 function vistaLogo(evt) {
@@ -195,7 +219,7 @@ function vistamadiraje(evt) {
 	  var reader = new FileReader();
 	  reader.onload = (function(theFile) {
 		return function(e) {
-		  $('#vista_madiraje').append(['<div class="img_maridaje"> <img class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '" /> </div> '].join(''));
+		  $('#vista_madiraje').append(['<div class="img_madiraje"> <img class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '" /> </div> '].join(''));
 		};
 	  })(f);
 		reader.readAsDataURL(f);
@@ -499,8 +523,30 @@ $('#add_beacon').submit(function(event){
 		}
 	  }
   });
-
 });
+
+/* Validacion si el madiraje esta registrado */
+$('#add_madiraje').submit(function(event){
+  event.preventDefault();
+  $.ajax({
+	  type: "POST",
+	  url: 'madirajes/check',
+	  data: $('#add_madiraje').serialize(),
+	  success: function(respuesta) {
+	  	console.log( 'respuesta: ' + respuesta );
+		if (respuesta === '0') {
+
+		  $('#add_madiraje')[0].submit();
+		  $('#add_madiraje').prop( "disabled", true );		
+		}else {
+
+		  Materialize.toast('El Madiraje ya se encuentra registrado', 5000, 'error');
+		}
+	  }
+  });
+});
+
+
 
 
 $('#change_password').submit(function(evt){
@@ -586,13 +632,13 @@ $('.datetimepicker').datetimepicker({
   }
  },
  timepicker:true,
- format:'d-m-Y h:m'
+ format:'d-m-Y h:i'
 });
 
 
 $('.timepicker').datetimepicker({
-  datepicker:false,
-  format:'H:i'
+  datepicker:true,
+  format:'h:i'
 });
 
 
@@ -640,8 +686,7 @@ function preview_campana( campana_id )
 	    height: 700,
 	    width: 450,
 	    open: function(ev, ui){
-			$('#myIframe').attr( 'src','http://dementecreativo.com/prueba/final/' + campana_id );
-			//$('#myIframe').attr( 'src','http://localhost:8000/' + campana_id);
+			$('#myIframe').attr( 'src','http://dementecreativo.com/prueba/final/movil/campanas/' + campana_id );
 		}
 	});
 	$('#dialog_preview').dialog('open');	
@@ -667,6 +712,38 @@ function preview_promotion()
 	$('#dialog_preview_promotion').dialog('open');	
 }
 
+
+/**********************************************************************/
+/********************** Preview Promotion *****************************/
+/**********************************************************************/
+
+function log( message ) {
+	
+	$('<div>').text( message ).prependTo( "#log" );
+	$('#log').scrollTop( 0 );
+}
+
+$( "#madiraje" ).autocomplete({
+  source: function( request, response ) {
+    $.ajax( {
+      url: "madirajes/search",
+      dataType: "json",
+      data: {
+        term: request.term
+      },
+      success: function( data ) {
+
+        response( data );
+      }
+    } );
+  },
+  minLength: 3,
+  select: function( event, ui ) {
+
+    log(ui.item.value);
+  }
+} );
+  
 
 // function eliminar(){
 // 	document.getElementById("eliminar").value = "Enviando...";

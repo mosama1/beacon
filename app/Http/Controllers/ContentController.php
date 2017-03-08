@@ -263,6 +263,7 @@ class ContentController extends Controller
 			}
 
 			//Carga el coupon en el beacon
+			$url = 'http://dementecreativo.com/prueba/final/movil/campanas/'.$campana_id;
 			$coupon_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons/'.$request->coupon_id.'/update', [
 					// un array con la data de los headers como tipo de peticion, etc.
 					'headers' => ['Authorization' => 'Bearer '.$crud ],
@@ -272,7 +273,7 @@ class ContentController extends Controller
 							'description' => $coupon->description,
 							'message' => $request->name,
 							'type' => 'url',
-							'url' =>  'http://dementecreativo.com/prueba/final/movil/campanas/'.$campana_id,
+							'url' =>  $url,
 					]
 			]);
 
@@ -297,6 +298,10 @@ class ContentController extends Controller
 			}
 
 			if ( $campana_process && $coupon_process ) {
+
+				$campana->img = $url;
+				$campana->save();
+
 				
 				return redirect()->route('all_content', array('campana_id' => $campana_id ) )->with(['status' => 'Se ha creado el contenido exitosamente', 'type' => 'success']);
 			} else {

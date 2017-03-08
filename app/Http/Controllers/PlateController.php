@@ -25,29 +25,6 @@ use Beacon\CouponTranslation;
 
 class PlateController extends Controller
 {
-	/**
-	 * @return token crud
-	 */
-	public function crud()
-	{
-		// Nuevo cliente con un url base
-		$client = new Client();
-
-		//Token Crud
-		$response_crud = $client->request('POST', 'https://connect.onyxbeacon.com/oauth/client', [
-				'form_params' => [
-						'client_id' => 'af1cd006576dc09b7cf7660d4e010fbf434ad4bf',
-						'client_secret' => '335c77e0ff4a4d36b97e8464ef880cdef30fb795',
-						'scope' => 'crud'
-				]
-		]);
-
-		$json_c = $response_crud->getBody();
-
-		$token_crud = json_decode($json_c);
-
-		return $token_crud->access_token;
-	}
 
 	/**
 	 * Display a listing of the resource.
