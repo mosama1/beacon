@@ -63,7 +63,7 @@ class PlateController extends Controller
 		if ( empty($plate) | empty($plate->plate_translation) ):
 			return view('plates.add_plato',['section_id' => $menu->section_id, 'menu_id' => $menu_id, 'languages' => $languages]);
 		else:
-			return view('plates.detail_plato',['plate' => $plate , 'section_id' => $menu->section_id, 'menu_id' => $menu_id ]);
+			return view('plates.detail_plato',['plate' => $plate , 'section_id' => $menu->section_id, 'menu_id' => $menu_id, 'madirajes' => $madirajes  ]);
 		endif;
 
 	}
