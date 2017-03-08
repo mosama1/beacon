@@ -199,7 +199,10 @@ class MadirajeController extends Controller
 		foreach ($queries as $query)
 		{
 			$results[] = [
-				'value' => $query->nombre
+				'value' => $query->nombre,
+				'id' => $query->id,
+				'precio' => $query->precio,
+
 			];
 		}
 		
