@@ -57,13 +57,12 @@ class PlateController extends Controller
 			['languages.id', '!=', 1],
 		])
 		->orderBy('name')->get();
-
-		$madirajes = $menu->madirajes;
+		// dd();
 
 		if ( empty($plate) | empty($plate->plate_translation) ):
 			return view('plates.add_plato',['section_id' => $menu->section_id, 'menu_id' => $menu_id, 'languages' => $languages]);
 		else:
-			return view('plates.detail_plato',['plate' => $plate , 'section_id' => $menu->section_id, 'menu_id' => $menu_id ]);
+			return view('plates.detail_plato',['plate' => $plate , 'section_id' => $menu->section_id, 'menu_id' => $menu_id]);
 		endif;
 
 	}
@@ -82,7 +81,7 @@ class PlateController extends Controller
 		$menu = Menu::where([
 						['user_id', '=', $user->user_id],
 						['id', '=', $menu_id ]
-					])->first();		
+					])->first();
 
 		$coupon = Menu::where( 'id', '=', $request->menu_id )->first();
 
@@ -105,16 +104,16 @@ class PlateController extends Controller
 			// Muevo el docuemnto a la ruta
 			$file_logo = $file_logo->move($storage_logo, $name_logo);
 			$plate->img = $storage_logo.'/'.$name_logo;
-		}		
+		}
 		$plate->save();
 
 		// se valida si esta seteada la variable de la imagen del madiraje
-		// y lo guardo en la tabla de madiraje_photo		
+		// y lo guardo en la tabla de madiraje_photo
 		$file_madiraje = Input::file('img_madiraje');
 		if ( !empty( $file_madiraje ) ) {
 
 			if ( count( $file_madiraje ) > 3 ){ //si excede el maximo de fotos lo retorno
-			
+
 				return redirect()->route('all_menu')
 					->with(['status' => 'Ha superado el máximo de fotos permitido (3 fotos máximo)', 'type' => 'error']);
 			}
@@ -209,11 +208,10 @@ class PlateController extends Controller
 				$file_logo = $file_logo->move($storage_logo, $name_logo);
 				$plate->img = $storage_logo.'/'.$name_logo;
 			}
-/*
 			// se valida si esta seteada la variable de la imagen del madiraje
 			$file_madiraje = Input::file('img_madiraje');
 			if ( count( $file_madiraje ) > 3 ){
-			
+
 				return redirect()->route('all_menu')
 					->with(['status' => 'Ha superado el máximo de fotos permitido (3 fotos máximo)', 'type' => 'error']);
 			}
@@ -229,7 +227,6 @@ class PlateController extends Controller
 				$file_madiraje = $file_madiraje->move($storage_madiraje, $name_madiraje);
 				$plate->img_madiraje = $storage_madiraje.'/'.$name_madiraje;
 			}
-*/
 			$plate->save();
 
 			$tipo_platos = TypesPlates::where([
@@ -255,21 +252,21 @@ class PlateController extends Controller
 				$plate_translation->price_madiraje  = $request->price_madiraje;
 				$plate_translation->save();
 				// echo $plate_translation;
-			}			
+			}
 
 			$menu = Menu::where([
 							['user_id', '=', Auth::user()->user_id],
 							['id', '=', $menu_id]
 						])->first();
 
-			// Se carga los madirajes al plato
-			//
-			$menu->madirajes()->attach( $request->madiraje_id );
-
 			return redirect()->route('all_menu',
 									[
 										'section_id' => $menu->section_id
 									])
 							->with(['status' => 'Se editó descripción de plato', 'type' => 'success', 'type_plates_names' => $tipo_platos]);
+
 		}
+
+
+
 }
