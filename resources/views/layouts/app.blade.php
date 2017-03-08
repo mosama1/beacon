@@ -39,6 +39,7 @@ $actual = (isset($actual)) ? $actual : '';
   {{--<link href="css/app.css" rel="stylesheet">--}}
   <link rel="shortcut icon" type="image/png" href="img/icons/ingrementa_clientes.png"/>
   <link href="css/jquery.filer.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/jquery-ui.min.css">
 
   <!-- Scripts -->
   <script>
@@ -239,6 +240,7 @@ $actual = (isset($actual)) ? $actual : '';
 	<!--  Scripts-->
 	<!-- <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
 	<script src="js/jquery.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
 	<script src="js/materialize.js"></script>
 	<script src="js/init.js"></script>
 	<script src="js/datetimepicker.min.js"></script>
@@ -246,6 +248,11 @@ $actual = (isset($actual)) ? $actual : '';
 	<script src="js/config.js"></script>
     <script src="js/intro.min.js"></script>
     <script src="js/script.js"></script>
+
+
+
+	
+
     <script type="text/javascript">
         function startTour() {
             var tour = introJs()

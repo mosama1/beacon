@@ -69,12 +69,12 @@ $actual = 'home';
 				</a>
 				<ul>
 					<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
-						<a href="{{ ( $ultimo_paso == 2 ) ? route('all_welcome_kit') : '' }}">
+						<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_welcome_kit') : '' }}">
 							<span>Kit de <br>Bienvenida</span>
 						</a>
 					</li>
 					<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
-						<a href="{{ ( $ultimo_paso == 2 ) ? route('all_fidelity_kit') : '' }}">
+						<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_fidelity_kit') : '' }}">
 							<span>Kit de <br>Fidelidad</span>
 						</a>
 					</li>

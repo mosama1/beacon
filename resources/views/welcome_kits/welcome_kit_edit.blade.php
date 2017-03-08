@@ -70,7 +70,7 @@
          <div class="input no_icon {{ $errors->has('num_visit') ? 'error' : '' }}">
            <input type="text" name="number_visits" value="{{$welcome_kit->number_visits}}" required="" class="num_mask">
            <label for="">
-             <span class="text">Numero de Visitas</span>
+             <span class="text">Número de Visitas</span>
            </label>
            <div class="help">
              <a href="#">
@@ -89,6 +89,30 @@
            </div>
          @endif
 
+          <!-- Mensaje de la promoción -->
+          <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
+          <input type="text" name="message" value="{{$welcome_kit->message}}">
+          <label for="">
+            <span class="text">Mensaje Promoción</span>
+          </label>
+          <div class="help">
+            <a href="#">
+            <i class="material-icons">help_outline</i>
+            </a>
+            <div class="inf none hidden">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            </p>
+            </div>
+          </div>
+          </div>
+          @if ($errors->has('name'))
+          <div class="input_error">
+            <span>{{ $errors->first('name') }}</span>
+          </div>
+          @endif         
+
+          <!--
          <div class="divide_cont files">
            <div class="file-field input-field input_file {{ $errors->has('img') ? 'has-error' : '' }}">
              <div class="btn">
@@ -117,18 +141,13 @@
            @endif
            <div class="vista_previa">
              <center  id="vista_previa">
-               <!-- <a href="#" class="vistaPreviaImg"> -->
                  <div class="img active" id="vista_kit_b">
                    <img src="{{ $welcome_kit->img }}" alt="">
                  </div>
-               <!-- </a> -->
-
              </center>
            </div>
          </div>
-
-
-
+         -->
 
          <div class="button">
            <center>

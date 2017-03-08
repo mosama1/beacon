@@ -36,4 +36,6 @@ Route::group(['prefix' => 'movil/campanas/{campana_id}'], function(){
 
 	Route::get('/{language_id}', 'MovilController@index_language')
 			->name('inicio_language')->where('id', '[0-9]+')->where('language_id', '[0-9]+');
+
+
 });

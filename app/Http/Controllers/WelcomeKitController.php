@@ -14,7 +14,7 @@ use Beacon\Tag;
 use Beacon\Timeframe;
 use Beacon\User;
 use Illuminate\Support\Facades\Input;
-use Log;
+use Image as Img;
 
 class WelcomeKitController extends Controller
 {
@@ -39,34 +39,7 @@ class WelcomeKitController extends Controller
 
 		$token_crud = json_decode($json_c);
 
-		Log::info('This is some useful information.');
-
 		return $token_crud->access_token;
-	}
-
-
-	/**
-	 * @return token analytics
-	 */
-	public function analytics()
-	{
-		// Nuevo cliente con un url base
-		$client = new Client();
-
-		//Token analytics
-		$response_analytics = $client->request('POST', 'https://connect.onyxbeacon.com/oauth/client', [
-				'form_params' => [
-						'client_id' => '89b88a5f9eaec9ab9b059a56c51e37413be4e043',
-						'client_secret' => '7e58c94dafd3751f90b0e4b4de871be7e8b7ae44',
-						'scope' => 'analytics'
-				]
-		]);
-
-		$json_a = $response_analytics->getBody();
-
-		$token_analytics = json_decode($json_a);
-
-		return $token_analytics->access_token;
 	}
 
 	//************************************* Campaña **************************************************//
@@ -96,36 +69,15 @@ class WelcomeKitController extends Controller
 	 */
 	public function store_welcome_kit(Request $request)
 	{
-		// echo "<pre>"; var_dump($request); echo "</pre>";
-		// return;
+
 		$user = User::where( 'id', '=', Auth::user()->id )->first();
 		$location = $user->location;
 		$client = new Client();
 		$crud = WelcomeKitController::crud();
-		//se obtiene la imagen
-		$file_img = $request->file('img');
-		if ( !is_null( $file_img ) ) {
-			$kit_mime = $file_img->getMimeType();
-			$path = 'assets/images/welcome_kit/';
-			switch ($kit_mime)
-			{
-				case "image/jpeg":
-				case "image/png":
-					if ($file_img->isValid())
-					{
-						$nombre = $file_img->getClientOriginalName();
-											$nombre = date('dmyhis').'-'.$nombre;
-						$file_img->move($path, $nombre);
-						$img = 'assets/images/welcome_kit/'.$nombre;
-						$img_api = 'http://dementecreativo.com/prueba/final/'.$img;
-					}
-				break;
-			}
-		}
-		else {
-			$img = "";
-			$img_api = "";
-		}
+
+		$message = (empty($request->message) ? '¡FELICIDADES!' : $request->message );
+		$img = $this::create_image( $message, $location->logo );
+
 		//Location
 		$welcome_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns', [
 			'headers' => ['Authorization' => 'Bearer '.$crud ],
@@ -133,7 +85,7 @@ class WelcomeKitController extends Controller
 					'name' => $request->name,
 					'description' => $request->description,
 					'start_time' => date('Y-m-d H:i', strtotime('01-01-2017')),
-					'end_time' => date('Y-m-d H:i', strtotime('01-01-2099')),
+					'end_time' => date('Y-m-d H:i', strtotime('01-01-2027')),
 					'locations' => $location->location_id,
 					'enabled' => 1,
 			]
@@ -195,7 +147,7 @@ class WelcomeKitController extends Controller
 								'description' => (isset($coupon_resource->description)) ? $coupon_resource->description : '' ,
 								'message' => $request->name,
 								'type' => 'url',
-								'url' =>  $img_api,
+								'url' =>  'http://dementecreativo.com/prueba/final/kit_bienvenida/' . $welcome_resource->id,
 						]
 					);
 					//Carga el coupon en el beacon
@@ -212,7 +164,8 @@ class WelcomeKitController extends Controller
 						}
 						
 						DB::beginTransaction();
-						try {
+						try {							
+
 							$coupon = new Coupon();
 							$coupon->coupon_id = $coupon_resource->id;
 							$coupon->user_id = $user->user_id;
@@ -249,19 +202,28 @@ class WelcomeKitController extends Controller
 							$welcome_kit->promotion_id = $welcome_resource->id;
 							$welcome_kit->user_id = $user->user_id;
 							$welcome_kit->name = $welcome_resource->name;
+
 							(isset($welcome_resource->description)) ?
 								$welcome_kit->description = $welcome_resource->description :
 								$welcome_kit->description = "";
+
 							(isset($welcome_response->type)) ?
 								$welcome_kit->type = $request->type :
 								$welcome_kit->type = 1;
+
+							(!empty($request->message)) ?
+								$welcome_kit->message = $request->message :
+								$welcome_kit->message = "¡FELICIDADES!";
+
 							$welcome_kit->number_visits = $request->number_visits;
+
 							$welcome_kit->img = $img;
 							$welcome_kit->start_time = $welcome_resource->start_time;
 							$welcome_kit->end_time = $welcome_resource->end_time;
 							$welcome_kit->location_id = $location->location_id;
 							$welcome_kit->status = $welcome_resource->enabled;
 							$welcome_kit->save();
+
 						} catch(ValidationException $e)
 						{
 							// Rollback and then redirect
@@ -383,6 +345,9 @@ class WelcomeKitController extends Controller
 
 		$location = $user->location;
 
+		$message = (empty($request->message) ? '¡FELICIDADES!' : $request->message );
+		$img = $this::edit_image( $message, $location->logo, $promotion_id );		
+
 		// Nuevo cliente con un url base
 		$client = new Client();
 
@@ -403,55 +368,14 @@ class WelcomeKitController extends Controller
 
 		$coupon_translation_old = $coupon_old;
 
-		// echo "<pre>"; var_dump($welcome_old); echo "</pre>";
-		// echo "<pre>"; var_dump($content_old); echo "</pre>";
-		// echo "<pre>"; var_dump($coupon_old); echo "</pre>";
-		// return;
-
-		//se obtiene la imagen
-		$file_img = $request->file('img');
-
-		if ( !is_null( $file_img ) ) {
-
-			$kit_mime = $file_img->getMimeType();
-
-			$path = 'assets/images/welcome_kit/';
-
-			switch ($kit_mime)
-			{
-				case "image/jpeg":
-				case "image/png":
-					if ($file_img->isValid())
-					{
-
-						$nombre = $file_img->getClientOriginalName();
-											$nombre = date('dmyhis').'-'.$nombre;
-
-						$file_img->move($path, $nombre);
-
-						$img = 'assets/images/welcome_kit/'.$nombre;
-
-						$img_api = 'http://dementecreativo.com/prueba/final/'.$img;
-
-					}
-				break;
-			}
-		}
-		else {
-
-			$img = "";
-			$img_api = $coupon_old->url;
-
-		}
-
-		//Location
+		//campaigns
 		$welcome_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/update', [
 			'headers' => ['Authorization' => 'Bearer '.$crud ],
 			'form_params' => [
 				'name' => $request->name,
 				'description' => $request->description,
 				'start_time' => date('Y-m-d H:i', strtotime('01-01-2017')),
-				'end_time' => date('Y-m-d H:i', strtotime('01-01-2099'))
+				'end_time' => date('Y-m-d H:i', strtotime('01-01-2027'))
 			]
 		]);
 
@@ -472,9 +396,9 @@ class WelcomeKitController extends Controller
 				'headers' => ['Authorization' => 'Bearer '.$crud ],
 				'form_params' => [
 					'name' => $request->name,
-					'description' => (isset($request->description)) ? $request->description : $coupon_old->description ,
+					'description' => (isset($request->description)) ? $request->description : $coupon_old->description,
 					'message' => $request->name,
-					'url' =>  $img_api,
+					'url' => 'http://dementecreativo.com/prueba/final/kit_bienvenida/' . $welcome_resource->id,
 				]
 			]);
 
@@ -535,13 +459,10 @@ class WelcomeKitController extends Controller
 
 						try {
 
-							$coupon = Coupon::where([['coupon_id', '=', $coupon_old->coupon_id]])->first();	
-
-
+							$coupon = Coupon::where([['coupon_id', '=', $coupon_old->coupon_id]])->first();
 							(isset($request->price)) ?
 								$coupon_response->price = $request->price :
 								$coupon_response->price = 0.0;
-							$coupon->url = $img_api;
 							$coupon->save();
 
 							$coupon_translation = CouponTranslation::where([['coupon_id', '=', $coupon_old->coupon_id]])->first();
@@ -566,12 +487,10 @@ class WelcomeKitController extends Controller
 												['content_id', '=', $content_old->content_id ]
 											])->first();
 
-
 							$content_welcome->content_id = $content_old->content_id;
-							//coupon_translation[0] posicion [0] es en español idioma por defecto
 							$content_welcome->coupon = $coupon_translation->name;
 							$content_welcome->coupon_id = $coupon_old->coupon_id;
-							//    $content_welcome->tag = $request->tag_id;
+							//$content_welcome->tag = $request->tag_id;
 							$content_welcome->tag = $tag_id;
 							$content_welcome->campana_id = $promotion_id;
 							$content_welcome->trigger_name = 'ENTRY';
@@ -584,6 +503,10 @@ class WelcomeKitController extends Controller
 							$welcome_kit->description = (isset($request->description)) ?
 									$request->description :
 									$welcome_old->description;
+
+							$welcome_kit->message = (isset($request->message)) ?
+									$request->message :
+									'¡FELICIDADES!';
 
 							$welcome_kit->save();
 
@@ -605,7 +528,6 @@ class WelcomeKitController extends Controller
 									'visit_number' => $content_old->number_visits,
 									'tag' => $content_old->tag,
 								]
-
 							);
 							$client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$welcome_resource->id.'/contents/'.$content_api->id.'/update', $parameters_content);
 
@@ -767,102 +689,74 @@ class WelcomeKitController extends Controller
 								['type', '=', 1]
 							])->first();
 
-		// $content_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/content/'.$content->content_id.'/delete', [
-		// 		// un array con la data de los headers como tipo de peticion, etc.
-		// 		'headers' => ['Authorization' => 'Bearer '.$crud ]
-		// ]);
+		//Timeframe delete
+		$coupon_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons/'.$coupon->coupon_id.'/delete', [
+				// un array con la data de los headers como tipo de peticion, etc.
+				'headers' => ['Authorization' => 'Bearer '.$crud ],
+		]);
 
-		// //Json parse
-		// $json_content = $content_api->getBody();
+		//Json parse
+		$json_coupon = $coupon_api->getBody();
 
-		// $content_response = json_decode($json_content);
+		$coupon_response = json_decode($json_coupon);
 
-		// if ($content_response->status_code === 200 ) {
-		
+		if ($coupon_response->status_code === 200) {			
 
-			//Timeframe delete
-			$coupon_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/coupons/'.$coupon->coupon_id.'/delete', [
-					// un array con la data de los headers como tipo de peticion, etc.
-					'headers' => ['Authorization' => 'Bearer '.$crud ],
-			]);
-
-			//Json parse
-			$json_coupon = $coupon_api->getBody();
-
-			$coupon_response = json_decode($json_coupon);
-
-			if ($coupon_response->status_code === 200) {
-			
-
-				$welcome_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/delete', [
+			$welcome_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/delete', [
 						// un array con la data de los headers como tipo de peticion, etc.
 						'headers' => ['Authorization' => 'Bearer '.$crud ]
 				]);
 
-				//Json parse
-				$json_welcome = $welcome_api->getBody();
+			//Json parse
+			$json_welcome = $welcome_api->getBody();
 
-				$welcome_response = json_decode($json_welcome);
-				if ($welcome_response->status_code === 200 ) {
+			$welcome_response = json_decode($json_welcome);
+			if ($welcome_response->status_code === 200 ) {
 						
-					DB::beginTransaction();
+				DB::beginTransaction();
 
-					try {
+				try {
 
-						$content->delete();
+					$content->delete();
 
-						foreach ($coupon->coupon_translation as $key => $value) {
-						 	$value->delete();
-						}
-
-						$coupon->delete();
-
-						$welcome_kit->delete();
-
-					} catch(ValidationException $e)
-					{
-						// Rollback and then redirect
-						DB::rollback();
-
-						return redirect()->route('all_welcome_kit')->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
-
-					} catch(\Exception $e)
-					{
-						DB::rollback();
-
-						return redirect()->route('all_welcome_kit')
-										->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
+					foreach ($coupon->coupon_translation as $key => $value) {
+					 	$value->delete();
 					}
 
+					$coupon->delete();
+					$welcome_kit->delete();
 
-					DB::commit();
+				} catch(ValidationException $e)
+				{
+					// Rollback and then redirect
+					DB::rollback();
 
-					return redirect()->route('all_welcome_kit')
-										->with(['status' => 'Se ha Eliminado el kit de fidelidad con éxito', 'type' => 'success']);
-				} else {
+					return redirect()->route('all_welcome_kit')->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
 
-					//echo "<pre>"; var_dump($welcome_kit); echo "</pre>";
+				} catch(\Exception $e)
+				{
+					DB::rollback();
 
 					return redirect()->route('all_welcome_kit')
 									->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
-					
 				}
-				
-			} else {
 
-				//echo "<pre>"; var_dump($welcome_kit); echo "</pre>";
+				DB::commit();
 
 				return redirect()->route('all_welcome_kit')
-								->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
+										->with(['status' => 'Se ha Eliminado el kit de fidelidad con éxito', 'type' => 'success']);
+			} else {
+
+				return redirect()->route('all_welcome_kit')
+							->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
+					
 			}
-		// } else {
+				
+		} else {
 
-		// 	echo "<pre>"; var_dump($content_response); echo "</pre>";
-		// 	return;
-
-		// 	return redirect()->route('all_welcome_kit')
-		// 					->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
-		// }
+			return redirect()->route('all_welcome_kit')
+								->with(['status' => 'Error al eliminar el kit de fidelidad', 'type' => 'error']);
+		}
 	}
 
 	public function habilitar_welcomekit($id)
@@ -885,6 +779,232 @@ class WelcomeKitController extends Controller
 	}
 
 
+	public static function create_image( $message, $logo )
+	{
+		$now = date('d-m-Y');
+		$font = public_path('img/font/Intro.otf');
+
+		$file_original  = 'img/origin_promotions.png';
+		$file_promotion = 'assets/images/welcome_kit/kb' . date('Ymdhis') . '.png';
+
+		// create Image from file
+		try {
+
+			$img = Img::make( $file_original );
+
+			// Insert a logo
+			$logo_preview = Img::make( $logo );			
+			$logo_preview->resize(null, 70, function ($constraint) {
+			    $constraint->aspectRatio();
+			});
+			$img->insert($logo_preview, 'top', 10,5);
+
+			$img->text($message,125,100, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(20); 
+				$font->align('center');
+				$font->color('#ff8c00');  
+			});
+
+			// LINE TEXT FIXED
+			$img->text('KIT DE BIENVENIDA',125,120, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(15); 
+				$font->align('center');
+				$font->color('#000');  
+			});
+
+			// RECTANGULO PARA EL CODIGO
+			$img->rectangle(45, 130, 204, 150, function ($draw) {
+			    $draw->background('#c5c5c5');
+			    $draw->border(1, '#616161');
+			});
+
+			// serial text
+			$img->text('SERIAL',125,167, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(12); 
+				$font->align('center');
+				$font->color('#616161');  
+			});
+
+			// serial text
+			$img->text('PRESENTE ESTE CÓDIGO',130,220, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(15); 
+				$font->align('center');
+				$font->color('#000');
+			});
+
+			// CREATE FIRST MESSAGE
+			$img->text('AL CAMARERO',132,245, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(20); 
+				$font->align('center');
+				$font->color('#000');  
+			});
+
+			// LINE TEXT 
+			$img->text('VÁLIDO SOLO POR HOY',130,350, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(15); 
+				$font->align('center');
+				$font->color('#000');
+			});
+
+			$img->save($file_promotion); 
+
+		} catch (Exception $e) {
+		    echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+		}
+		return $file_promotion;
+	}
 
 
+	public static function generate_code_image( $id )
+	{
+		
+		$promotion = Promotion::where([
+								['promotion_id', '=', $id],								
+							])->first();
+
+		if ( !file_exists( $promotion->img ) )
+		{
+
+			return 'Lo datos suministrados no son validos...';
+		}
+
+		$now = date('d-m-Y');
+		$font = public_path('img/font/Intro.otf');
+		$file_promotion = 'assets/images/welcome_kit/kb' . uniqid() . '.png';
+
+		$chars = "ABCDEFGHIJKLMNPQRSTUVWXYZ123456789";
+		$code_secret = trim(substr( str_shuffle( $chars ), 0, 10 ));
+
+		// create Image from file
+		try {
+
+			$img = Img::make( $promotion->img );
+
+			// show secret code
+			$img->text($code_secret, 78, 145, function($font){
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(15);
+				$font->color('#b00a16');
+			});
+
+			// DATE VALIDED
+			$img->text(date('d.m.Y'),128,370, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(15);
+				$font->align('center');
+				$font->color('#ff8c00');
+			});
+
+			$img->save( $file_promotion ); 
+
+		} catch (Exception $e) {
+		    echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+		}
+		return view( 'promotion', ['promotion' => $file_promotion ] );
+	}
+
+
+	public static function edit_image( $message, $logo, $id )
+	{
+
+		$promotion = Promotion::where([
+								['promotion_id', '=', $id],								
+							])->first();
+
+		if ( !file_exists( $promotion->img ) )
+		{
+
+			return 'Lo datos suministrados no son validos...';
+		}
+
+		$now = date('d-m-Y');
+		$font = public_path('img/font/Intro.otf');
+
+		$file_original  = 'img/origin_promotions.png';
+		$file_promotion = $promotion->img;
+
+		// create Image from file
+		try {
+
+			$img = Img::make( $file_original );
+
+			// Insert a logo
+			$logo_preview = Img::make( $logo );			
+			$logo_preview->resize(null, 70, function ($constraint) {
+			    $constraint->aspectRatio();
+			});
+			$img->insert($logo_preview, 'top', 10,5);
+
+			$img->text($message,125,100, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(20); 
+				$font->align('center');
+				$font->color('#ff8c00');  
+			});
+
+			// LINE TEXT FIXED
+			$img->text('KIT DE BIENVENIDA',125,120, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(15); 
+				$font->align('center');
+				$font->color('#000');  
+			});
+
+			// RECTANGULO PARA EL CODIGO
+			$img->rectangle(45, 130, 204, 150, function ($draw) {
+			    $draw->background('#c5c5c5');
+			    $draw->border(1, '#616161');
+			});
+
+			// serial text
+			$img->text('SERIAL',125,167, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(12); 
+				$font->align('center');
+				$font->color('#616161');  
+			});
+
+			// serial text
+			$img->text('PRESENTE ESTE CÓDIGO',130,220, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(15); 
+				$font->align('center');
+				$font->color('#000');
+			});
+
+			// CREATE FIRST MESSAGE
+			$img->text('AL CAMARERO',132,245, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(20); 
+				$font->align('center');
+				$font->color('#000');  
+			});
+
+			// LINE TEXT 
+			$img->text('VÁLIDO SOLO POR HOY',130,350, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(15); 
+				$font->align('center');
+				$font->color('#000');
+			});
+
+			// DATE VALIDED
+			$img->text(date('d.m.Y'),128,370, function($font){ 
+				$font->file(public_path('img/font/Intro.otf'));
+				$font->size(15);
+				$font->align('center');
+				$font->color('#ff8c00');
+			});
+			$img->save($file_promotion); 
+
+		} catch (Exception $e) {
+		    echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+		}
+	}	
 }

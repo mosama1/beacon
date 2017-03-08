@@ -33,7 +33,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <base href="{{ isset($nivel) ? $nivel : '' }}localhost" target="_parent">
+  <base href="{{ isset($nivel) ? $nivel : '' }}localhost" target="_self">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -74,7 +74,7 @@
 					@if ( $s->status != 0 )
 					  <?php  $s->section_translation; ?>
 						<li>
-						  <a href="{{ route('movil_all_plate', array('campana_id' => $campana_id, 'section_id' => $s->id, 'language_id' => $language_id) ) }}">
+						  <a href="{{ route('movil_all_plate', array('campana_id' => $campana_id, 'section_id' => $s->id, 'language_id' => $language_id) ) }}"  target="_self">
 							<span>
 								@if( isset($language_id) )
 									@foreach ($s->section_translation as $section)
@@ -98,13 +98,13 @@
 					@endif
 				@endforeach
 			  </ul>
-			  <a href="#" class="sb_mn">
-				<img src="img/icons/menu_cliente.png" alt="">
+			  <a href="#" class="sb_mn" target="_self">
+				<img src="img/icons/menu_cliente.png" alt="" >
 			  </a>
 			</li>
 			@if(isset($menu2))
 			<li class="logo">
-			  <img src="{{ $location->logo }}" alt="">
+			  <img src="{{ $location->logo }}" alt="" target="_self">
 			</li>
 			@endif
 
@@ -114,7 +114,7 @@
 						@if( !empty($type_plates) )
 						@foreach ($type_plates as $type_plate)
 						<li>
-							<a href="{{ route('movil_all_types_plates', array( 'campana_id' => $campana_id, 'type_plate_id' => $type_plate->id, 'language_id' => $language_id ) ) }}">
+							<a href="{{ route('movil_all_types_plates', array( 'campana_id' => $campana_id, 'type_plate_id' => $type_plate->id, 'language_id' => $language_id ) ) }}" target="_self">
 								<span>
 									{{$type_plate->name}}
 								</span>
@@ -123,7 +123,7 @@
 						@endforeach
 						@endif
 					</ul>
-					<a href="#" class="sb_mn">
+					<a href="#" class="sb_mn" target="_self">
 						<img src="img/icons/filtro.png" alt="">
 					</a>
 				</li>
@@ -144,13 +144,13 @@
 							])->first();
 						@endphp
 						<li>
-							<a href="{{ route('inicio_language', array( 'campana_id' => $campana_id, 'language_id' => $language->id ) ) }}">
+							<a href="{{ route('inicio_language', array( 'campana_id' => $campana_id, 'language_id' => $language->id ) ) }}" target="_self"> 
 								<img src="{{$language->icon}}" alt="" width="40px">
 							</a>
 						</li>
 					@endfor
 				</ul>
-				<a href="#" class="sb_mn">
+				<a href="#" class="sb_mn" target="_self">
 					<img src="img/icons/idioma.png" alt="" style="filter: invert(1);">
 				</a>
 			</li>
@@ -184,6 +184,9 @@
 	<script src="js/materialize.js"></script>
 	<script src="js/init.js"></script>
 	<script src="js/jquery.mask.min.js"></script>
+	<script src="js/datetimepicker.min.js"></script>
+    <script src="js/intro.min.js"></script>
+
 
 	<script src="js/script.js"></script>
 

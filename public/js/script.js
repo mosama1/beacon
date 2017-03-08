@@ -37,7 +37,6 @@ $('.desactivado a').click(function(){
 
 
 $(document).ready(function(){
-//   alert('');
     introJs().start();
 
 });
@@ -626,6 +625,47 @@ function checkSubmit() {
 $('.form_send').submit(function(){
     $('.send_form').prop('disabled', true);
 });
+
+
+/********************************************************************/
+/********************** Preview Campaña *****************************/
+/********************************************************************/
+
+function preview_campana( campana_id )
+{	
+	$("#dialog_preview").dialog({
+
+	    autoOpen: false,
+	    modal: true,
+	    height: 700,
+	    width: 450,
+	    open: function(ev, ui){
+			$('#myIframe').attr( 'src','http://dementecreativo.com/prueba/final/' + campana_id );
+			//$('#myIframe').attr( 'src','http://localhost:8000/' + campana_id);
+		}
+	});
+	$('#dialog_preview').dialog('open');	
+}
+
+/**********************************************************************/
+/********************** Preview Promotion *****************************/
+/**********************************************************************/
+
+function preview_promotion()
+{	
+	$('#dialog_preview_promotion').dialog({
+
+	    autoOpen: false,
+	    modal: true,
+	    height: 700,
+	    width: 450,
+	    open: function(ev, ui){			
+	    	$('#myIframe').attr( 'src','http://google.com/');
+			//$('#img_preview_promotion').attr( 'src','http://localhost:8000/' + img_promotion);
+		}
+	});
+	$('#dialog_preview_promotion').dialog('open');	
+}
 
 
 // function eliminar(){

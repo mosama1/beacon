@@ -3566,3 +3566,8 @@ body.clienteFinal footer{
     margin-top: -7px;
   }
 }
+
+#myIframe{
+  height: 580px;
+  width: 400px;
+}

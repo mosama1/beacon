@@ -95,9 +95,6 @@ $menu2 = '';
 
 	</div>
 
-
-
-
 	<div class="agregar regresar">
 	  <center>
 		<a href="{{ route('movil_all_plate', array('campana_id' => $campana_id, 'section_id' => $menu->section_id, 'menu_id' => $menu->menu_id, 'language_id' => $language_id) ) }}" class="waves-effect">
@@ -108,6 +105,7 @@ $menu2 = '';
 		</a>
 	  </center>
 	</div>
+
   </div>
 </div>
 @endsection

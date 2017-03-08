@@ -4,8 +4,6 @@
 
 @section('content')
 
-
-
 <div class="contenedor">
   <div class="principal">
 	<div class="titulo">
@@ -132,7 +130,7 @@
 	  <div class="input no_icon {{ $errors->has('num_visit') ? 'error' : '' }}">
 		<input type="text" name="number_visits" value="" required="" class="num_mask">
 		<label for="">
-		  <span class="text">Numero de Visitas</span>
+		  <span class="text">Número de Visitas</span>
 		</label>
 		<div class="help">
 		  <a href="#">
@@ -151,11 +149,36 @@
 		</div>
 	  @endif
 
+
+	  <!-- Mensaje de la promoción -->
+	  <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
+		<input type="text" name="message" value="">
+		<label for="">
+		  <span class="text">Mensaje Promoción</span>
+		</label>
+		<div class="help">
+		  <a href="#">
+			<i class="material-icons">help_outline</i>
+		  </a>
+		  <div class="inf none hidden">
+			<p>
+			  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+			</p>
+		  </div>
+		</div>
+	  </div>
+	  @if ($errors->has('name'))
+		<div class="input_error">
+			<span>{{ $errors->first('name') }}</span>
+		</div>
+	  @endif
+
+	  <!-- Subida de la imagen y preview  
 	  <div class="divide_cont files">
 		<div class="file-field input-field input_file {{ $errors->has('img') ? 'has-error' : '' }}">
 		  <div class="btn">
 			<span class="icon"><img src="img/icons/subir_archivo.png" alt=""></span>
-			<span>Subir Imagen de promoción</span>
+			<span>Subir imagen de promoción</span>
 			<input type="file" name="img" id="addKit_b">
 		  </div>
 		  <div class="file-path-wrapper">
@@ -179,18 +202,12 @@
 		@endif
 		<div class="vista_previa">
 		  <center  id="vista_previa">
-			<!-- <a href="#" class="vistaPreviaImg"> -->
 			  <div class="img" id="vista_kit_b">
 			  </div>
-			<!-- </a> -->
-
 		  </center>
 		</div>
-	  </div>
-
-
-
-
+	  </div>-->
+	  
 	  <div class="button">
 		<center>
 		  <button type="submit" name="button" id="guardar" class="send_form">
