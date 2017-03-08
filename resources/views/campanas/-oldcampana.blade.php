@@ -152,7 +152,7 @@
 	  <div class="input no_icon {{ $errors->has('start_time') ? 'error' : '' }}">
 		<input type="text" name="start_time" value="" required="" class="datetimepicker date_mask">
 		<label for="">
-		  <span class="text">Inicio (dd/mm/yy hh:mm)</span>
+		  <span class="text">Inicio (dd/mm/yy)</span>
 		</label>
 		<div class="help">
 		  <a href="#">
@@ -174,7 +174,7 @@
 	  <div class="input no_icon {{ $errors->has('end_time') ? 'error' : '' }}">
 		<input type="text" name="end_time" value="" required="" class="datetimepicker date_mask">
 		<label for="">
-		  <span class="text">Final (dd/mm/yy hh:mm)</span>
+		  <span class="text">Final (dd/mm/yy)</span>
 		</label>
 		<div class="help">
 		  <a href="#">
@@ -233,7 +233,7 @@
 </div>
 
 
-<div id="dialog_preview" title="Previsualización de Campaña "  class="modal modal_">
+<div id="dialog_preview" title="Previsualización de Campaña ">
 	<iframe id="myIframe" src="">
 	</iframe>	
 </div>
