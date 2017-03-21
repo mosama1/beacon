@@ -30,7 +30,7 @@
             </a>
             <div class="inf none hidden">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                Cómo llamará el horario para seleccionarlo luego (comida, cena, todo el día, etc.).
               </p>
             </div>
           </div>
@@ -45,16 +45,6 @@
           <label for="">
             <span class="text">Descripción (Opcional)</span>
           </label>
-          <div class="help">
-            <a href="#">
-              <i class="material-icons">help_outline</i>
-            </a>
-            <div class="inf none hidden">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              </p>
-            </div>
-          </div>
         </div>
         @if ($errors->has('description'))
           <div class="input_error">
@@ -63,7 +53,7 @@
         @endif
 
         <div class="input no_icon {{ $errors->has('start_time') ? 'error' : '' }}" time>
-          <input type="text" name="start_time" value="{{$timeframe->start_time}}" required="" class="input_time timepicker">
+          <input type="text" name="start_time" value="{{$timeframe->start_time}}" required="" class="timepicker">
           <label for="">
             <span class="text">Hora de inicio</span>
           </label>
@@ -73,7 +63,7 @@
             </a>
             <div class="inf none hidden">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                Desde que hora se inicia el horario (ejemplo 13:00).
               </p>
             </div>
           </div>
@@ -85,20 +75,20 @@
         @endif
 
         <div class="input no_icon {{ $errors->has('end_time') ? 'error' : '' }}" time>
-          <input type="text" name="end_time" value="{{$timeframe->end_time}}" required="" class="input_time timepicker">
+          <input type="text" name="end_time" value="{{$timeframe->end_time}}" required="" class="timepicker">
           <label for="">
             <span class="text">Hora de finalización</span>
           </label>
           <div class="help">
-            <a href="#">
-              <i class="material-icons">help_outline</i>
-            </a>
-            <div class="inf none hidden">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              </p>
-            </div>
+          <a href="#">
+            <i class="material-icons">help_outline</i>
+          </a>
+          <div class="inf none hidden">
+            <p>
+              Desde que hora se completa la jornada del horario (ejemplo 17:00).
+            </p>
           </div>
+        </div>
         </div>
         @if ($errors->has('end_time'))
           <div class="input_error">

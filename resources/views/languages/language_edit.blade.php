@@ -35,7 +35,7 @@
             </a>
             <div class="inf none hidden">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                Seleccione el o los idiomas a configurar previo a la creación de la carta.
               </p>
             </div>
           </div>

@@ -121,32 +121,6 @@
           </div>
         </div>
 
-        <!-- <div class="input no_icon {{ $errors->has('lat') ? 'error' : '' }}">
-          <input type="text" name="lat" value="{{$location->lat}}" required="">
-          <label for="">
-            <span class="text">Lat</span>
-          </label>
-        </div>
-        @if ($errors->has('lat'))
-          <div class="input_error">
-              <span>{{ $errors->first('lat') }}</span>
-          </div>
-        @endif
-
-        <div class="input no_icon {{ $errors->has('lng') ? 'error' : '' }}">
-          <input type="text" name="lng" value="{{$location->lng}}" required="">
-          <label for="">
-
-            <span class="text">Lng</span>
-          </label>
-          @if ($errors->has('lng'))
-            <span class="error_input">
-                <strong>{{ $errors->first('lng') }}</strong>
-            </span>
-          @endif
-        </div> -->
-
-
         <div class="button">
           <center>
             <button type="submit" name="button">

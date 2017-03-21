@@ -1,7 +1,7 @@
 <?php
 $nivel = '../';
 $actual = 'edit';
- ?>
+?>
 @extends('layouts.app')
 
 @section('content')
@@ -28,16 +28,6 @@ $actual = 'edit';
               <span class="icon"><img src="img/icons/correo.png" alt=""></span>
               <span class="text">Correo</span>
             </label>
-            <div class="help">
-              <a href="#">
-                <i class="material-icons">help_outline</i>
-              </a>
-              <div class="inf none hidden">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                </p>
-              </div>
-            </div>
           </div>
           @if ($errors->has('email'))
           <div class="input_error">
@@ -50,16 +40,6 @@ $actual = 'edit';
               <span class="icon"><img src="img/icons/telefono.png" alt=""></span>
               <span class="text">Teléfono de contacto</span>
             </label>
-            <div class="help">
-              <a href="#">
-                <i class="material-icons">help_outline</i>
-              </a>
-              <div class="inf none hidden">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                </p>
-              </div>
-            </div>
           </div>
           @if ($errors->has('phone'))
           <div class="input_error">
@@ -94,16 +74,6 @@ $actual = 'edit';
             <label for="">
               <span class="text">Nombre del local</span>
             </label>
-            <div class="help">
-              <a href="#">
-                <i class="material-icons">help_outline</i>
-              </a>
-              <div class="inf none hidden">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                </p>
-              </div>
-            </div>
           </div>
           @if ($errors->has('name'))
           <div class="input_error">
@@ -117,16 +87,6 @@ $actual = 'edit';
             <label for="">
               <span class="text">Ciudad</span>
             </label>
-            <div class="help">
-              <a href="#">
-                <i class="material-icons">help_outline</i>
-              </a>
-              <div class="inf none hidden">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                </p>
-              </div>
-            </div>
           </div>
           @if ($errors->has('city'))
           <div class="input_error">
@@ -139,16 +99,6 @@ $actual = 'edit';
               <label for="">
                 <span class="text">Calle</span>
               </label>
-              <div class="help">
-                <a href="#">
-                  <i class="material-icons">help_outline</i>
-                </a>
-                <div class="inf none hidden">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                  </p>
-                </div>
-              </div>
             </div>
             @if ($errors->has('street'))
             <div class="input_error">
@@ -160,16 +110,6 @@ $actual = 'edit';
               <label for="">
                 <span class="text">Número de calle</span>
               </label>
-              <div class="help">
-                <a href="#">
-                  <i class="material-icons">help_outline</i>
-                </a>
-                <div class="inf none hidden">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                  </p>
-                </div>
-              </div>
             </div>
             @if ($errors->has('street_number'))
             <div class="input_error">
@@ -183,16 +123,6 @@ $actual = 'edit';
             <label for="">
               <span class="text">Código postal</span>
             </label>
-            <div class="help">
-              <a href="#">
-                <i class="material-icons">help_outline</i>
-              </a>
-              <div class="inf none hidden">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                </p>
-              </div>
-            </div>
           </div>
           @if ($errors->has('zip'))
           <div class="input_error">
@@ -231,7 +161,7 @@ $actual = 'edit';
               </a>
               <div class="inf none hidden">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                  Por favor seleccione el logo del restaurante que quiere sea visto como imagen inicial en la aplicación del móvil y en la marquesina de la Web.
                 </p>
               </div>
             </div>
@@ -248,16 +178,8 @@ $actual = 'edit';
         </div>
       </div>
     </form>
-
-
-
-
-
   </div>
 </div>
-
-
-
 
 
 
@@ -280,16 +202,7 @@ $actual = 'edit';
         <label for="">
           <span class="text">Contraseña Actual</span>
         </label>
-        <div class="help">
-          <a href="#">
-            <i class="material-icons">help_outline</i>
-          </a>
-          <div class="inf none hidden">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            </p>
-          </div>
-        </div>
+
       </div>
       @if ($errors->has('old_password'))
       <div class="input_error">
@@ -302,16 +215,6 @@ $actual = 'edit';
         <label for="">
           <span class="text">Nueva Contraseña</span>
         </label>
-        <div class="help">
-          <a href="#">
-            <i class="material-icons">help_outline</i>
-          </a>
-          <div class="inf none hidden">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            </p>
-          </div>
-        </div>
       </div>
       @if ($errors->has('password'))
       <div class="input_error">
@@ -324,16 +227,6 @@ $actual = 'edit';
         <label for="">
           <span class="text">Confirmar Contraseña</span>
         </label>
-        <div class="help">
-          <a href="#">
-            <i class="material-icons">help_outline</i>
-          </a>
-          <div class="inf none hidden">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            </p>
-          </div>
-        </div>
       </div>
       @if ($errors->has('password_confirmation'))
       <div class="input_error">
@@ -353,12 +246,4 @@ $actual = 'edit';
     </form>
   </div>
 </div>
-
-
-
-
-
-
-
-
 @stop

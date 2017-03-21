@@ -30,6 +30,20 @@
 		  <table>
 			<thead>
 			  <tr>
+				  <th data-field="id">
+					<div>
+						<div class="help">
+							<a href="#">
+								<i class="material-icons">help_outline</i>
+							</a>
+							<div class="inf none hidden">
+								<p>
+						  		Visualiza como se verá en el móvil.
+								</p>
+							</div>
+						</div>
+					</div>
+				  </th>			  
 				  <th data-field="id">Nombre</th>
 				  <th data-field="country">Descripción</th>
 				  <th width="100px">Editar</th>
@@ -40,6 +54,10 @@
 			<tbody>
 			  @foreach($fidelity_kits as $wk)
 			  <tr id="{{ $wk->promotion_id }}">
+				<td>
+					<?= '<a href="#" id="previewPromotion" onclick="preview_promotion('.$wk->promotion_id .')"><i class="material-icons">phonelink_setup</i>
+					</a>';?>
+				</td>			  
 				<td>{{ $wk->name }}</td>
 				<td>{{ $wk->description }}</td>
 				<td><a href="{{ route('edit_fidelity_kit', $wk->promotion_id) }}"><i class="material-icons">edit</i></a></td>		
@@ -77,7 +95,7 @@
 <div id="kitBienvenida" class="modal modal_">
   <div class="titulo">
 	<h3>
-	  Kit de Bienvenida
+	  Kit de Fidelidad
 	</h3>
   </div>
 
@@ -90,16 +108,6 @@
 		<label for="">
 		  <span class="text">Nombre</span>
 		</label>
-		<div class="help">
-		  <a href="#">
-			<i class="material-icons">help_outline</i>
-		  </a>
-		  <div class="inf none hidden">
-			<p>
-			  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-			</p>
-		  </div>
-		</div>
 	  </div>
 	  @if ($errors->has('name'))
 		<div class="input_error">
@@ -111,16 +119,6 @@
 		<label for="">
 		  <span class="text">Descripción (Opcional)</span>
 		</label>
-		<div class="help">
-		  <a href="#">
-			<i class="material-icons">help_outline</i>
-		  </a>
-		  <div class="inf none hidden">
-			<p>
-			  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-			</p>
-		  </div>
-		</div>
 	  </div>
 	  @if ($errors->has('description'))
 		<div class="input_error">
@@ -132,16 +130,6 @@
 		<label for="">
 		  <span class="text">Número de Visitas</span>
 		</label>
-		<div class="help">
-		  <a href="#">
-			<i class="material-icons">help_outline</i>
-		  </a>
-		  <div class="inf none hidden">
-			<p>
-			  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-			</p>
-		  </div>
-		</div>
 	  </div>
 	  @if ($errors->has('num_visit'))
 		<div class="input_error">
@@ -156,58 +144,13 @@
 		<label for="">
 		  <span class="text">Mensaje Promoción</span>
 		</label>
-		<div class="help">
-		  <a href="#">
-			<i class="material-icons">help_outline</i>
-		  </a>
-		  <div class="inf none hidden">
-			<p>
-			  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-			</p>
-		  </div>
-		</div>
 	  </div>
 	  @if ($errors->has('name'))
 		<div class="input_error">
 			<span>{{ $errors->first('name') }}</span>
 		</div>
 	  @endif
-
-	  <!-- Subida de la imagen y preview  
-	  <div class="divide_cont files">
-		<div class="file-field input-field input_file {{ $errors->has('img') ? 'has-error' : '' }}">
-		  <div class="btn">
-			<span class="icon"><img src="img/icons/subir_archivo.png" alt=""></span>
-			<span>Subir imagen de promoción</span>
-			<input type="file" name="img" id="addKit_b">
-		  </div>
-		  <div class="file-path-wrapper">
-			<input class="file-path validate" type="text">
-		  </div>
-		  <div class="help">
-			<a href="#">
-			  <i class="material-icons">help_outline</i>
-			</a>
-			<div class="inf none hidden">
-			  <p>
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-			  </p>
-			</div>
-		  </div>
-		</div>
-		@if ($errors->has('img'))
-		<div class="error_input">
-		  <span>{{ $errors->first('img') }}</span>
-		</div>
-		@endif
-		<div class="vista_previa">
-		  <center  id="vista_previa">
-			  <div class="img" id="vista_kit_b">
-			  </div>
-		  </center>
-		</div>
-	  </div>-->
-	  
+  
 	  <div class="button">
 		<center>
 		  <button type="submit" name="button" id="guardar" class="send_form">
@@ -245,6 +188,10 @@
 	  </div>
 	</form>
   </div>
+</div>
+<div id="dialog_preview_promotion" title="Previsualización de Promoción"  class="modal modal_" style="vertical-align:middle;">
+	<iframe id="myIframePromotion" src="" style="width: 80%; height: 80%;">
+	</iframe>	
 </div>
 
 @endsection

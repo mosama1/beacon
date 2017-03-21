@@ -39,7 +39,7 @@ $nivel = '../../'
                  </a>
                  <div class="inf none hidden">
                      <p>
-                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                         El nombre que coloque acá será el que le aparecerá en el móvil al recibir la carta, ejemplo: La Carta de la comida.
                      </p>
                  </div>
              </div>
@@ -61,7 +61,7 @@ $nivel = '../../'
                  </a>
                  <div class="inf none hidden">
                      <p>
-                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                         Campo opcional para su uso interno que le permite describir información de la carta.
                      </p>
                  </div>
              </div>
@@ -100,16 +100,6 @@ $nivel = '../../'
                         <label for="">
                             <span class="text">Nombre</span>
                         </label>
-                        <div class="help">
-                            <a href="#">
-                                <i class="material-icons">help_outline</i>
-                            </a>
-                            <div class="inf none hidden">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                                </p>
-                            </div>
-                        </div>
                     </div>
                     @if ($errors->has('name'))
                     <div class="input_error">
@@ -122,16 +112,6 @@ $nivel = '../../'
                         <label for="">
                             <span class="text">Descripción</span>
                         </label>
-                        <div class="help">
-                            <a href="#">
-                                <i class="material-icons">help_outline</i>
-                            </a>
-                            <div class="inf none hidden">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                                </p>
-                            </div>
-                        </div>
                     </div>
                     @if ($errors->has('description'))
                     <div class="input_error">
@@ -143,13 +123,6 @@ $nivel = '../../'
 
              @endfor
          </div>
-
-
-
-
-
-         <!-- <label><input type="checkbox" id="cbox1" value="first_checkbox"> Este es mi primer checkbox</label><br> -->
-
          <div class="button">
            <center>
              <button type="submit" name="button" id="guardar">
@@ -161,7 +134,6 @@ $nivel = '../../'
            </center>
          </div>
        </form>
-
     </div>
   </div>
 </div>

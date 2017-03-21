@@ -30,16 +30,6 @@ $actual = 'location_add'
           <label for="">
             <span class="text">Nombre del local</span>
           </label>
-          <div class="help">
-            <a href="#">
-              <i class="material-icons">help_outline</i>
-            </a>
-            <div class="inf none hidden">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              </p>
-            </div>
-          </div>
         </div>
         @if ($errors->has('name'))
           <div class="input_error">
@@ -52,16 +42,6 @@ $actual = 'location_add'
           <label for="">
             <span class="text">Ciudad</span>
           </label>
-          <div class="help">
-            <a href="#">
-              <i class="material-icons">help_outline</i>
-            </a>
-            <div class="inf none hidden">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              </p>
-            </div>
-          </div>
         </div>
         @if ($errors->has('city'))
           <div class="input_error">
@@ -74,16 +54,6 @@ $actual = 'location_add'
           <label for="">
             <span class="text">Calle</span>
           </label>
-          <div class="help">
-            <a href="#">
-              <i class="material-icons">help_outline</i>
-            </a>
-            <div class="inf none hidden">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              </p>
-            </div>
-          </div>
         </div>
         @if ($errors->has('street'))
           <div class="input_error">
@@ -96,16 +66,6 @@ $actual = 'location_add'
           <label for="">
             <span class="text">Número de calle</span>
           </label>
-          <div class="help">
-            <a href="#">
-              <i class="material-icons">help_outline</i>
-            </a>
-            <div class="inf none hidden">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              </p>
-            </div>
-          </div>
         </div>
         @if ($errors->has('street_number'))
           <div class="input_error">
@@ -118,16 +78,6 @@ $actual = 'location_add'
           <label for="">
             <span class="text">Código Postal</span>
           </label>
-          <div class="help">
-            <a href="#">
-              <i class="material-icons">help_outline</i>
-            </a>
-            <div class="inf none hidden">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              </p>
-            </div>
-          </div>
         </div>
         @if ($errors->has('zip'))
           <div class="input_error">
@@ -150,7 +100,7 @@ $actual = 'location_add'
               </a>
               <div class="inf none hidden">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                  Por favor seleccione el logo del restaurante que quiere sea visto como imagen inicial en la aplicación del móvil y en la marquesina de la Web.
                 </p>
               </div>
             </div>

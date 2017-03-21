@@ -103,7 +103,7 @@ class FidelityKitController extends Controller
 					'description' => $request->description,
 					'message' => $request->name,
 					'type' => 'url',
-					'url' => 'http://dementecreativo.com/prueba/final/',
+					'url' => 'http://dementecreativo.com/prueba/final/movil/promocion/',
 				]
 			]);
 			//Json parse
@@ -146,7 +146,7 @@ class FidelityKitController extends Controller
 								'description' => (isset($coupon_resource->description)) ? $coupon_resource->description : '' ,
 								'message' => $request->name,
 								'type' => 'url',
-								'url' =>  'http://dementecreativo.com/prueba/final/kit_fidelidad/' . $fidelity_resource->id,
+								'url' =>  'http://dementecreativo.com/prueba/final/movil/promocion/' . $fidelity_resource->id,
 						]
 					);
 					//Carga el coupon en el beacon
@@ -164,39 +164,7 @@ class FidelityKitController extends Controller
 						
 						DB::beginTransaction();
 						try {							
-
-						/*	$coupon = new Coupon();
-							$coupon->coupon_id = $coupon_resource->id;
-							$coupon->user_id = $user->user_id;
-							$coupon->type = $coupon_resource->type;
-							(empty($request->price)) ?
-								$coupon->price = 0.0 :
-								$coupon->price = $request->price;
-							$coupon->url = $coupon_resource->url;
-							$coupon->save();
-
-							$coupon_translation = new CouponTranslation();
-							$coupon_translation->name = $request->name;
-							(isset($coupon_resourcerequest->description)) ?
-								$coupon_translation->description = $request->description :
-								$coupon_translation->description = "";
-							$coupon_translation->message = $request->name;
-							$coupon_translation->language_id = 1;
-							$coupon_translation->coupon_id = $coupon->coupon_id;
-							$coupon_translation->save();
-
-							$content_fidelity = new Content();
-							$content_fidelity->content_id = $content_api->id;
-							$content_fidelity->user_id = $user->user_id;
-							//	coupon_translation[0] posicion [0] es en español idioma por defecto
-								$content_fidelity->coupon = $coupon->coupon_translation[0]->name;
-								$content_fidelity->coupon_id = $coupon->coupon_id;
-							//	$content_fidelity->tag = $request->tag_id;
-							$content_fidelity->tag = $tag_id;
-							$content_fidelity->campana_id = $fidelity_resource->id;
-							$content_fidelity->trigger_name = $content_api->trigger_name;
-							$content_fidelity->save();*/
-							
+						
 							$fidelity_kit = new Promotion();
 							$fidelity_kit->promotion_id = $fidelity_resource->id;
 							$fidelity_kit->user_id = $user->user_id;
@@ -324,9 +292,8 @@ class FidelityKitController extends Controller
 		$promotion = Promotion::where([
 								['user_id', '=', $user->user_id ],
 								['promotion_id', '=', $id],
-								['type', '=', 1]
+								['type', '=', 2]
 							])->first();
-
 
 		return view('fidelity_kits.fidelity_kit_edit', ['fidelity_kit' => $promotion, 'location' => $user->location]);
 	}
@@ -356,16 +323,16 @@ class FidelityKitController extends Controller
 		$fidelity_old = Promotion::where([
 									['user_id', '=', $user->user_id ],
 									['promotion_id', '=', $promotion_id],
-									['type', '=', 1]
+									['type', '=', 2]
 								])->first();
 
 		$fidelity_kit = $fidelity_old;
 
-		$content_old = $fidelity_old->content;
+		//$content_old = $fidelity_old->content;
 
-		$coupon_old = $content_old->coupons;
+		//$coupon_old = $content_old->coupons;
 
-		$coupon_translation_old = $coupon_old;
+		//$coupon_translation_old = $coupon_old;
 
 		//campaigns
 		$fidelity_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$promotion_id.'/update', [
@@ -383,6 +350,8 @@ class FidelityKitController extends Controller
 
 		$fidelity_response = json_decode($json_fidelity);
 
+		dd ($fidelity_response);
+
 			//echo "<pre>"; var_dump($fidelity_kit); echo "</pre>";
 
 
@@ -397,7 +366,7 @@ class FidelityKitController extends Controller
 					'name' => $request->name,
 					'description' => (isset($request->description)) ? $request->description : $coupon_old->description,
 					'message' => $request->name,
-					'url' => 'http://dementecreativo.com/prueba/final/kit_fidelidad/' . $fidelity_resource->id,
+					'url' => 'http://dementecreativo.com/prueba/final/movil/promocion/' . $fidelity_resource->id,
 				]
 			]);
 
@@ -465,6 +434,8 @@ class FidelityKitController extends Controller
 							$coupon->save();
 
 							$coupon_translation = CouponTranslation::where([['coupon_id', '=', $coupon_old->coupon_id]])->first();
+
+							$coupon_translation->name = (isset($request->name)) ? $request->name :
 
 							(isset($request->name)) ?
 								$coupon_translation->name = $request->name :
@@ -763,7 +734,7 @@ class FidelityKitController extends Controller
 			$img->insert($logo_preview, 'top', 10,5);
 
 			$img->text($message,125,100, function($font){ 
-				$font->file(public_path('img/font/Intro.otf'));
+				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(20); 
 				$font->align('center');
 				$font->color('#ff8c00');  
@@ -771,7 +742,7 @@ class FidelityKitController extends Controller
 
 			// LINE TEXT FIXED
 			$img->text('KIT DE fidelidad',125,120, function($font){ 
-				$font->file(public_path('img/font/Intro.otf'));
+				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(15); 
 				$font->align('center');
 				$font->color('#000');  
@@ -785,7 +756,7 @@ class FidelityKitController extends Controller
 
 			// serial text
 			$img->text('SERIAL',125,167, function($font){ 
-				$font->file(public_path('img/font/Intro.otf'));
+				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(12); 
 				$font->align('center');
 				$font->color('#616161');  
@@ -793,7 +764,7 @@ class FidelityKitController extends Controller
 
 			// serial text
 			$img->text('PRESENTE ESTE CÓDIGO',130,220, function($font){ 
-				$font->file(public_path('img/font/Intro.otf'));
+				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(15); 
 				$font->align('center');
 				$font->color('#000');
@@ -801,7 +772,7 @@ class FidelityKitController extends Controller
 
 			// CREATE FIRST MESSAGE
 			$img->text('AL CAMARERO',132,245, function($font){ 
-				$font->file(public_path('img/font/Intro.otf'));
+				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(20); 
 				$font->align('center');
 				$font->color('#000');  
@@ -809,7 +780,7 @@ class FidelityKitController extends Controller
 
 			// LINE TEXT 
 			$img->text('VÁLIDO SOLO POR HOY',130,350, function($font){ 
-				$font->file(public_path('img/font/Intro.otf'));
+				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(15); 
 				$font->align('center');
 				$font->color('#000');
@@ -851,14 +822,14 @@ class FidelityKitController extends Controller
 
 			// show secret code
 			$img->text($code_secret, 78, 145, function($font){
-				$font->file(public_path('img/font/Intro.otf'));
+				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(15);
 				$font->color('#b00a16');
 			});
 
 			// DATE VALIDED
 			$img->text(date('d.m.Y'),128,370, function($font){ 
-				$font->file(public_path('img/font/Intro.otf'));
+				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(15);
 				$font->align('center');
 				$font->color('#ff8c00');
@@ -905,7 +876,7 @@ class FidelityKitController extends Controller
 			$img->insert($logo_preview, 'top', 10,5);
 
 			$img->text($message,125,100, function($font){ 
-				$font->file(public_path('img/font/Intro.otf'));
+				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(20); 
 				$font->align('center');
 				$font->color('#ff8c00');  
@@ -913,7 +884,7 @@ class FidelityKitController extends Controller
 
 			// LINE TEXT FIXED
 			$img->text('KIT DE fidelidad',125,120, function($font){ 
-				$font->file(public_path('img/font/Intro.otf'));
+				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(15); 
 				$font->align('center');
 				$font->color('#000');  
@@ -927,7 +898,7 @@ class FidelityKitController extends Controller
 
 			// serial text
 			$img->text('SERIAL',125,167, function($font){ 
-				$font->file(public_path('img/font/Intro.otf'));
+				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(12); 
 				$font->align('center');
 				$font->color('#616161');  
@@ -935,7 +906,7 @@ class FidelityKitController extends Controller
 
 			// serial text
 			$img->text('PRESENTE ESTE CÓDIGO',130,220, function($font){ 
-				$font->file(public_path('img/font/Intro.otf'));
+				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(15); 
 				$font->align('center');
 				$font->color('#000');
@@ -943,7 +914,7 @@ class FidelityKitController extends Controller
 
 			// CREATE FIRST MESSAGE
 			$img->text('AL CAMARERO',132,245, function($font){ 
-				$font->file(public_path('img/font/Intro.otf'));
+				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(20); 
 				$font->align('center');
 				$font->color('#000');  
@@ -951,7 +922,7 @@ class FidelityKitController extends Controller
 
 			// LINE TEXT 
 			$img->text('VÁLIDO SOLO POR HOY',130,350, function($font){ 
-				$font->file(public_path('img/font/Intro.otf'));
+				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(15); 
 				$font->align('center');
 				$font->color('#000');
@@ -959,7 +930,7 @@ class FidelityKitController extends Controller
 
 			// DATE VALIDED
 			$img->text(date('d.m.Y'),128,370, function($font){ 
-				$font->file(public_path('img/font/Intro.otf'));
+				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(15);
 				$font->align('center');
 				$font->color('#ff8c00');

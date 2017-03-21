@@ -23,8 +23,6 @@
 				</a>
 			</center>
 		</div>
-
-<!--TABLA MOSTRAR PLATOS -->
 		<div class="beacons seccion">
 			<div class="container">
 				<div class="tabla">
@@ -37,7 +35,21 @@
 								<th data-field="name">Nombre</th>
 								<th data-field="type">Tipo</th>
 								<th data-field="price">Precio</th>
-								<th data-field="name" width="100px">Detalles</th>
+								<th data-field="name" width="100px">
+									<div>
+										Detalles
+										<div class="help">
+											<a href="#">
+												<i class="material-icons">help_outline</i>
+											</a>
+											<div class="inf none hidden">
+												<p>
+													Permite añadir una descripción detallada del plato, así como fotografía y otra información.
+												</p>
+											</div>
+										</div>
+									</div>
+								</th>
 								<th data-field="price" width="100px">Editar</th>
 								<th data-field="price" width="100px">Eliminar</th>
 								<th data-field="id" width="130px">Habilitado</th>
@@ -127,16 +139,6 @@
 				<label for="">
 					<span class="text">Nombre</span>
 				</label>
-				<div class="help">
-					<a href="#">
-						<i class="material-icons">help_outline</i>
-					</a>
-					<div class="inf none hidden">
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						</p>
-					</div>
-				</div>
 			</div>
 			@if ($errors->has('name'))
 			<div class="input_error">
@@ -149,7 +151,7 @@
 
 
 				@if( !empty($type_plates) )
-          <option value="" disabled selected>Seleccion un tipo de plato</option>
+          		<option value="" disabled selected>Seleccion un tipo de plato</option>
 					@foreach ($type_plates as $type_plate)
 						<option value="{{$type_plate->id}}" {{ (session('type') == $type_plate->id) ? 'selected' : '' }}>{{$type_plate->name}}</option>
 					@endforeach
@@ -163,7 +165,7 @@
           </a>
           <div class="inf none hidden">
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              Permite añadir un nuevo tipo de plato a la lista para seleccionarlo posteriormente.
             </p>
           </div>
         </div>
@@ -186,17 +188,6 @@
 				<label for="">
 					<span class="text">Precio 0,00 €</span>
 				</label>
-
-				<div class="help">
-					<a href="#">
-						<i class="material-icons">help_outline</i>
-					</a>
-					<div class="inf none hidden">
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						</p>
-					</div>
-				</div>
 			</div>
 			@if ($errors->has('price'))
 				<div class="input_error">
@@ -291,16 +282,6 @@
         <label for="">
           <span class="text">Nombre</span>
         </label>
-        <div class="help">
-          <a href="#">
-            <i class="material-icons">help_outline</i>
-          </a>
-          <div class="inf none hidden">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            </p>
-          </div>
-        </div>
       </div>
       @if ($errors->has('name'))
       <div class="input_error">
@@ -312,16 +293,6 @@
         <label for="">
           <span class="text">Descripción (Opcional)</span>
         </label>
-        <div class="help">
-          <a href="#">
-            <i class="material-icons">help_outline</i>
-          </a>
-          <div class="inf none hidden">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            </p>
-          </div>
-        </div>
       </div>
       @if ($errors->has('description'))
       <div class="input_error">

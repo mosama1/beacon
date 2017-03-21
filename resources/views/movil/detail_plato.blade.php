@@ -36,14 +36,12 @@ $menu2 = '';
 
 	  <div class="description">
 		<p>
-			@if( isset($language_id) )
+			@if( isset($language_id))
 				@foreach ($menu->plate->plate_translation as $plate)
 					@if($plate->language_id == $language_id)
 					{{$plate->description}}
 					@endif
 				@endforeach
-			@else
-				{{$menu->plate->plate_translation[0]->description}}
 			@endif
 		</p>
 
@@ -83,15 +81,9 @@ $menu2 = '';
 			@endfor
 		@endif
 	  </div>
-
-      <div class="titulo" style="padding-top: 10px">
-        <h3>
-            Precio del Madiraje
-        </h3>
-        <h4>
-          {{$menu->plate->plate_translation[0]->price_madiraje}} €
-        </h4>
-      </div>
+	  <h4>
+	  	Precio del Madiraje ({{ $menu->plate->plate_translation[0]->price_madiraje }}€ )
+	  </h4>
 
 	</div>
 

@@ -9,7 +9,7 @@
   <div class="principal">
     <div class="titulo">
       <h3>
-        Editar Kit de Bienvenida
+        Editar Promoción
       </h3>
     </div>
     <div class="form">
@@ -23,65 +23,37 @@
          {{ csrf_field() }}
          {{ method_field('PUT') }}
 
+
+          <div class="input select no_icon _100 {{ $errors->has('type_promo') ? 'error' : '' }}">
+            <select id="type_promo" class="form-control icons" name="type_promo" required>
+              <option value="" disabled >Tipo de Promoción</option>
+              <option value="1" {{ $welcome_kit->type == 1 ? 'selected':'' }} >Kit de Bienvenida</option>
+              <option value="2" {{ $welcome_kit->type == 2 ? 'selected':'' }} >Kit de Fidelidad</option>       
+            </select>
+          </div>
+          @if ($errors->has('type_promo'))
+          <div class="input_error">
+            <span>{{ $errors->first('type_promo') }}</span>
+          </div>
+          @endif
+
          <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
            <input type="text" name="name" value="{{$welcome_kit->name}}" required="">
            <label for="">
              <span class="text">Nombre</span>
            </label>
-           <div class="help">
-             <a href="#">
-               <i class="material-icons">help_outline</i>
-             </a>
-             <div class="inf none hidden">
-               <p>
-                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-               </p>
-             </div>
-           </div>
          </div>
          @if ($errors->has('name'))
            <div class="input_error">
                <span>{{ $errors->first('name') }}</span>
            </div>
          @endif
-         <div class="input textarea no_icon {{ $errors->has('description') ? 'error' : '' }}">
-           <textarea name="description" rows="8" cols="80" >{{$welcome_kit->description}}</textarea>
-           <label for="">
-             <span class="text">Descripción (Opcional)</span>
-           </label>
-           <div class="help">
-             <a href="#">
-               <i class="material-icons">help_outline</i>
-             </a>
-             <div class="inf none hidden">
-               <p>
-                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-               </p>
-             </div>
-           </div>
-         </div>
-         @if ($errors->has('description'))
-           <div class="input_error">
-               <span>{{ $errors->first('description') }}</span>
-           </div>
-         @endif
-
 
          <div class="input no_icon {{ $errors->has('num_visit') ? 'error' : '' }}">
            <input type="text" name="number_visits" value="{{$welcome_kit->number_visits}}" required="" class="num_mask">
            <label for="">
              <span class="text">Número de Visitas</span>
            </label>
-           <div class="help">
-             <a href="#">
-               <i class="material-icons">help_outline</i>
-             </a>
-             <div class="inf none hidden">
-               <p>
-                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-               </p>
-             </div>
-           </div>
          </div>
          @if ($errors->has('num_visit'))
            <div class="input_error">
@@ -89,65 +61,56 @@
            </div>
          @endif
 
-          <!-- Mensaje de la promoción -->
-          <div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}">
-          <input type="text" name="message" value="{{$welcome_kit->message}}">
-          <label for="">
-            <span class="text">Mensaje Promoción</span>
-          </label>
-          <div class="help">
-            <a href="#">
-            <i class="material-icons">help_outline</i>
-            </a>
-            <div class="inf none hidden">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            </p>
+    <!-- Mensaje de la promoción -->
+    <div class="input textarea no_icon {{ $errors->has('description') ? 'error' : '' }}">
+      <textarea name="message" rows="8" cols="80" >{{$welcome_kit->message}}</textarea>
+      <label for="">
+        <span class="text">Mensaje de la Promoción (5 líneas máximo)</span>
+      </label>
+      </div>
+      @if ($errors->has('description'))
+    <div class="input_error">
+      <span>{{ $errors->first('description') }}</span>
+    </div>
+      @endif       
+
+          <div class="divide_cont files">
+            <div class="file-field input-field input_file {{ $errors->has('imagenPromo') ? 'has-error' : '' }}">
+              <div class="btn">
+                <span class="icon"><img src="img/icons/subir_archivo.png" alt=""></span>
+                <span>Subir Imagen Promo</span>
+                <input type="file" name="imagenPromo" id="addImagenPromo">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" >
+              </div>
+              @if ($errors->has('imagenPromo'))
+              <span class="input_error">
+                <strong>{{ $errors->first('imagenPromo') }}</strong>
+              </span>
+              @endif
+            </div>
+            <div class="vista_previa">
+              <center  id="vista_previa">
+                <a href="#" class="vistaPreviaImg">
+                  <div class="img active" id="vista_promo">
+                    <img class="thumb" src="{{ asset($welcome_kit->imagenPromo) }}">
+                  </div>
+                </a>
+              </center>
+            </div>
+            <div class="help">
+              <a href="#">
+                <i class="material-icons">help_outline</i>
+              </a>
+              <div class="inf none hidden">
+                <p>
+                  Por favor seleccione el imagenPromo del restaurante que quiere sea visto como imagen inicial en la aplicación del móvil y en la marquesina de la Web.
+                </p>
+              </div>
             </div>
           </div>
-          </div>
-          @if ($errors->has('name'))
-          <div class="input_error">
-            <span>{{ $errors->first('name') }}</span>
-          </div>
-          @endif         
 
-          <!--
-         <div class="divide_cont files">
-           <div class="file-field input-field input_file {{ $errors->has('img') ? 'has-error' : '' }}">
-             <div class="btn">
-               <span class="icon"><img src="img/icons/subir_archivo.png" alt=""></span>
-               <span>Subir Imagen de promoción</span>
-               <input type="file" name="img" id="addKit_b">
-             </div>
-             <div class="file-path-wrapper">
-               <input class="file-path validate" type="text">
-             </div>
-             <div class="help">
-               <a href="#">
-                 <i class="material-icons">help_outline</i>
-               </a>
-               <div class="inf none hidden">
-                 <p>
-                   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                 </p>
-               </div>
-             </div>
-           </div>
-           @if ($errors->has('img'))
-           <div class="error_input">
-             <span>{{ $errors->first('img') }}</span>
-           </div>
-           @endif
-           <div class="vista_previa">
-             <center  id="vista_previa">
-                 <div class="img active" id="vista_kit_b">
-                   <img src="{{ $welcome_kit->img }}" alt="">
-                 </div>
-             </center>
-           </div>
-         </div>
-         -->
 
          <div class="button">
            <center>

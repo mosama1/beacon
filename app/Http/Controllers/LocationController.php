@@ -17,6 +17,7 @@ use Beacon\Section;
 use Beacon\Menu;
 use Beacon\Plate;
 use Beacon\LanguageUser;
+use Beacon\Language;
 use Beacon\TypesPlates;
 use Illuminate\Support\Facades\Input;
 use Beacon\User;
@@ -115,8 +116,6 @@ class LocationController extends Controller
 
 				$user_response = json_decode($json_c);
 
-				// echo "<pre>"; var_dump($user_response); echo "</pre>";
-				// return;
 
 				if ($user_response->status_code === 200 ):
 						$user->user_id = $user_response->uuid->id;
@@ -191,8 +190,7 @@ class LocationController extends Controller
 
 
 		if ($locations->status_code === 200):
-
-			//tag
+					//tag
 			$tag__ = $client->post('https://connect.onyxbeacon.com/api/v2.5/tags', [
 					// un array con la data de los headers como tipo de peticion, etc.
 					'headers' => ['Authorization' => 'Bearer '.$crud ],
@@ -206,7 +204,6 @@ class LocationController extends Controller
 			$json_t = $tag__->getBody();
 
 			$tag = json_decode($json_t);
-
 
 			$loca = new Location;
 			$loca->location_id = $locations->location->id;
@@ -223,17 +220,18 @@ class LocationController extends Controller
 			$loca->lng =  0;
 			$loca->save();
 
-			// $tag_ = new Tag;
-			// $tag_->tag_id = $tag->tag->id;
-			// $tag_->location_id = $locations->location->id;
-			// $tag_->user_id = $user->user_id;
-			// $tag_->name = $tag->tag->name;
-			// $tag_->save();
+			$tag_ = new Tag;
+			$tag_->tag_id = $tag->tag->id;
+			$tag_->location_id = $locations->location->id;
+			$tag_->user_id = $user->user_id;
+			$tag_->name = $tag->tag->name;
+			$tag_->save();
 
 			// Guardo el castellano como idioma por defecto
 			// esta carga es requerida por la aplicación
+			// 
 			$language = new LanguageUser();
-			$language->user_id = Auth::user()->user_id;
+			$language->user_id = $user->user_id;
 			$language->language_id = 1; // <--- castellano
 			$language->save();
 

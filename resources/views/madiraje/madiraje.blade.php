@@ -8,14 +8,14 @@
 	<div class="principal">
 		<div class="titulo">
 			<h3>
-				Madirajes
+				Maridajes
 			</h3>
 		</div>
 		<div class="agregar">
 			<center>
 				<a href="#agregarMadiraje" class="waves-effect">
 					<div class="">
-						<span class="text">Agregar <br><strong>Madiraje</strong></span>
+						<span class="text">Agregar <br><strong>Maridaje</strong></span>
 						<span class="icon"><i class="material-icons">add</i></span>
 					</div>
 				</a>
@@ -73,7 +73,7 @@
 <div id="agregarMadiraje" class="modal modal_">
 	<div class="titulo">
 		<h3>
-			Agregar Madiraje
+			Agregar Maridaje
 		</h3>
 	</div>
 
@@ -85,41 +85,17 @@
 				<label for="">
 					<span class="text">Nombre</span>
 				</label>
-				<div class="help">
-					<a href="#">
-						<i class="material-icons">help_outline</i>
-					</a>
-					<div class="inf none hidden">
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						</p>
-					</div>
-				</div>
 			</div>
 			@if ($errors->has('name'))
 				<div class="input_error">
 						<span>{{ $errors->first('name') }}</span>
 				</div>
 			@endif
-
-
 			<div class="input no_icon {{ $errors->has('price') ? 'error' : '' }}" style="display:">
-
 				<input type="number" name="price" required="" min="1" max="99999" step="any" id="madiraje_price" >
 				<label for="">
 					<span class="text">Precio 0,00 €</span>
 				</label>
-
-				<div class="help">
-					<a href="#">
-						<i class="material-icons">help_outline</i>
-					</a>
-					<div class="inf none hidden">
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						</p>
-					</div>
-				</div>
 			</div>
 			@if ($errors->has('price'))
 				<div class="input_error">
@@ -136,16 +112,6 @@
 				</div>
 				<div class="file-path-wrapper">
 				  <input class="file-path validate" type="text">
-				</div>
-				<div class="help">
-				  <a href="#">
-					<i class="material-icons">help_outline</i>
-				  </a>
-				  <div class="inf none hidden">
-					<p>
-					  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-					</p>
-				  </div>
 				</div>
 			  </div>
 			  @if ($errors->has('photo'))
@@ -178,10 +144,9 @@
 	</div>
 </div>
 <div id="eliminarMadiraje" class="modal modal_">
-
 	<div class="titulo">
 		<h3>
-			Esta seguro que desea eliminar este madiraje
+			Esta seguro que desea eliminar este maridaje
 		</h3>
 	</div>
 
@@ -202,5 +167,4 @@
 		</form>
 	</div>
 </div>
-
 @endsection

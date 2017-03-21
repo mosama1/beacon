@@ -12,7 +12,7 @@ $nivel = '../../';
 	<div class="principal">
 		<div class="titulo">
 			<h3>
-				Descripción del Platos
+				Descripción del Plato
 			</h3>
 		</div>
 
@@ -38,7 +38,7 @@ $nivel = '../../';
 						</a>
 						<div class="inf none hidden">
 							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+								Se utiliza para detallar información del plato. Se vera en la aplicación móvil.
 							</p>
 						</div>
 					</div>
@@ -66,7 +66,7 @@ $nivel = '../../';
 						</a>
 						<div class="inf none hidden">
 							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+								Fotografía del plato que se mostrará en el móvil al seleccionar la imagen del detalle.
 							</p>
 						</div>
 					</div>
@@ -79,7 +79,7 @@ $nivel = '../../';
 
 				<div class="vista_previa">
 					<center  id="vista_previa">
-						<div class="img {{ (!empty($plate->img)) ? 'active' : '' }}" id="vista_plato">
+						<div class="img {{ (!empty( $plate->img )) ? 'active' : '' }}" id="vista_plato">
 							@if (!empty($plate->img))
 								<img src="{{($plate->img)}}" alt="">
 							@endif
@@ -88,10 +88,11 @@ $nivel = '../../';
 				</div>
 
 				<p class="mensaje__">Este plato se recomienda con:</p>
-				<div class="input no_icon textarea {{ $errors->has('madiraje') ? 'error' : '' }}">
-					<textarea name="madiraje" rows="8" cols="80">{{$plate->plate_translation[0]->madiraje}}</textarea>
+
+				<div class="input no_icon {{ $errors->has('madiraje') ? 'error' : '' }}">
+					<input type="text" name="madiraje" id="madiraje" value="" >
 					<label for="">
-						<span class="text">madiraje (Opcional)</span>
+						<span class="text">Maridaje</span>
 					</label>
 					<div class="help">
 						<a href="#">
@@ -99,81 +100,34 @@ $nivel = '../../';
 						</a>
 						<div class="inf none hidden">
 							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+								Información adicional para la bebida que se sugiere acompañar con el plato (nombre, foto y precio).
 							</p>
 						</div>
 					</div>
 				</div>
 				@if ($errors->has('madiraje'))
 					<div class="input_error">
-						<span>{{ $errors->first('madiraje') }}</span>
+							<span>{{ $errors->first('madiraje') }}</span>
 					</div>
 				@endif
+                <div class="madiraje_select">
+                    <div class="mensaje">
+                        <p></p>
+                    </div>
+                    @foreach( $madirajes as $madiraje )
+                        <div class="m_select" id="m_{{ $madiraje->id }}">
+                            <input type="hidden" name="madiraje_id[]" readonly value="{{ $madiraje->id }}">
+                            <span>{{ $madiraje->nombre }}</span>
+                            <span class="price">{{ $madiraje->precio }} €</span>
+                            <div class="icon">
+                                <a href="#" class="cerrar" onclick="madirajeSelectQuitar($(this)); return false;">
+                                    <i class="material-icons">clear</i>
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
 
-
-				<div class="file-field input-field input_file {{ $errors->has('img_madiraje') ? 'has-error' : '' }}">
-					<div class="btn">
-						<span class="icon">
-							<img src="img/icons/subir_archivo.png" alt="">
-						</span>
-						<span>Foto madiraje</span>
-						<input type="file" name="img_madiraje[]" id="addImg_madiraje" value="{{$plate->madiraje_photo}}"  multiple="multiple">
-					</div>
-					<div class="file-path-wrapper">
-						<input class="file-path validate" type="text">
-					</div>
-					<div class="help">
-						<a href="#">
-							<i class="material-icons">help_outline</i>
-						</a>
-						<div class="inf none hidden">
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-							</p>
-						</div>
-					</div>
-				</div>
-				@if ($errors->has('img_madiraje'))
-					<div class="input_error">
-						<span>{{ $errors->first('img_madiraje') }}</span>
-					</div>
-				@endif
-
-				<div class="vista_previa vista_maridaje">
-					<center  id="vista_previa" class="">
-						<div class="img {{ (!empty($plate->madiraje_photo)) ? 'active' : '' }}" id="vista_madiraje">
-							@if (!empty($plate->madiraje_photo))
-								@for ($mp = 0; $mp < count($plate->madiraje_photo); $mp++)
-									<div class="img_maridaje">
-										<img class="thumb" src="{{$plate->madiraje_photo[$mp]->img_madiraje}}" alt="" >
-									</div>
-								@endfor
-							@endif
-						</div>
-					</center>
-				</div>
-
-				<div class="input no_icon {{ $errors->has('name') ? 'error' : '' }}" id="divPrecioMadiraje" style="display: {{ (!empty($plate->plate_translation[0]->price_madiraje)  ?  'block;' : '') }}" >
-					<input type="number" name="price_madiraje" step="0.01" min="0" value="{{$plate->plate_translation[0]->price_madiraje}}"  id="price_madiraje" min="0.00"  onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)">
-
-					<label for="">
-						<span class="text">Indique el precio del Madiraje</span>
-					</label>
-					<div class="help">
-						<a href="#">
-							<i class="material-icons">help_outline</i>
-						</a>
-						<div class="inf none hidden">
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="input_error" id="errorPrecioMadiraje" style="display: none;">
-					<span>El monto debe ser mayor a cero</span>
-				</div>
-
+                </div>
 
 				<div class="languages ppal">
 
@@ -209,19 +163,6 @@ $nivel = '../../';
 	 		  						<span>{{ $errors->first('language_description') }}</span>
 	 		  					</div>
 	 		  				@endif
-
-	 						<div class="input no_icon textarea {{ $errors->has('language_madiraje') ? 'error' : '' }}">
-	 							<textarea name="language_madiraje[]" rows="8" cols="80">{{$plate->plate_translation[$i]->madiraje}}</textarea>
-	 							<label for="">
-	 								<span class="text">Madiraje (Opcional)/span>
-	 							</label>
-	 						</div>
-	 						@if ($errors->has('language_madiraje'))
-	 							<div class="input_error">
-	 								<span>{{ $errors->first('language_madiraje') }}</span>
-	 							</div>
-	 						@endif
-
 					   @endif
 					@endfor
 				</div>
@@ -241,4 +182,5 @@ $nivel = '../../';
 		</div>
 	</div>
 </div>
+
 @endsection

@@ -194,7 +194,10 @@ class MadirajeController extends Controller
 		$term = Input::get('term');
 		$results = array();
 	
-		$queries = Madiraje::where('nombre', 'LIKE', '%'.$term.'%')->get();
+		$queries = Madiraje::where([
+						['user_id', '=', Auth::user()->user_id],
+						['nombre', 'LIKE', '%'.$term.'%']
+					])->get();
 	
 		foreach ($queries as $query)
 		{

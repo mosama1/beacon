@@ -103,6 +103,7 @@ class BeaconController extends Controller
 
 			$location = Location::where( 'user_id', '=', Auth::user()->user_id )->first();
 
+
 			if ( $beacons_response->status_code == 200 ) {
 
 				if ( empty($beacons_response->beacons) ) {
@@ -123,7 +124,6 @@ class BeaconController extends Controller
 					$json_b = $tag_api->getBody();
 
 					$tag_response = json_decode($json_b);
-
 					$tag_id = strval($tag_response->tags[0]->id);
 
 

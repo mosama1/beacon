@@ -39,11 +39,53 @@
 			  <tr>
 				<th data-field="id">Nombre</th>
 				<th data-field="id">Descripción</th>
-				<th data-field="name" width="100px">Detalles</th>
+				<th data-field="name" width="100px">
+					<div>
+						Detalles
+						<div class="help">
+							<a href="#">
+								<i class="material-icons">help_outline</i>
+							</a>
+							<div class="inf none hidden">
+								<p>
+									Se utiliza para crear las secciones de la carta (entradas, ensaladas, menú del día, postres, bebidas, etc.).
+								</p>
+							</div>
+						</div>
+					</div>
+				</th>
 				<th data-field="price" width="100px">Editar</th>
-				<th data-field="price" width="100px">Duplicar</th>
+				<th data-field="price" width="100px">
+					<div>
+						Duplicar
+						<div class="help">
+							<a href="#">
+								<i class="material-icons">help_outline</i>
+							</a>
+							<div class="inf none hidden">
+								<p>
+									Permite duplicar toda la información de una carta previamente creada (incluye las secciones, platos y detalles), para luego modificarla y cambiarle el nombre a una nueva
+								</p>
+							</div>
+						</div>
+					</div>
+				</th>
 				<th data-field="price" width="100px">Eliminar</th>
-				<th data-field="id" width="130px">Habilitado</th>
+				<th data-field="id" width="130px">
+					<div>
+						Habilitado
+						<div class="help">
+							<a href="#">
+								<i class="material-icons">help_outline</i>
+							</a>
+							<div class="inf none hidden">
+								<p>
+									Al habilitar se muestra el contenido en el móvil. Deshabilitado lo oculta temporalmente sin borrarlo.
+								</p>
+							</div>
+						</div>
+					</div>
+				</th>
 			  </tr>
 			</thead>
 
@@ -131,7 +173,7 @@
               </a>
               <div class="inf none hidden">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                  El nombre que coloque acá será el que le aparecerá en el móvil al recibir la carta, ejemplo: La Carta de la comida.
                 </p>
               </div>
             </div>
@@ -153,7 +195,7 @@
               </a>
               <div class="inf none hidden">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                  Campo opcional para su uso interno que le permite describir información de la carta.
                 </p>
               </div>
             </div>

@@ -38,7 +38,4 @@ Route::group(['prefix' => 'kit_bienvenida'], function () {
 	Route::delete('{welcome_kit_id}', 'WelcomeKitController@destroy_welcome_kit')
 			->name('destroy_welcome_kit')->where('welcome_kit_id', '[0-9]+');
 
-	// genera la imagen con el cogigo de seguridad
-	Route::get('{id}', 'WelcomeKitController@generate_code_image')
-			->name('promotion_view')->where('id', '[0-9]+');
 });

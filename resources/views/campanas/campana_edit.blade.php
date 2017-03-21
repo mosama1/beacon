@@ -28,16 +28,6 @@
           <label for="">
             <span class="text">Name</span>
           </label>
-          <div class="help">
-            <a href="#">
-              <i class="material-icons">help_outline</i>
-            </a>
-            <div class="inf none hidden">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              </p>
-            </div>
-          </div>
         </div>
         @if ($errors->has('name'))
           <div class="input_error">
@@ -49,16 +39,6 @@
           <label for="">
             <span class="text">Descripción (Opcional)</span>
           </label>
-          <div class="help">
-            <a href="#">
-              <i class="material-icons">help_outline</i>
-            </a>
-            <div class="inf none hidden">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              </p>
-            </div>
-          </div>
         </div>
         @if ($errors->has('description'))
           <div class="input_error">
@@ -76,7 +56,7 @@
             </a>
             <div class="inf none hidden">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                Fecha desde que esta vigente esta planificación (por defecto la fecha de creación).
               </p>
             </div>
           </div>
@@ -98,7 +78,7 @@
             </a>
             <div class="inf none hidden">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                Fecha hasta donde esta vigente el plan creado.
               </p>
             </div>
           </div>
@@ -108,31 +88,6 @@
               <span>{{ $errors->first('end_time') }}</span>
           </div>
         @endif
-
-
-        <!-- <div class="input no_icon time {{ $errors->has('start_time') ? 'error' : '' }}">
-          <input type="time" name="start_time" value="{{date('H:i', strtotime($campana->start_time))}}" required="" class="input_time">
-          <label for="">
-            <span class="text">Hora de inicio</span>
-          </label>
-        </div>
-        @if ($errors->has('start_time'))
-          <div class="input_error">
-              <span>{{ $errors->first('start_time') }}</span>
-          </div>
-        @endif
-
-        <div class="input no_icon time {{ $errors->has('end_time') ? 'error' : '' }}">
-          <input type="time" name="end_time" value="{{date('H:i', strtotime($campana->end_time))}}" required="" class="input_time">
-          <label for="">
-            <span class="text">Hora de finalización</span>
-          </label>
-        </div>
-        @if ($errors->has('end_time'))
-          <div class="input_error">
-              <span>{{ $errors->first('end_time') }}</span>
-          </div>
-        @endif -->
 
         <div class="button">
           <center>

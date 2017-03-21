@@ -28,16 +28,6 @@
           <label for="">
             <span class="text">Nombre</span>
           </label>
-          <div class="help">
-            <a href="#">
-            <i class="material-icons">help_outline</i>
-            </a>
-            <div class="inf none hidden">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            </p>
-            </div>
-          </div>
           </div>
           @if ($errors->has('name'))
           <div class="input_error">
@@ -50,16 +40,6 @@
           <label for="">
             <span class="text">Descripción</span>
           </label>
-          <div class="help">
-            <a href="#">
-            <i class="material-icons">help_outline</i>
-            </a>
-            <div class="inf none hidden">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            </p>
-            </div>
-          </div>
           </div>
           @if ($errors->has('description'))
           <div class="input_error">

@@ -97,7 +97,9 @@
 				<select id="language_id" class="form-control icons" name="language_id" required>
 					<option value="" disabled selected>Seleccione un Idioma</option>
 					@foreach($languages_all as $l)
+						@if($l->id != 1)
 							<option value="{{$l->id}}">{{$l->name}}</option>
+						@endif
 					@endforeach
 				</select>
 				<div class="help">
@@ -106,7 +108,7 @@
 					</a>
 					<div class="inf none hidden">
 						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+							Seleccione el o los idiomas a configurar previo a la creación de la carta.
 						</p>
 					</div>
 				</div>
@@ -116,10 +118,6 @@
 				<span>{{ $errors->first('language_id') }}</span>
 			</div>
 			@endif
-
-
-
-
 			<div class="button">
 				<center>
 					<button type="submit" name="button" id="guardar" class="send_form">

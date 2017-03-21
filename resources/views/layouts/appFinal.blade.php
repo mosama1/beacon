@@ -25,8 +25,6 @@
 
 	$language_id = (isset($language_id)) ? $language_id : 1 ;
 
-
-
 @endphp
 
 
@@ -88,7 +86,7 @@
 										@endif
 									@endforeach
 								@else
-									@if( ! empty($s->section_translation[0]) )
+									@if( !empty($s->section_translation[0]) )
 									{{$s->section_translation[0]->name}} {{ (!empty($s->price)) ? $s->price.' €' : '' }}
 									@endif
 								@endif
@@ -138,6 +136,7 @@
 								['status', '=', 1],
 							])->first();
 						@endphp
+
 						@php
 							$language = Language::where([
 								['id', '=', $language_user->language_id],

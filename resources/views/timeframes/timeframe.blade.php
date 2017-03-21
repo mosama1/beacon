@@ -85,7 +85,7 @@
 					</a>
 					<div class="inf none hidden">
 						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+							Cómo llamará el horario para seleccionarlo luego (comida, cena, todo el día, etc.).
 						</p>
 					</div>
 				</div>
@@ -100,16 +100,7 @@
 				<label for="">
 					<span class="text">Descripción (Opcional)</span>
 				</label>
-				<div class="help">
-					<a href="#">
-						<i class="material-icons">help_outline</i>
-					</a>
-					<div class="inf none hidden">
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						</p>
-					</div>
-				</div>
+
 			</div>
 			@if ($errors->has('description'))
 				<div class="input_error">
@@ -127,7 +118,7 @@
 					</a>
 					<div class="inf none hidden">
 						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+							Desde que hora se inicia el horario (ejemplo 13:00).
 						</p>
 					</div>
 				</div>
@@ -148,7 +139,7 @@
 					</a>
 					<div class="inf none hidden">
 						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+							Desde que hora se completa la jornada del horario (ejemplo 17:00).
 						</p>
 					</div>
 				</div>

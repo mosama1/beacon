@@ -30,10 +30,37 @@
 				<table>
 					<thead>
 						<tr>
-							<th data-field="id"></th>
+							<th data-field="id">
+								<div>
+									<div class="help">
+										<a href="#">
+											<i class="material-icons">help_outline</i>
+										</a>
+										<div class="inf none hidden">
+											<p>
+									  		Visualiza como se verá en el móvil.
+											</p>
+										</div>
+									</div>
+								</div>
+							</th>
 							<th data-field="id">Nombre</th>
 							<th data-field="country">Descripción</th>
-							<th width="100px">Contenido</th>
+							<th width="100px">
+								<div>
+									Contenido
+									<div class="help">
+										<a href="#">
+											<i class="material-icons">help_outline</i>
+										</a>
+										<div class="inf none hidden">
+											<p>
+									  		Fecha desde que esta vigente esta planificación (por defecto la fecha de creación).
+											</p>
+										</div>
+									</div>
+								</div>
+							</th>
 							<th width="100px">Editar</th>
 							<th width="100px">Eliminar</th>
 							<th width="130px">Habilitado</th>
@@ -45,7 +72,7 @@
 							<tr id="" >
 								<td>
 									<?= '<a href="#" id="preview" onclick="preview_campana('.$c->campana_id.')">';?>
-										<i class="material-icons">phonelink_setup</i>
+										<i class="material-icons" alt="Visualiza cómo se verá en el movil.">phonelink_setup</i>
 									</a>
 								</td>
 								<td>{{$c->name}}</td>
@@ -112,7 +139,7 @@
 		<label for="">
 		  <span class="text">Nombre</span>
 		</label>
-		<div class="help">
+<!-- 		<div class="help">
 		  <a href="#">
 			<i class="material-icons">help_outline</i>
 		  </a>
@@ -121,7 +148,7 @@
 			  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
 			</p>
 		  </div>
-		</div>
+		</div> -->
 	  </div>
 	  @if ($errors->has('name'))
 		<div class="input_error">
@@ -133,16 +160,6 @@
 		<label for="">
 		  <span class="text">Descripción (Opcional)</span>
 		</label>
-		<div class="help">
-		  <a href="#">
-			<i class="material-icons">help_outline</i>
-		  </a>
-		  <div class="inf none hidden">
-			<p>
-			  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-			</p>
-		  </div>
-		</div>
 	  </div>
 	  @if ($errors->has('description'))
 		<div class="input_error">
@@ -160,7 +177,7 @@
 		  </a>
 		  <div class="inf none hidden">
 			<p>
-			  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+			  Fecha desde que esta vigente esta planificación (por defecto la fecha de creación).
 			</p>
 		  </div>
 		</div>
@@ -182,7 +199,7 @@
 		  </a>
 		  <div class="inf none hidden">
 			<p>
-			  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+			  Fecha hasta donde esta vigente el plan creado
 			</p>
 		  </div>
 		</div>
@@ -233,7 +250,7 @@
 </div>
 
 
-<div id="dialog_preview" title="Previsualización de Campaña "  class="modal modal_">
+<div id="dialog_preview" title="Previsualización de Campaña"  class="modal modal_">
 	<iframe id="myIframe" src="">
 	</iframe>	
 </div>

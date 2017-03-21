@@ -307,12 +307,13 @@ class MovilController extends Controller
 
 		$menu->section;
 
-		//echo "<pre>"; var_dump($menu);	echo "</pre>";
+		// seteo la relación del madiraje para usarla en $menu
+		//
+		$menu->madirajes;
 
 		$section_translation = SectionTranslation::where([
 			['section_id', '=', $menu->section->id]
 		])->first();
-
 
 		return view('movil.filter_detail_plato',
 					[
@@ -323,7 +324,7 @@ class MovilController extends Controller
 						'campana_id' => $campana_id,
 						'section_name' => $section_translation->name,
 						'nivel' => '../',
-						'language_id' => $language_id,
+						'language_id' => $language_id
 					]);
 	}
 
@@ -349,6 +350,10 @@ class MovilController extends Controller
 		$menu->plate->madiraje_photo;
 
 		$menu->section;
+
+		// seteo la relación del madiraje para usarla en $menu
+		//
+		$menu->madirajes;
 
 		$section_translation = SectionTranslation::where([
 			['section_id', '=', $menu->section->id]

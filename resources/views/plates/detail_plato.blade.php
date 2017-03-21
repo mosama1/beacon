@@ -38,7 +38,7 @@ $nivel = '../../';
 						</a>
 						<div class="inf none hidden">
 							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+								Se utiliza para detallar información del plato. Se vera en la aplicación móvil.
 							</p>
 						</div>
 					</div>
@@ -66,7 +66,7 @@ $nivel = '../../';
 						</a>
 						<div class="inf none hidden">
 							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+								Fotografía del plato que se mostrará en el móvil al seleccionar la imagen del detalle.
 							</p>
 						</div>
 					</div>
@@ -92,7 +92,7 @@ $nivel = '../../';
 				<div class="input no_icon {{ $errors->has('madiraje') ? 'error' : '' }}">
 					<input type="text" name="madiraje" id="madiraje" value="" >
 					<label for="">
-						<span class="text">Madiraje</span>
+						<span class="text">Maridaje</span>
 					</label>
 					<div class="help">
 						<a href="#">
@@ -100,7 +100,7 @@ $nivel = '../../';
 						</a>
 						<div class="inf none hidden">
 							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+								Información adicional para la bebida que se sugiere acompañar con el plato (nombre, foto y precio).
 							</p>
 						</div>
 					</div>
@@ -128,13 +128,6 @@ $nivel = '../../';
                     @endforeach
 
                 </div>
-                <!-- <div class="ui-widget" style="margin-top:2em; font-family:Arial">
-                  Madiraje Seleccionado:
-                  <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
-                </div> -->
-				<!-- Div que muestra la busqueda de los registros mientras se tipea -->
-
-
 
 				<div class="languages ppal">
 
@@ -189,5 +182,4 @@ $nivel = '../../';
 		</div>
 	</div>
 </div>
-
 @endsection

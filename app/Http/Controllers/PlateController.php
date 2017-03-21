@@ -57,7 +57,6 @@ class PlateController extends Controller
 			['languages.id', '!=', 1],
 		])
 		->orderBy('name')->get();
-		// dd($menu->madirajes);
 
 		if ( empty($plate) | empty($plate->plate_translation) ):
 			return view('plates.add_plato',['section_id' => $menu->section_id, 'menu_id' => $menu_id, 'languages' => $languages]);
@@ -176,6 +175,8 @@ class PlateController extends Controller
 						['id', '=', $menu_id]
 					])->first();
 
+		$menu->madirajes()->attach($request->madiraje_id);
+		
 		return redirect()->route('all_menu', ['section_id' => $menu->section_id])
 			->with(['status' => 'Descripción del plato almacenada exitosamente', 'type' => 'success']);
 	}
@@ -259,6 +260,9 @@ class PlateController extends Controller
 							['user_id', '=', Auth::user()->user_id],
 							['id', '=', $menu_id]
 						])->first();
+
+			$menu->madirajes()->detach();
+			$menu->madirajes()->attach($request->madiraje_id);
 
 			return redirect()->route('all_menu',
 									[

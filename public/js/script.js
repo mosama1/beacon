@@ -149,7 +149,29 @@ function vistaLogo(evt) {
 	  },500);
 	}
 }
-$('#addLogo').change(vistaLogo);
+function vistaPromo(evt) {
+	var files = evt.target.files; // FileList object
+	// Obtenemos la imagen del campo "file".
+	for (var i = 0, f; f = files[i];i++) {
+	  //Solo admitimos imágenes.
+	  if (!f.type.match('image.*')) {
+		  continue;
+	  }
+	  var reader = new FileReader();
+	  reader.onload = (function(theFile) {
+		return function(e) {
+		  // Insertamos la imagen
+		  $('#vista_promo').html([' <img class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '"/> '].join(''));
+		};
+	  })(f);
+	  reader.readAsDataURL(f);
+	  setTimeout(function(){
+		tamanoImgVista('#vista_promo');
+	  },500);
+	}
+}
+$('#addPromo').change(vistaPromo);
+
 function vistaFondo(evt) {
 	var files = evt.target.files; // FileList object
 	// Obtenemos la imagen del campo "file".
@@ -253,6 +275,7 @@ tamanoImgVista('#vista_plato');
 tamanoImgVista('#vista_logo');
 tamanoImgVista('#vista_kit_b');
 tamanoImgVista('#vista_kit_f');
+tamanoImgVista('#vista_promo');
 
 
 function tamanoLogoVistaFinal(){
@@ -696,7 +719,7 @@ function preview_campana( campana_id )
 /********************** Preview Promotion *****************************/
 /**********************************************************************/
 
-function preview_promotion()
+function preview_promotion(id)
 {
 	$('#dialog_preview_promotion').dialog({
 
@@ -705,8 +728,8 @@ function preview_promotion()
 	    height: 700,
 	    width: 450,
 	    open: function(ev, ui){
-	    	$('#myIframe').attr( 'src','http://google.com/');
-			//$('#img_preview_promotion').attr( 'src','http://localhost:8000/' + img_promotion);
+	    	//$('#myIframePromotion').attr( 'src','http://google.com/');			
+			$('#myIframePromotion').attr( 'src','http://dementecreativo.com/prueba/final/movil/promocion/' + id);
 		}
 	});
 	$('#dialog_preview_promotion').dialog('open');

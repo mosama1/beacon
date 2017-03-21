@@ -43,9 +43,21 @@ $actual = 'home';
 			@else
 				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
 			@endif
-				<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_type_plate') : '' }}">
+				<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_type_plate') : '' }}" onclick="return false;">
 					<img src="img/icons/servicio.png" title="Servicio">
 				</a>
+				<ul>
+					<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+						<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_madiraje') : '' }}">
+							<span>Maridajes</span>
+						</a>
+					</li>
+					<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+						<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_type_plate') : '' }}">
+							<span>Tipos de<br> plato</span>
+						</a>
+					</li>
+				</ul>
 			</li>
 
 			@if( $ultimo_paso == 2 and $actual == 'home')

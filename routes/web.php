@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -9,6 +10,17 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+
+
+// Routa de las promociones
+// 
+Route::group(['prefix' => 'movil/promocion/'], function(){
+	
+	Route::get('{promotion_id}', 'WelcomeKitController@generate_code_image')
+			->name('promotion_view')->where('promotion_id', '[0-9]+');	
+});
 
 Route::group(['middleware' => 'auth'], function () {
 	require (__DIR__ . '/beacons.php');
@@ -27,7 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
 	require (__DIR__ . '/timeframes.php');
 	require (__DIR__ . '/type_plates.php');
 	require (__DIR__ . '/users.php');
-	require (__DIR__ . '/welcome_kit.php');
+	require (__DIR__ . '/welcome_kit.php');	
 	require (__DIR__ . '/madirajes.php');
 	Route::get('home', 'HomeController@index');
 });
