@@ -80,6 +80,18 @@ $actual = 'edit';
             <span>{{ $errors->first('name') }}</span>
           </div>
           @endif
+          <div class="input {{ $errors->has('verification_code') ? 'error' : '' }}">
+            <input type="text" name="verificationCode" value="Cod. para verificación de Promociones: {{$location->verification_code}}" required="" id="verificationCode" readonly>
+            <label for="">
+              <span class="text">Cod. para verificación de Promociones</span>
+            </label>
+          </div>
+          @if ($errors->has('verification_code'))
+          <div class="input_error">
+            <span>{{ $errors->first('verification_code') }}</span>
+          </div>
+          @endif
+
           <div class="input {{ $errors->has('city') ? 'error' : '' }}">
 
             <input type="text" name="city" value="{{$location->city}}" required="">

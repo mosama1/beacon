@@ -7,13 +7,14 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+
 use Beacon\Promotion;
 use Beacon\Content;
-
 use Beacon\Tag;
 use Beacon\Timeframe;
 use Beacon\User;
-use Illuminate\Support\Facades\Input;
+use Beacon\CouponPromotion;
 use Image as Img;
 
 class WelcomeKitController extends Controller
@@ -779,6 +780,9 @@ class WelcomeKitController extends Controller
 
 			$img = Img::make( $file_original );
 			$ancho_lienzo = $img->width();
+			$font_img = '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf';
+			//$font_img = '/home/demente/public_html/prueba/final/img/font/Intro.otf';
+
 
 			// Insert a logo
 			//
@@ -794,7 +798,7 @@ class WelcomeKitController extends Controller
 			foreach ($rows as $row) {
 				
 				$img->text($row, 125, $nro_linea, function($font){ 
-					$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
+					$font->file( '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf' );
 					$font->size(15);
 					$font->align('center');
 					$font->color('#ff8c00');
@@ -829,7 +833,7 @@ class WelcomeKitController extends Controller
 			// serial text
 			//
 			$img->text('SERIAL',125,325, function($font){
-				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
+				$font->file( '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf' );
 				$font->size(12);
 				$font->align('center');
 				$font->color('#616161');
@@ -837,7 +841,7 @@ class WelcomeKitController extends Controller
 			// LINE TEXT
 			//
 			$img->text('VÁLIDO HASTA',130,350, function($font){
-				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
+				$font->file( '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf' );
 				$font->size(15);
 				$font->align('center');
 				$font->color('#000');
@@ -855,44 +859,58 @@ class WelcomeKitController extends Controller
 	public static function generate_code_image( $id )
 	{
 
-		$promotion = Promotion::where([
-								['promotion_id', '=', $id],
-							])->first();
-
-		if ( !file_exists( $promotion->img ) )
-		{
-
-			return 'Lo datos suministrados no son validos...';
-		}
-
-		$now = date('d-m-Y');
-		$font = asset('img/font/Intro.otf');
-
 		// create Image from file
 		try {
 
+			$user = Auth::user();
+
+			$promotion = Promotion::where([
+									['promotion_id', '=', $id],
+									['user_id', '=', $user->user_id ]
+								])->first();
+
+			if ( !file_exists( $promotion->img ) )
+			{
+
+				throw new Exception('La promo no posee imagen base para ser generada...');
+			}
+
 			$code_secret = trim(substr( str_shuffle( 'ABCDEFGHIJKLMNPQRSTUVWXYZ123456789' ), 0, 10 ));
 			$file_promotion = 'assets/images/promos/coupons/' . $promotion->promotion_id.'_'.$code_secret . '.png';
-
 			$img = Img::make( $promotion->img );
+			$font_img = '/home/demente/public_html/prueba/final/img/font/Intro.otf';
 
 			// show secret code
 			$img->text($code_secret, 78, 305, function($font){
-				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
+				$font->file( '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf' );
 				$font->size(15);
 				$font->color('#b00a16');
 			});
 
 			// DATE VALIDED
-			$img->text(date('d.m.Y h:i:s a', (strtotime ("+1 Hour"))),128,370, function($font){
-				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
+			$date_valided_format = date('d.m.Y h:i:s a', (strtotime ("+1 Hour")));			
+			$img->text( $date_valided_format, 128, 370, function($font){
+				$font->file( '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf' );
 				$font->size(15);
 				$font->align('center');
 				$font->color('#ff8c00');
 			});
 			$img->save( $file_promotion );
 
+
+			// Almaceno los datos en la tabla que corresponde
+			//
+			$coupon_promotion = New CouponPromotion();
+			$coupon_promotion->code_coupon     = $code_secret;
+			$coupon_promotion->img_coupon      = $file_promotion;
+			$coupon_promotion->used_coupon     = 0; //no está usado
+			$coupon_promotion->promotion_id    = $promotion->promotion_id;
+			$coupon_promotion->user_id         = $promotion->user_id;
+			$coupon_promotion->save();
+
+
 		} catch (Exception $e) {
+
 		    echo 'Excepción capturada: ',  $e->getMessage(), "\n";
 		}
 		return view( 'promotion', ['promotion' => $file_promotion ] );

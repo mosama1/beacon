@@ -129,12 +129,12 @@ class UserController extends Controller
 
 		$ultimo_paso = UserController::ultimo_paso();
 
-
 		if ($user->location):
 
 			return view('users.edit', ['user' => $user, 'location' => $location, 'ultimo_paso' => $ultimo_paso ]);
 		else:
-			return view('locations.location_add');
+			//return view('locations.location_add');
+			return view('beacons.location_add', [ 'code' => trim( substr( str_shuffle( '123456789' ), 0, 4 ) ) ]);
 		endif;
 
 	}

@@ -68,16 +68,16 @@ class LocationController extends Controller
 	}
 
 
-		function uniqidReal($lenght = 20) {
-			if (function_exists("random_bytes")) {
-				$bytes = random_bytes(ceil($lenght / 2));
-			} elseif (function_exists("openssl_random_pseudo_bytes")) {
-				$bytes = openssl_random_pseudo_bytes(ceil($lenght / 2));
-			} else {
-				throw new Exception("el sistema no dispone de funciones segura para critografia");
-			}
-			return substr(bin2hex($bytes), 0, $lenght);
+	function uniqidReal($lenght = 20) {
+		if (function_exists("random_bytes")) {
+			$bytes = random_bytes(ceil($lenght / 2));
+		} elseif (function_exists("openssl_random_pseudo_bytes")) {
+			$bytes = openssl_random_pseudo_bytes(ceil($lenght / 2));
+		} else {
+			throw new Exception("el sistema no dispone de funciones segura para critografia");
 		}
+		return substr(bin2hex($bytes), 0, $lenght);
+	}
 
 	/**
 	 * Store a newly created resource in storage.
@@ -218,6 +218,7 @@ class LocationController extends Controller
 			$loca->logo = $logo;
 			$loca->lat =  0;
 			$loca->lng =  0;
+			$loca->verification_code = substr( $request->verificationCode, -4 );
 			$loca->save();
 
 			$tag_ = new Tag;
@@ -402,5 +403,6 @@ class LocationController extends Controller
 		endif;
 
 	}
+
 
 }

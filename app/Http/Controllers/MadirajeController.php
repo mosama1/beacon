@@ -113,12 +113,13 @@ class MadirajeController extends Controller
 
 		// id, nombre, precio,  foto, status, user_id
 		//   , name,    price, photo,      1, Auth::user()->id
-		$error = false;
+		$error_name = false;
+		$error_price= false;
 
-		$error = empty($request->name) ? true : '';
-		$error = empty($request->price) ? true: '';
+		$error_name = empty($request->name) ? true : '';
+		$error_price = empty($request->price) ? true: '';
 
-		if ( $error )
+		if ( $error_price or $error_name )
 		{
 			return redirect()->route('all_madiraje')->with(['status' => 'No se han indicado los campos requeridos', 'type' => 'error']);
 		}
@@ -217,7 +218,7 @@ class MadirajeController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function check_image( $image, $foto_mime )
+	private function check_image( $image, $foto_mime )
 	{
 
 		$foto = false;

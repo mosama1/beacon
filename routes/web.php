@@ -44,7 +44,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('home', 'HomeController@index');
 });
 
+	// Rutas que no van a ser validadas
+	//
 	require (__DIR__ . '/movil.php');
+	require (__DIR__ . '/coupon_promotions.php');
 
 Route::get('token/analytics', 'BeaconController@crud')->name('token_generate');
 

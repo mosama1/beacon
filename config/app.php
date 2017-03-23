@@ -77,6 +77,7 @@ return [
     */
 
     'timezone' => 'UTC',
+    'timezone' => 'Europe/Madrid',
 
     /*
     |--------------------------------------------------------------------------
@@ -179,7 +180,7 @@ return [
     	Laravel\Passport\PassportServiceProvider::class,
     	Laravel\Socialite\SocialiteServiceProvider::class,
         //Barryvdh\Debugbar\ServiceProvider::class,
-        //Intervention\Image\ImageServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -192,7 +193,7 @@ return [
          */
         Beacon\Providers\AppServiceProvider::class,
         Beacon\Providers\AuthServiceProvider::class,
-        // Beacon\Providers\BroadcastServiceProvider::class,
+        Beacon\Providers\BroadcastServiceProvider::class,
         Beacon\Providers\EventServiceProvider::class,
         Beacon\Providers\RouteServiceProvider::class,
         Beacon\Providers\ValidatorServiceProvider::class,
@@ -223,7 +224,7 @@ return [
         'Cookie' => Illuminate\Support\Facades\Cookie::class,
         'Crypt' => Illuminate\Support\Facades\Crypt::class,
         'DB' => Illuminate\Support\Facades\DB::class,
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        //'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Eloquent' => Illuminate\Database\Eloquent\Model::class,
         'Event' => Illuminate\Support\Facades\Event::class,
         'File' => Illuminate\Support\Facades\File::class,
@@ -247,12 +248,13 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
     	'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-        //'Image' => Intervention\Image\Facades\Image::class,
+        'Image' => Intervention\Image\Facades\Image::class,
+        
 
     ],
 
-    'Barryvdh\Debugbar\ServiceProvider',
-    'Debugbar' => 'Barryvdh\Debugbar\Facade',
+    //'Barryvdh\Debugbar\ServiceProvider',
+    //'Debugbar' => 'Barryvdh\Debugbar\Facade',
 
 
 

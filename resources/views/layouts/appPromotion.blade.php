@@ -18,5 +18,17 @@
 	<body>
 
 		@yield('content')
+
+		<!--  Scripts-->
+		<!-- <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
+		<script src="js/jquery.js"></script>
+		<script src="js/jquery-ui.min.js"></script>
+		<script src="js/materialize.js"></script>
+		<script src="js/init.js"></script>
+		<script src="js/datetimepicker.min.js"></script>
+		<script src="js/jquery.mask.min.js"></script>
+		<script src="js/config.js"></script>
+	    <script src="js/intro.min.js"></script>
+	    <script src="js/script.js"></script>		
 	</body>
 </html>

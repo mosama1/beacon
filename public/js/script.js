@@ -807,6 +807,68 @@ function madirajeSelectQuitar($this) {
 }
 
 
+/********************************************************************/
+/******************* Consulta Serial Coupon *************************/
+/********************************************************************/
+
+/* Valida el codigo de verificación del location */
+$('#verification_code').change(function(){      
+
+	$.ajax({
+		type: "POST",
+		url: 'cupones/code_location',
+		data: $(this).serialize(),
+		success: function(respuesta) {
+			console.log( respuesta );
+			if (respuesta.code === 0) { //si hay errores al buscar código 
+					
+				Materialize.toast(respuesta.message, 3000, 'error');
+				$('#verification_code').val('');
+				$('#verification_code').focus();				
+			}else {
+				$('#coupon_code').prop('readonly', false);
+				$('#coupon_code').focus();
+			}
+		}
+	});
+});
+
+/* Valida el codigo de la promoción */
+$('#coupon_code').change(function(){
+	$.ajax({
+		type: "POST",
+		url: 'cupones/code_coupon',
+		data: $('#verify_promotions').serialize(),
+		success: function(respuesta) {
+			if ( respuesta.code === 0 ) {
+
+				Materialize.toast(respuesta.message, 3000, 'error');
+				$('#coupon_code').val('');
+				$('#coupon_code').focus();				
+			}else {
+				
+				$data = JSON.parse(respuesta.message);
+				$('#expiration_date').val( $data.created_at );
+				var $id = 'habilitar_coupon_'+ $data.id;
+				var $habilitar_coupon = '';
+
+				if ( $data.used_coupon === 1 )
+				{
+					$checked = 'checked';
+					Materialize.toast('El cupón indicado ya ha sido usado.!!!', 3000, 'error');
+				}
+				else
+				{
+					$checked = '';
+					Materialize.toast('Cupón disponible.!!!', 3000, 'success');
+					$habilitar_coupon += '<label> No Usado <input id="habilitar_coupon_'+$id+'" type="checkbox" '+ $checked + ' class="filled-in" id="filled-in-box" /><span class="lever"></span>Usado</label>';
+					$('.switch').append($habilitar_coupon);
+				}
+			}
+		}
+	});
+});
+
 // function eliminar(){
 // 	document.getElementById("eliminar").value = "Enviando...";
 // 	document.getElementById("eliminar").disabled = true;
