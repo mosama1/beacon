@@ -146,7 +146,11 @@ $actual = (isset($actual)) ? $actual : '';
 						   <span>Mi Cuenta</span>
 						</a>
 					</li>
-
+					<li>
+						<a href="{{url('estadisticas/')}}">
+							<span> Estadisticas</span>
+						</a>
+					</li>
 
 					<li>
 					  <a href="{{ url('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

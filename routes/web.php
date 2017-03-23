@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
 	require (__DIR__ . '/users.php');
 	require (__DIR__ . '/welcome_kit.php');	
 	require (__DIR__ . '/madirajes.php');
+	require (__DIR__ . '/statistics.php');
 	Route::get('home', 'HomeController@index');
 });
 
