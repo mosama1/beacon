@@ -21,7 +21,7 @@ class CouponPromotionsController extends Controller
 	public function index()
 	{		
 
-		return view( 'promotions.verify_coupon');
+		return view( 'promotions.verify_coupon' ) ;
 	}
 
 
@@ -145,6 +145,35 @@ class CouponPromotionsController extends Controller
 		} catch (\Exception $e) {
 
 			return response()->json(['code' => 0, 'message' => $e->getLine() .': '. $e->getMessage() ]);
+		}
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update( Request $request )
+	{
+		$user = Auth::user();
+
+		$coupon_promotion = CouponPromotion::where([
+					['code_coupon', '=', $request->coupon_code ],
+					['user_id', '=', $user->user_id ]
+				])->first();		
+
+		if ( $request->habilitar_coupon == "on" )
+		{
+			$coupon_promotion->used_coupon = 1;
+			$coupon_promotion->save();
+
+			return redirect()->route('index_coupon_promotions')->with(['status' => 'Cupón Deshabilitado correctamente.', 'type' => 'success']);
+		}
+		else
+		{
+
+			return redirect()->route('index_coupon_promotions');
 		}
 	}
 }

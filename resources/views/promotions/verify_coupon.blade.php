@@ -12,7 +12,7 @@
 			<h3>Verificar Promociones</h3>
 		</div>
 		<div class="form">
-			<form class="form-horizontal form_send" role="form" method="POST" action="{{ route('store_promotion') }}" id="verify_promotions">
+			<form class="form-horizontal form_send" role="form" method="POST" action="{{ route('update_coupon_promotions') }}" id="verify_promotions">
 				{{ csrf_field() }}
 
 				<div class="input no_icon {{ $errors->has('verification_code') ? 'error' : '' }}">

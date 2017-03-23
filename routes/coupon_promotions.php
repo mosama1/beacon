@@ -23,10 +23,10 @@ Route::group(['prefix' => 'cupones'], function () {
 	// Lee el status del coupon
 	Route::get('{id}/show', 'CouponPromotionsController@show')->name('show_coupon_promotions');
 
-	// desabilita un cuopon 
-	Route::put('{id}/usado', 'CouponPromotionsController@habilitar_omekit')->name('habilitar_welcomkit')->where('id', '[0-9]+');	
+	Route::post('/', 'CouponPromotionsController@update')->name('update_coupon_promotions');
 
-		// consulta el verification code
+	//**************************//
+	// consulta el verification code
 	Route::post('code_location', 'CouponPromotionsController@check_code_location')->name('check_code_location')->where('id', '[0-9]+'); 	
 	Route::post('code_coupon', 'CouponPromotionsController@check_code_coupon')->name('check_code_coupon')->where('id', '[0-9]+'); 	
 });

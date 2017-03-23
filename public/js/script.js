@@ -670,6 +670,7 @@ $('.timepicker').datetimepicker({
 /********************************************************************/
 
 function habilitar(id, destino, value) {
+		console.log(id+' '+destino+'/'+value+'/habilitar');
 	$.ajax({
 		type: "put",
 		url: destino+'/'+value+'/habilitar',
@@ -849,7 +850,6 @@ $('#coupon_code').change(function(){
 				
 				$data = JSON.parse(respuesta.message);
 				$('#expiration_date').val( $data.created_at );
-				var $id = 'habilitar_coupon_'+ $data.id;
 				var $habilitar_coupon = '';
 
 				if ( $data.used_coupon === 1 )
@@ -860,8 +860,12 @@ $('#coupon_code').change(function(){
 				else
 				{
 					$checked = '';
+					var $control_id = 'habilitar_coupon'; //+ $data.id;
+					var $destino = 'cupones';
+					var $value = $data.id;
+
 					Materialize.toast('Cupón disponible.!!!', 3000, 'success');
-					$habilitar_coupon += '<label> No Usado <input id="habilitar_coupon_'+$id+'" type="checkbox" '+ $checked + ' class="filled-in" id="filled-in-box" /><span class="lever"></span>Usado</label>';
+					$habilitar_coupon += '<label> No Usado <input name="'+ $control_id +'" type="checkbox" '+ $checked + ' class="filled-in" /><span class="lever"></span>Usado</label>';
 					$('.switch').append($habilitar_coupon);
 				}
 			}

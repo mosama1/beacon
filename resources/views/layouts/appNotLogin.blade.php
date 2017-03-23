@@ -53,8 +53,16 @@
 	<script src="js/datetimepicker.min.js"></script>
 	<script src="js/jquery.mask.min.js"></script>
 	<script src="js/config.js"></script>
-    <script src="js/intro.min.js"></script>
-    <script src="js/script.js"></script>
+  <script src="js/intro.min.js"></script>
+  <script src="js/script.js"></script>
+
+  @if (session('status'))
+  <script type="text/javascript">
+    var status = "{{ session('status') }}";
+    var type = "{{ session('type') }}"
+    Materialize.toast(status, 5000, type);
+  </script>
+  @endif  
 
 </body>
 </html>
