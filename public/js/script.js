@@ -555,8 +555,7 @@ $('#add_madiraje').submit(function(event){
 	  type: "POST",
 	  url: 'madirajes/check',
 	  data: $('#add_madiraje').serialize(),
-	  success: function(respuesta) {
-	  	console.log( 'respuesta: ' + respuesta );
+	  success: function(respuesta) {	  	
 		if (respuesta === '0') {
 
 		  $('#add_madiraje')[0].submit();
@@ -669,8 +668,7 @@ $('.timepicker').datetimepicker({
 /******************* CheckBox Habilitar *****************************/
 /********************************************************************/
 
-function habilitar(id, destino, value) {
-		console.log(id+' '+destino+'/'+value+'/habilitar');
+function habilitar(id, destino, value) {		
 	$.ajax({
 		type: "put",
 		url: destino+'/'+value+'/habilitar',
@@ -820,7 +818,6 @@ $('#verification_code').change(function(){
 		url: 'cupones/code_location',
 		data: $(this).serialize(),
 		success: function(respuesta) {
-			console.log( respuesta );
 			if (respuesta.code === 0) { //si hay errores al buscar código 
 					
 				Materialize.toast(respuesta.message, 3000, 'error');
@@ -845,28 +842,29 @@ $('#coupon_code').change(function(){
 
 				Materialize.toast(respuesta.message, 3000, 'error');
 				$('#coupon_code').val('');
-				$('#coupon_code').focus();				
+				$('#coupon_code').focus();
 			}else {
-				
-				$data = JSON.parse(respuesta.message);
-				$('#expiration_date').val( $data.created_at );
-				var $habilitar_coupon = '';
 
-				if ( $data.used_coupon === 1 )
+				data = JSON.parse(respuesta.message);
+				$('#expiration_date').focus().val( data.created_at );
+				$('#vistaPreviaCoupon').prop('src', data.img_coupon );
+
+				if ( data.used_coupon === 1 )
 				{
-					$checked = 'checked';
+					checked = 'checked';
 					Materialize.toast('El cupón indicado ya ha sido usado.!!!', 3000, 'error');
 				}
 				else
 				{
-					$checked = '';
-					var $control_id = 'habilitar_coupon'; //+ $data.id;
-					var $destino = 'cupones';
-					var $value = $data.id;
+					checked = '';
+					var control_id = 'habilitar_coupon'; //+ $data.id;
+					var destino = 'cupones';
+					var value = data.id;
+					var habilitar_coupon = '';
 
 					Materialize.toast('Cupón disponible.!!!', 3000, 'success');
-					$habilitar_coupon += '<label> No Usado <input name="'+ $control_id +'" type="checkbox" '+ $checked + ' class="filled-in" /><span class="lever"></span>Usado</label>';
-					$('.switch').append($habilitar_coupon);
+					habilitar_coupon += '<label> No Usado <input name="'+ control_id +'" type="checkbox" '+ checked + ' class="filled-in" /><span class="lever"></span>Usado</label>';
+					$('.switch').append(habilitar_coupon);
 				}
 			}
 		}

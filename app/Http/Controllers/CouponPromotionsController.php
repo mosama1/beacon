@@ -144,7 +144,7 @@ class CouponPromotionsController extends Controller
 			}
 		} catch (\Exception $e) {
 
-			return response()->json(['code' => 0, 'message' => $e->getLine() .': '. $e->getMessage() ]);
+			return response()->json(['code' => 0, 'message' => $e->getMessage() ]);
 		}
 	}
 
@@ -156,11 +156,9 @@ class CouponPromotionsController extends Controller
 	 */
 	public function update( Request $request )
 	{
-		$user = Auth::user();
 
 		$coupon_promotion = CouponPromotion::where([
 					['code_coupon', '=', $request->coupon_code ],
-					['user_id', '=', $user->user_id ]
 				])->first();		
 
 		if ( $request->habilitar_coupon == "on" )

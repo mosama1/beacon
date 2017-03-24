@@ -865,8 +865,7 @@ class WelcomeKitController extends Controller
 			$user = Auth::user();
 
 			$promotion = Promotion::where([
-									['promotion_id', '=', $id],
-									['user_id', '=', $user->user_id ]
+									['promotion_id', '=', $id]
 								])->first();
 
 			if ( !file_exists( $promotion->img ) )
