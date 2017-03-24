@@ -38,7 +38,7 @@
 
         <div class="input-field col s12 {{ $errors->has('timeframe_id') ? 'error' : '' }}">
           <select multiple id="timeframe_id" name="timeframe_id" required>
-            <option value="" disabled selected>Seleccione un Horario</option>
+            <option value="" disabled selected>Seleccione Horario</option>
             @foreach($timeframes as $t)
                 <option value="{{$t->timeframe_id}}">{{$t->name}}</option>
             @endforeach

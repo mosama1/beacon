@@ -139,16 +139,6 @@
 		<label for="">
 		  <span class="text">Nombre</span>
 		</label>
-<!-- 		<div class="help">
-		  <a href="#">
-			<i class="material-icons">help_outline</i>
-		  </a>
-		  <div class="inf none hidden">
-			<p>
-			  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-			</p>
-		  </div>
-		</div> -->
 	  </div>
 	  @if ($errors->has('name'))
 		<div class="input_error">
@@ -169,7 +159,7 @@
 	  <div class="input no_icon {{ $errors->has('start_time') ? 'error' : '' }}">
 		<input type="text" name="start_time" value="" required="" class="datetimepicker date_mask">
 		<label for="">
-		  <span class="text">Inicio (dd/mm/yy hh:mm)</span>
+		  <span class="text">Inicio (dd/mm/yy)</span>
 		</label>
 		<div class="help">
 		  <a href="#">
@@ -191,7 +181,7 @@
 	  <div class="input no_icon {{ $errors->has('end_time') ? 'error' : '' }}">
 		<input type="text" name="end_time" value="" required="" class="datetimepicker date_mask">
 		<label for="">
-		  <span class="text">Final (dd/mm/yy hh:mm)</span>
+		  <span class="text">Fin (dd/mm/yy)</span>
 		</label>
 		<div class="help">
 		  <a href="#">

@@ -112,7 +112,7 @@ class CouponPromotionsController extends Controller
 			if ( $coupon_promotion )
 			{
 
-				$expiration_date = strtotime( '+1 hour', strtotime( $coupon_promotion->created_at ) );
+				$expiration_date = strtotime( '+30 minutes', strtotime( $coupon_promotion->created_at ) );
 				$expiration_date = date( 'Y-m-d H:i:s', $expiration_date );
 
 				$date_expired = New \DateTime( $expiration_date );
