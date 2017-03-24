@@ -18,5 +18,5 @@
 Route::group(['prefix' => 'estadisticas'], function () {
 
 	Route::get('/', 'StatisticsController@index')->name('statistics');
-
+	Route::get('/main', 'StatisticsController@getData');
 });

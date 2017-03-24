@@ -40,9 +40,23 @@ return [
 			'client_secret' => env('ANALYTIC_SECRET_ID', '7e58c94dafd3751f90b0e4b4de871be7e8b7ae44'),
 			'redirect' => 'https://connect.onyxbeacon.com/oauth/client',
             'analytics' => 'https://connect.onyxbeacon.com/api/v2/analytics',
+            'visits'=> 'https://connect.onyxbeacon.com/api/v2/visits',
             'crud_scope'=>'crud',
             'analytics_scope'=>'analytics'
 
 	],
+    'beaconParams'=> [
+        'analytics'=>[
+            'startDate'=>null,
+            'endDate'=> null,
+            'location'=>null,
+            'types'=>null
+        ],
+        'visits'=>[
+            'startDate'=>null,
+            'endDate'=>null,
+            'location'=>null
+        ]
+    ]
 
 ];

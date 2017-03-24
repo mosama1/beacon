@@ -7,11 +7,49 @@ use GuzzleHttp\Client;
 class ServiceManager
 {
 static $token;
-private static $url= config('');
- public static function getAnalytics($array, $startDate,$endDate){
-	 $access_token= self::getToken();
+
+ public function getAnalytics($queryarray){ 
+	 $url= config('services.beacon.analytics');
+	 
+	 $token=$this->getToken();
+	 $params=$this->setParams($queryarray, $token,'analytics');
 	 $client=new Client();
-	 $cleint->get()
+	 $response=$client->request('GET',$url, $params );
+	 $result=json_decode($response->getBody());
+	 return $result;
+ }
+ public function getVisits( $queryarray=[]){ 
+	 $url= config('services.beacon.visits');
+	 $token=$this->getToken();
+	 $params=$this->setParams($queryarray, $token,'visits');
+	 $client=new Client();
+	 $response=$client->request('GET',$url, $params );
+	 $result=json_decode($response->getBody());
+	 return $result;
+ }
+ private function setParams($queryarray, $token,$type){
+	 if ($type=='analytics') {
+		 return[
+		  'headers' => ['Authorization' => 'Bearer '.$token ],
+		  'query'=>[
+			  'startDate'=> $queryarray['startDate'],
+			  'endDate'=>$queryarray['endDate'],
+			  'locations'=>$queryarray['location'],
+			  'types'=>$queryarray['types'],
+		  ]
+	  ];
+	 }
+	 else{
+
+		 return[
+		  'headers' => ['Authorization' => 'Bearer '.$token ],
+		  'query'=>[
+			  'startDate'=> $queryarray['startDate'],
+			  'endDate'=>$queryarray['endDate'],
+			  'locations'=>$queryarray['location'],
+		  ]
+	  ];
+	 }
  }
  private static function getToken(){
 	 $client=new Client();
@@ -24,7 +62,7 @@ private static $url= config('');
 	 ];
 	 
     $response = $client->request('POST',config('services.beacon.redirect'),$params);
-		$json_c = $response->getBody();
+		$json_c = $response->getBody();		
 		$token= json_decode($json_c);
      return $token->access_token;
  }

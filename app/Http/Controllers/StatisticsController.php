@@ -14,8 +14,33 @@ class StatisticsController extends Controller
     *@return statistics
     */
     public function index(){
+      
+       return view('statistics.statistics');   
+    }
+    public function getData(){
+      $result=$this->newsRecurrentsAndUniques();
+      
+      return response()->json($result);
+    }
+    /*
+    *
+    */
+    private function newsRecurrentsAndUniques(){
+      $params= config('services.beaconParams.analytics');
+      $params['types']=[
+        'NEW_VS_RETURNING',
+        'UNIQ_VISITORS'
+      ];
+      $service= new ServiceManager();
+      $result= $service->getAnalytics($params);
 
-       // return view('statistics.statistics');
-       return ServiceManager::token();
+      return $result->analytics;
+    }
+     private function visitors(){
+      $params= config('services.beaconParams.analytics');
+      $service= new ServiceManager();
+      $result= $service->getAnalytics($params);
+
+      return $result;
     }
 }
