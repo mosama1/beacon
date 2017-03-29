@@ -21,7 +21,7 @@ class CouponPromotionsController extends Controller
 	public function index()
 	{		
 
-		return view( 'promotions.verify_coupon');
+		return view( 'promotions.verify_coupon' ) ;
 	}
 
 
@@ -112,7 +112,7 @@ class CouponPromotionsController extends Controller
 			if ( $coupon_promotion )
 			{
 
-				$expiration_date = strtotime( '+1 hour', strtotime( $coupon_promotion->created_at ) );
+				$expiration_date = strtotime( '+30 minutes', strtotime( $coupon_promotion->created_at ) );
 				$expiration_date = date( 'Y-m-d H:i:s', $expiration_date );
 
 				$date_expired = New \DateTime( $expiration_date );
@@ -144,7 +144,34 @@ class CouponPromotionsController extends Controller
 			}
 		} catch (\Exception $e) {
 
-			return response()->json(['code' => 0, 'message' => $e->getLine() .': '. $e->getMessage() ]);
+			return response()->json(['code' => 0, 'message' => $e->getMessage() ]);
+		}
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update( Request $request )
+	{
+
+		$coupon_promotion = CouponPromotion::where([
+					['code_coupon', '=', $request->coupon_code ],
+				])->first();		
+
+		if ( $request->habilitar_coupon == "on" )
+		{
+			$coupon_promotion->used_coupon = 1;
+			$coupon_promotion->save();
+
+			return redirect()->route('index_coupon_promotions')->with(['status' => 'Cupón Deshabilitado correctamente.', 'type' => 'success']);
+		}
+		else
+		{
+
+			return redirect()->route('index_coupon_promotions');
 		}
 	}
 }

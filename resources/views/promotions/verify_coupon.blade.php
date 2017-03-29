@@ -9,10 +9,10 @@
 <div class="contenedor">
 	<div class="principal">
 		<div class="titulo">
-			<h3>Verificar Promociones</h3>
+			<h3>Verificar Cupones</h3>
 		</div>
 		<div class="form">
-			<form class="form-horizontal form_send" role="form" method="POST" action="{{ route('store_promotion') }}" id="verify_promotions">
+			<form class="form-horizontal form_send" role="form" method="POST" action="{{ route('update_coupon_promotions') }}" id="verify_promotions">
 				{{ csrf_field() }}
 
 				<div class="input no_icon {{ $errors->has('verification_code') ? 'error' : '' }}">
@@ -61,6 +61,13 @@
 					</div>
 				@endif
 
+				<div class="vista_previa">
+					<center  id="vista_previa">						
+						<div class="img active" id="vista_logo">
+							<img class="thumb" id="vistaPreviaCoupon" >
+						</div>						
+					</center>
+				</div>
 
 				<div class="button">
 					<center>
@@ -76,32 +83,6 @@
 			</form>			
 		</div>
 	</div>
-</div>
-
-
-
-<div id="eliminarPlan" class="modal modal_">
-  <div class="titulo">
-	<h3>
-	  Esta seguro que desea eliminar esta promoción
-	</h3>
-  </div>
-  <div class="form">
-	<form class="form-horizontal form_send" role="form" method="POST">
-	  {{ csrf_field() }}
-	  {{ method_field('DELETE') }}
-	  <div class="button">
-		<center>
-		  <button type="submit" name="button" class="send_form">
-			<span>Si</span>
-		  </button>
-		  <a href="#" class="" onclick="$('#eliminarPlan').modal('close'); return false;">
-			<span>No</span>
-		  </a>
-		</center>
-	  </div>
-	</form>
-  </div>
 </div>
 
 @endsection

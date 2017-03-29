@@ -90,7 +90,7 @@ class WelcomeKitController extends Controller
 		//Json parse
 		$json_welcome = $welcome_api->getBody();
 		$welcome_response = json_decode($json_welcome);
-			//echo "<pre>"; var_dump($welcome_response); echo "</pre>";
+
 		if ($welcome_response->status_code === 200 ){
 			//kit de la api
 			$welcome_resource = $welcome_response->campaign;
@@ -806,32 +806,30 @@ class WelcomeKitController extends Controller
 				$nro_linea += 18;
 			}
 
-			// Insert a image promo
-			//
-			$image_promo = Img::make( $image );
-			// prevent possible upsizing
-			$image_promo->resize(null, 100, function ($constraint) {
-			    $constraint->aspectRatio();
-			    $constraint->upsize();
-			});
-/*			$image_promo->resize(null, 100, function ($constraint) {
-				$constraint->aspectRatio();
-			});
-*/
-			$width_layer = $img->width()/2;
-			$width_promo = $image_promo->width()/2;
-			$center =  $width_layer - $width_promo;		
-			
-			$img->insert($image_promo, 'top-left', 70, 180); //180
+
+			if ( !empty( $image ) )
+			{	
+				// Insert a image promo
+				//
+				$image_promo = Img::make( $image );
+				// prevent possible upsizing
+				$image_promo->resize(null, 100, function ($constraint) {
+				    $constraint->aspectRatio();
+				    $constraint->upsize();
+				});
+				$width_layer = $img->width()/2;
+				$width_promo = $image_promo->width()/2;
+				$center =  $width_layer - $width_promo;		
+				
+				$img->insert($image_promo, 'top-left', 70, 180); //180
+			}
 
 			// RECTANGULO PARA EL CODIGO
-			//
 			$img->rectangle(45, 285, 214, 312, function ($draw) {
 			    $draw->background('#c5c5c5');
 			    $draw->border(1, '#616161');
 			});
 			// serial text
-			//
 			$img->text('SERIAL',125,325, function($font){
 				$font->file( '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf' );
 				$font->size(12);
@@ -839,13 +837,12 @@ class WelcomeKitController extends Controller
 				$font->color('#616161');
 			});
 			// LINE TEXT
-			//
-			$img->text('VÁLIDO HASTA',130,350, function($font){
+			/*$img->text('CUPÓN GENERADO',130,370, function($font){
 				$font->file( '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf' );
 				$font->size(15);
 				$font->align('center');
 				$font->color('#000');
-			});
+			});*/
 
 			$img->save($file_promotion);
 
@@ -862,11 +859,11 @@ class WelcomeKitController extends Controller
 		// create Image from file
 		try {
 
-			$user = Auth::user();
+			$date_valided_format = 'Vence: ' . date('d.m.Y h:i:s a', (strtotime ("+30 Minutes"))); // le sumo 30min de validez
+			$today = 'Cupón Generado: ' . date('d.m.Y h:i:s a');
 
 			$promotion = Promotion::where([
-									['promotion_id', '=', $id],
-									['user_id', '=', $user->user_id ]
+									['promotion_id', '=', $id]
 								])->first();
 
 			if ( !file_exists( $promotion->img ) )
@@ -879,36 +876,37 @@ class WelcomeKitController extends Controller
 			$file_promotion = 'assets/images/promos/coupons/' . $promotion->promotion_id.'_'.$code_secret . '.png';
 			$img = Img::make( $promotion->img );
 			$font_img = '/home/demente/public_html/prueba/final/img/font/Intro.otf';
-
 			// show secret code
 			$img->text($code_secret, 78, 305, function($font){
 				$font->file( '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf' );
 				$font->size(15);
 				$font->color('#b00a16');
 			});
-
-			// DATE VALIDED
-			$date_valided_format = date('d.m.Y h:i:s a', (strtotime ("+1 Hour")));			
-			$img->text( $date_valided_format, 128, 370, function($font){
+			// DATE VALIDED			
+			$img->text( $today, 130, 385, function($font){
 				$font->file( '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf' );
-				$font->size(15);
+				$font->size(8);
 				$font->align('center');
-				$font->color('#ff8c00');
+				$font->color('#000000');;
+			});
+			// DATE COUPON TODAY
+			$img->text( $date_valided_format, 130, 395, function($font){
+				$font->file( '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf' );
+				$font->size(8);
+				$font->align('center');
+				$font->color('#000000');
 			});
 			$img->save( $file_promotion );
-
 
 			// Almaceno los datos en la tabla que corresponde
 			//
 			$coupon_promotion = New CouponPromotion();
-			$coupon_promotion->code_coupon     = $code_secret;
-			$coupon_promotion->img_coupon      = $file_promotion;
-			$coupon_promotion->used_coupon     = 0; //no está usado
-			$coupon_promotion->promotion_id    = $promotion->promotion_id;
-			$coupon_promotion->user_id         = $promotion->user_id;
-			$coupon_promotion->save();
-
-
+			$coupon_promotion->code_coupon = $code_secret;
+			$coupon_promotion->img_coupon = $file_promotion;
+			$coupon_promotion->used_coupon = 0; //no está usado
+			$coupon_promotion->promotion_id = $promotion->promotion_id;
+			$coupon_promotion->user_id = $promotion->user_id;
+			//$coupon_promotion->save();
 		} catch (Exception $e) {
 
 		    echo 'Excepción capturada: ',  $e->getMessage(), "\n";

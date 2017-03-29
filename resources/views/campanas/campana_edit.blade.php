@@ -70,7 +70,7 @@
         <div class="input no_icon {{ $errors->has('end_time') ? 'error' : '' }}">
           <input type="text" name="end_time" value="{{date('d-m-Y', strtotime($campana->end_time))}}" required="" class="datetimepicker">
           <label for="">
-            <span class="text">Final (dd/mm/yy)</span>
+            <span class="text">Fin (dd/mm/yy)</span>
           </label>
           <div class="help">
             <a href="#">
