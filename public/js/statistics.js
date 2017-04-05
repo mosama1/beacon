@@ -3,7 +3,7 @@ $(document).ready(statistics);
 function statistics(){
 $('#newsAndRecurrents').hide();
 $('#unique').hide();
-    $.get("/estadisticas/main")
+    $.get("/prueba/final/estadisticas/main")
     .done(processMain);
     
 }

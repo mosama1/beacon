@@ -659,8 +659,8 @@ $('.datetimepicker').datetimepicker({
 
 
 $('.timepicker').datetimepicker({
-  datepicker:true,
-  format:'h:i'
+  datepicker:false, // true
+  format:'H:i'
 });
 
 

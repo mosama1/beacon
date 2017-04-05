@@ -798,7 +798,7 @@ class WelcomeKitController extends Controller
 			foreach ($rows as $row) {
 				
 				$img->text($row, 125, $nro_linea, function($font){ 
-					$font->file( '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf' );
+					$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 					$font->size(15);
 					$font->align('center');
 					$font->color('#ff8c00');
@@ -831,7 +831,7 @@ class WelcomeKitController extends Controller
 			});
 			// serial text
 			$img->text('SERIAL',125,325, function($font){
-				$font->file( '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf' );
+				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(12);
 				$font->align('center');
 				$font->color('#616161');
@@ -872,26 +872,26 @@ class WelcomeKitController extends Controller
 				throw new Exception('La promo no posee imagen base para ser generada...');
 			}
 
-			$code_secret = trim(substr( str_shuffle( 'ABCDEFGHIJKLMNPQRSTUVWXYZ123456789' ), 0, 10 ));
+			$code_secret = trim(substr( str_shuffle( 'ABCDEFGHJKLMNPRSTUVWXYZ23456789' ), 0, 10 ));
 			$file_promotion = 'assets/images/promos/coupons/' . $promotion->promotion_id.'_'.$code_secret . '.png';
 			$img = Img::make( $promotion->img );
 			$font_img = '/home/demente/public_html/prueba/final/img/font/Intro.otf';
 			// show secret code
 			$img->text($code_secret, 78, 305, function($font){
-				$font->file( '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf' );
+				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(15);
 				$font->color('#b00a16');
 			});
 			// DATE VALIDED			
 			$img->text( $today, 130, 385, function($font){
-				$font->file( '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf' );
+				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(8);
 				$font->align('center');
 				$font->color('#000000');;
 			});
 			// DATE COUPON TODAY
 			$img->text( $date_valided_format, 130, 395, function($font){
-				$font->file( '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf' );
+				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(8);
 				$font->align('center');
 				$font->color('#000000');
@@ -906,7 +906,7 @@ class WelcomeKitController extends Controller
 			$coupon_promotion->used_coupon = 0; //no está usado
 			$coupon_promotion->promotion_id = $promotion->promotion_id;
 			$coupon_promotion->user_id = $promotion->user_id;
-			//$coupon_promotion->save();
+			$coupon_promotion->save();
 		} catch (Exception $e) {
 
 		    echo 'Excepción capturada: ',  $e->getMessage(), "\n";

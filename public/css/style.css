@@ -2071,6 +2071,10 @@ body.menu2 .menu_cliente{
 
 
 
+.helper span{
+  position: relative;
+  top: -8px;
+}
 
 .contenedor .principal .tabla table th .help{
   /*position: absolute;*/
@@ -2080,6 +2084,7 @@ body.menu2 .menu_cliente{
   /*height: 30px;*/
   /*transform: translate();*/
   position: relative;
+  display: inline-block;
 }
 
 .contenedor .principal .tabla table th .help i{
@@ -2106,8 +2111,8 @@ body.menu2 .menu_cliente{
   height: auto;
   background: #000;
   top: 47px;
-  left: 0;
-  transform: translate(-30%);
+  left: -85px;
+  transform: translate(0%);
   z-index: 11;
   border-radius: 5px;
   /*overflow: hidden;*/
