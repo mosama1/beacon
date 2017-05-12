@@ -30,8 +30,23 @@
 				<table>
 					<thead>
 						<tr>
-							<th data-field="id">
+							<!-- <th data-field="id">
 								<div>
+									<div class="help">
+										<a href="#">
+											<i class="material-icons">help_outline</i>
+										</a>
+										<div class="inf none hidden">
+											<p>
+									  		Visualiza como se verá en el móvil.
+											</p>
+										</div>
+									</div>
+								</div>
+							</th> -->
+							<th width="150px">
+								<div class="helper">
+									<span>Previsualizar</span>
 									<div class="help">
 										<a href="#">
 											<i class="material-icons">help_outline</i>
@@ -157,7 +172,7 @@
 		</div>
 	  @endif
 	  <div class="input no_icon {{ $errors->has('start_time') ? 'error' : '' }}">
-		<input type="text" name="start_time" value="" required="" class="datetimepicker date_mask">
+		<input type="text" name="start_time" value="" required="" class="datepicker date_mask">
 		<label for="">
 		  <span class="text">Inicio (dd/mm/yy)</span>
 		</label>
@@ -179,7 +194,7 @@
 	  @endif
 
 	  <div class="input no_icon {{ $errors->has('end_time') ? 'error' : '' }}">
-		<input type="text" name="end_time" value="" required="" class="datetimepicker date_mask">
+		<input type="text" name="end_time" value="" required="" class="datepicker date_mask">
 		<label for="">
 		  <span class="text">Fin (dd/mm/yy)</span>
 		</label>

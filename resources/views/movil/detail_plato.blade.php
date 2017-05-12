@@ -73,17 +73,23 @@ $menu2 = '';
 	  </div>
 
 	  <div class="img">
-		@if (!empty($menu->plate->madiraje_photo))
-			@for ($mp = 0; $mp < count($menu->plate->madiraje_photo); $mp++)
+
+		@if (!is_Null($menu->madirajes))
+			@foreach($menu->madirajes as $madiraje)
 				<div class="img_maridaje">
-					<img src="{{$menu->plate->madiraje_photo[$mp]->img_madiraje}}" alt="" >
+					<img src="{{ asset($madiraje->foto) }}" alt="" >
 				</div>
-			@endfor
+				<div class="nombre">
+
+					<h4>{{$madiraje->nombre}}</h4>
+				</div>
+				<h4 class="mensaje__">
+                {{ $madiraje->precio }} € 
+              </h4>
+			@endforeach
 		@endif
 	  </div>
-	  <h4>
-	  	Precio del Madiraje ({{ $menu->plate->plate_translation[0]->price_madiraje }}€ )
-	  </h4>
+
 
 	</div>
 

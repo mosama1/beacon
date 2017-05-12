@@ -220,8 +220,8 @@
   </div>
 </div>
 
-<div id="dialog_preview_promotion" title="Previsualización de Promoción"  class="modal modal_" style="vertical-align:middle;">
-	<iframe id="myIframePromotion" src="" style="width: 80%; height: 80%;">
+<div id="dialog_preview_promotion" title="Previsualización de Promoción"  class="modal modal_" style="vertical-align:middle; height: auto">
+	<iframe id="myIframePromotion" src="" style="width: 100%; height: 450px;">
 	</iframe>	
 </div>
 @endsection

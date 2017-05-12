@@ -10,6 +10,9 @@
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 
 		<title>Nombre de la Aplicación</title>
+
+		<link href="{{asset('css/style.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
+
 		<!-- Scripts -->
 		<script>
 			window.Laravel = "<?php echo json_encode(['csrfToken' => csrf_token(), ]); ?>"

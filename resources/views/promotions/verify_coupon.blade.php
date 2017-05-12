@@ -7,16 +7,17 @@
 @section('content')
 
 <div class="contenedor">
+
 	<div class="principal">
 		<div class="titulo">
 			<h3>Verificar Cupones</h3>
 		</div>
 		<div class="form">
-			<form class="form-horizontal form_send" role="form" method="POST" action="{{ route('update_coupon_promotions') }}" id="verify_promotions">
+			<form class="form-horizontal form_send" role="form" method="POST" action="{{ route('update_coupon_promotions') }}" id="verify_promotions" name="verify_promotions">
 				{{ csrf_field() }}
 
 				<div class="input no_icon {{ $errors->has('verification_code') ? 'error' : '' }}">
-					<input type="text" name="verification_code" id="verification_code" value="" required="la imgen" maxlength="4" minlength="4">
+					<input type="text" name="verification_code" id="verification_code" value="" required="true" maxlength="4" minlength="4">
 					<label for="verification_code">
 						<span class="text">Código de verificación</span>
 					</label>
@@ -39,44 +40,38 @@
 					</div>
 				@endif
 
-				<div class="input no_icon {{ $errors->has( 'expiration_date' ) ? 'error' : '' }}">
-					<input type="text" name="expiration_date" id="expiration_date" value="" required="true" readonly="true">
-					<label for="expiration_date">
-						<span class="text">Fecha y Hora de expiración</span>
-					</label>
-				</div>
-				@if ($errors->has('expiration_date'))
-					<div class="input_error">
-						<span>{{ $errors->first('expiration_date') }}</span>
-					</div>
-				@endif
+				<div class="mostrar_mensaje {{ (session('message')) ? 'message '.session('type') : '' }}">
 
-				<div class="input no_icon {{ $errors->has( 'status_coupon' ) ? 'error' : '' }}">
-					<div class="switch">
+					<p>
+						{{ session('message') }}
+					</p>
+					<a href="#">
+						<i class="material-icons">close</i>
+					</a>
+				</div>
+
+				<div class="vista_previa_promotion">
+					<div class="img">							
+						<a href="#">
+							<img id="" class="" src="">
+						</a>
 					</div>
 				</div>
-				@if ($errors->has('status_coupon'))
-					<div class="input_error">
-						<span>{{ $errors->first('status_coupon') }}</span>
-					</div>
-				@endif
 
-				<div class="vista_previa">
-					<center  id="vista_previa">						
-						<div class="img active" id="vista_logo">
-							<img class="thumb" id="vistaPreviaCoupon" >
-						</div>						
-					</center>
+				<!-- The Modal -->
+				<div id="myModal" class="modal-background">
+				  <span class="close">&times;</span>
+				  <img class="modal-content" id="imgPreview">
+				  <div id="caption"></div>
 				</div>
 
 				<div class="button">
 					<center>
-						<button type="submit" name="button" id="guardar" class="send_form">
-							<span>Guardar</span>
+						<button type="button" name="button" id="guardar_verify_coupon" name="guardar_verify_coupon" class="send_form">
+							<span>Canjear<br />Cupon</span>
 						</button>
-						<a href="#" class="" onclick="return false;">
-						<!-- <a href="#" class="" onclick="$('#agregarPlan').modal('close'); return false;"> !-->
-							<span>Cancelar</span>
+						<a onclick="location.reload(true)">
+							<span>Borrar</span>
 						</a>
 					</center>
 				</div>

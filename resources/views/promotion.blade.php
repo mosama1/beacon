@@ -1,5 +1,7 @@
 @extends('layouts.appPromotion')
 
 @section('content')
-	<img src="{{ asset($promotion) }} ">
+	<div class="img_promotion">
+		<img src="{{ asset($promotion) }} " class="">
+	</div>
 @endsection

@@ -107,7 +107,7 @@
 			  <div class="file-field input-field input_file {{ $errors->has('photo') ? 'has-error' : '' }}">
 				<div class="btn">
 				  <span class="icon"><img src="img/icons/subir_archivo.png" alt=""></span>
-				  <span>Subir Logo</span>
+				  <span>Subir Imagen</span>
 				  <input type="file" name="photo" id="addPhoto">
 				</div>
 				<div class="file-path-wrapper">

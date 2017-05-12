@@ -20,7 +20,6 @@ class CouponPromotionsController extends Controller
 	 */
 	public function index()
 	{		
-
 		return view( 'promotions.verify_coupon' ) ;
 	}
 
@@ -86,7 +85,6 @@ class CouponPromotionsController extends Controller
 		// Validación de los datos		
 		//
 		try {
-
 			// no puede estra en blanco
 			if ( empty( $request->coupon_code ) )
 			{
@@ -99,7 +97,7 @@ class CouponPromotionsController extends Controller
 				throw new \Exception('Error no se ha indicado el código del cupón.');
 			}
 
-			// debe poseer un ancho fijo de 4 dìgitos
+			// debe poseer un ancho fijo de 10 dìgitos
 			if ( strlen( $request->coupon_code ) != 10 )
 			{
 				throw new \Exception('El código del cupón no posee el número de caracteres esperado.');
@@ -109,6 +107,7 @@ class CouponPromotionsController extends Controller
 						['code_coupon', '=', $request->coupon_code]
 					])->first();
 
+			
 			if ( $coupon_promotion )
 			{
 
@@ -118,12 +117,12 @@ class CouponPromotionsController extends Controller
 				$date_expired = New \DateTime( $expiration_date );
 				$today = New \DateTime( 'now' );
 
-				$dteDiff  = $date_expired->diff($today);
+				$dteDiff  = $date_expired->diff($today);				
 
-				if ( $dteDiff->d > 0 ) // el cupón fué generado hace más de un día
+				if ( $dteDiff->y > 0  || $dteDiff->m > 0 || $dteDiff->d > 0 ) // el cupón fué generado hace más de un día
 				{
-
-					throw new \Exception( 'El cupón expiró el día: ' . date( 'd/m/Y', strtotime( $expiration_date ) ) );				
+					
+					throw new \Exception( 'Cupón vencido, ya no es válido para ser canjeado' );
 				}
 				else
 				{
@@ -131,10 +130,11 @@ class CouponPromotionsController extends Controller
 					if ( $dteDiff->h > 0 )
 					{
 
-						throw new \Exception( 'El cupón venció ya hace ' . $dteDiff->h . ' horas.' );						
+						$hora = $dteDiff->h > 1 ? 'horas' : 'hora';
+						throw new \Exception( 'El cupón venció ya hace ' . $dteDiff->h . ' ' . $hora );
 					}
 				}
-				
+
 				return response()->json(['code' => 1 , 'message' => $coupon_promotion->toJson() ]);
 			}
 			else
@@ -161,17 +161,21 @@ class CouponPromotionsController extends Controller
 					['code_coupon', '=', $request->coupon_code ],
 				])->first();		
 
-		if ( $request->habilitar_coupon == "on" )
+		$code_location = Location::where([
+					['verification_code', '=', $request->verification_code ],
+				])->first();
+		
+		if ( $coupon_promotion && $code_location )
 		{
 			$coupon_promotion->used_coupon = 1;
 			$coupon_promotion->save();
 
-			return redirect()->route('index_coupon_promotions')->with(['status' => 'Cupón Deshabilitado correctamente.', 'type' => 'success']);
+			return redirect()->route('index_coupon_promotions')->with(['message' => 'Cupón canjeado correctamente.', 'type' => 'success']);
 		}
 		else
 		{
 
-			return redirect()->route('index_coupon_promotions');
+			return redirect()->route('index_coupon_promotions')->with(['message' => 'El cupón no pudo ser canjeado.', 'type' => 'error']);
 		}
 	}
 }

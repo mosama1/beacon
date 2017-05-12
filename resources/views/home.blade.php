@@ -1,5 +1,6 @@
 <?php
 $actual = 'home';
+//dd($ultimo_paso)
 ?>
 @extends('layouts.app')
 
@@ -8,109 +9,82 @@ $actual = 'home';
 <div class="contenedor">
 	<div class="principal">
 		<ul class="links">
-			@if( ( $ultimo_paso == 2 and $actual == 'home' ) or ( $actual == 'home' and $ultimo_paso == 4 ) )
-				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}" data-step="3" data-intro="Debes crear La Carta, Secciones y Platos">
-			@else
-				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
-			@endif
-				<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_coupon') : '' }}">
-				  <img src="img/icons/menu.png" title="Carta">
-				</a>
-			</li>
+            @if( ( $ultimo_paso == 4 and $actual == 'home' ) or ( $actual == 'home' and $ultimo_paso == 4 ) )
+                <li class="{{ ( $ultimo_paso >= 4 ) ? '' : 'desactivado' }}" data-step="4" data-intro="Debes crear La Carta, Secciones y Platos">
+            @else
+                <li class="{{ ( $ultimo_paso >= 4 ) ? '' : 'desactivado' }}">
+            @endif
+                <a href="{{ ( $ultimo_paso >= 4 ) ? route('all_coupon') : '' }}">
+                  <img src="img/icons/menu.png" title="Carta">
+                </a>
+            </li>
 
-			@if( $ultimo_paso == 3 and $actual == 'home')
-				<li class="{{ ( $ultimo_paso >= 3 ) ? '' : 'desactivado' }}" data-step="4" data-intro="Debes crear Horarios">
-			@else
-				<li class="{{ ( $ultimo_paso >= 3 ) ? '' : 'desactivado' }}">
-			@endif
-				<a href="{{ ( $ultimo_paso >= 3 ) ? route('all_timeframe') : ''}}">
-					<img src="img/icons/horarios.png" title="Horarios">
-				</a>
-			</li>
+            @if( $ultimo_paso == 5 and $actual == 'home')
+                <li class="{{ ( $ultimo_paso >= 5 ) ? '' : 'desactivado' }}" data-step="5" data-intro="Debes crear Horarios">
+            @else
+                <li class="{{ ( $ultimo_paso >= 5 ) ? '' : 'desactivado' }}">
+            @endif
+                <a href="{{ ( $ultimo_paso >= 5 ) ? route('all_timeframe') : ''}}">
+                    <img src="img/icons/horarios.png" title="Horarios">
+                </a>
+            </li>
 
-			@if( $ultimo_paso == 5 and $actual == 'home')
-				<li class="{{ ( $ultimo_paso >= 5 ) ? '' : 'desactivado' }}" data-step="5" data-intro="Puedes crear tus planificaciones">
-			@else
-				<li class="{{ ( $ultimo_paso >= 5 ) ? '' : 'desactivado' }}">
-			@endif
-				<a href="{{ ( $ultimo_paso >= 5 ) ? route('all_campana') : '' }}">
-					<img src="img/icons/plan.png" title="Planificación">
-				</a>
-			</li>
+            @if( $ultimo_paso == 7 and $actual == 'home')
+                <li class="{{ ( $ultimo_paso >= 7 ) ? '' : 'desactivado' }}" data-step="7" data-intro="Puedes crear tus planificaciones">
+            @else
+                <li class="{{ ( $ultimo_paso >= 7 ) ? '' : 'desactivado' }}">
+            @endif
+                <a href="{{ ( $ultimo_paso >= 7 ) ? route('all_campana') : '' }}">
+                    <img src="img/icons/plan.png" title="Planificación">
+                </a>
+            </li>
 
-			@if( $ultimo_paso == 2 and $actual == 'home')
-				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}"  data-step="4" data-intro="Puedes crear Tipos de platos">
-			@else
-				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
-			@endif
-				<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_type_plate') : '' }}" onclick="return false;">
-					<img src="img/icons/servicio.png" title="Servicio">
-				</a>
-				<ul>
-					<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
-						<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_madiraje') : '' }}">
-							<span>Maridajes</span>
-						</a>
-					</li>
-					<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
-						<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_type_plate') : '' }}">
-							<span>Tipos de<br> plato</span>
-						</a>
-					</li>
-				</ul>
-			</li>
+            @if( $ultimo_paso == 3 and $actual == 'home')
+                <li class="{{ ( $ultimo_paso >= 3 ) ? '' : 'desactivado' }}"  data-step="5" data-intro="Puedes crear Madirajes y Tipos de platos">
+            @else
+                <li class="{{ ( $ultimo_paso >= 3 ) ? '' : 'desactivado' }}">
+            @endif
+                <a href="{{ ( $ultimo_paso >= 3 ) ? route('all_type_plate') : '' }}" onclick="return false;">
+                    <img src="img/icons/servicio.png" title="Servicio">
+                </a>
+                <ul>
+                    <li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+                        <a href="{{ ( $ultimo_paso >= 2 ) ? route('all_madiraje') : '' }}">
+                            <span>Maridajes</span>
+                        </a>
+                    </li>
+                    <li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+                        <a href="{{ ( $ultimo_paso >= 2 ) ? route('all_type_plate') : '' }}">
+                            <span>Tipos de<br> plato</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
-			@if( $ultimo_paso == 2 and $actual == 'home')
-				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}" data-step="6" data-intro="Puedes Crear idiomas">
-			@else
-				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
-			@endif
-				<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_language') : '' }}">
-					<img src="img/icons/idiomas.png" title="Idiomas">
-				</a>
-			</li>
-
-
-
-			@if( ( $ultimo_paso == 2 and $actual == 'home' ) or ( $actual == 'home' and $ultimo_paso == 4 ) )
-				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}" data-step="7" data-intro="Puedes crear Promociones">
-			@else
-				<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
-			@endif
-				<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_welcome_kit') : '' }}">
-				  <img src="img/icons/promociones.png" title="Promociones">
-				</a>
-			</li>
+            @if( $ultimo_paso == 2 and $actual == 'home')
+                <li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}" data-step="3" data-intro="Ya puedes crear los idiomas">
+            @else
+                <li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+            @endif
+                <a href="{{ ( $ultimo_paso >= 2 ) ? route('all_language') : '' }}">
+                    <img src="img/icons/idiomas.png" title="Idiomas">
+                </a>
+            </li>
 
 
 
-<!--
+            @if( ( $ultimo_paso == 2 and $actual == 'home' ) or ( $actual == 'home' and $ultimo_paso == 4 ) )
+                <li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}" data-step="6" data-intro="Puedes crear Promociones">
+            @else
+                <li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+            @endif
+                <a href="{{ ( $ultimo_paso >= 2 ) ? route('all_welcome_kit') : '' }}">
+                  <img src="img/icons/promociones.png" title="Promociones">
+                </a>
+            </li>
 
-
-
-				@if( $ultimo_paso == 2 and $actual == 'home')
-					<li data-step="7" data-intro="Puedes Crear Promociones">
-				@else
-					<li>
-				@endif
-				<a href="#" onclick="return false;">
-					<img src="img/icons/promociones.png" title="Promociones">
-				</a>
-				<ul>
-					<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
-						<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_welcome_kit') : '' }}">
-							<span>Kit de <br>Bienvenida</span>
-						</a>
-					</li>
-					<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
-						<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_fidelity_kit') : '' }}">
-							<span>Kit de <br>Fidelidad</span>
-						</a>
-					</li>
-				</ul>
-			</li>-->
-		</ul>
-	</div>
+        </ul>	
+    </div>
 </div>
 
 @endsection

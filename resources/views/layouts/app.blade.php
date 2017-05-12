@@ -9,6 +9,7 @@ use Beacon\Pasos;
 $ultimo_paso = UserController::ultimo_paso();
 
 $actual = (isset($actual)) ? $actual : '';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,15 +56,17 @@ $actual = (isset($actual)) ? $actual : '';
 			<a id="logo-container" class="brand-logo logo-patrocinante logo" href="{{ Auth::guest() ? url('/login') : url('home') }}">
 			  <?php if (Auth::user()): ?>
 				@php
-				$user = User::where('id', '=', Auth::user()->id)->first();
+					$user = User::where('id', '=', Auth::user()->id)->first();
 
-				$location = Location::where('user_id', '=', $user->user_id)->first();
+					$location = Location::where('user_id', '=', $user->user_id)->first();
 
-				$ultimo_paso = UserController::ultimo_paso();
+					$ultimo_paso = UserController::ultimo_paso();
 
 				@endphp
 				<?php if (!empty($location)): ?>
 				  <img src="{{$location->logo}}" alt="">
+				  <h1>{{$location->name}}</h1>
+
 				<?php else: ?>
 				  <a href="{{ route('user_edit_path', Auth::user()->id) }}" class="titulologo">
 					<h5>Recuerda Colocar tu logo</h5>
@@ -88,8 +91,8 @@ $actual = (isset($actual)) ? $actual : '';
 						<span>Servicios <i class="material-icons right">arrow_drop_down</i></span>
 					</a>
 					<ul class="sub_menu none">
-						<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
-							<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_coupon') : '' }}">
+						<li class="{{ ( $ultimo_paso >= 3 ) ? '' : 'desactivado' }}">
+							<a href="{{ ( $ultimo_paso >= 3 ) ? route('all_coupon') : '' }}">
 								<span>La Carta</span>
 							</a>
 						</li>
@@ -104,36 +107,40 @@ $actual = (isset($actual)) ? $actual : '';
 							</a>
 						</li>
                         <li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
-							<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_type_plate') : '' }}">
+							<a href="{{ ( $ultimo_paso >= 2 ) ?  : '' }}" class="sb_mn2">
 								<span>Servicio</span>
 							</a>
+							<ul class="sub_menu2">
+							<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+								<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_type_plate') : '' }}">
+									<span>Tipos de platos</span>
+								</a>
+							</li>
+							<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
+								<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_madiraje') : '' }}">
+
+									<span>Madirajes</span>
+								</a>
+							</li>
+							</ul>
 						</li>
                         <li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
                             <a href="{{ ( $ultimo_paso >= 2 ) ? route('all_language') : '' }}">
                                 <span>Idiomas</span>
                             </a>
+
                         </li>
 
 
 						<li>
-						<a href="#" class="sb_mn2">
+						<a href="{{ route('all_welcome_kit') }}">
 						<span>Promociones</span>
 						</a>
-							<ul class="sub_menu2">
-							<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
-								<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_welcome_kit') : '' }}">
-									<span>Kit de Bienvenida</span>
-								</a>
-							</li>
-							<li class="{{ ( $ultimo_paso >= 2 ) ? '' : 'desactivado' }}">
-								<a href="{{ ( $ultimo_paso >= 2 ) ? route('all_fidelity_kit') : '' }}">
-									<span>Kit de Fidelidad</span>
-								</a>
-							</li>
-							</ul>
+							
 						</li>
 						</ul>
 					</li>
+
 
                     @if( $ultimo_paso == 0 and $actual != 'location_add')
                         <li data-step="1" data-intro="Debes registrar tu ubicacion">
@@ -142,13 +149,27 @@ $actual = (isset($actual)) ? $actual : '';
                     @else
                         <li>
                     @endif
-						<a class="" href="{{ route('user_edit_path', Auth::user()->id) }}">
-						   <span>Mi Cuenta</span>
+						<a class="sb_mn" href="#">
+							<span>Mis Datos <i class="material-icons right">arrow_drop_down</i></span>
 						</a>
+						<ul class="sub_menu none">						
+							<li class="">
+								<a class="" href="{{ route('user_edit_path', Auth::user()->id) }}">
+								   <span>Mi Cuenta</span>
+								</a>
+							</li>
+
+	                        <li class="{{ ( $ultimo_paso >= 6 ) ? '' : 'desactivado' }}">
+    	                        <a href="{{ ( $ultimo_paso >= 6 ) ? url('estadisticas/') : '' }}">
+									<span> Estadisticas</span>
+								</a>
+							</li>
+						</ul>
 					</li>
-					<li>
-						<a href="{{url('estadisticas/')}}">
-							<span> Estadisticas</span>
+
+ 		            <li class="{{ ( $ultimo_paso >= 6 ) ? '' : 'desactivado' }}">
+		                <a href="{{ ( $ultimo_paso >= 6 ) ? route('index_coupon_promotions') : '' }}"> 
+							<span>Verificar Cupón</span>
 						</a>
 					</li>
 
@@ -161,12 +182,7 @@ $actual = (isset($actual)) ? $actual : '';
 						  {{ csrf_field() }}
 					  </form>
 					</li>
-                    <!-- <li>
-                        <a class="introduccion" href="javascript:void(0);" onclick="javascript:startTour();">
-                           <span>Intro</span>
-                        </a>
 
-                    </li> -->
 
 				@else
 				<a id="logo-container" class="brand-logo logo-patrocinante logo logo_right" href="#">

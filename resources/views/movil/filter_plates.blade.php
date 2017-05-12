@@ -32,6 +32,7 @@ use Beacon\Section;
 			  </tr>
 			</thead>
 			<tbody>
+
 			  @foreach($menus as $p)
 				@php
 				  $plate = plate::where([
@@ -66,7 +67,8 @@ use Beacon\Section;
 					@endif
 				  </td>
 				  <td>
-					@if ($plate != NULL)
+
+					@if ($p->plate != NULL)
 					<a href="{{ route('show_desc_plate_by_type', array('campana_id' => $campana_id, 'type_plate' => $type_plate->id, 'menu_id' => $p->id, 'language_id' => $language_id ) ) }}"  target="_self"><i class="material-icons">remove_red_eye</i></a>
 					@endif
 				  </td>

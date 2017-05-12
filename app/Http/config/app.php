@@ -77,7 +77,8 @@ return [
     */
 
     'timezone' => 'UTC',
-    'timezone' => 'Europe/Madrid',
+    //'timezone' => 'Europe/Madrid',
+    'timezone' => 'America/Caracas',
 
     /*
     |--------------------------------------------------------------------------

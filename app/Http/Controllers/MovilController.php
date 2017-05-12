@@ -353,7 +353,7 @@ class MovilController extends Controller
 
 		// seteo la relación del madiraje para usarla en $menu
 		//
-		$menu->madirajes;
+		//dd($menu->madirajes);
 
 		$section_translation = SectionTranslation::where([
 			['section_id', '=', $menu->section->id]

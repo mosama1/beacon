@@ -15,6 +15,8 @@ use Beacon\Section;
 use Beacon\Menu;
 use Beacon\Timeframe;
 use Beacon\Campana;
+use Beacon\LanguageUser;
+use Beacon\Madiraje;
 
 
 
@@ -183,6 +185,8 @@ class UserController extends Controller
 			$user = Auth::user()->user_id;
 			$paso_completado = 0;
 
+
+
 			// Consulto que data posee registrada y devuelvo el paso que representa
 			//
 
@@ -197,38 +201,51 @@ class UserController extends Controller
 
 					return $paso_completado;
 				} else {
-
 					$paso_completado++;
-
-					if ( Coupon::where('user_id','=', $user)->get()->count() < 1 ){
+					if (LanguageUser::where('user_id', '=', $user)->get()->count() < 2) {
 						return $paso_completado;
-					} else {
+					}else{
+
 						$paso_completado++;
-
-						if ( Timeframe::where('user_id','=', $user)->get()->count() < 1 ) {
-
+						if (Madiraje::where('user_id', '=', $user)->get()->count() < 1) {
 							return $paso_completado;
-						} else {
-
+						}else{
+							
 							$paso_completado++;
 
-							if (  Menu::where('user_id','=', $user)->get()->count() < 1 ){
-
+							if ( Coupon::where('user_id','=', $user)->get()->count() < 1 ){
 								return $paso_completado;
 							} else {
-
 								$paso_completado++;
 
-								if ( Campana::where('user_id','=', $user)->get()->count() < 1 ){
+								if ( Timeframe::where('user_id','=', $user)->get()->count() < 1 ) {
 
 									return $paso_completado;
 								} else {
+
 									$paso_completado++;
-									return $paso_completado;
+
+									if (  Menu::where('user_id','=', $user)->get()->count() < 1 ){
+
+										return $paso_completado;
+									} else {
+
+										$paso_completado++;
+
+										if ( Campana::where('user_id','=', $user)->get()->count() < 1 ){
+
+											return $paso_completado;
+										} else {
+											$paso_completado++;
+											return $paso_completado;
+										}
+									}
 								}
 							}
 						}
+
 					}
+
 				}
 			}
 		}

@@ -54,27 +54,49 @@ $menu2 = '';
 
       </div>
       <div class="img">
-          @if($menu->plate->img_madiraje != NULL OR !empty($menu->plate->img_madiraje))
-          <img alt="" src="{{ asset($menu->plate->img_madiraje) }}">
-          @endif
-      </div>
+        @if($menu->plate->img != NULL OR !empty($menu->plate->img))
+        <img alt="" src="{{ asset($menu->plate->img) }}">
+        @endif
+    </div>
 
       <p class="mensaje__">Este plato se recomienda con:</p>
 
-      <div class="description">
-        <p>
-            @if( isset($language_id) )
-                @foreach ($plate_translation as $plate)
-                    @if($plate->language_id == $language_id)
-                    {{$plate->madiraje}}
-                    @endif
-                @endforeach
-            @else
-                {{$plate_translation[0]->madiraje}}
-            @endif
-        </p>
+        <div class="inf">
 
-      </div>
+          <div class="description">
+          <p>
+            @if( isset($language_id) )
+              @foreach ($menu->plate->plate_translation as $plate)
+                @if($plate->language_id == $language_id)
+                {{$plate->madiraje}}
+                @endif
+              @endforeach
+            @else
+              {{$menu->plate->plate_translation[0]->madiraje}}
+            @endif
+          </p>
+
+          </div>
+
+          <div class="img">
+
+          @if (!is_Null($menu->madirajes))
+            @foreach($menu->madirajes as $madiraje)
+              <div class="img_maridaje">
+                <img src="{{ asset($madiraje->foto) }}" alt="" >
+              </div>
+              <div class="nombre">
+                <h4>{{$madiraje->nombre}}</h4>
+              </div>
+              <h4 class="mensaje__">
+                {{ $madiraje->precio }} € 
+              </h4>
+            @endforeach
+          @endif
+          </div>
+          
+
+        </div>
 
     </div>
 

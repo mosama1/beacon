@@ -657,6 +657,23 @@ $('.datetimepicker').datetimepicker({
  format:'d-m-Y h:i'
 });
 
+$('.datepicker').datetimepicker({
+ i18n:{
+  de:{
+   months:[
+	'Enero','Febrero','Marzo','Abril',
+	'Mayo','Junio','Julio','Agosto',
+	'Septiembre','Octubre','Noviembre','Diciembre',
+   ],
+   dayOfWeek:[
+	"Dom.", "Lun", "Mar", "Mie",
+	"Jue", "Vie", "Sab.",
+   ]
+  }
+ },
+ timepicker:false,
+ format:'d-m-Y h:i'
+});
 
 $('.timepicker').datetimepicker({
   datepicker:false, // true
@@ -809,7 +826,19 @@ function madirajeSelectQuitar($this) {
 /********************************************************************/
 /******************* Consulta Serial Coupon *************************/
 /********************************************************************/
+$('#verify_promotions').submit(function(e){
+	e.preventDefault();
+});
+$('#verification_code').keypress(function(e) {
+    if ( e.which == 13 ) {
+        $('#coupon_code').focus();
+        e.preventDefault();
+    }
+});
 
+$('#guardar_verify_coupon').click(function(){
+	$('#verify_promotions')[0].submit();
+});
 /* Valida el codigo de verificación del location */
 $('#verification_code').change(function(){      
 
@@ -820,15 +849,55 @@ $('#verification_code').change(function(){
 		success: function(respuesta) {
 			if (respuesta.code === 0) { //si hay errores al buscar código 
 					
-				Materialize.toast(respuesta.message, 3000, 'error');
+				//Materialize.toast(respuesta.message, 3000, 'error');
+				$('#verify_promotions .mostrar_mensaje p').html( respuesta.message );
+				$('#verify_promotions .mostrar_mensaje').addClass('error').addClass('active').removeClass('message');
+
+				setTimeout(function(){
+					$('#verify_promotions .mostrar_mensaje').removeClass('error').removeClass('active');
+					setTimeout(function(){
+						$('#verify_promotions .mostrar_mensaje p').html( '' );	
+						$('#verify_promotions .mostrar_mensaje').removeClass('error')	
+					}, 500);
+				}, 5000);
+
 				$('#verification_code').val('');
-				$('#verification_code').focus();				
+				$('#verification_code').focus();
 			}else {
+
 				$('#coupon_code').prop('readonly', false);
 				$('#coupon_code').focus();
 			}
 		}
 	});
+});
+
+$(document).ready(function(){
+	var mostrar_mensaje = $('#verify_promotions .mostrar_mensaje');
+
+	if (mostrar_mensaje.filter('.message').length > 0) {
+		mostrar_mensaje.addClass('active').removeClass('message');
+
+		setTimeout(function(){
+			$('#verify_promotions .mostrar_mensaje').removeClass('active');
+
+			setTimeout(function(){
+				$('#verify_promotions .mostrar_mensaje p').html('');
+				$('#verify_promotions .mostrar_mensaje').removeClass('error').removeClass('message');
+			},500);		
+		}, 5000);
+	}
+});
+
+$('#verify_promotions .mostrar_mensaje a').click(function(e){
+	e.preventDefault();
+
+	$('#verify_promotions .mostrar_mensaje').removeClass('active');
+	setTimeout(function(){
+		$('#verify_promotions .mostrar_mensaje p').html( '' );
+		$('#verify_promotions .mostrar_mensaje').removeClass('error').removeClass('message');		
+	}, 500);
+
 });
 
 /* Valida el codigo de la promoción */
@@ -840,35 +909,63 @@ $('#coupon_code').change(function(){
 		success: function(respuesta) {
 			if ( respuesta.code === 0 ) {
 
-				Materialize.toast(respuesta.message, 3000, 'error');
-				$('#coupon_code').val('');
-				$('#coupon_code').focus();
+
+				//Materialize.toast(respuesta.message, 7999000, 'error');
+				$('#verify_promotions .mostrar_mensaje p').html( respuesta.message );
+				$('#verify_promotions .mostrar_mensaje').addClass('error').addClass('active').removeClass('message');
+
+				setTimeout(function(){
+					$('#verify_promotions .mostrar_mensaje').removeClass('error').removeClass('active');
+					setTimeout(function(){
+						$('#verify_promotions .mostrar_mensaje p').html( '' );	
+						$('#verify_promotions .mostrar_mensaje').removeClass('error')	
+					}, 500);
+				}, 5000);
+
+
 			}else {
 
 				data = JSON.parse(respuesta.message);
-				$('#expiration_date').focus().val( data.created_at );
-				$('#vistaPreviaCoupon').prop('src', data.img_coupon );
 
 				if ( data.used_coupon === 1 )
 				{
-					checked = 'checked';
-					Materialize.toast('El cupón indicado ya ha sido usado.!!!', 3000, 'error');
+				$('#verify_promotions .vista_previa_promotion').removeClass('active');
+				$('#verify_promotions .mostrar_mensaje p').html('El cupón indicado ya ha sido usado.!!!');
+				$('#verify_promotions .mostrar_mensaje').addClass('error').addClass('active').removeClass('message');
+
+				setTimeout(function(){
+					$('#verify_promotions .mostrar_mensaje').removeClass('error').removeClass('active');
+					setTimeout(function(){
+						$('#verify_promotions .mostrar_mensaje p').html( '' );	
+						$('#verify_promotions .mostrar_mensaje').removeClass('error')	
+					}, 500);
+				}, 5000);
 				}
 				else
 				{
-					checked = '';
-					var control_id = 'habilitar_coupon'; //+ $data.id;
-					var destino = 'cupones';
-					var value = data.id;
-					var habilitar_coupon = '';
+					$('#verify_promotions .vista_previa_promotion img').prop('src', data.img_coupon );
+					$('#verify_promotions .vista_previa_promotion').addClass('active');
 
-					Materialize.toast('Cupón disponible.!!!', 3000, 'success');
-					habilitar_coupon += '<label> No Usado <input name="'+ control_id +'" type="checkbox" '+ checked + ' class="filled-in" /><span class="lever"></span>Usado</label>';
-					$('.switch').append(habilitar_coupon);
+					$('#guardar_verify_coupon').fadeIn();
+
+						var formData = new FormData( this );
 				}
 			}
 		}
 	});
+});
+
+$('#verify_promotions .vista_previa_promotion a').click(function(e){
+	e.preventDefault();
+	var item = $(this).parent().parent();
+
+	item.addClass('ver');
+});
+$('#verify_promotions .vista_previa_promotion a').blur(function(){
+	var item = $(this).parent().parent();
+
+	item.removeClass('ver');
+
 });
 
 // function eliminar(){
