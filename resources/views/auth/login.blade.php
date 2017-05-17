@@ -148,13 +148,12 @@
         <center>
           <div class="login_footer">
             <div class="button lg_foot">
-              <form id="logout-form" action="{{ route('index_coupon_promotions') }}" method="POST">  
-                {{ csrf_field() }}
-                <button type="submit" name="button">
+              <a href="{{ route('index_coupon_promotions') }}">
+                <button type="button" name="button">
                   <span>Verificar</span><br>
                   <span>Cupón</span>
                 </button>
-              </form>
+              </a>
             </div>
           </div>
         </center>

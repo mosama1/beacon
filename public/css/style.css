@@ -1504,6 +1504,10 @@ body.menu2 .menu_cliente{
   margin-top: 15px;
 
 }
+.authenticate .divide .divide_cont .login_footer .button a button{
+  color: #000;
+  font-size: 15px;
+}
 .authenticate .divide .divide_cont .login_footer .button button{
   height: 60px;
   border-radius: 25px;

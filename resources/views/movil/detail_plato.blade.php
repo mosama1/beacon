@@ -80,7 +80,6 @@ $menu2 = '';
 					<img src="{{ asset($madiraje->foto) }}" alt="" >
 				</div>
 				<div class="nombre">
-
 					<h4>{{$madiraje->nombre}}</h4>
 				</div>
 				<h4 class="mensaje__">
@@ -89,13 +88,7 @@ $menu2 = '';
 			@endforeach
 		@endif
 	  </div>
-
-
 	</div>
-
-
-
-
 	<div class="agregar regresar">
 	  <center>
 		<a href="{{ route('movil_all_plate', array('campana_id' => $campana_id, 'section_id' => $menu->section_id, 'menu_id' => $menu->menu_id, 'language_id' => $language_id) ) }}" class="waves-effect" target="_self">
