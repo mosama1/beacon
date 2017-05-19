@@ -738,16 +738,15 @@ function preview_campana( campana_id )
 function preview_promotion(id)
 {
 	$('#dialog_preview_promotion').dialog({
-
 	    autoOpen: false,
 	    modal: true,
 	    height: 700,
 	    width: 450,
-	    open: function(ev, ui){
-	    	//$('#myIframePromotion').attr( 'src','http://google.com/');			
-			$('#myIframePromotion').attr( 'src','http://dementecreativo.com/prueba/final/movil/promocion/' + id);
+	    open: function(ev, ui){	    	
+			$('#myIframePromotion').attr( 'src','movil/promocion/' + id );
+			//$('#myIframePromotion').attr( 'src','http://dementecreativo.com/prueba/final/movil/promocion/' + id);
 		}
-	});
+	});	
 	$('#dialog_preview_promotion').dialog('open');
 }
 
@@ -809,9 +808,6 @@ $( "#madiraje" ).autocomplete({
         setTimeout(function(){
             $( "#madiraje" ).val("");
         },20);
-
-
-
   }
 } );
 function madirajeSelectQuitar($this) {

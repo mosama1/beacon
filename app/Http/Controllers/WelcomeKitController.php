@@ -759,14 +759,11 @@ class WelcomeKitController extends Controller
 	public static function create_image( $message, $logo, $image, $cod_promotion )
 	{
 
-
-
 		//
 		// En los controles de Img las coordendas son x,y en pixeles
 		//
 		
 		$file_original  = 'img/origin_promotions.png';
-
 
 		// Estructura del directorio para las promociones
 		//
@@ -783,13 +780,13 @@ class WelcomeKitController extends Controller
 
 			$img = Img::make( $file_original );
 			$ancho_lienzo = $img->width();
-			//$font_img = '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf';
-			$font_img = '/home/demente/public_html/prueba/final/img/font/Intro.otf';
+			$dir_font = asset( '/img/font/Intro.otf' );
+			//$font_img = '/home/demente/public_html/prueba/final/img/font/Intro.otf';
 
 			// Insert a logo
 			//
 			$logo_preview = Img::make( $logo );
-			$logo_preview->resize(null, 70, function ($constraint) {
+			$logo_preview->resize(null, 70, function ($constraint){
 			    $constraint->aspectRatio();
 			});
 			$img->insert($logo_preview, 'top', 10,5);
@@ -799,9 +796,9 @@ class WelcomeKitController extends Controller
 
 			foreach ($rows as $row) {
 				
-				$img->text($row, 125, $nro_linea, function($font){ 
-					//$font->file( '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf' );
-					$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
+				$img->text($row, 125, $nro_linea, function($font) use ( $dir_font ){ 
+					$font->file( $dir_font );
+					//$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 					$font->size(15);
 					$font->align('center');
 					$font->color('#ff8c00');
@@ -833,9 +830,9 @@ class WelcomeKitController extends Controller
 			    $draw->border(1, '#616161');
 			});
 			// serial text
-			$img->text('SERIAL',125,325, function($font){
-				//$font->file( '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf' );
-				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
+			$img->text('SERIAL',125,325, function($font) use ( $dir_font ){
+				$font->file( $dir_font );
+				//$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(12);
 				$font->align('center');
 				$font->color('#616161');
@@ -858,7 +855,6 @@ class WelcomeKitController extends Controller
 
 	public static function generate_code_image( $id )
 	{
-
 		// create Image from file
 		try {
 
@@ -867,7 +863,7 @@ class WelcomeKitController extends Controller
 
 			$promotion = Promotion::where([
 									['promotion_id', '=', $id]
-								])->first();
+								])->first();			
 
 			if ( !file_exists( $promotion->img ) )
 			{
@@ -878,29 +874,28 @@ class WelcomeKitController extends Controller
 			$code_secret = trim(substr( str_shuffle( 'ABCDEFGHJKLMNPRSTUVWXYZ23456789' ), 0, 10 ));
 			$file_promotion = 'assets/images/promos/coupons/' . $promotion->promotion_id.'_'.$code_secret . '.png';
 			$img = Img::make( $promotion->img );
-			$font_img = '/home/demente/public_html/prueba/final/img/font/Intro.otf';
-			//$font_img = '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf';
-
+			$dir_font = 'assets/img/font/Intro.otf'; // utilizar asi de maenra literal para evitar errores
+			//$dir_font = '/home/demente/public_html/prueba/final/img/font/Intro.otf'
 
 			// show secret code
-			$img->text($code_secret, 78, 305, function($font){
-				//$font->file( '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf' );
-				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
+			$img->text($code_secret, 78, 305, function($font) use ( $dir_font ){
+				$font->file( $dir_font );
 				$font->size(15);
 				$font->color('#b00a16');
 			});
+				
 			// DATE VALIDED			
-			$img->text( $today, 130, 385, function($font){
-				//$font->file( '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf' );
-				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
+			$img->text( $today, 130, 385, function( $font ) use ( $dir_font ){
+				$font->file( $dir_font );
+				//$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(8);
 				$font->align('center');
 				$font->color('#000000');;
 			});
 			// DATE COUPON TODAY
-			$img->text( $date_valided_format, 130, 395, function($font){				
-				//$font->file( '/home/ptorres/www/beacon/public/assets/img/font/Intro.otf' );
-				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
+			$img->text( $date_valided_format, 130, 395, function($font) use ( $dir_font ){				
+				$font->file( $dir_font );
+				//$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(8);
 				$font->align('center');
 				$font->color('#000000');
