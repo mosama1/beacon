@@ -91,12 +91,6 @@ class CouponPromotionsController extends Controller
 				throw new \Exception('Indique el códido del cupón.');
 			}
 
-			// debe estar validado el verification code
-			if ( !is_numeric( $request->verification_code ) )
-			{
-				throw new \Exception('Error no se ha indicado el código del cupón.');
-			}
-
 			// debe poseer un ancho fijo de 10 dìgitos
 			if ( strlen( $request->coupon_code ) != 10 )
 			{
@@ -116,21 +110,20 @@ class CouponPromotionsController extends Controller
 
 				$date_expired = New \DateTime( $expiration_date );
 				$today = New \DateTime( 'now' );
-
 				$dteDiff  = $date_expired->diff($today);				
 
 				if ( $dteDiff->y > 0  || $dteDiff->m > 0 || $dteDiff->d > 0 ) // el cupón fué generado hace más de un día
 				{
 					
-					throw new \Exception( 'Cupón vencido, ya no es válido para ser canjeado' );
+					throw new \Exception( 'Cupón vencido, ya no es válido para ser canjeado.' );
 				}
 				else
 				{
 					// vefirico si aún tiene de vigencia
-					if ( $dteDiff->h > 0 )
+					if (  $dteDiff->d < 1 && $dteDiff->h > 0   )
 					{
 
-						$hora = $dteDiff->h > 1 ? 'horas' : 'hora';
+						$hora = $dteDiff->h > 1 ? 'horas.' : 'hora.';
 						throw new \Exception( 'El cupón venció ya hace ' . $dteDiff->h . ' ' . $hora );
 					}
 				}
@@ -156,16 +149,11 @@ class CouponPromotionsController extends Controller
 	 */
 	public function update( Request $request )
 	{
-
 		$coupon_promotion = CouponPromotion::where([
 					['code_coupon', '=', $request->coupon_code ],
 				])->first();		
-
-		$code_location = Location::where([
-					['verification_code', '=', $request->verification_code ],
-				])->first();
 		
-		if ( $coupon_promotion && $code_location )
+		if ( $coupon_promotion )
 		{
 			$coupon_promotion->used_coupon = 1;
 			$coupon_promotion->save();

@@ -16,22 +16,10 @@
 			<form class="form-horizontal form_send" role="form" method="POST" action="{{ route('update_coupon_promotions') }}" id="verify_promotions" name="verify_promotions">
 				{{ csrf_field() }}
 
-				<div class="input no_icon {{ $errors->has('verification_code') ? 'error' : '' }}">
-					<input type="text" name="verification_code" id="verification_code" value="" required="true" maxlength="4" minlength="4">
-					<label for="verification_code">
-						<span class="text">Código de verificación</span>
-					</label>
-				</div>
-				@if ($errors->has('verification_code'))
-					<div class="input_error">
-						<span>{{ $errors->first('verification_code') }}</span>
-					</div>
-				@endif
-
 				<div class="input no_icon {{ $errors->has( 'coupon_code' ) ? 'error' : '' }}">
-					<input type="text" name="coupon_code" id="coupon_code" value="" required="true"  maxlength="10" minlength="10" readonly="true">
+					<input type="text" name="coupon_code" id="coupon_code" value="" required="true" maxlength="10" minlength="10">
 					<label for="coupon_code">
-						<span class="text">Código del cupón</span>
+						<span class="text">Ingrese el código del cupón</span>
 					</label>
 				</div>
 				@if ($errors->has('coupon_code'))
@@ -41,7 +29,6 @@
 				@endif
 
 				<div class="mostrar_mensaje {{ (session('message')) ? 'message '.session('type') : '' }}">
-
 					<p>
 						{{ session('message') }}
 					</p>
@@ -67,12 +54,13 @@
 
 				<div class="button">
 					<center>
-						<button type="button" name="button" id="guardar_verify_coupon" name="guardar_verify_coupon" class="send_form">
+						<button type="button" id="guardar_verify_coupon" name="guardar_verify_coupon" class="send_form">
 							<span>Canjear<br />Cupon</span>
 						</button>
-						<a onclick="location.reload(true)">
+						<a onclick="location.reload(true)" >
 							<span>Borrar</span>
 						</a>
+
 					</center>
 				</div>
 			</form>			
