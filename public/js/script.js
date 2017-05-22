@@ -30,7 +30,7 @@ $('#menu_name, #menu_type, #menu_price').change(function(){
 
 $('.desactivado a').click(function(){
 	return false;
-})
+});
 
 
 /* InTRO JS */
@@ -58,7 +58,7 @@ function modal_activate(ruta, div) {
 function vistaKit_B(evt) {
 	var files = evt.target.files; // FileList object
 	// Obtenemos la imagen del campo "file".
-	for (var i = 0, f; f = files[i];i++) {
+	for (var i = 0, f; f = files[i];i++){
 	  //Solo admitimos imágenes.
 	  if (!f.type.match('image.*')) {
 		  continue;
@@ -131,7 +131,7 @@ $('#addPhoto').change(vistaPhoto);
 function vistaLogo(evt) {
 	var files = evt.target.files; // FileList object
 	// Obtenemos la imagen del campo "file".
-	for (var i = 0, f; f = files[i];i++) {
+	for (var i = 0, f; f = files[i]; i++) {
 	  //Solo admitimos imágenes.
 	  if (!f.type.match('image.*')) {
 		  continue;
@@ -555,7 +555,7 @@ $('#add_madiraje').submit(function(event){
 	  type: "POST",
 	  url: 'madirajes/check',
 	  data: $('#add_madiraje').serialize(),
-	  success: function(respuesta) {	  	
+	  success: function(respuesta) {
 		if (respuesta === '0') {
 
 		  $('#add_madiraje')[0].submit();
@@ -685,7 +685,7 @@ $('.timepicker').datetimepicker({
 /******************* CheckBox Habilitar *****************************/
 /********************************************************************/
 
-function habilitar(id, destino, value) {		
+function habilitar(id, destino, value) {
 	$.ajax({
 		type: "put",
 		url: destino+'/'+value+'/habilitar',
@@ -742,11 +742,11 @@ function preview_promotion(id)
 	    modal: true,
 	    height: 700,
 	    width: 450,
-	    open: function(ev, ui){	    	
+	    open: function(ev, ui){
 			$('#myIframePromotion').attr( 'src','movil/promocion/' + id );
 			//$('#myIframePromotion').attr( 'src','http://dementecreativo.com/prueba/final/movil/promocion/' + id);
 		}
-	});	
+	});
 	$('#dialog_preview_promotion').dialog('open');
 }
 
@@ -836,15 +836,15 @@ $('#guardar_verify_coupon').click(function(){
 	$('#verify_promotions')[0].submit();
 });
 /* Valida el codigo de verificación del location */
-$('#verification_code').change(function(){      
+$('#verification_code').change(function(){
 
 	$.ajax({
 		type: "POST",
 		url: 'cupones/code_location',
 		data: $(this).serialize(),
 		success: function(respuesta) {
-			if (respuesta.code === 0) { //si hay errores al buscar código 
-					
+			if (respuesta.code === 0) { //si hay errores al buscar código
+
 				//Materialize.toast(respuesta.message, 3000, 'error');
 				$('#verify_promotions .mostrar_mensaje p').html( respuesta.message );
 				$('#verify_promotions .mostrar_mensaje').addClass('error').addClass('active').removeClass('message');
@@ -852,8 +852,8 @@ $('#verification_code').change(function(){
 				setTimeout(function(){
 					$('#verify_promotions .mostrar_mensaje').removeClass('error').removeClass('active');
 					setTimeout(function(){
-						$('#verify_promotions .mostrar_mensaje p').html( '' );	
-						$('#verify_promotions .mostrar_mensaje').removeClass('error')	
+						$('#verify_promotions .mostrar_mensaje p').html( '' );
+						$('#verify_promotions .mostrar_mensaje').removeClass('error')
 					}, 500);
 				}, 5000);
 
@@ -880,7 +880,7 @@ $(document).ready(function(){
 			setTimeout(function(){
 				$('#verify_promotions .mostrar_mensaje p').html('');
 				$('#verify_promotions .mostrar_mensaje').removeClass('error').removeClass('message');
-			},500);		
+			},500);
 		}, 5000);
 	}
 });
@@ -891,7 +891,7 @@ $('#verify_promotions .mostrar_mensaje a').click(function(e){
 	$('#verify_promotions .mostrar_mensaje').removeClass('active');
 	setTimeout(function(){
 		$('#verify_promotions .mostrar_mensaje p').html( '' );
-		$('#verify_promotions .mostrar_mensaje').removeClass('error').removeClass('message');		
+		$('#verify_promotions .mostrar_mensaje').removeClass('error').removeClass('message');
 	}, 500);
 
 });
@@ -900,20 +900,25 @@ $('#verify_promotions .mostrar_mensaje a').click(function(e){
 $('#coupon_code').keyup(function(){
 	if ( $('#coupon_code').val().length === 10 )
 	{
-
 		verify_cupon();
 	}
 });
 $('#coupon_code').change(function(){
-
  	verify_cupon();
 });
+$('#buscar_coupon').click(function(e){
+    e.preventDefault();
+    verify_cupon();
+});
+
 function verify_cupon(){
 	$.ajax({
 		type: "POST",
 		url: 'cupones/code_coupon',
 		data: $('#verify_promotions').serialize(),
 		success: function(respuesta) {
+            console.log(respuesta);
+            $('#borrar_coupon').fadeIn();
 			if ( respuesta.code === 0 ) {
 
 				$('#verify_promotions .mostrar_mensaje p').html( respuesta.message );
@@ -922,15 +927,15 @@ function verify_cupon(){
 				setTimeout(function(){
 					$('#verify_promotions .mostrar_mensaje').removeClass('error').removeClass('active');
 					setTimeout(function(){
-						$('#verify_promotions .mostrar_mensaje p').html( '' );	
-						$('#verify_promotions .mostrar_mensaje').removeClass('error')	
+						$('#verify_promotions .mostrar_mensaje p').html( '' );
+						$('#verify_promotions .mostrar_mensaje').removeClass('error')
 					}, 500);
 				}, 5000);
 
 				$('#coupon_code').val('');
 				$('#coupon_code').attr( 'placeholder', 'Código del cupón' );
 				// TODO cambiar el formato del input para que se vea como antes del edit
-				// que no sea posible 
+				// que no sea posible
 
 			}else {
 
@@ -948,8 +953,8 @@ function verify_cupon(){
 					setTimeout(function(){
 						$('#verify_promotions .mostrar_mensaje').removeClass('error').removeClass('active');
 						setTimeout(function(){
-							$('#verify_promotions .mostrar_mensaje p').html( '' );	
-							$('#verify_promotions .mostrar_mensaje').removeClass('error')	
+							$('#verify_promotions .mostrar_mensaje p').html( '' );
+							$('#verify_promotions .mostrar_mensaje').removeClass('error')
 						}, 500);
 					}, 5000);
 				}
@@ -961,6 +966,7 @@ function verify_cupon(){
 					$('#verify_promotions .vista_previa_promotion').addClass('active');
 
 					$('#guardar_verify_coupon').fadeIn();
+                    $('#buscar_coupon').fadeOut();
 
 					var formData = new FormData( this );
 				}

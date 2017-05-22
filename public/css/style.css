@@ -3229,7 +3229,7 @@ body.clienteFinal footer{
 formulario de verify_coupon
 *************/
 .hidden_element {
-  display: none;  
+  display: none;
 }
 
 
@@ -3323,7 +3323,14 @@ formulario de verify_coupon
 
 }
 #verify_promotions .vista_previa_promotion.ver .img img{
-  transform: scale(2.3);
+  transform: scale(2.3) translateY(25px);
+}
+#verify_promotions .vista_previa_promotion.ver .img a::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(138, 0, 255, 0.44);
 }
 .overlay_promotion{
   position: fixed;
@@ -3362,7 +3369,7 @@ formulario de verify_coupon
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
-    
+
 }
 
 .modal-background span{
@@ -3377,7 +3384,7 @@ formulario de verify_coupon
     width: 100%;
     height: 400px;
     z-index: -1;
-    max-width: 700px;    
+    max-width: 700px;
 }
 
 /* Caption of Modal Image */
@@ -3393,7 +3400,7 @@ formulario de verify_coupon
 }
 
 /* Add Animation */
-.modal-content, #caption {    
+.modal-content, #caption {
     -webkit-animation-name: zoom;
     -webkit-animation-duration: 0.6s;
     animation-name: zoom;
@@ -3402,12 +3409,12 @@ formulario de verify_coupon
 }
 
 @-webkit-keyframes zoom {
-    from {-webkit-transform:scale(0)} 
+    from {-webkit-transform:scale(0)}
     to {-webkit-transform:scale(1)}
 }
 
 @keyframes zoom {
-    from {transform:scale(0)} 
+    from {transform:scale(0)}
     to {transform:scale(1)}
 }
 

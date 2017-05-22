@@ -38,7 +38,7 @@
 				</div>
 
 				<div class="vista_previa_promotion">
-					<div class="img">							
+					<div class="img">
 						<a href="#">
 							<img id="" class="" src="">
 						</a>
@@ -54,19 +54,20 @@
 
 				<div class="button">
 					<center>
+						<button type="button" name="button" id="buscar_coupon">
+							<span>Buscar</span>
+						</button>
 						<button type="button" id="guardar_verify_coupon" name="guardar_verify_coupon" class="send_form">
 							<span>Canjear<br />Cupon</span>
 						</button>
-						<a onclick="location.reload(true)" >
+						<a onclick="location.reload(true)" id="borrar_coupon" style="display: none; cursor: pointer;">
 							<span>Borrar</span>
 						</a>
-
 					</center>
 				</div>
-			</form>			
+			</form>
 		</div>
 	</div>
 </div>
 
 @endsection
-
