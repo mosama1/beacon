@@ -917,8 +917,7 @@ function verify_cupon(){
 		url: 'cupones/code_coupon',
 		data: $('#verify_promotions').serialize(),
 		success: function(respuesta) {
-            console.log(respuesta);
-            $('#borrar_coupon').fadeIn();
+            // console.log(respuesta);
 			if ( respuesta.code === 0 ) {
 
 				$('#verify_promotions .mostrar_mensaje p').html( respuesta.message );
@@ -967,6 +966,8 @@ function verify_cupon(){
 
 					$('#guardar_verify_coupon').fadeIn();
                     $('#buscar_coupon').fadeOut();
+                    $('#borrar_coupon').fadeIn();
+
 
 					var formData = new FormData( this );
 				}
