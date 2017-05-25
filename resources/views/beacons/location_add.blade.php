@@ -35,18 +35,6 @@
           </div>
         @endif
         
-        <div class="input {{ $errors->has('verification_code') ? 'error' : '' }}">
-          <input type="text" name="verificationCode" value="Cod. para verificación de Promociones: {{ $code }}" required="" id="verificationCode" readonly="true">
-          <label for="">
-            <span class="text">Cod. para verificación de Promociones</span>
-          </label>
-        </div>
-        @if ($errors->has('verification_code'))
-        <div class="input_error">
-          <span>{{ $errors->first('verification_code') }}</span>
-        </div>
-        @endif        
-
         <div class="input no_icon {{ $errors->has('city') ? 'error' : '' }}">
           <input type="text" name="city" value="" required="">
           <label for="">

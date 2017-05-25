@@ -57,10 +57,10 @@
 			  @foreach($welcome_kits as $wk)
 			  	<tr id="">
 				<td>
-					<?= '<a href="#" id="previewPromotion" onclick="preview_promotion('.$wk->promotion_id .')">
-							<i class="material-icons">phonelink_setup</i>
-					</a>';?>										
-					
+					<?= '
+					<a href="#" id="previewPromotion" onclick="preview_promotion('. $wk->promotion_id .')">
+						<img src="/assets/images/promos/promotion/'.$wk->promotion_id.'.png" height="100px">
+					</a>';?>				
 				</td>
 				<td>{{ $wk->name }}</td>
 				<td>{{ $wk->type == 1 ? 'Kit de Bienvenida' : 'Kit de Fidelidad' }}</td>

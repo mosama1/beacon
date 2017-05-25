@@ -90,54 +90,43 @@ class LocationController extends Controller
 		// Nuevo cliente con un url base
 		$client = new Client();
 
-			$user = User::where( 'id', '=', Auth::user()->id )->first();
+		$user = User::where( 'id', '=', Auth::user()->id )->first();
 
-			// echo "<pre>"; var_dump($user); echo "</pre>";
-			// return;
+		if ( empty($user->user_id) ) {
 
-			if ( empty($user->user_id) ) {
+			//Token Crud
+			$crud = LocationController::crud();
 
-				//Token Crud
-				$crud = LocationController::crud();
+			$user_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/uuids', [
+					// un array con la data de los headers como tipo de peticion, etc.
+					'headers' => ['Authorization' => 'Bearer '.$crud ],
+					// array de datos del formulario
+					'form_params' => [
+							'name' => $user->name,
+							//implementar clase Uuid oara generar el codigo del usuario
+							'identifier' => $this->uniqidReal(32),
+					]
+			]);
 
-				$user_api = $client->post('https://connect.onyxbeacon.com/api/v2.5/uuids', [
-						// un array con la data de los headers como tipo de peticion, etc.
-						'headers' => ['Authorization' => 'Bearer '.$crud ],
-						// array de datos del formulario
-						'form_params' => [
-								'name' => $user->name,
-								//implementar clase Uuid oara generar el codigo del usuario
-								'identifier' => $this->uniqidReal(32),
-						]
-				]);
+			//Json parse
+			$json_c = $user_api->getBody();
+			$user_response = json_decode($json_c);
 
-				//Json parse
-				$json_c = $user_api->getBody();
-
-				$user_response = json_decode($json_c);
-
-
-				if ($user_response->status_code === 200 ):
-						$user->user_id = $user_response->uuid->id;
-						$user->save();
-				endif;
-				//$user
-			}
+			if ($user_response->status_code === 200 ):
+				$user->user_id = $user_response->uuid->id;
+				$user->save();
+			endif;
+		}
 
 		//se obtiene el logo
 		$imagen = $request->file('logo');
-
-				if ( !is_null( $imagen ) ) {
+		if ( !is_null( $imagen ) ) {
 
 			//mime del logo
 			$logo_mime = $imagen->getMimeType();
 
 			//path donde se almacenara el logo
 			$path = 'assets/images/logos/';
-			// $path = public_path().'/assets/images/logos/';
-
-					// $path = '/home/demente/public_html/prueba/final/assets/images/logos/';
-
 
 			switch ($logo_mime)
 			{
@@ -145,21 +134,18 @@ class LocationController extends Controller
 				case "image/png":
 					if ($imagen->isValid())
 					{
-
 						$nombre = $imagen->getClientOriginalName();
-											$nombre = date('dmyhis').'-'.$nombre;
-
+						$extension = $imagen->getClientOriginalExtension();
+						$nombre = $this->uniqidReal(11).'.'.$extension;
 						$imagen->move($path, $nombre);
-
 						$logo = 'assets/images/logos/'.$nombre;
-
 					}
 				break;
 			}
-				}
-				else {
-				 $logo = "";
-				}
+		}
+		else {
+			$logo = "";
+		}
 
 		//Token Crud
 		$crud = LocationController::crud();
@@ -185,7 +171,6 @@ class LocationController extends Controller
 
 		//Json parse
 		$json_l = $location__->getBody();
-
 		$locations = json_decode($json_l);
 
 
@@ -237,11 +222,9 @@ class LocationController extends Controller
 			$language->save();
 
 			return redirect()->route('user_edit_path', $user->user_id)->with(['status' => 'Se ha almacenado la localidad exitosamente', 'type' => 'success']);
-
 		else:
 
 			return redirect()->route('user_edit_path', $user->user_id)->with(['status' => 'Error al ingresar la localidad', 'type' => 'error']);
-
 		endif;
 
 	}
@@ -257,8 +240,6 @@ class LocationController extends Controller
 		//consulta
 
 		$location = Location::where('location_id', '=', $id)->first();
-
-
 		return view('locations.location_edit', ['location' => $location]);
 	}
 
@@ -286,8 +267,6 @@ class LocationController extends Controller
 
 			//path donde se almacenara el logo
 			$path = 'assets/images/logos/';
-					// $path = '/home/demente/public_html/prueba/final/assets/images/logos/';
-
 
 			switch ($logo_mime)
 			{
@@ -295,14 +274,11 @@ class LocationController extends Controller
 				case "image/png":
 					if ($imagen->isValid())
 					{
-
-										$nombre = $id.$imagen->getClientOriginalName();
-										$nombre = date('dmyhis').'-'.$nombre;
-
+						$nombre = $imagen->getClientOriginalName();
+						$extension = $imagen->getClientOriginalExtension();
+						$nombre = $this->uniqidReal(11).'.'.$extension;
 						$imagen->move($path, $nombre);
-
-						$logo = 'assets/images/logos/'.$nombre;
-
+						$logo = 'assets/images/logos/'.$nombre;						
 					}
 				break;
 			}
@@ -343,21 +319,14 @@ class LocationController extends Controller
 			$loca->zip = $locations->location->zip;
 			$loca->street = $locations->location->street;
 			$loca->street_number = $locations->location->street_number;
-			(is_null($logo)) ?
-				$loca->logo :
-				$loca->logo = $logo;
-			// $loca->lat => $locations->location->lat,
-			// $loca->lng =>  $locations->location->lng
+			( is_null($logo) ) ? $loca->logo : $loca->logo = $logo;
 			$loca->update();
 
-			return redirect()->route('user_edit_path', $user->user_id)->with(['status' => 'Se edito la ubicacion con exito', 'type' => 'success']);
-
+			return redirect()->route('user_edit_path', $user->user_id)->with(['status' => 'Se editó la ubicación con éxito', 'type' => 'success']);
 		else:
 
-			return redirect()->route('user_edit_path', $user->user_id)->with(['status' => 'Error al editar la ubicacion', 'type' => 'error']);
-
+			return redirect()->route('user_edit_path', $user->user_id)->with(['status' => 'Error al editar la ubicación', 'type' => 'error']);
 		endif;
-
 	}
 
 
@@ -383,26 +352,17 @@ class LocationController extends Controller
 
 		//Json parse
 		$json_ld = $location_delete->getBody();
-
 		$location_delete = json_decode($json_ld);
 
 		if ($location_delete->status_code === 200):
-
 			$location =  Location::where('location_id', '=', $location_id);
-
 			$location->delete();
-
 			return redirect()->route('user_edit_path')
 							 ->with(['status' => 'Se ha Eliminado la Locación con éxito', 'type' => 'success']);
 
 		else:
-
 			return redirect()->route('user_edit_path')
 							->with(['status' => 'Error al eliminar la Locación', 'type' => 'error']);
-
 		endif;
-
 	}
-
-
 }

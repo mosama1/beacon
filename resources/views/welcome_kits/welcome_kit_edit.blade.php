@@ -94,7 +94,7 @@
               <center  id="vista_previa">
                 <a href="#" class="vistaPreviaImg">
                   <div class="img active" id="vista_promo">
-                    <img class="thumb" src="{{ asset($welcome_kit->imagenPromo) }}">
+                    <img class="thumb" src="{{ asset($welcome_kit->image_promotion) }}">
                   </div>
                 </a>
               </center>

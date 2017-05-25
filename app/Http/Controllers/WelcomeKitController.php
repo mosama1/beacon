@@ -160,44 +160,8 @@ class WelcomeKitController extends Controller
 							}
 						}						
 
-
-
 						DB::beginTransaction();
 						try {
-
-							/* dejar hasta que este seguro que no lo van a solicitar
-							$coupon = new Coupon();
-							$coupon->coupon_id = $coupon_resource->id;
-							$coupon->user_id = $user->user_id;
-							$coupon->type = $coupon_resource->type;
-							(empty($request->price)) ?
-								$coupon->price = 0.0 :
-								$coupon->price = $request->price;
-							$coupon->url = $coupon_resource->url;
-							$coupon->save();
-
-							$coupon_translation = new CouponTranslation();
-							$coupon_translation->name = $request->name;
-							(isset($coupon_resourcerequest->description)) ?
-								$coupon_translation->description = $request->description :
-								$coupon_translation->description = "";
-							$coupon_translation->message = $request->name;
-							$coupon_translation->language_id = 1;
-							$coupon_translation->coupon_id = $coupon->coupon_id;
-							$coupon_translation->save();
-
-							$content_welcome = new Content();
-							$content_welcome->content_id = $content_api->id;
-							$content_welcome->user_id = $user->user_id;
-							//	coupon_translation[0] posicion [0] es en español idioma por defecto
-								$content_welcome->coupon = $coupon->coupon_translation[0]->name;
-								$content_welcome->coupon_id = $coupon->coupon_id;
-							//	$content_welcome->tag = $request->tag_id;
-							$content_welcome->tag = $tag_id;
-							$content_welcome->campana_id = $welcome_resource->id;
-							$content_welcome->trigger_name = $content_api->trigger_name;
-							$content_welcome->save();
-							*/
 
 							// codigo de la promocion
 							$promotion_id = $welcome_resource->id;
@@ -206,8 +170,7 @@ class WelcomeKitController extends Controller
 							$image = $request->file('imagenPromo');
 
 							// la muevo al directorio correspondiente
-							$image = $this::mueveArchivo( $image, $promotion_id );
-
+							$image = $this::mueveArchivo( $image, $promotion_id, uniqid() );
 							// genero la imagenbase de la promocion
 							$message = (empty($request->message) ? '¡FELICIDADES!' : $request->message );
 							$img = $this::create_image( $message, $location->logo, $image, $promotion_id );
@@ -229,7 +192,7 @@ class WelcomeKitController extends Controller
 							$welcome_kit->number_visits = $request->number_visits;
 
 							$welcome_kit->img = $img;
-							$welcome_kit->image_promotion = $image == 0 ? '' : $image;
+							$welcome_kit->image_promotion = $image;
 							$welcome_kit->start_time = $welcome_resource->start_time;
 							$welcome_kit->end_time = $welcome_resource->end_time;
 							$welcome_kit->location_id = $location->location_id;
@@ -343,8 +306,6 @@ class WelcomeKitController extends Controller
 								['promotion_id', '=', $id],
 								['type', '=', 1]
 							])->first();
-
-
 		return view('welcome_kits.welcome_kit_edit', ['welcome_kit' => $promotion, 'location' => $user->location]);
 	}
 
@@ -761,8 +722,7 @@ class WelcomeKitController extends Controller
 
 		//
 		// En los controles de Img las coordendas son x,y en pixeles
-		//
-		
+		//		
 		$file_original  = 'img/origin_promotions.png';
 
 		// Estructura del directorio para las promociones
@@ -772,16 +732,12 @@ class WelcomeKitController extends Controller
 		//      promos/coupons -> guarda el coupon que se genera al vuelo y se envia al cell (generate_code_image)
 		//
 		$file_promotion = 'assets/images/promos/promotion/' . $cod_promotion . '.png';
-
+		//$dir_font = asset( '/img/font/Intro.otf' );
+		$dir_font = 'assets/img/font/Intro.otf';
 
 		// create Image from file
-		//
-		// try {
-
 			$img = Img::make( $file_original );
 			$ancho_lienzo = $img->width();
-			$dir_font = asset( '/img/font/Intro.otf' );
-			//$font_img = '/home/demente/public_html/prueba/final/img/font/Intro.otf';
 
 			// Insert a logo
 			//
@@ -794,19 +750,16 @@ class WelcomeKitController extends Controller
 			$rows = explode("\n", str_replace("\r", "", $message));
 			$nro_linea = 100;
 
-			foreach ($rows as $row) {
-				
+			foreach ($rows as $row) 
+			{				
 				$img->text($row, 125, $nro_linea, function($font) use ( $dir_font ){ 
 					$font->file( $dir_font );
-					//$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 					$font->size(15);
 					$font->align('center');
 					$font->color('#ff8c00');
 				});
 				$nro_linea += 18;
 			}
-
-
 			if ( !empty( $image ) )
 			{	
 				// Insert a image promo
@@ -832,23 +785,11 @@ class WelcomeKitController extends Controller
 			// serial text
 			$img->text('SERIAL',125,325, function($font) use ( $dir_font ){
 				$font->file( $dir_font );
-				//$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(12);
 				$font->align('center');
 				$font->color('#616161');
-			});
-			// LINE TEXT
-			/*$img->text('CUPÓN GENERADO',130,370, function($font){
-				$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
-				$font->size(15);
-				$font->align('center');
-				$font->color('#000');
-			});*/
+			});			
 			$img->save($file_promotion);
-
-		// } catch (Exception $e) {
-		//     echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-		// }
 		return $file_promotion;
 	}
 
@@ -872,10 +813,10 @@ class WelcomeKitController extends Controller
 			}
 
 			$code_secret = trim(substr( str_shuffle( 'ABCDEFGHJKLMNPRSTUVWXYZ23456789' ), 0, 10 ));
-			$file_promotion = 'assets/images/promos/coupons/' . $promotion->promotion_id.'_'.$code_secret . '.png';
+			$file_promotion = 'assets/images/promos/coupons/' . $code_secret . '.png';
 			$img = Img::make( $promotion->img );
 			$dir_font = 'assets/img/font/Intro.otf'; // utilizar asi de maenra literal para evitar errores
-			//$dir_font = '/home/demente/public_html/prueba/final/img/font/Intro.otf'
+
 
 			// show secret code
 			$img->text($code_secret, 78, 305, function($font) use ( $dir_font ){
@@ -887,7 +828,6 @@ class WelcomeKitController extends Controller
 			// DATE VALIDED			
 			$img->text( $today, 130, 385, function( $font ) use ( $dir_font ){
 				$font->file( $dir_font );
-				//$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(8);
 				$font->align('center');
 				$font->color('#000000');;
@@ -895,7 +835,6 @@ class WelcomeKitController extends Controller
 			// DATE COUPON TODAY
 			$img->text( $date_valided_format, 130, 395, function($font) use ( $dir_font ){				
 				$font->file( $dir_font );
-				//$font->file( '/home/demente/public_html/prueba/final/img/font/Intro.otf' );
 				$font->size(8);
 				$font->align('center');
 				$font->color('#000000');
@@ -919,11 +858,12 @@ class WelcomeKitController extends Controller
 	}
 
 
-	private static function mueveArchivo( $objImagen, $cod_promotion )	
+	private static function mueveArchivo( $objImagen, $cod_promotion, $nombre )	
 	{
 		try {
 			
-			if ( !is_null( $objImagen ) and $objImagen->isValid() ) {
+			if ( $objImagen->isValid() )
+			{
 
 				//path donde se almacenara la imgen de la promocion
 				$path = 'assets/images/promos/content/';
@@ -933,21 +873,22 @@ class WelcomeKitController extends Controller
 					case "image/jpeg":
 					case "image/png":
 
-						$nombre = $objImagen->getClientOriginalName();
-						$nombre = $cod_promotion.'_'.$nombre;
-
+						$extension = $objImagen->getClientOriginalExtension();
+						$nombre = $nombre.'.'.$extension;
 						$objImagen->move($path, $nombre);
 						break;
 				}
 			}
 			else {
-				return 0;
-			}
+				//return 0;
+				throw new Exception("No se pude mover el contenido de la promoción");
+				
+			}			
 			return $path.$nombre;
 
-		} catch (Exception $e) {
-			dd( $e->getMessage() );
+		} catch (Exception $e) {			
 			echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+			return 0;
 		}
 	}
 }
