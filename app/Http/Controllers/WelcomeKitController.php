@@ -1,6 +1,4 @@
-<?php
-
-namespace Beacon\Http\Controllers;
+<?php namespace Beacon\Http\Controllers;
 
 use Storage;
 use Illuminate\Http\Request;
@@ -171,6 +169,11 @@ class WelcomeKitController extends Controller
 
 							// la muevo al directorio correspondiente
 							$image = $this::mueveArchivo( $image, $promotion_id, uniqid() );
+							if ( $image == 0 )
+							{
+								throw new \Exception("Promoción no creada error al cargar imagen central.");
+								
+							}
 							// genero la imagenbase de la promocion
 							$message = (empty($request->message) ? '¡FELICIDADES!' : $request->message );
 							$img = $this::create_image( $message, $location->logo, $image, $promotion_id );
@@ -234,10 +237,7 @@ class WelcomeKitController extends Controller
 							$client->post('https://connect.onyxbeacon.com/api/v2.5/campaigns/'.$welcome_resource->id.'/delete', [
 								'headers' => ['Authorization' => 'Bearer '.$crud ],
 							]);
-							echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-							echo 'en la linea: ',  $e->getLine(), "\n";
-							echo 'en la linea: ',  $e->getCode(), "\n";
-							return;
+
 							return redirect()->route('all_welcome_kit')->with(['status' => 'Error al ingresar la promoción', 'type' => 'error']);
 						}
 						DB::commit();
@@ -476,7 +476,7 @@ class WelcomeKitController extends Controller
 
 							$welcome_kit->save();
 
-						} catch(ValidationException $e)
+						} catch(\ValidationException $e)
 						{
 							// Rollback and then redirect
 							// back to form with errors
@@ -593,7 +593,6 @@ class WelcomeKitController extends Controller
 					]);
 
 					//codigo para revertir transaccion
-
 					return redirect()->route('all_welcome_kit')
 									->with(['status' => 'Error al actualizar la promoción', 'type' => 'error']);
 				}
@@ -809,7 +808,7 @@ class WelcomeKitController extends Controller
 			if ( !file_exists( $promotion->img ) )
 			{
 
-				throw new Exception('La promo no posee imagen base para ser generada...');
+				throw new \Exception('La promo no posee imagen base para ser generada...');
 			}
 
 			$code_secret = trim(substr( str_shuffle( 'ABCDEFGHJKLMNPRSTUVWXYZ23456789' ), 0, 10 ));
@@ -850,7 +849,7 @@ class WelcomeKitController extends Controller
 			$coupon_promotion->promotion_id = $promotion->promotion_id;
 			$coupon_promotion->user_id = $promotion->user_id;
 			$coupon_promotion->save();
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 
 		    echo 'Excepción capturada: ',  $e->getMessage(), "\n";
 		}
@@ -862,7 +861,7 @@ class WelcomeKitController extends Controller
 	{
 		try {
 			
-			if ( $objImagen->isValid() )
+			if ( !$objImagen->isValid() )
 			{
 
 				//path donde se almacenara la imgen de la promocion
@@ -880,14 +879,11 @@ class WelcomeKitController extends Controller
 				}
 			}
 			else {
-				//return 0;
-				throw new Exception("No se pude mover el contenido de la promoción");
-				
+				return 0;					
 			}			
 			return $path.$nombre;
 
-		} catch (Exception $e) {			
-			echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+		} catch (\Exception $e) {
 			return 0;
 		}
 	}

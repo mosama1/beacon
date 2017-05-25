@@ -534,19 +534,15 @@ class CouponController extends Controller
 				DB::commit();
 				return redirect()->route('all_coupon')->with(['status' => 'El menu se duplico con exito', 'type' => 'success']);
 			}
-			catch (\Exception $e) {
-
+			catch (\Exception $e) 
+			{
 				DB::rollback();
 				return redirect()->route('all_coupon')->with(['status' => 'El menu no se pudo duplicar con exito', 'type' => 'success']);
-				//throw $e;
-				//echo $e->getMessage();
 			}
-			catch (\Throwable $e) {
-
+			catch (\Throwable $e) 
+			{
 				DB::rollback();
 				return redirect()->route('all_coupon')->with(['status' => 'El menu no se pudo duplicar con exito', 'type' => 'success']);
-				//throw $e;
-				//echo $e->getMessage();
 			}
 
 		else:
