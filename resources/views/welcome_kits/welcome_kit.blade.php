@@ -59,7 +59,7 @@
 				<td>
 					<?= '
 					<a href="#" id="previewPromotion" onclick="preview_promotion('. $wk->promotion_id .')">
-						<img src="/assets/images/promos/promotion/'.$wk->promotion_id.'.png" height="100px">
+						<img src="assets/images/promos/promotion/'.$wk->promotion_id.'.png" height="100px">
 					</a>';?>				
 				</td>
 				<td>{{ $wk->name }}</td>

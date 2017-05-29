@@ -447,8 +447,14 @@ class WelcomeKitController extends Controller
 						Storage::delete($welcome_old->image_promotion);
 
 						$image = $request->file('imagenPromo');
-
-						$image = $this::mueveArchivo( $image, $promotion_id );
+						
+						// la muevo al directorio correspondiente
+						$image = $this::mueveArchivo( $image, $promotion_id, uniqid() );
+						if ( $image == 0 )
+						{
+							throw new \Exception("Promoción no creada error al cargar imagen central.");
+							
+						}
 
 						$message = (empty($request->message) ? '¡FELICIDADES!' : $request->message );
 						$img = $this::create_image( $message, $location->logo, $image, $promotion_id );

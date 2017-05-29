@@ -354,6 +354,7 @@ select:not(.multiple_) {
     float: right;
     color: #000;
     margin-top: 9px;
+    padding-left: 15px;
 }
 .menu_cliente .logo{
   cursor: pointer;
